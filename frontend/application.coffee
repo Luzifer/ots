@@ -30,6 +30,8 @@ hashLoad = () ->
   if hash.length == 0
     return
 
+  hash = decodeURIComponent(hash)
+
   parts = hash.split '|'
   if parts.length == 2
     hash = parts[0]
