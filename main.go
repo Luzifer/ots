@@ -1,10 +1,16 @@
 package main
 
+//go:generate go-bindata -pkg $GOPACKAGE -o assets.go ./frontend
+
 import (
 	"fmt"
+	"mime"
 	"net/http"
 	"os"
+	"path"
+	"strings"
 
+	http_helpers "github.com/Luzifer/go_helpers/http"
 	"github.com/Luzifer/rconfig"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -48,6 +54,24 @@ func main() {
 
 	r := mux.NewRouter()
 	api.Register(r.PathPrefix("/api").Subrouter())
+	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
-	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, r))
+	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
+}
+
+func assetDelivery(res http.ResponseWriter, r *http.Request) {
+	assetName := r.URL.Path
+	if assetName == "/" {
+		assetName = "/index.html"
+	}
+
+	ext := assetName[strings.LastIndex(assetName, "."):len(assetName)]
+	assetData, err := Asset(path.Join("frontend", assetName))
+	if err != nil {
+		http.Error(res, "404 not found", http.StatusNotFound)
+		return
+	}
+
+	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	res.Write(assetData)
 }

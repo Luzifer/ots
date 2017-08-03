@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>OTS - One Time Secrets</title>
+
+    <!-- Bootstrap -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css"
+          integrity="sha256-r1WijW/SNMgOwk5LDk7QRHr6oVYYbYWMw/1kOXfYJfg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
+              integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"
+              integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+    <![endif]-->
+
+    <style>
+      #somethingwrong, #notfound, #panelReadSecret, #panelSecretURL {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">OTS - One Time Secrets</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" id="newSecret"><i class="fa fa-plus"></i> New Secret</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav> 
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-push-2">
+          <div class="alert alert-danger" role="alert" id="notfound">
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+            This is not the secret you are looking for&hellip;
+          </div>
+          <div class="alert alert-danger" role="alert" id="somethingwrong">
+            <i class="fa fa-question-circle" aria-hidden="true"></i>
+            Something went wrong. I'm very sorry about this&hellip;
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="panel panel-primary" id="panelNewSecret">
+            <div class="panel-heading">
+              <h3 class="panel-title">Create a new secret</h3>
+            </div>
+            <div class="panel-body">
+              <form id="formCreateSecret">
+                <div class="form-group">
+                  <label for="secret">Secret data:</label>
+                  <textarea class="form-control" rows="5" id="secret"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="checkbox" name="extra-secure" id="extra" checked>
+                  <label for="extra">Make it extra secure (encrypt it before sending to the server)</label>
+                </div>
+                <input class="btn btn-success" type="submit" value="Create the secret!">
+              </form>
+            </div>
+          </div>
+
+          <div class="panel panel-success" id="panelSecretURL">
+            <div class="panel-heading">
+              <h3 class="panel-title">Secret created!</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                Your secret was created and stored using this URL:
+              </p>
+              <div class="form-group">
+                <input type="text" class="form-control" readonly>
+              </div>
+              <p>
+                Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
+              </p>
+            </div>
+          </div>
+
+          <div class="panel panel-primary" id="panelReadSecret">
+            <div class="panel-heading">
+              <h3 class="panel-title">Reading your secret...</h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <textarea class="form-control" rows="5" readonly></textarea>
+              </div>
+
+              <p>
+                <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gibberish-aes/1.0.0/gibberish-aes.min.js"
+            integrity="sha256-H9B/XRDijNiF3agVjtiz1ILVi3csEdGz9YBg5TjWouM=" crossorigin="anonymous"></script>
+
+    <script src="application.js"></script>
+  </body>
+</html>
+
