@@ -1,0 +1,60 @@
+{
+	"ImportPath": "github.com/Luzifer/ots",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/Luzifer/go_helpers/accessLogger",
+			"Comment": "v2.2.0",
+			"Rev": "e31c3a2659d3f4901f696692cfe98bd0eb5168f9"
+		},
+		{
+			"ImportPath": "github.com/Luzifer/go_helpers/http",
+			"Comment": "v2.2.0",
+			"Rev": "e31c3a2659d3f4901f696692cfe98bd0eb5168f9"
+		},
+		{
+			"ImportPath": "github.com/Luzifer/rconfig",
+			"Comment": "v1.2.0",
+			"Rev": "7aef1d393c1e2d0758901853b59981c7adc67c7e"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "1c83b3eabd45b6d76072b66b746c20815fb2872d"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Rev": "49c024275504f0341e5a9971eb7ba7fa3dc7af40"
+		},
+		{
+			"ImportPath": "github.com/satori/uuid",
+			"Comment": "v1.1.0-8-g5bf94b6",
+			"Rev": "5bf94b69c6b68ee1b541973bb8e1144db23a194b"
+		},
+		{
+			"ImportPath": "github.com/sirupsen/logrus",
+			"Comment": "v1.0.0-4-g59d0ca4",
+			"Rev": "59d0ca41e5faad81cac03f7a7d84ba80d9cc9673"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+		},
+		{
+			"ImportPath": "github.com/xuyu/goredis",
+			"Rev": "300f7e8cf453e2ea44337b3969d3aecf1a92ebe3"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "739734461d1c916b6c72a63d7efda2b27edb369f"
+		},
+		{
+			"ImportPath": "gopkg.in/validator.v2",
+			"Rev": "07ffaad256c8e957050ad83d6472eb97d785013d"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b"
+		}
+	]
+}
