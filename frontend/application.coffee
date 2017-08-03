@@ -45,6 +45,7 @@ hashLoad = () ->
 initBinds = () ->
   $('#formCreateSecret').bind 'submit', createSecret
   $('#newSecret').bind 'click', newSecret
+  $(window).bind 'hashchange', hashLoad
 
 newSecret = () ->
   location.href = location.href.split('#')[0]
@@ -68,6 +69,7 @@ showData = (data) ->
     secret = GibberishAES.dec(secret, securePassword)
 
   $('#panelNewSecret').hide()
+  $('#panelSecretURL').hide()
   $('#panelReadSecret').show()
   $('#panelReadSecret').find('textarea').val secret
 

@@ -57,7 +57,8 @@
 
   initBinds = function() {
     $('#formCreateSecret').bind('submit', createSecret);
-    return $('#newSecret').bind('click', newSecret);
+    $('#newSecret').bind('click', newSecret);
+    return $(window).bind('hashchange', hashLoad);
   };
 
   newSecret = function() {
@@ -86,6 +87,7 @@
       secret = GibberishAES.dec(secret, securePassword);
     }
     $('#panelNewSecret').hide();
+    $('#panelSecretURL').hide();
     $('#panelReadSecret').show();
     return $('#panelReadSecret').find('textarea').val(secret);
   };
