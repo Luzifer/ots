@@ -65,7 +65,7 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 		assetName = "/index.html"
 	}
 
-	ext := assetName[strings.LastIndex(assetName, "."):len(assetName)]
+	ext := assetName[strings.LastIndex(assetName, "."):]
 	assetData, err := Asset(path.Join("frontend", assetName))
 	if err != nil {
 		http.Error(res, "404 not found", http.StatusNotFound)
