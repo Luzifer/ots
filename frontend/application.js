@@ -57,7 +57,7 @@
 
   initBinds = function() {
     $('#formCreateSecret').bind('submit', createSecret);
-    $('#newSecret').bind('click', newSecret);
+    $('#newSecret, .navbar-brand').bind('click', newSecret);
     return $(window).bind('hashchange', hashLoad);
   };
 
@@ -77,7 +77,8 @@
     $('#panelSecretURL').show();
     $('#panelSecretURL').find('input').val(url);
     $('#panelSecretURL').find('input').focus();
-    return $('#panelSecretURL').find('input').select();
+    $('#panelSecretURL').find('input').select();
+    return securePassword = null;
   };
 
   showData = function(data) {
@@ -88,6 +89,8 @@
     }
     $('#panelNewSecret').hide();
     $('#panelSecretURL').hide();
+    $('#notfound').hide();
+    $('#somethingwrong').hide();
     $('#panelReadSecret').show();
     return $('#panelReadSecret').find('textarea').val(secret);
   };

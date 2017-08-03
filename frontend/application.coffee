@@ -44,7 +44,7 @@ hashLoad = () ->
 
 initBinds = () ->
   $('#formCreateSecret').bind 'submit', createSecret
-  $('#newSecret').bind 'click', newSecret
+  $('#newSecret, .navbar-brand').bind 'click', newSecret
   $(window).bind 'hashchange', hashLoad
 
 newSecret = () ->
@@ -63,6 +63,8 @@ secretCreated = (data) ->
   $('#panelSecretURL').find('input').focus()
   $('#panelSecretURL').find('input').select()
 
+  securePassword = null
+
 showData = (data) ->
   secret =  data.secret
   if securePassword != null
@@ -70,6 +72,8 @@ showData = (data) ->
 
   $('#panelNewSecret').hide()
   $('#panelSecretURL').hide()
+  $('#notfound').hide()
+  $('#somethingwrong').hide()
   $('#panelReadSecret').show()
   $('#panelReadSecret').find('textarea').val secret
 
