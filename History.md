@@ -1,3 +1,7 @@
+# 0.3.1 / 2017-08-03
+
+  * Fix: Some messengers mess up the URL
+
 # 0.3.0 / 2017-08-03
 
   * Add footer
