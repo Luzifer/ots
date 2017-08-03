@@ -60,7 +60,11 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 
 	secret, err := a.store.ReadAndDestroy(id)
 	if err != nil {
-		a.jsonResponse(res, http.StatusInternalServerError, map[string]interface{}{
+		status := http.StatusInternalServerError
+		if err == errSecretNotFound {
+			status = http.StatusNotFound
+		}
+		a.jsonResponse(res, status, map[string]interface{}{
 			"success": false,
 			"error":   err.Error(),
 		})

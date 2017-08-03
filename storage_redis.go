@@ -49,6 +49,10 @@ func (s storageRedis) ReadAndDestroy(id string) (string, error) {
 		return "", err
 	}
 
+	if secret == nil {
+		return "", errSecretNotFound
+	}
+
 	_, err = s.conn.HDel(s.redisKey(), id)
 	return string(secret), err
 }
