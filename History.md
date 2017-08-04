@@ -1,3 +1,7 @@
+# 0.4.0 / 2017-08-04
+
+  * Remove option to disable encryption
+
 # 0.3.1 / 2017-08-03
 
   * Fix: Some messengers mess up the URL
