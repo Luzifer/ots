@@ -1,6 +1,6 @@
 package main
 
-//go:generate go-bindata -pkg $GOPACKAGE -o assets.go ./frontend
+//go:generate go-bindata -pkg $GOPACKAGE -o assets.go ./frontend/...
 
 import (
 	"fmt"
@@ -9,6 +9,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"text/template"
 
 	http_helpers "github.com/Luzifer/go_helpers/http"
 	"github.com/Luzifer/rconfig"
@@ -73,5 +74,15 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 	}
 
 	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
-	res.Write(assetData)
+
+	tpl, err := template.New(assetName).Funcs(getTFuncMap(r)).Parse(string(assetData))
+
+	if err != nil {
+		log.Errorf("Template for asset %q has an error: %s", assetName, err)
+		return
+	}
+
+	tpl.Execute(res, map[string]interface{}{
+		"version": version,
+	})
 }

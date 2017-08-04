@@ -50,7 +50,7 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" id="newSecret"><i class="fa fa-plus"></i> New Secret</a></li>
+						<li><a href="#" id="newSecret"><i class="fa fa-plus"></i> {{T "btn-new-secret"}}</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
@@ -61,11 +61,11 @@
         <div class="col-md-8 col-md-push-2">
           <div class="alert alert-danger" role="alert" id="notfound">
             <i class="fa fa-question-circle" aria-hidden="true"></i>
-            This is not the secret you are looking for&hellip;
+            {{T "alert-secret-not-found"}}
           </div>
           <div class="alert alert-danger" role="alert" id="somethingwrong">
             <i class="fa fa-question-circle" aria-hidden="true"></i>
-            Something went wrong. I'm very sorry about this&hellip;
+            {{T "alert-something-went-wrong"}}
           </div>
         </div>
       </div>
@@ -75,39 +75,39 @@
 
           <div class="panel panel-primary" id="panelNewSecret">
             <div class="panel-heading">
-              <h3 class="panel-title">Create a new secret</h3>
+              <h3 class="panel-title">{{T "title-new-secret"}}</h3>
             </div>
             <div class="panel-body">
               <form id="formCreateSecret">
                 <div class="form-group">
-                  <label for="secret">Secret data:</label>
+                  <label for="secret">{{T "label-secret-data"}}</label>
                   <textarea class="form-control" rows="5" id="secret"></textarea>
                 </div>
-                <input class="btn btn-success" type="submit" value="Create the secret!">
+                <input class="btn btn-success" type="submit" value="{{T "btn-create-secret"}}">
               </form>
             </div>
           </div>
 
           <div class="panel panel-success" id="panelSecretURL">
             <div class="panel-heading">
-              <h3 class="panel-title">Secret created!</h3>
+              <h3 class="panel-title">{{T "title-secret-created"}}</h3>
             </div>
             <div class="panel-body">
               <p>
-                Your secret was created and stored using this URL:
+                {{T "text-pre-url"}}
               </p>
               <div class="form-group">
                 <input type="text" class="form-control" readonly>
               </div>
               <p>
-                Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
+                {{T "text-burn-hint"}}
               </p>
             </div>
           </div>
 
           <div class="panel panel-primary" id="panelReadSecret">
             <div class="panel-heading">
-              <h3 class="panel-title">Reading your secret...</h3>
+              <h3 class="panel-title">{{T "title-reading-secret"}}</h3>
             </div>
             <div class="panel-body">
               <div class="form-group">
@@ -115,7 +115,7 @@
               </div>
 
               <p>
-                <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
+                {{T "text-hint-burned"}}
               </p>
             </div>
           </div>
@@ -125,7 +125,7 @@
 
       <div class="row">
         <div class="col-md-12 footer">
-          Powered by <a href="https://github.com/Luzifer/ots"><i class="fa fa-github"></i> Luzifer/OTS</a>
+          {{T "text-powered-by"}} <a href="https://github.com/Luzifer/ots"><i class="fa fa-github"></i> Luzifer/OTS</a>
         </div>
       </div>
     </div>
