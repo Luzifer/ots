@@ -1,3 +1,7 @@
+# 0.5.0 / 2017-08-04
+
+  * Add localization for en-US and de-DE
+
 # 0.4.0 / 2017-08-04
 
   * Remove option to disable encryption
