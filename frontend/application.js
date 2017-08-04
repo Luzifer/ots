@@ -7,10 +7,8 @@
   createSecret = function() {
     var secret;
     secret = $('#formCreateSecret').find('textarea').val();
-    if ($('#extra').prop('checked')) {
-      securePassword = Math.random().toString(36).substring(2);
-      secret = GibberishAES.enc(secret, securePassword);
-    }
+    securePassword = Math.random().toString(36).substring(2);
+    secret = GibberishAES.enc(secret, securePassword);
     $.ajax('api/create', {
       data: {
         secret: secret
