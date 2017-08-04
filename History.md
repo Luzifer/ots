@@ -1,3 +1,7 @@
+# 0.5.1 / 2017-08-04
+
+  * Fix: Vendor missing libraries
+
 # 0.5.0 / 2017-08-04
 
   * Add localization for en-US and de-DE
