@@ -27,6 +27,31 @@
 			"Rev": "49c024275504f0341e5a9971eb7ba7fa3dc7af40"
 		},
 		{
+			"ImportPath": "github.com/nicksnyder/go-i18n/i18n",
+			"Comment": "v1.8.1",
+			"Rev": "3e70a1a463008cea6726380c908b1a6a8bdf7b24"
+		},
+		{
+			"ImportPath": "github.com/nicksnyder/go-i18n/i18n/bundle",
+			"Comment": "v1.8.1",
+			"Rev": "3e70a1a463008cea6726380c908b1a6a8bdf7b24"
+		},
+		{
+			"ImportPath": "github.com/nicksnyder/go-i18n/i18n/language",
+			"Comment": "v1.8.1",
+			"Rev": "3e70a1a463008cea6726380c908b1a6a8bdf7b24"
+		},
+		{
+			"ImportPath": "github.com/nicksnyder/go-i18n/i18n/translation",
+			"Comment": "v1.8.1",
+			"Rev": "3e70a1a463008cea6726380c908b1a6a8bdf7b24"
+		},
+		{
+			"ImportPath": "github.com/pelletier/go-toml",
+			"Comment": "v1.0.0-7-g69d355d",
+			"Rev": "69d355db5304c0f7f809a2edc054553e7142f016"
+		},
+		{
 			"ImportPath": "github.com/satori/uuid",
 			"Comment": "v1.1.0-8-g5bf94b6",
 			"Rev": "5bf94b69c6b68ee1b541973bb8e1144db23a194b"
