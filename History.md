@@ -1,3 +1,9 @@
+# 0.6.0 / 2017-08-19
+
+  * Add view to confirm display and destroy of the secret
+  * Add translation information
+  * Add version to footer
+
 # 0.5.1 / 2017-08-04
 
   * Fix: Vendor missing libraries
