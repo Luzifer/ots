@@ -23,7 +23,7 @@
     <![endif]-->
 
     <style>
-      #somethingwrong, #notfound, #panelReadSecret, #panelSecretURL {
+      #somethingwrong, #notfound, #panelReadSecret, #panelSecretURL, #panelReadSecretPre {
         display: none;
       }
       .footer {
@@ -101,6 +101,21 @@
               </div>
               <p>
                 {{T "text-burn-hint"}}
+              </p>
+            </div>
+          </div>
+
+          <div class="panel panel-primary" id="panelReadSecretPre">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{T "title-reading-secret"}}</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                {{T "text-pre-reveal-hint"}}
+              </p>
+
+              <p>
+                <button class="btn btn-success" id="revealSecret">{{T "btn-reveal-secret"}}</button>
               </p>
             </div>
           </div>

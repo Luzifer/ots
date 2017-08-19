@@ -29,6 +29,14 @@ hashLoad = () ->
   if hash.length == 0
     return
 
+  $('#panelNewSecret').hide()
+  $('#panelSecretURL').hide()
+  $('#notfound').hide()
+  $('#somethingwrong').hide()
+  $('#panelReadSecretPre').show()
+
+requestSecret = () ->
+  hash = window.location.hash
   hash = decodeURIComponent(hash)
 
   parts = hash.split '|'
@@ -47,6 +55,7 @@ initBinds = () ->
   $('#formCreateSecret').bind 'submit', createSecret
   $('#newSecret, .navbar-brand').bind 'click', newSecret
   $(window).bind 'hashchange', hashLoad
+  $('#revealSecret').bind 'click', requestSecret
 
 newSecret = () ->
   location.href = location.href.split('#')[0]
@@ -59,6 +68,7 @@ secretCreated = (data) ->
   url = "#{location.href.split('#')[0]}##{secretHash}"
 
   $('#panelNewSecret').hide()
+  $('#panelReadSecretPre').hide()
   $('#panelSecretURL').show()
   $('#panelSecretURL').find('input').val url
   $('#panelSecretURL').find('input').focus()
@@ -75,6 +85,7 @@ showData = (data) ->
   $('#panelSecretURL').hide()
   $('#notfound').hide()
   $('#somethingwrong').hide()
+  $('#panelReadSecretPre').hide()
   $('#panelReadSecret').show()
   $('#panelReadSecret').find('textarea').val secret
 

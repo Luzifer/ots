@@ -11,6 +11,9 @@
   "btn-new-secret": {
     "other": "New Secret"
   },
+  "btn-reveal-secret": {
+    "other": "Show me the secret!"
+  },
   "label-secret-data": {
     "other": "Secret data:"
   },
@@ -22,6 +25,9 @@
   },
   "text-powered-by": {
     "other": "Powered by"
+  },
+  "text-pre-reveal-hint": {
+    "other": "To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!"
   },
   "text-pre-url": {
     "other": "Your secret was created and stored using this URL:"

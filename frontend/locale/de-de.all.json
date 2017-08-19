@@ -11,6 +11,9 @@
   "btn-new-secret": {
     "other": "Neues Secret"
   },
+  "btn-reveal-secret": {
+    "other": "Zeig mir das Secret!"
+  },
   "label-secret-data": {
     "other": "Inhalt des Secrets:"
   },
@@ -22,6 +25,9 @@
   },
   "text-powered-by": {
     "other": "Läuft mit"
+  },
+  "text-pre-reveal-hint": {
+    "other": "Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird."
   },
   "text-pre-url": {
     "other": "Dein Secret wurde angelegt und unter folgender URL gespeichert:"
