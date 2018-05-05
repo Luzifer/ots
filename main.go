@@ -1,6 +1,6 @@
 package main
 
-//go:generate go-bindata -pkg $GOPACKAGE -o assets.go ./frontend/...
+//go:generate go-bindata -pkg $GOPACKAGE -o assets.go -modtime 1 -md5checksum ./frontend/...
 
 import (
 	"fmt"
@@ -81,7 +81,7 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tpl, err := template.New(assetName).Funcs(getTFuncMap(r)).Parse(string(assetData))
+	tpl, err := template.New(assetName).Funcs(addTranslateFunc(tplFuncs, r)).Parse(string(assetData))
 
 	if err != nil {
 		log.Errorf("Template for asset %q has an error: %s", assetName, err)

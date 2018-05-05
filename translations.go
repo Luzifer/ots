@@ -22,7 +22,7 @@ func init() {
 	}
 }
 
-func getTFuncMap(r *http.Request) template.FuncMap {
+func addTranslateFunc(t template.FuncMap, r *http.Request) template.FuncMap {
 	cookie, _ := r.Cookie("lang")
 
 	cookieLang := ""
@@ -34,7 +34,7 @@ func getTFuncMap(r *http.Request) template.FuncMap {
 	defaultLang := "en-US" // known valid language
 
 	T, _ := i18n.Tfunc(cookieLang, qpLang, acceptLang, defaultLang)
-	return template.FuncMap{
-		"T": T,
-	}
+
+	t["T"] = T
+	return t
 }
