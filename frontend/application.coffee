@@ -29,11 +29,11 @@ hashLoad = () ->
   if hash.length == 0
     return
 
-  $('#panelNewSecret').hide()
-  $('#panelSecretURL').hide()
+  $('#cardNewSecret').hide()
+  $('#cardSecretURL').hide()
   $('#notfound').hide()
   $('#somethingwrong').hide()
-  $('#panelReadSecretPre').show()
+  $('#cardReadSecretPre').show()
 
 requestSecret = () ->
   hash = window.location.hash
@@ -67,12 +67,12 @@ secretCreated = (data) ->
     secretHash = "#{secretHash}|#{securePassword}"
   url = "#{location.href.split('#')[0]}##{secretHash}"
 
-  $('#panelNewSecret').hide()
-  $('#panelReadSecretPre').hide()
-  $('#panelSecretURL').show()
-  $('#panelSecretURL').find('input').val url
-  $('#panelSecretURL').find('input').focus()
-  $('#panelSecretURL').find('input').select()
+  $('#cardNewSecret').hide()
+  $('#cardReadSecretPre').hide()
+  $('#cardSecretURL').show()
+  $('#cardSecretURL').find('input').val url
+  $('#cardSecretURL').find('input').focus()
+  $('#cardSecretURL').find('input').select()
 
   securePassword = null
 
@@ -81,13 +81,13 @@ showData = (data) ->
   if securePassword != null
     secret = GibberishAES.dec(secret, securePassword)
 
-  $('#panelNewSecret').hide()
-  $('#panelSecretURL').hide()
+  $('#cardNewSecret').hide()
+  $('#cardSecretURL').hide()
   $('#notfound').hide()
   $('#somethingwrong').hide()
-  $('#panelReadSecretPre').hide()
-  $('#panelReadSecret').show()
-  $('#panelReadSecret').find('textarea').val secret
+  $('#cardReadSecretPre').hide()
+  $('#cardReadSecret').show()
+  $('#cardReadSecret').find('textarea').val secret
 
 somethingWrong = () ->
   $('#somethingwrong').show()

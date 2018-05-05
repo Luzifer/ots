@@ -1,5 +1,6 @@
 generate: l10n
-	coffee -c frontend/application.coffee
+	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR) node \
+		bash -c "npm install -g coffeescript && coffee -c frontend/application.coffee && chown -R $(shell id -u) frontend"
 	go generate
 
 l10n:
