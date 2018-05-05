@@ -75,6 +75,12 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 
 	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
 
+	if assetName != "/index.html" {
+		// Do not use template engine on other files than index.html
+		res.Write(assetData)
+		return
+	}
+
 	tpl, err := template.New(assetName).Funcs(getTFuncMap(r)).Parse(string(assetData))
 
 	if err != nil {

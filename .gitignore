@@ -1,2 +1,5 @@
-ots
+frontend/css
+frontend/js
 frontend/locale/*.untranslated.json
+frontend/webfonts
+ots
