@@ -1,3 +1,7 @@
+# 0.9.0 / 2018-05-05
+
+  * Generate SRI integrity hashes into html
+
 # 0.8.1 / 2018-05-05
 
   * Update Dockerfile to multi-stage build
