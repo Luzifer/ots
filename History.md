@@ -1,3 +1,7 @@
+# 0.7.0 / 2018-05-05
+
+  * Introduce data expiry in Redis
+
 # 0.6.0 / 2017-08-19
 
   * Add view to confirm display and destroy of the secret
