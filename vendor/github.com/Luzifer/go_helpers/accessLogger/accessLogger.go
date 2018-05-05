@@ -33,5 +33,5 @@ func (a *AccessLogResponseWriter) WriteHeader(code int) {
 }
 
 func (a *AccessLogResponseWriter) HTTPResponseType() string {
-	return fmt.Sprintf("%sxx", strconv.FormatInt(int64(a.StatusCode), 10)[0])
+	return fmt.Sprintf("%cxx", strconv.FormatInt(int64(a.StatusCode), 10)[0])
 }
