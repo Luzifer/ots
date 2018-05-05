@@ -1,3 +1,7 @@
+# 0.8.1 / 2018-05-05
+
+  * Update Dockerfile to multi-stage build
+
 # 0.8.0 / 2018-05-05
 
   * Feat: Internalize previously external libraries and stylesheets
