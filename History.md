@@ -1,3 +1,11 @@
+# 0.8.0 / 2018-05-05
+
+  * Feat: Internalize previously external libraries and stylesheets
+  * Feat: Migrate to bootstrap 4 and fontawesome 5
+  * Fix: Fix date and maintainer in LICENSE file
+  * Vendor: Switch to dep for vendoring
+  * Vendor: Update dependencies
+
 # 0.7.0 / 2018-05-05
 
   * Introduce data expiry in Redis
