@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/satori/uuid"
+	log "github.com/sirupsen/logrus"
 	"github.com/xuyu/goredis"
 )
 
@@ -22,9 +25,57 @@ func newStorageRedis() (storage, error) {
 		return nil, err
 	}
 
-	return &storageRedis{
+	s := &storageRedis{
 		conn: c,
-	}, nil
+	}
+
+	if err := s.migrate(); err != nil { // Move from the old to the new storage format
+		return nil, err
+	}
+
+	return s, nil
+}
+
+func (s storageRedis) migrate() error {
+	t, err := s.conn.Type(s.redisKey())
+	if err != nil {
+		return err
+	}
+
+	log.Printf("Key %q type: %s", s.redisKey(), t)
+
+	if t == "hash" {
+		hashs, err := s.conn.HGetAll(s.redisKey())
+		if err != nil {
+			return err
+		}
+
+		for k, v := range hashs {
+			if err := s.writeKey(k, v); err != nil {
+				return err
+			}
+		}
+
+		if _, err = s.conn.Del(s.redisKey()); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (s storageRedis) redisExpiry() int {
+	exp := os.Getenv("REDIS_EXPIRY")
+	if exp == "" {
+		return 0
+	}
+
+	e, err := strconv.ParseInt(exp, 10, 64)
+	if err != nil {
+		return 0
+	}
+
+	return int(e)
 }
 
 func (s storageRedis) redisKey() string {
@@ -38,13 +89,13 @@ func (s storageRedis) redisKey() string {
 
 func (s storageRedis) Create(secret string) (string, error) {
 	id := uuid.NewV4().String()
-	_, err := s.conn.HSet(s.redisKey(), id, secret)
+	err := s.writeKey(id, secret)
 
 	return id, err
 }
 
 func (s storageRedis) ReadAndDestroy(id string) (string, error) {
-	secret, err := s.conn.HGet(s.redisKey(), id)
+	secret, err := s.conn.Get(strings.Join([]string{s.redisKey(), id}, ":"))
 	if err != nil {
 		return "", err
 	}
@@ -53,6 +104,17 @@ func (s storageRedis) ReadAndDestroy(id string) (string, error) {
 		return "", errSecretNotFound
 	}
 
-	_, err = s.conn.HDel(s.redisKey(), id)
+	_, err = s.conn.Del(strings.Join([]string{s.redisKey(), id}, ":"))
 	return string(secret), err
+}
+
+func (s storageRedis) writeKey(id, value string) error {
+	return s.conn.Set(
+		strings.Join([]string{s.redisKey(), id}, ":"), // Key
+		value,           // Secret
+		s.redisExpiry(), // Expiry in seconds
+		0,               // Expiry milliseconds
+		false,           // MustExist
+		true,            // MustNotExist
+	)
 }
