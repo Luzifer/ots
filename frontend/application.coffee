@@ -7,6 +7,7 @@ createSecret = () ->
   secret = GibberishAES.enc(secret, securePassword)
 
   $.ajax 'api/create',
+    method: "post"
     data:
       secret: secret
     dataType: "json"
