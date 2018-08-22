@@ -1,3 +1,8 @@
+# 0.10.0 / 2018-08-22
+
+  * Auto-resize textareas, use babel to transpile JS
+  * Fix: Transmit secret using POST method
+
 # 0.9.0 / 2018-05-05
 
   * Generate SRI integrity hashes into html
