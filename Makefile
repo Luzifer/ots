@@ -10,7 +10,7 @@ default: generate
 
 generate: l10n download_libs
 	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR) node \
-		bash -c "npm install -g coffeescript && coffee -c frontend/application.coffee && chown -R $(shell id -u) frontend"
+		bash -exc "npm ci && npx coffee -t -c frontend/application.coffee && chown -R $(shell id -u) frontend"
 	go generate
 
 l10n:

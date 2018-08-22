@@ -1,0 +1,11 @@
+{
+  "name": "ots",
+  "version": "0.0.0",
+  "internal": true,
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
+    "coffeescript": "^2.3.1"
+  }
+}

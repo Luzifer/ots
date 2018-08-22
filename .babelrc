@@ -1,0 +1,20 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 3 versions",
+            "Safari >= 10",
+            "not ie <= 8",
+            "Edge >= 12",
+            "iOS >= 10",
+            "Android >= 4.4"
+          ]
+        }
+      }
+    ],
+    "minify"
+  ]
+}

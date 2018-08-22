@@ -57,10 +57,33 @@ initBinds = () ->
   $('#newSecret, .navbar-brand').bind 'click', newSecret
   $(window).bind 'hashchange', hashLoad
   $('#revealSecret').bind 'click', requestSecret
+  bindResizeTextarea()
 
 newSecret = () ->
   location.href = location.href.split('#')[0]
   false
+
+bindResizeTextarea = () ->
+  $('textarea').each(() ->
+    text = this
+
+    doResize = () =>
+      #text.style.height = 'auto'
+      text.style.height = (this.scrollHeight) + 'px'
+
+    delayedResize = () =>
+      window.setTimeout doResize, 0
+
+    text.setAttribute('style', "height: #{this.scrollHeight}px; min-height: #{this.scrollHeight}px; overflow-y:hidden;")
+
+    $(text)
+      .on('change', doResize)
+      .on('cut', delayedResize)
+      .on('paste', delayedResize)
+      .on('drop', delayedResize)
+      .on('keydown', delayedResize)
+  )
+
 
 secretCreated = (data) ->
   secretHash = data.secret_id
@@ -89,6 +112,7 @@ showData = (data) ->
   $('#cardReadSecretPre').hide()
   $('#cardReadSecret').show()
   $('#cardReadSecret').find('textarea').val secret
+  $('#cardReadSecret').find('textarea').trigger 'change'
 
 somethingWrong = () ->
   $('#somethingwrong').show()
