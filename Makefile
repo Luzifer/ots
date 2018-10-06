@@ -9,8 +9,8 @@ VER_POPPER=1.14.1
 default: generate
 
 generate: l10n download_libs
-	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR) node \
-		bash -exc "npm ci && npx coffee -t -c frontend/application.coffee && chown -R $(shell id -u) frontend"
+	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:10-alpine \
+		sh -exc "npm ci && npm run build && rm -rf node_modules && chown -R $(shell id -u) ../frontend"
 	go generate
 
 l10n:
