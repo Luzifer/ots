@@ -1,3 +1,7 @@
+# 0.11.0 / 2018-10-06
+
+  * Port frontend code to pure Javascript
+
 # 0.10.0 / 2018-08-22
 
   * Auto-resize textareas, use babel to transpile JS
