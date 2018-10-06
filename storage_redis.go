@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid"
 	log "github.com/sirupsen/logrus"
 	"github.com/xuyu/goredis"
 )
@@ -88,7 +88,7 @@ func (s storageRedis) redisKey() string {
 }
 
 func (s storageRedis) Create(secret string) (string, error) {
-	id := uuid.NewV4().String()
+	id := uuid.Must(uuid.NewV4()).String()
 	err := s.writeKey(id, secret)
 
 	return id, err
