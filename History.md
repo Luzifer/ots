@@ -1,3 +1,7 @@
+# 0.11.1 / 2018-10-06
+
+  * Replace uuid library, update vendors
+
 # 0.11.0 / 2018-10-06
 
   * Port frontend code to pure Javascript
