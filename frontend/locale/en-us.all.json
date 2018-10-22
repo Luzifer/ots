@@ -1,6 +1,6 @@
 {
   "alert-secret-not-found": {
-    "other": "This is not the secret you are looking for\u0026hellip;"
+    "other": "This is not the secret you are looking for\u0026hellip; - If you expected the secret to be here it might be comprimised as someone else might have opened the link already."
   },
   "alert-something-went-wrong": {
     "other": "Something went wrong. I'm very sorry about this\u0026hellip;"

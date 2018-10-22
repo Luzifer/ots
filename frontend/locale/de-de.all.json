@@ -1,6 +1,6 @@
 {
   "alert-secret-not-found": {
-    "other": "Das ist nicht das Secret, was du suchst\u0026hellip;"
+    "other": "Das ist nicht das Secret, was du suchst\u0026hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte."
   },
   "alert-something-went-wrong": {
     "other": "Irgendwas ging schief. Entschuldigung\u0026hellip;"
