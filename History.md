@@ -1,3 +1,7 @@
+# 0.12.0 / 2018-10-22
+
+  * Be more specific about security risks
+
 # 0.11.1 / 2018-10-06
 
   * Replace uuid library, update vendors
