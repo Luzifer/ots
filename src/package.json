@@ -7,6 +7,8 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^1.4.0",
@@ -16,5 +18,15 @@
   "private": true,
   "scripts": {
     "build": "webpack -p"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.19",
+    "bootswatch": "^4.3.1",
+    "gibberish-aes": "^1.0.0",
+    "popper.js": "^1.15.0",
+    "vue": "^2.6.10",
+    "vue-i18n": "^8.11.2"
   }
 }

@@ -5,17 +5,15 @@ VER_GIBBERISH_AES=1.0.0
 VER_JQUERY=3.4.1
 VER_POPPER=1.15.0
 VER_VUE=2.6.10
+VER_VUE_I18N=8.11.2
 
 
 default: generate
 
-generate: l10n download_libs
+generate: download_libs
 	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:10-alpine \
 		sh -exc "npm ci && npm run build && rm -rf node_modules && chown -R $(shell id -u) ../frontend"
 	go generate
-
-l10n:
-	cd frontend/locale && goi18n *
 
 publish:
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
@@ -38,4 +36,4 @@ libs_css:
 
 libs_js:
 	mkdir -p frontend/js
-	curl -sSfLo frontend/js/bundle.js "https://cdn.jsdelivr.net/combine/npm/jquery@$(VER_JQUERY),npm/popper.js@$(VER_POPPER),npm/bootstrap@$(VER_BOOTSTRAP)/dist/js/bootstrap.min.js,npm/gibberish-aes@$(VER_GIBBERISH_AES)/dist/gibberish-aes-$(VER_GIBBERISH_AES).min.js,npm/vue@$(VER_VUE)"
+	curl -sSfLo frontend/js/bundle.js "https://cdn.jsdelivr.net/combine/npm/jquery@$(VER_JQUERY),npm/popper.js@$(VER_POPPER),npm/bootstrap@$(VER_BOOTSTRAP)/dist/js/bootstrap.min.js,npm/gibberish-aes@$(VER_GIBBERISH_AES)/dist/gibberish-aes-$(VER_GIBBERISH_AES).min.js,npm/vue@$(VER_VUE),npm/vue-i18n@$(VER_VUE_I18N)/dist/vue-i18n.min.js"

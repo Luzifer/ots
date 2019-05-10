@@ -9,7 +9,6 @@ import (
 	"os"
 	"path"
 	"strings"
-	"text/template"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -56,6 +55,7 @@ func main() {
 
 	r := mux.NewRouter()
 	api.Register(r.PathPrefix("/api").Subrouter())
+	r.HandleFunc("/vars.js", handleVars)
 	r.PathPrefix("/").HandlerFunc(http_helpers.GzipFunc(assetDelivery))
 
 	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
@@ -67,6 +67,12 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 		assetName = "/index.html"
 	}
 
+	if strings.LastIndex(assetName, ".") < 0 {
+		// There are no assets with no dot in it
+		http.Error(res, "404 not found", http.StatusNotFound)
+		return
+	}
+
 	ext := assetName[strings.LastIndex(assetName, "."):]
 	assetData, err := Asset(path.Join("frontend", assetName))
 	if err != nil {
@@ -75,21 +81,38 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 	}
 
 	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	res.Write(assetData)
+}
 
-	if assetName != "/index.html" {
-		// Do not use template engine on other files than index.html
-		res.Write(assetData)
-		return
+func handleVars(w http.ResponseWriter, r *http.Request) {
+	cookie, _ := r.Cookie("lang")
+
+	cookieLang := ""
+	if cookie != nil {
+		cookieLang = cookie.Value
 	}
+	acceptLang := r.Header.Get("Accept-Language")
+	defaultLang := "en" // known valid language
 
-	tpl, err := template.New(assetName).Funcs(addTranslateFunc(tplFuncs, r)).Parse(string(assetData))
-
-	if err != nil {
-		log.Errorf("Template for asset %q has an error: %s", assetName, err)
-		return
-	}
-
-	tpl.Execute(res, map[string]interface{}{
+	vars := map[string]string{
 		"version": version,
-	})
+	}
+
+	switch {
+	case cookieLang != "":
+		vars["locale"] = normalizeLang(cookieLang)
+	case acceptLang != "":
+		vars["locale"] = normalizeLang(strings.Split(acceptLang, ",")[0])
+	default:
+		vars["locale"] = defaultLang
+	}
+
+	w.Header().Set("Content-Type", "application/javascript")
+	for k, v := range vars {
+		fmt.Fprintf(w, "var %s = %q\n", k, v)
+	}
+}
+
+func normalizeLang(lang string) string {
+	return strings.ToLower(strings.Split(lang, "-")[0])
 }

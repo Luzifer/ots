@@ -6,124 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="/css/bundle.css" integrity="{{SRIHash `/css/bundle.css`}}" />
-    <link rel="stylesheet" href="/css/all.min.css" integrity="{{SRIHash `/css/all.min.css`}}" />
+    <link rel="stylesheet" href="css/all.min.css"/>
 
     <title>OTS - One Time Secrets</title>
-
-    <style>
-      #somethingwrong, #notfound, #cardReadSecret, #cardSecretURL, #cardReadSecretPre { display: none; }
-      .footer { color: #2f2f2f; font-size: 0.9em; text-align: center; }
-      textarea { font-family: monospace; }
-    </style>
   </head>
   <body>
+    <div id="app"></div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#"><i class="fas fa-user-secret"></i> OTS - One Time Secrets</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"></li>
-          <li class="nav-item"><a href="#" id="newSecret"><i class="fas fa-plus"></i> {{T "btn-new-secret"}}</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="container mt-4">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="alert alert-danger" role="alert" id="notfound">
-            <i class="fas fa-question-circle" aria-hidden="true"></i>
-            {{T "alert-secret-not-found"}}
-          </div>
-          <div class="alert alert-danger" role="alert" id="somethingwrong">
-            <i class="fas fa-question-circle" aria-hidden="true"></i>
-            {{T "alert-something-went-wrong"}}
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="card border-primary" id="cardNewSecret">
-            <div class="card-header bg-primary text-white">
-              {{T "title-new-secret"}}
-            </div>
-            <div class="card-body">
-              <form id="formCreateSecret">
-                <div class="form-group">
-                  <label for="secret">{{T "label-secret-data"}}</label>
-                  <textarea class="form-control" rows="5" id="secret"></textarea>
-                </div>
-                <input class="btn btn-success" type="submit" value="{{T "btn-create-secret"}}">
-              </form>
-            </div>
-          </div>
-
-          <div class="card border-success" id="cardSecretURL">
-            <div class="card-header bg-success text-white">
-              {{T "title-secret-created"}}
-            </div>
-            <div class="card-body">
-              <p>
-                {{T "text-pre-url"}}
-              </p>
-              <div class="form-group">
-                <input type="text" class="form-control" readonly>
-              </div>
-              <p>
-                {{T "text-burn-hint"}}
-              </p>
-            </div>
-          </div>
-
-          <div class="card border-primary" id="cardReadSecretPre">
-            <div class="card-header bg-primary text-white">
-              {{T "title-reading-secret"}}
-            </div>
-            <div class="card-body">
-              <p>
-                {{T "text-pre-reveal-hint"}}
-              </p>
-
-              <p>
-                <button class="btn btn-success" id="revealSecret">{{T "btn-reveal-secret"}}</button>
-              </p>
-            </div>
-          </div>
-
-          <div class="card border-primary" id="cardReadSecret">
-            <div class="card-header bg-primary text-white">
-              {{T "title-reading-secret"}}
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <textarea class="form-control" rows="5" readonly></textarea>
-              </div>
-
-              <p>
-                {{T "text-hint-burned"}}
-              </p>
-            </div>
-          </div>
-
-        </div> <!-- /.col-md-12 -->
-      </div> <!-- /.row -->
-
-      <div class="row mt-5">
-        <div class="col-md-12 footer">
-          {{T "text-powered-by"}} <a href="https://github.com/Luzifer/ots"><i class="fab fa-github"></i> Luzifer/OTS</a> {{.version}}
-        </div>
-      </div>
-    </div>
-
-    <script src="/js/bundle.js" integrity="{{SRIHash `/js/bundle.js`}}"></script>
-    <script src="app.js" integrity="{{SRIHash `app.js`}}"></script>
+    <script src="vars.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
 
