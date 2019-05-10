@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -23,7 +24,22 @@ func (a apiServer) Register(r *mux.Router) {
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
-	secret := r.FormValue("secret")
+	var secret string
+
+	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
+		tmp := map[string]string{}
+		if err := json.NewDecoder(r.Body).Decode(&tmp); err != nil {
+			a.jsonResponse(res, http.StatusBadRequest, map[string]interface{}{
+				"success": false,
+				"error":   err.Error(),
+			})
+			return
+		}
+		secret = tmp["secret"]
+	} else {
+		secret = r.FormValue("secret")
+	}
+
 	if secret == "" {
 		a.jsonResponse(res, http.StatusBadRequest, map[string]interface{}{
 			"success": false,
