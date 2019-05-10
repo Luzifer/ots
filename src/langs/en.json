@@ -1,0 +1,16 @@
+{
+  "alert-secret-not-found": "This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be comprimised as someone else might have opened the link already.",
+  "alert-something-went-wrong": "Something went wrong. I'm very sorry about this&hellip;",
+  "btn-create-secret": "Create the secret!",
+  "btn-new-secret": "New Secret",
+  "btn-reveal-secret": "Show me the secret!",
+  "label-secret-data": "Secret data:",
+  "text-burn-hint": "Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!",
+  "text-hint-burned": "<strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;",
+  "text-powered-by": "Powered by",
+  "text-pre-reveal-hint": "To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!",
+  "text-pre-url": "Your secret was created and stored using this URL:",
+  "title-new-secret": "Create a new secret",
+  "title-reading-secret": "Reading your secret&hellip;",
+  "title-secret-created": "Secret created!"
+}
