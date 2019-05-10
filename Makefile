@@ -1,9 +1,10 @@
-VER_BOOTSTRAP=4.0.0
-VER_BOOTSWATCH=4.1.1
-VER_FONTAWESOME=5.0.12
+VER_BOOTSTRAP=4.3.1
+VER_BOOTSWATCH=4.3.1
+VER_FONTAWESOME=5.8.2
 VER_GIBBERISH_AES=1.0.0
-VER_JQUERY=3.3.1
-VER_POPPER=1.14.1
+VER_JQUERY=3.4.1
+VER_POPPER=1.15.0
+VER_VUE=2.6.10
 
 
 default: generate
@@ -29,16 +30,12 @@ download_libs: clean_libs fontawesome libs_js libs_css
 
 fontawesome:
 	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \
-		tar -C frontend -xz --strip-components=2 --wildcards '*/web-fonts-with-css/css' '*/web-fonts-with-css/webfonts'
+		tar -vC frontend -xz --strip-components=1 --wildcards --exclude='*/js-packages' '*/css' '*/webfonts'
 
 libs_css:
 	mkdir -p frontend/css
-	curl -sSfLo frontend/css/bootstrap.min.css "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/$(VER_BOOTSTRAP)/css/bootstrap.min.css"
-	curl -sSfLo frontend/css/bootswatch.min.css "https://cdnjs.cloudflare.com/ajax/libs/bootswatch/$(VER_BOOTSWATCH)/flatly/bootstrap.min.css"
+	curl -sSfLo frontend/css/bundle.css "https://cdn.jsdelivr.net/combine/npm/bootstrap@$(VER_BOOTSTRAP)/dist/css/bootstrap.min.css,npm/bootswatch@$(VER_BOOTSWATCH)/dist/flatly/bootstrap.min.css"
 
 libs_js:
 	mkdir -p frontend/js
-	curl -sSfLo frontend/js/jquery.min.js "https://cdnjs.cloudflare.com/ajax/libs/jquery/$(VER_JQUERY)/jquery.min.js"
-	curl -sSfLo frontend/js/bootstrap.min.js "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/$(VER_BOOTSTRAP)/js/bootstrap.min.js"
-	curl -sSfLo frontend/js/popper.min.js "https://cdnjs.cloudflare.com/ajax/libs/popper.js/$(VER_POPPER)/popper.min.js"
-	curl -sSfLo frontend/js/gibberish-aes.min.js "https://cdnjs.cloudflare.com/ajax/libs/gibberish-aes/$(VER_GIBBERISH_AES)/gibberish-aes.min.js"
+	curl -sSfLo frontend/js/bundle.js "https://cdn.jsdelivr.net/combine/npm/jquery@$(VER_JQUERY),npm/popper.js@$(VER_POPPER),npm/bootstrap@$(VER_BOOTSTRAP)/dist/js/bootstrap.min.js,npm/gibberish-aes@$(VER_GIBBERISH_AES)/dist/gibberish-aes-$(VER_GIBBERISH_AES).min.js,npm/vue@$(VER_VUE)"
