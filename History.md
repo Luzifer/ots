@@ -1,3 +1,13 @@
+# 0.13.0 / 2019-05-10
+
+  * Fix: Cleanup debugging stuff
+  * Move frontend to Vue
+  * Move translations to frontend
+  * Handle json requests to create API
+  * Update frontend dependencies
+  * Add gzip compression for included assets
+  * Update dev-dependencies
+
 # 0.12.0 / 2018-10-22
 
   * Be more specific about security risks
