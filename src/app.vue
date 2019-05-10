@@ -113,7 +113,7 @@ export default {
       error: '',
       mode: 'create',
       secret: '',
-      securePassword:'',
+      securePassword: '',
       secretId: '',
       showError: false,
     }
@@ -122,23 +122,24 @@ export default {
   methods: {
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
-      this.securePassword = Math.random().toString(36).substring(2)
+      this.securePassword = Math.random().toString(36)
+        .substring(2)
       const secret = AES.enc(this.secret, this.securePassword)
 
       axios.post('api/create', { secret })
-        .then(resp=>{
+        .then(resp => {
           this.secretId = resp.data.secret_id
           this.secret = ''
         })
         .catch(err => {
           switch (err.response.status) {
-            case 404:
-              // Mock for interface testing
-              this.secretId = 'foobar'
-              break
-            default:
-              this.error = this.$t('alert-something-went-wrong')
-              this.showError = true
+          case 404:
+            // Mock for interface testing
+            this.secretId = 'foobar'
+            break
+          default:
+            this.error = this.$t('alert-something-went-wrong')
+            this.showError = true
           }
         })
 
@@ -148,10 +149,12 @@ export default {
     // hashLoad reacts on a changed window hash an starts the diplaying of the secret
     hashLoad() {
       const hash = window.location.hash
-      if (hash.length === 0) return
+      if (hash.length === 0) {
+        return
+      }
 
       const parts = hash.substring(1).split('|')
-      if (parts.length == 2) {
+      if (parts.length === 2) {
         this.securePassword = parts[1]
       }
       this.secretId = parts[0]
@@ -174,14 +177,14 @@ export default {
           this.secret = secret
         })
         .catch(err => {
-          switch(err.response.status) {
-            case 404:
-              this.error = this.$t('alert-secret-not-found')
-              this.showError = true
-              break
-            default:
-              this.error = this.$t('alert-something-went-wrong')
-              this.showError = true
+          switch (err.response.status) {
+          case 404:
+            this.error = this.$t('alert-secret-not-found')
+            this.showError = true
+            break
+          default:
+            this.error = this.$t('alert-something-went-wrong')
+            this.showError = true
           }
         })
     },
