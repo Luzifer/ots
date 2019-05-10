@@ -1,3 +1,7 @@
+# 0.13.1 / 2019-05-10
+
+  * Fix: Broken version display
+
 # 0.13.0 / 2019-05-10
 
   * Fix: Cleanup debugging stuff
