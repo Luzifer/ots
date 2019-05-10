@@ -21,6 +21,7 @@ const i18n = new VueI18n({
 
 new Vue({
   components: { app },
+  data: { version },
   el: '#app',
   i18n,
   render: createElement => createElement('app'),
