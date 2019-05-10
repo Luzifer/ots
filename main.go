@@ -11,10 +11,11 @@ import (
 	"strings"
 	"text/template"
 
-	http_helpers "github.com/Luzifer/go_helpers/http"
-	"github.com/Luzifer/rconfig"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
+
+	http_helpers "github.com/Luzifer/go_helpers/http"
+	"github.com/Luzifer/rconfig"
 )
 
 var (
@@ -55,7 +56,7 @@ func main() {
 
 	r := mux.NewRouter()
 	api.Register(r.PathPrefix("/api").Subrouter())
-	r.PathPrefix("/").HandlerFunc(assetDelivery)
+	r.PathPrefix("/").HandlerFunc(http_helpers.GzipFunc(assetDelivery))
 
 	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
 }
