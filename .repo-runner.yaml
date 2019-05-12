@@ -1,6 +1,6 @@
 ---
 
-image: "quay.io/luzifer/repo-runner-image"
+image: "reporunner/golang-alpine"
 checkout_dir: /go/src/github.com/Luzifer/ots
 
 commands:
