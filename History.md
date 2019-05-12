@@ -1,3 +1,8 @@
+# 0.13.2 / 2019-05-13
+
+  * Fix: Encoded hashes were not properly processed (again)
+  * Fix eslinter errors
+
 # 0.13.1 / 2019-05-10
 
   * Fix: Broken version display
