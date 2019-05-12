@@ -148,7 +148,7 @@ export default {
 
     // hashLoad reacts on a changed window hash an starts the diplaying of the secret
     hashLoad() {
-      const hash = window.location.hash
+      const hash = decodeURIComponent(window.location.hash)
       if (hash.length === 0) {
         return
       }
