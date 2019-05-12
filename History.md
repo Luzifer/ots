@@ -1,3 +1,7 @@
+# 0.13.3 / 2019-05-13
+
+  * CI: Update build image
+
 # 0.13.2 / 2019-05-13
 
   * Fix: Encoded hashes were not properly processed (again)
