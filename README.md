@@ -30,6 +30,8 @@ For a better setup you can choose the backend which is used to store the secrets
 
 ## Localize to your own language
 
-If you want to help translating the application to your own language please download the [`en-us.all.json`](https://github.com/Luzifer/ots/blob/master/frontend/locale/en-us.all.json) file from this repository and translate the `others` strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into. Of course you also could open a pull-request to add the new file to the `frontend/locale` folder.
+If you want to help translating the application to your own language please download the [`en.json`](https://github.com/Luzifer/ots/blob/master/src/langs/en.json) file from this repository and translate the strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
+
+Of course you also could open a pull-request to add the new file to the `src/langs` folder. In this case please also edit the `langs.js` file and add your translation.
 
 Same goes with when you're finding translation errors: Just open an issue and let me know!
