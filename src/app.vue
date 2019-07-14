@@ -79,8 +79,10 @@
             <p v-html="$t('text-pre-url')" />
             <b-form-group>
               <b-form-input
+                ref="secretUrl"
                 :value="secretUrl"
                 readonly
+                @focus="$refs.secretUrl.select()"
               />
             </b-form-group>
             <p v-html="$t('text-burn-hint')" />
@@ -170,6 +172,9 @@ export default {
         .then(resp => {
           this.secretId = resp.data.secret_id
           this.secret = ''
+
+          // Give the interface a moment to transistion and focus
+          window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
         })
         .catch(err => {
           switch (err.response.status) {

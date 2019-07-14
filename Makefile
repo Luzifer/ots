@@ -12,7 +12,7 @@ default: generate
 
 generate: download_libs
 	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:10-alpine \
-		sh -exc "npm ci && npm run build && rm -rf node_modules && chown -R $(shell id -u) ../frontend"
+		sh -exc "npx npm@lts ci && npx npm@lts run build && chown -R $(shell id -u) ../frontend node_modules"
 	go generate
 
 publish:
