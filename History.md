@@ -1,3 +1,7 @@
+# 0.15.0 / 2019-07-14
+
+  * Add explanation of functionality (#9)
+
 # 0.14.0 / 2019-07-14
 
   * UX: Auto-select secret URL after creation
