@@ -20,9 +20,9 @@ const i18n = new VueI18n({
 })
 
 new Vue({
+  el: '#app',
   components: { app },
   data: { version },
-  el: '#app',
   i18n,
   render: createElement => createElement('app'),
 })

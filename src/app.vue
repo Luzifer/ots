@@ -1,73 +1,109 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="primary">
-      <b-navbar-brand href="#" @click="newSecret">
-        <i class="fas fa-user-secret"></i> OTS - One Time Secrets
+    <b-navbar
+      toggleable="lg"
+      type="dark"
+      variant="primary"
+    >
+      <b-navbar-brand
+        href="#"
+        @click="newSecret"
+      >
+        <i class="fas fa-user-secret" /> OTS - One Time Secrets
       </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse" />
 
-      <b-collapse id="nav-collapse" is-nav>
+      <b-collapse
+        id="nav-collapse"
+        is-nav
+      >
         <b-navbar-nav class="ml-auto">
-          <b-nav-item @click="newSecret"><i class="fas fa-plus"></i> {{ $t('btn-new-secret') }}</b-nav-item>
+          <b-nav-item @click="newSecret">
+            <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
 
     <b-container class="mt-4">
-
       <b-row class="justify-content-center">
         <b-col md="8">
-          <b-alert v-model="showError" variant="danger" dismissible v-html="error"></b-alert>
+          <b-alert
+            v-model="showError"
+            variant="danger"
+            dismissible
+            v-html="error"
+          />
         </b-col>
       </b-row>
 
       <b-row>
         <b-col>
-
           <b-card
+            v-if="mode == 'create' && !secretId"
             border-variant="primary"
             header-bg-variant="primary"
             header-text-variant="white"
-            v-if="mode == 'create' && !secretId"
-            >
-            <span slot="header" v-html="$t('title-new-secret')"></span>
+          >
+            <span
+              slot="header"
+              v-html="$t('title-new-secret')"
+            />
             <b-form-group :label="$t('label-secret-data')">
               <b-form-textarea
                 id="secret"
+                v-model="secret"
                 max-rows="25"
                 rows="5"
-                v-model="secret"
-                >
-              </b-form-textarea>
+              />
             </b-form-group>
-            <b-button variant="success" @click="createSecret">{{ $t('btn-create-secret') }}</b-button>
+            <b-button
+              variant="success"
+              @click="createSecret"
+            >
+              {{ $t('btn-create-secret') }}
+            </b-button>
           </b-card>
 
           <b-card
+            v-if="mode == 'create' && secretId"
             border-variant="success"
             header-bg-variant="success"
             header-text-variant="white"
-            v-if="mode == 'create' && secretId"
-            >
-            <span slot="header" v-html="$t('title-secret-created')"></span>
-            <p v-html="$t('text-pre-url')"></p>
+          >
+            <span
+              slot="header"
+              v-html="$t('title-secret-created')"
+            />
+            <p v-html="$t('text-pre-url')" />
             <b-form-group>
-              <b-form-input :value="secretUrl" readonly></b-form-input>
+              <b-form-input
+                :value="secretUrl"
+                readonly
+              />
             </b-form-group>
-            <p v-html="$t('text-burn-hint')"></p>
+            <p v-html="$t('text-burn-hint')" />
           </b-card>
 
           <b-card
+            v-if="mode == 'view'"
             border-variant="primary"
             header-bg-variant="primary"
             header-text-variant="white"
-            v-if="mode == 'view'"
-            >
-            <span slot="header" v-html="$t('title-reading-secret')"></span>
+          >
+            <span
+              slot="header"
+              v-html="$t('title-reading-secret')"
+            />
             <template v-if="!secret">
-              <p v-html="$t('text-pre-reveal-hint')"></p>
-              <b-button variant="success" @click=requestSecret>{{ $t('btn-reveal-secret') }}</b-button>
+              <p v-html="$t('text-pre-reveal-hint')" />
+              <b-button
+                variant="success"
+                @click="requestSecret"
+              >
+                {{ $t('btn-reveal-secret') }}
+              </b-button>
             </template>
             <template v-else>
               <b-form-group>
@@ -76,19 +112,17 @@
                   readonly
                   rows="5"
                   :value="secret"
-                  >
-                </b-form-textarea>
+                />
               </b-form-group>
-              <p v-html="$t('text-hint-burned')"></p>
+              <p v-html="$t('text-hint-burned')" />
             </template>
           </b-card>
-
         </b-col>
       </b-row>
 
       <b-row class="mt-5">
         <b-col class="footer">
-          {{ $t('text-powered-by') }} <a href="https://github.com/Luzifer/ots"><i class="fab fa-github"></i> Luzifer/OTS</a> {{ $root.version }}
+          {{ $t('text-powered-by') }} <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> Luzifer/OTS</a> {{ $root.version }}
         </b-col>
       </b-row>
     </b-container>
@@ -100,13 +134,7 @@ import axios from 'axios'
 import AES from 'gibberish-aes/src/gibberish-aes'
 
 export default {
-  name: 'app',
-
-  computed: {
-    secretUrl() {
-      return `${window.location.href}#${this.secretId}|${this.securePassword}`
-    },
-  },
+  name: 'App',
 
   data() {
     return {
@@ -117,6 +145,18 @@ export default {
       secretId: '',
       showError: false,
     }
+  },
+
+  computed: {
+    secretUrl() {
+      return `${window.location.href}#${this.secretId}|${this.securePassword}`
+    },
+  },
+
+  // Trigger initialization functions
+  mounted() {
+    window.onhashchange = this.hashLoad
+    this.hashLoad()
   },
 
   methods: {
@@ -189,12 +229,6 @@ export default {
         })
     },
 
-  },
-
-  // Trigger initialization functions
-  mounted() {
-    window.onhashchange = this.hashLoad
-    this.hashLoad()
   },
 }
 </script>
