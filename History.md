@@ -1,3 +1,10 @@
+# 0.14.0 / 2019-07-14
+
+  * UX: Auto-select secret URL after creation
+  * Implement vue/recommended linter
+  * Fix eslint missing dependencies
+  * Update translation hint in README
+
 # 0.13.4 / 2019-07-14
 
   * Update fontawesome and vue-i18n
