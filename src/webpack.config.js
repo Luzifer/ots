@@ -1,29 +1,25 @@
 const path = require('path')
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-function resolve(dir) {
-  return path.join(__dirname, dir)
-}
 
 module.exports = {
   entry: './main.js',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, '..', 'frontend')
+    path: path.resolve(__dirname, '..', 'frontend'),
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
     new VueLoaderPlugin(),
   ],
   optimization: {
-    minimize: true
+    minimize: true,
   },
   module: {
     rules: [
@@ -43,11 +39,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['env', { "targets": { "browsers": [">0.25%", "not ie 11", "not op_mini all"] } }]
-            ]
-          }
-        }
+            presets: [['env', { targets: { browsers: ['>0.25%', 'not ie 11', 'not op_mini all'] } }]],
+          },
+        },
       },
 
       {
@@ -55,6 +49,6 @@ module.exports = {
         loader: 'vue-loader',
       },
 
-    ]
-  }
+    ],
+  },
 }
