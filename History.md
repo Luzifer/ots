@@ -1,3 +1,9 @@
+# 0.13.4 / 2019-07-14
+
+  * Update fontawesome and vue-i18n
+  * Bump lodash from 4.17.11 to 4.17.14 in /src (#7)
+  * Fix node package vulnerabilities
+
 # 0.13.3 / 2019-05-13
 
   * CI: Update build image
