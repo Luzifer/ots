@@ -4,12 +4,23 @@
   "btn-create-secret": "Create the secret!",
   "btn-new-secret": "New Secret",
   "btn-reveal-secret": "Show me the secret!",
+  "btn-show-explanation": "How does this work?",
+  "items-explanation": [
+    "You put in a secret into the field on this page",
+    "Your browser encrypts the secret using a generated password",
+    "Only the encrypted secret is sent to the server (neither the plain secret nor the password are ever sent!)",
+    "The server stores the encrypted secret for a certain time",
+    "You pass the displayed URL containing the ID and the decryption password to the recipient",
+    "The recipient can view the secret exactly once: If they can't, the secret might have been viewed by someone else!",
+    "After the encrypted secret has been retrieved once it is deleted from the server"
+  ],
   "label-secret-data": "Secret data:",
   "text-burn-hint": "Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!",
   "text-hint-burned": "<strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;",
   "text-powered-by": "Powered by",
   "text-pre-reveal-hint": "To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!",
   "text-pre-url": "Your secret was created and stored using this URL:",
+  "title-explanation": "This is how it works&hellip;",
   "title-new-secret": "Create a new secret",
   "title-reading-secret": "Reading your secret&hellip;",
   "title-secret-created": "Secret created!"

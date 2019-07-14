@@ -19,6 +19,9 @@
         is-nav
       >
         <b-navbar-nav class="ml-auto">
+          <b-nav-item @click="explanationShown = !explanationShown">
+            <i class="fas fa-question" /> {{ $t('btn-show-explanation') }}
+          </b-nav-item>
           <b-nav-item @click="newSecret">
             <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
           </b-nav-item>
@@ -40,6 +43,26 @@
 
       <b-row>
         <b-col>
+          <!-- Explanation -->
+          <b-card
+            v-if="explanationShown"
+            class="mb-3"
+            border-variant="primary"
+            header-bg-variant="primary"
+            header-text-variant="white"
+          >
+            <span
+              slot="header"
+              v-html="$t('title-explanation')"
+            />
+            <ul>
+              <li v-for="explanation in $t('items-explanation')">
+                {{ explanation }}
+              </li>
+            </ul>
+          </b-card>
+
+          <!-- Creation dialog -->
           <b-card
             v-if="mode == 'create' && !secretId"
             border-variant="primary"
@@ -66,6 +89,7 @@
             </b-button>
           </b-card>
 
+          <!-- Secret created, show secret URL -->
           <b-card
             v-if="mode == 'create' && secretId"
             border-variant="success"
@@ -88,6 +112,7 @@
             <p v-html="$t('text-burn-hint')" />
           </b-card>
 
+          <!-- Display secret -->
           <b-card
             v-if="mode == 'view'"
             border-variant="primary"
@@ -141,6 +166,7 @@ export default {
   data() {
     return {
       error: '',
+      explanationShown: false,
       mode: 'create',
       secret: '',
       securePassword: '',
