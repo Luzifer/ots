@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "Ce secret n'est pas celui que vous cherchez&hellip; - Si vous comptiez trouvez ce secret ici, il a pu être compromis car quelqu'un a probablement déjà ouvert le lien.",
+  "alert-something-went-wrong": "Un problème est survenu. Nous en sommes désolés&hellip;",
+  "btn-create-secret": "Créer le secret!",
+  "btn-new-secret": "Nouveau secret",
+  "btn-reveal-secret": "Voir le secret!",
+  "btn-show-explanation": "Comment ça fonctionne?",
+  "items-explanation": [
+    "Vous saisissez le secret dans un champ sur cette page",
+    "Votre navigateur chiffre le secret en utilisant un mot de passe généré",
+    "Seul le secret chiffré est envoyé au serveur (ni le secret en clair, ni le mot de passe ne sont envoyés!)",
+    "Le serveur stocke le secret chiffré pendant un certain temps",
+    "Vous fournissez l'URL affichée contenant l'identifiant et le mot de passe de déchiffrage au destinataire",
+    "Le destintaire ne peut voir le secret qu'une fois: si cela ne fonctionne pas, c'est que le secret a été consulté par quelqu'un d'autre!",
+    "Dès que le secret chiffré a été récupéré, il est supprimé du serveur"
+  ],
+  "label-secret-data": "Données secrètes:",
+  "text-burn-hint": "Attention de ne pas ouvrir cette URL vous-même, cela détruirait le secret. Fournissez-la à quelqu'un d'autre!",
+  "text-hint-burned": "<strong>Attention:</strong> Vous ne pouvez consulter ce contenu qu'une fois. Le secret sera détruit dès que vous rechargez la page, donc copiez le maintenant&hellip;",
+  "text-powered-by": "Propulsé par",
+  "text-pre-reveal-hint": "Pour afficher le secret, cliquez sur ce bouton, mais soyez conscient que cela le détruira. Vous ne pouvez l'afficher qu'une fois!",
+  "text-pre-url": "Votre secret a été créé et stocké à cette URL:",
+  "title-explanation": "Voici comment ça fonctionne&hellip;",
+  "title-new-secret": "Créer un nouveau secret",
+  "title-reading-secret": "Lecture du secret&hellip;",
+  "title-secret-created": "Secret créé!"
+}
