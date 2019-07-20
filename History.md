@@ -1,3 +1,7 @@
+# 0.16.0 / 2019-07-20
+
+  * Add french language translation (#10)
+
 # 0.15.0 / 2019-07-14
 
   * Add explanation of functionality (#9)
