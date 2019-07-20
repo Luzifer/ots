@@ -1,3 +1,7 @@
+# 0.16.1 / 2019-07-20
+
+  * Fix: Update assets to include FR translation
+
 # 0.16.0 / 2019-07-20
 
   * Add french language translation (#10)
