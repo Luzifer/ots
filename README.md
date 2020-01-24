@@ -21,12 +21,11 @@
 For a better setup you can choose the backend which is used to store the secrets:
 
 - `mem` - In memory storage (wiped on restart of the daemon)
+  - `SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
 - `redis` - Storing the secrets in a hash under one key
   - `REDIS_URL` - Redis connection string `tcp://auth:PWD@HOST:PORT/DB`
-  - `REDIS_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
   - `REDIS_KEY` - Key prefix to store the keys under (Default `io.luzifer.ots`)
-
-**Hint:** Starting in `v0.7.0` the secrets in Redis are no longer stored in a hash but in own keys. This allows for individual expiry. At the first start of `v0.7.0` the old data will be migrated automatically and afterwards be subject of expiry if you set `REDIS_EXPIRY`. My hosted instance uses an expiry of 90d (= 7776000s).
+  - `SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
 
 ## Localize to your own language
 

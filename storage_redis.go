@@ -65,12 +65,19 @@ func (s storageRedis) migrate() error {
 }
 
 func (s storageRedis) redisExpiry() int {
-	exp := os.Getenv("REDIS_EXPIRY")
-	if exp == "" {
+	var expStr string
+	for _, eVar := range []string{"SECRET_EXPIRY", "REDIS_EXPIRY"} {
+		if v := os.Getenv(eVar); v != "" {
+			expStr = v
+			break
+		}
+	}
+
+	if expStr == "" {
 		return 0
 	}
 
-	e, err := strconv.ParseInt(exp, 10, 64)
+	e, err := strconv.ParseInt(expStr, 10, 64)
 	if err != nil {
 		return 0
 	}
