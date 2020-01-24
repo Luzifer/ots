@@ -1,3 +1,11 @@
+# 0.17.0 / 2020-01-24
+
+  * [#12] Add lazy-expiry to mem-storage, unify envvars
+  * Update Dockerfiles
+  * Switch to Go 1.11+ modules
+  * Fix NPM audit alerts
+  * Add minimal Dockerfile without alpine base
+
 # 0.16.1 / 2019-07-20
 
   * Fix: Update assets to include FR translation
