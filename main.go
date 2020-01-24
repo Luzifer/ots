@@ -13,8 +13,8 @@ import (
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 
-	http_helpers "github.com/Luzifer/go_helpers/http"
-	"github.com/Luzifer/rconfig"
+	http_helpers "github.com/Luzifer/go_helpers/v2/http"
+	"github.com/Luzifer/rconfig/v2"
 )
 
 var (

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/gofrs/uuid"
+import "github.com/gofrs/uuid/v3"
 
 type storageMem struct {
 	store map[string]string

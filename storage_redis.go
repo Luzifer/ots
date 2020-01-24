@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gofrs/uuid"
+	"github.com/gofrs/uuid/v3"
 	log "github.com/sirupsen/logrus"
 	"github.com/xuyu/goredis"
 )
