@@ -1,3 +1,7 @@
+# 0.17.1 / 2020-01-26
+
+  * [#13] Fix: Secrets in MEM store were instantly expired
+
 # 0.17.0 / 2020-01-24
 
   * [#12] Add lazy-expiry to mem-storage, unify envvars
