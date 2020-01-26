@@ -41,7 +41,7 @@ func (s storageMem) ReadAndDestroy(id string) (string, error) {
 
 	defer delete(s.store, id)
 
-	if secret.Expiry.Before(time.Now()) {
+	if !secret.Expiry.IsZero() && secret.Expiry.Before(time.Now()) {
 		return "", errSecretNotFound
 	}
 
