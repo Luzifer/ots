@@ -1,3 +1,7 @@
+# 0.17.3 / 2020-06-02
+
+  * Update node dependencies and rebuild packed frontend
+
 # 0.17.2 / 2020-06-02
 
   * Add example script to get secret from CLI (#18)
