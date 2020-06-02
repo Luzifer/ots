@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
@@ -9,20 +9,20 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.3",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^7.0.3",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^7.3.1",
     "style-loader": "^0.21.0",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.16.2",
-    "webpack-cli": "^3.1.0",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.9.1"
+    "webpack-hot-middleware": "^2.25.0"
   },
   "name": "ots",
   "private": true,
@@ -30,13 +30,13 @@
     "build": "webpack -p"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.19",
-    "bootswatch": "^4.3.1",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
+    "bootswatch": "^4.5.0",
     "gibberish-aes": "^1.0.0",
-    "popper.js": "^1.15.0",
-    "vue": "^2.6.10",
-    "vue-i18n": "^8.11.2"
+    "popper.js": "^1.16.1",
+    "vue": "^2.6.11",
+    "vue-i18n": "^8.18.1"
   }
 }
