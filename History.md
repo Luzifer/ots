@@ -1,3 +1,9 @@
+# 0.17.2 / 2020-06-02
+
+  * Add example script to get secret from CLI (#18)
+  * npm audit fix & generate bundled js
+  * [#14] Document creation of secrets through CLI / script
+
 # 0.17.1 / 2020-01-26
 
   * [#13] Fix: Secrets in MEM store were instantly expired
