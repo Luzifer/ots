@@ -3,6 +3,7 @@ package main
 //go:generate go-bindata -pkg $GOPACKAGE -o assets.go -modtime 1 -md5checksum ./frontend/...
 
 import (
+	"encoding/json"
 	"fmt"
 	"mime"
 	"net/http"
@@ -19,10 +20,11 @@ import (
 
 var (
 	cfg struct {
-		Listen         string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
-		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
-		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
-		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
+		DisableCreateInterface bool   `flag:"disable-create-interface" default:"false" description:"Removes the interface for secret creation"`
+		Listen                 string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
+		LogLevel               string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
+		StorageType            string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
+		VersionAndExit         bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
 
 	product = "ots"
@@ -94,8 +96,9 @@ func handleVars(w http.ResponseWriter, r *http.Request) {
 	acceptLang := r.Header.Get("Accept-Language")
 	defaultLang := "en" // known valid language
 
-	vars := map[string]string{
-		"version": version,
+	vars := map[string]interface{}{
+		"disableCreateInterface": cfg.DisableCreateInterface,
+		"version":                version,
 	}
 
 	switch {
@@ -108,11 +111,22 @@ func handleVars(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/javascript")
-	for k, v := range vars {
-		fmt.Fprintf(w, "var %s = %q\n", k, v)
+
+	opts, err := toJSONString(vars)
+	if err != nil {
+		log.WithError(err).Error("Unable to encode JSON var")
+		http.Error(w, "Unable to encode options", http.StatusInternalServerError)
+		return
 	}
+
+	fmt.Fprintf(w, "const otsOptions = %s", opts)
 }
 
 func normalizeLang(lang string) string {
 	return strings.ToLower(strings.Split(lang, "-")[0])
+}
+
+func toJSONString(in interface{}) (string, error) {
+	b, err := json.Marshal(in)
+	return string(b), err
 }

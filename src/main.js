@@ -14,7 +14,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-  locale,
+  locale: otsOptions.locale || '',
   fallbackLocale: 'en',
   messages,
 })
@@ -22,7 +22,9 @@ const i18n = new VueI18n({
 new Vue({
   el: '#app',
   components: { app },
-  data: { version },
+  data: {
+    version: otsOptions.version,
+  },
   i18n,
   render: createElement => createElement('app'),
 })

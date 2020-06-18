@@ -22,7 +22,10 @@
           <b-nav-item @click="explanationShown = !explanationShown">
             <i class="fas fa-question" /> {{ $t('btn-show-explanation') }}
           </b-nav-item>
-          <b-nav-item @click="newSecret">
+          <b-nav-item
+            v-if="!otsOptions.disableCreateInterface"
+            @click="newSecret"
+          >
             <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
           </b-nav-item>
         </b-navbar-nav>
@@ -64,7 +67,7 @@
 
           <!-- Creation dialog -->
           <b-card
-            v-if="mode == 'create' && !secretId"
+            v-if="mode == 'create' && !secretId && !otsOptions.disableCreateInterface"
             border-variant="primary"
             header-bg-variant="primary"
             header-text-variant="white"
@@ -87,6 +90,19 @@
             >
               {{ $t('btn-create-secret') }}
             </b-button>
+          </b-card>
+
+          <b-card
+            v-if="mode == 'create' && !secretId && otsOptions.disableCreateInterface"
+            border-variant="primary"
+            header-bg-variant="primary"
+            header-text-variant="white"
+          >
+            <span
+              slot="header"
+              v-html="$t('title-create-disabled')"
+            />
+            <p>{{ $t('text-create-disabled') }}</p>
           </b-card>
 
           <!-- Secret created, show secret URL -->
@@ -176,6 +192,10 @@ export default {
   },
 
   computed: {
+    otsOptions() {
+      return otsOptions
+    },
+
     secretUrl() {
       return `${window.location.href}#${this.secretId}|${this.securePassword}`
     },
