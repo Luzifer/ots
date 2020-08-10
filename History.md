@@ -1,3 +1,9 @@
+# 0.18.0 / 2020-08-10
+
+  * Remove unused assets, bundle Latvian translation
+  * Latvian translation (#25) (Thanks to [@Stegadons](https://github.com/Stegadons)!)
+  * npm update / audit fix / bundle update
+
 # 0.17.3 / 2020-06-02
 
   * Update node dependencies and rebuild packed frontend
@@ -26,7 +32,7 @@
 
 # 0.16.0 / 2019-07-20
 
-  * Add french language translation (#10)
+  * Add french language translation (#10) (Thanks to [@ometra](https://github.com/ometra)!)
 
 # 0.15.0 / 2019-07-14
 
