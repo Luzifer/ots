@@ -1,6 +1,6 @@
 VER_BOOTSTRAP=4.3.1
 VER_BOOTSWATCH=4.3.1
-VER_FONTAWESOME=5.9.0
+VER_FONTAWESOME=5.14.0
 VER_GIBBERISH_AES=1.0.0
 VER_JQUERY=3.4.1
 VER_POPPER=1.15.0
@@ -24,7 +24,7 @@ publish:
 clean_libs:
 	rm -rf frontend/css frontend/webfonts frontend/js
 
-download_libs: clean_libs fontawesome libs_js libs_css
+download_libs: clean_libs fontawesome #libs_js libs_css
 
 fontawesome:
 	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \
