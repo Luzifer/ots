@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "<strong>Ziņa nav atrasta!</strong>&hellip; - Ja ievadītā saite ir pareiza, tad ir beidzies ziņas glabāšanas laiks, vai arī tā jau vienreiz ir atvērta.",
+  "alert-something-went-wrong": "Neparedzēta sistēmas kļūda. Atvainojiet par sagādātajām neērtībām&hellip;",
+  "btn-create-secret": "Šifrēt ziņu!",
+  "btn-new-secret": "Jauna ziņa",
+  "btn-reveal-secret": "Atvērt ziņu!",
+  "btn-show-explanation": "Kā tas strādā?",
+  "items-explanation": [
+    "Tu ievadi ziņu ievades laukā",
+    "Pārlūks nošifrē ziņu ar uzģenerētu paroli",
+    "Tikai šifrētā ziņa tiek nosūtīta serverim (nešifrētā ziņa un parole sūtīta netiek!)",
+    "Serveris noteiktu laiku glabā šifrēto ziņu",
+    "Tu nodod URL ar ziņas ID un atšifrēšanas paroli saņēmējam",
+    "Saņēmējs var atvērt ziņu tikai vienreiz: ja tas neizdodas, iespējams, ziņu jau atvēris kāds cits!",
+    "Kad ziņa tiek atvērta pirmo reizi, tā no servera tiek dzēsta"
+  ],
+  "label-secret-data": "Ziņa:",
+  "text-burn-hint": "Lūdzu atceries neatvērt saiti pats, jo tad ziņa tiks dzēsta. Nodod saiti ziņas saņēmējam!",
+  "text-hint-burned": "<strong>Uzmanību:</strong> Ziņa tiek parādīta tikai vienu reizi. Līdzko lapa tiks pārlādēta, ziņa būs neatgriezeniski zaudēta, tāpēc nepieciešamības gadījumā nokopē to tagad&hellip;",
+  "text-powered-by": "Darbina",
+  "text-pre-reveal-hint": "Lai parādītu ziņu nospied šo pogu, bet rēķinies ar to, ka pēc apskates ziņa vairs nebūs pieejama. To var atvērt tikai vienreiz!",
+  "text-pre-url": "Ziņa ir nošifrēta un ir atverama šajā adresē:",
+  "title-explanation": "Tā tas strādā&hellip;",
+  "title-new-secret": "Šifrēt ziņu",
+  "title-reading-secret": "Atver ziņu&hellip;",
+  "title-secret-created": "Ziņa nošifrēta!"
+}
