@@ -1,3 +1,7 @@
+# 0.18.1 / 2020-10-20
+
+  * Fix: Update node dependencies
+
 # 0.18.0 / 2020-08-10
 
   * Remove unused assets, bundle Latvian translation
