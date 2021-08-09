@@ -95,7 +95,7 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 
 func (a apiServer) jsonResponse(res http.ResponseWriter, status int, response map[string]interface{}) {
 	res.Header().Set("Content-Type", "application/json")
-	res.Header().Set("Cache-Control", "no-cache")
+	res.Header().Set("Cache-Control", "no-store, max-age=0")
 	res.WriteHeader(status)
 
 	json.NewEncoder(res).Encode(response)
