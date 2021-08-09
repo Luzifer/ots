@@ -1,3 +1,7 @@
+# 0.19.0 / 2021-08-09
+
+  * Change Cache-Control on responses to no-store (#37)
+
 # 0.18.1 / 2020-10-20
 
   * Fix: Update node dependencies
