@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!",
+  "alert-something-went-wrong": "Er ging iets verkeerd, sorry&hellip;",
+  "btn-create-secret": "Nieuwe vertrouwelijke info aanmaken!",
+  "btn-new-secret": "Nieuw",
+  "btn-reveal-secret": "Toon mij de vertrouwelijke info!",
+  "btn-show-explanation": "Hoe werkt dit?",
+  "items-explanation": [
+    "Je vult vertrouwelijke informatie in op deze pagina.",
+    "Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.",
+    "Alleen de versleutelde data wordt naar de server gestuurd. (De leesbare versie of het wachtwoord worden nooit verstuurd!)",
+    "De server slaat de versleutelde data gedurende een beperkte periode op.",
+    "Je geeft de URL met identificatie en het gegenereerde wachtwoord aan de ontvanger.",
+    "De ontvanger kan de vertrouwelijke informatie exact eenmaal bekijken: indien het niet lukt heeft mogelijk iemand anders de info gezien!",
+    "De versleutelde data wordt van de server gewist van zodra de ontvanger het bekeken heeft."
+  ],
+  "label-secret-data": "Vertrouwelijke info:",
+  "text-burn-hint": "Bezoek de URL niet zelf: je kan deze slechts eenmaal gebruiken. Geef de URL aan de ontvanger.",
+  "text-hint-burned": "<strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.",
+  "text-powered-by": "Mogelijk gemaakt door",
+  "text-pre-reveal-hint": "Gebruik deze knop om de vertrouwelijke info op te halen. Let op: Je kan dit slechts eenmaal doen!",
+  "text-pre-url": "Je vertrouwelijke informatie kan opgevraagd worden via deze URL:",
+  "title-explanation": "Dit is hoe het werkt&hellip;",
+  "title-new-secret": "Nieuwe vertrouwelijke info opslaan",
+  "title-reading-secret": "Vertrouwelijke info lezen&hellip;",
+  "title-secret-created": "Vertrouwelijke info opgeslaan!"
+}
