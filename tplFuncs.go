@@ -12,7 +12,10 @@ var tplFuncs = template.FuncMap{
 }
 
 func assetSRIHash(assetName string) string {
-	data := MustAsset(path.Join("frontend", assetName))
+	data, err := assets.ReadFile(path.Join("frontend", assetName))
+	if err != nil {
+		panic(err)
+	}
 
 	h := sha512.New384()
 	h.Write(data)
