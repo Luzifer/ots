@@ -177,7 +177,13 @@ export default {
 
   computed: {
     secretUrl() {
-      return `${window.location.href}#${this.secretId}|${this.securePassword}`
+      return [
+        window.location.href,
+        encodeURIComponent([
+          this.secretId,
+          this.securePassword,
+        ].join('|')),
+      ].join('#')
     },
   },
 
