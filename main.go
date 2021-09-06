@@ -67,13 +67,14 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 		assetName = "/index.html"
 	}
 
-	if strings.LastIndex(assetName, ".") < 0 {
+	dot := strings.LastIndex(assetName, ".")
+	if dot < 0 {
 		// There are no assets with no dot in it
 		http.Error(res, "404 not found", http.StatusNotFound)
 		return
 	}
 
-	ext := assetName[strings.LastIndex(assetName, "."):]
+	ext := assetName[dot:]
 	assetData, err := Asset(path.Join("frontend", assetName))
 	if err != nil {
 		http.Error(res, "404 not found", http.StatusNotFound)
