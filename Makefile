@@ -11,7 +11,7 @@ VER_VUE_I18N=8.12.0
 default: generate
 
 generate: download_libs
-	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:10-alpine \
+	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:14-alpine \
 		sh -exc "npx npm@lts ci && npx npm@lts run build && chown -R $(shell id -u) ../frontend node_modules"
 
 publish:
@@ -23,16 +23,8 @@ publish:
 clean_libs:
 	rm -rf frontend/css frontend/webfonts frontend/js
 
-download_libs: clean_libs fontawesome #libs_js libs_css
+download_libs: clean_libs fontawesome
 
 fontawesome:
 	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \
 		tar -vC frontend -xz --strip-components=1 --wildcards --exclude='*/js-packages' '*/css' '*/webfonts'
-
-libs_css:
-	mkdir -p frontend/css
-	curl -sSfLo frontend/css/bundle.css "https://cdn.jsdelivr.net/combine/npm/bootstrap@$(VER_BOOTSTRAP)/dist/css/bootstrap.min.css,npm/bootswatch@$(VER_BOOTSWATCH)/dist/flatly/bootstrap.min.css"
-
-libs_js:
-	mkdir -p frontend/js
-	curl -sSfLo frontend/js/bundle.js "https://cdn.jsdelivr.net/combine/npm/jquery@$(VER_JQUERY),npm/popper.js@$(VER_POPPER),npm/bootstrap@$(VER_BOOTSTRAP)/dist/js/bootstrap.min.js,npm/gibberish-aes@$(VER_GIBBERISH_AES)/dist/gibberish-aes-$(VER_GIBBERISH_AES).min.js,npm/vue@$(VER_VUE),npm/vue-i18n@$(VER_VUE_I18N)/dist/vue-i18n.min.js"

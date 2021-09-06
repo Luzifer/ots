@@ -10,7 +10,6 @@ module.exports = {
     path: path.resolve(__dirname, '..', 'frontend'),
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -39,7 +38,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [['env', { targets: { browsers: ['>0.25%', 'not ie 11', 'not op_mini all'] } }]],
+            presets: [['@babel/preset-env', { targets: { browsers: ['>0.25%', 'not ie 11', 'not op_mini all'] } }]],
           },
         },
       },
