@@ -1,8 +1,7 @@
 package main
 
-//go:generate go-bindata -pkg $GOPACKAGE -o assets.go -modtime 1 -md5checksum ./frontend/...
-
 import (
+	"embed"
 	"fmt"
 	"mime"
 	"net/http"
@@ -28,6 +27,9 @@ var (
 	product = "ots"
 	version = "dev"
 )
+
+//go:embed frontend/*
+var assets embed.FS
 
 func init() {
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
@@ -75,7 +77,7 @@ func assetDelivery(res http.ResponseWriter, r *http.Request) {
 	}
 
 	ext := assetName[dot:]
-	assetData, err := Asset(path.Join("frontend", assetName))
+	assetData, err := assets.ReadFile(path.Join("frontend", assetName))
 	if err != nil {
 		http.Error(res, "404 not found", http.StatusNotFound)
 		return

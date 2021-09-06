@@ -1,6 +1,6 @@
 module github.com/Luzifer/ots
 
-go 1.13
+go 1.16
 
 require (
 	github.com/Luzifer/go_helpers/v2 v2.10.0
