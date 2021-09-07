@@ -1,3 +1,14 @@
+# 0.20.0 / 2021-09-07
+
+  * Switch to structs instead of maps in api (#40)
+  * [#35] Encode pipe in secret URL by default
+  * Update dependencies, upgrade build utils
+  * Add dutch translation (#39)
+  * Switch to Go 1.16 embed functionality (#42)
+  * Remove duplicate call LastIndex (#41)
+
+Many thanks to [@sorcix](https://github.com/sorcix) for the contributions to this release!
+
 # 0.19.0 / 2021-08-09
 
   * Change Cache-Control on responses to no-store (#37)
