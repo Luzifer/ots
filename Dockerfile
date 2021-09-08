@@ -4,7 +4,13 @@ COPY . /go/src/github.com/Luzifer/ots
 WORKDIR /go/src/github.com/Luzifer/ots
 
 RUN set -ex \
- && apk add --update git \
+ && apk add --update \
+      curl \
+      git \
+      make \
+      tar \
+      unzip \
+ && make download_libs \
  && go install \
       -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
       -mod=readonly

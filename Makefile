@@ -1,29 +1,27 @@
-VER_BOOTSTRAP=4.3.1
-VER_BOOTSWATCH=4.3.1
 VER_FONTAWESOME=5.14.0
-VER_GIBBERISH_AES=1.0.0
-VER_JQUERY=3.4.1
-VER_POPPER=1.15.0
-VER_VUE=2.6.10
-VER_VUE_I18N=8.12.0
 
 
-default: generate
+default: generate download_libs
 
-generate: download_libs
+generate:
 	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:14-alpine \
 		sh -exc "npx npm@lts ci && npx npm@lts run build && chown -R $(shell id -u) ../frontend node_modules"
 
-publish:
+publish: download_libs
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh
 
 # -- Download / refresh external libraries --
 
 clean_libs:
-	rm -rf frontend/css frontend/webfonts frontend/js
+	rm -rf \
+		frontend/css \
+		frontend/js \
+		frontend/openssl \
+		frontend/webfonts
 
-download_libs: clean_libs fontawesome
+download_libs: clean_libs
+download_libs: fontawesome
 
 fontawesome:
 	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \

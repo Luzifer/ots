@@ -4,6 +4,8 @@ image: "reporunner/golang-alpine"
 checkout_dir: /go/src/github.com/Luzifer/ots
 
 commands:
+  # Dependencies for downloading libraries
+  - apk add --update curl git make tar unzip
   - make publish
 
 environment:
