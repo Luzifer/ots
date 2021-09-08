@@ -1,3 +1,7 @@
+# 0.20.1 / 2021-09-08
+
+  * [#44] Fix missing libraries within compiles binary / container
+
 # 0.20.0 / 2021-09-07
 
   * Switch to structs instead of maps in api (#40)
