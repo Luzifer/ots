@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="css/all.min.css"/>
 
     <title>OTS - One Time Secrets</title>
+
+    <script>
+      window.getTheme = () => localStorage.getItem('set-color-scheme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+
+      window.refreshTheme = () => {
+        document.querySelector('html').setAttribute('mode', window.getTheme())
+      }
+
+      window.setTheme = (theme) => {
+        localStorage.setItem('set-color-scheme', theme)
+        window.refreshTheme()
+      }
+
+      // Very early load of theme definition to avoid flickering
+      document.addEventListener('DOMContentLoaded', () => window.refreshTheme())
+    </script>
   </head>
   <body>
     <div id="app"></div>

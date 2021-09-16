@@ -25,6 +25,14 @@
           <b-nav-item @click="newSecret">
             <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
           </b-nav-item>
+          <b-nav-form class="ml-2">
+            <b-form-checkbox
+              v-model="darkTheme"
+              switch
+            >
+              <i class="fas fa-moon" />&ZeroWidthSpace;
+            </b-form-checkbox>
+          </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -172,6 +180,7 @@ export default {
       securePassword: '',
       secretId: '',
       showError: false,
+      darkTheme: false,
     }
   },
 
@@ -187,8 +196,15 @@ export default {
     },
   },
 
+  watch: {
+    darkTheme(to) {
+      window.setTheme(to ? 'dark' : 'light')
+    },
+  },
+
   // Trigger initialization functions
   mounted() {
+    this.darkTheme = window.getTheme() === 'dark'
     window.onhashchange = this.hashLoad
     this.hashLoad()
   },
@@ -269,14 +285,3 @@ export default {
   },
 }
 </script>
-
-<style>
-textarea {
-  font-family: monospace;
-}
-.footer {
-  color: #2f2f2f;
-  font-size: 0.9em;
-  text-align: center;
-}
-</style>

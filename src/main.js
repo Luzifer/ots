@@ -5,7 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootswatch/dist/flatly/bootstrap.css'
+import './style.scss'
 
 import app from './app.vue'
 import messages from './langs/langs.js'

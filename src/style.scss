@@ -1,0 +1,50 @@
+:root { 
+
+  &[mode="dark"] {
+    @import "node_modules/bootswatch/dist/darkly/bootstrap";
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+      border-color: #333;
+      background-color: #444;
+    }
+
+    .footer {
+      color: #d1d1d1;
+    }
+
+    .form-control {
+      /* Force overwrite bright textareas */
+      background-color: rgb(24, 26, 27);
+      border-color: rgb(129, 120, 106);
+      color: rgb(189, 183, 175);
+
+      &:focus {
+        background-color: rgb(24, 26, 27);
+        border-color: rgb(49, 81, 113);
+        color: rgb(189, 183, 175);
+      }
+
+      &[readonly] {
+        background-color: rgb(24, 26, 27);
+      }
+    }
+  }
+
+  &[mode="light"] {
+    @import "node_modules/bootswatch/dist/flatly/bootstrap";
+
+    .footer {
+      color: #2f2f2f;
+    }
+  }
+
+  textarea {
+    font-family: monospace !important;
+  }
+
+  .footer {
+    font-size: 0.9em;
+    text-align: center;
+  }
+
+}
