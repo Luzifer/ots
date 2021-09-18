@@ -1,3 +1,7 @@
+# 0.21.0 / 2021-09-18
+
+  * Add Theme-Switcher for Dark-/Light-Mode
+
 # 0.20.1 / 2021-09-08
 
   * [#44] Fix missing libraries within compiles binary / container
