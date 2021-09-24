@@ -48,6 +48,14 @@ module.exports = {
         loader: 'vue-loader',
       },
 
+      {
+        test: /\.woff2/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[name][ext]',
+        },
+      },
+
     ],
   },
 }
