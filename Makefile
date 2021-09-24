@@ -12,7 +12,8 @@ generate-inner:
 	npx npm@lts run build
 	chown -R $(shell id -u) ../frontend node_modules
 
-publish: generate download_libs
+publish: download_libs
+	$(MAKE) -C src -f ../Makefile generate-inner
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh
 
