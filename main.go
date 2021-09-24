@@ -86,8 +86,19 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Write(assetData)
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+var cspHeader = strings.Join([]string{
+	"default-src 'none'",
+	"connect-src 'self'",
+	"font-src 'self'",
+	"img-src 'self'",
+	"script-src 'self' 'unsafe-inline'",
+	"style-src 'self' 'unsafe-inline'",
+}, ";")
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	indexTpl, err := assets.ReadFile("frontend/index.html")
@@ -101,6 +112,12 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
 		return
 	}
+
+	w.Header().Set("Referrer-Policy", "no-referrer")
+	w.Header().Set("X-Frame-Options", "DENY")
+	w.Header().Set("X-Xss-Protection", "1; mode=block")
+	w.Header().Set("Content-Security-Policy", cspHeader)
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 
 	if err = tpl.Execute(w, struct {
 		Vars map[string]string
