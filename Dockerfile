@@ -8,7 +8,6 @@ WORKDIR /go/src/github.com/Luzifer/ots
 
 RUN set -ex \
  && pacman --noconfirm -Syy \
- && pacman --noconfirm -S \
       curl \
       git \
       go \
