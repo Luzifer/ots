@@ -4,8 +4,8 @@ VER_FONTAWESOME=5.14.0
 default: generate download_libs
 
 generate:
-	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:14-alpine \
-		make generate-inner
+	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:14-alpine \
+		sh -exc "apk add make && make -C src -f ../Makefile generate-inner"
 
 generate-inner:
 	npx npm@lts ci

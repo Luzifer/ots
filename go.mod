@@ -7,6 +7,7 @@ require (
 	github.com/Luzifer/rconfig/v2 v2.2.1
 	github.com/gofrs/uuid/v3 v3.1.2
 	github.com/gorilla/mux v1.7.3
+	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.4.2
 	github.com/xuyu/goredis v0.0.0-20160929021245-89fbe9474b37
 )

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"embed"
 	"fmt"
 	"mime"
@@ -8,8 +9,10 @@ import (
 	"os"
 	"path"
 	"strings"
+	"text/template"
 
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
@@ -23,6 +26,8 @@ var (
 		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
+
+	cachedIndex []byte
 
 	product = "ots"
 	version = "dev"
@@ -56,38 +61,66 @@ func main() {
 	api := newAPI(store)
 
 	r := mux.NewRouter()
+	r.Use(http_helpers.GzipHandler)
+
 	api.Register(r.PathPrefix("/api").Subrouter())
-	r.HandleFunc("/vars.js", handleVars)
-	r.PathPrefix("/").HandlerFunc(http_helpers.GzipFunc(assetDelivery))
+
+	r.HandleFunc("/", handleIndex)
+	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
 	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
 }
 
-func assetDelivery(res http.ResponseWriter, r *http.Request) {
+func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	assetName := r.URL.Path
-	if assetName == "/" {
-		assetName = "/index.html"
-	}
 
 	dot := strings.LastIndex(assetName, ".")
 	if dot < 0 {
 		// There are no assets with no dot in it
-		http.Error(res, "404 not found", http.StatusNotFound)
+		http.Error(w, "404 not found", http.StatusNotFound)
 		return
 	}
 
 	ext := assetName[dot:]
 	assetData, err := assets.ReadFile(path.Join("frontend", assetName))
 	if err != nil {
-		http.Error(res, "404 not found", http.StatusNotFound)
+		http.Error(w, "404 not found", http.StatusNotFound)
 		return
 	}
 
-	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
-	res.Write(assetData)
+	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	w.Write(assetData)
 }
 
-func handleVars(w http.ResponseWriter, r *http.Request) {
+func handleIndex(w http.ResponseWriter, r *http.Request) {
+	if cachedIndex != nil {
+		w.Write(cachedIndex)
+		return
+	}
+
+	indexTpl, err := assets.ReadFile("frontend/index.html")
+	if err != nil {
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
+	}
+
+	tpl, err := template.New("index.html").Funcs(tplFuncs).Parse(string(indexTpl))
+	if err != nil {
+		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		return
+	}
+
+	buf := new(bytes.Buffer)
+	if err = tpl.Execute(buf, struct{ Vars map[string]string }{Vars: getJSVars(r)}); err != nil {
+		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		return
+	}
+
+	cachedIndex = buf.Bytes()
+	w.Write(buf.Bytes())
+}
+
+func getJSVars(r *http.Request) map[string]string {
 	cookie, _ := r.Cookie("lang")
 
 	cookieLang := ""
@@ -110,10 +143,7 @@ func handleVars(w http.ResponseWriter, r *http.Request) {
 		vars["locale"] = defaultLang
 	}
 
-	w.Header().Set("Content-Type", "application/javascript")
-	for k, v := range vars {
-		fmt.Fprintf(w, "var %s = %q\n", k, v)
-	}
+	return vars
 }
 
 func normalizeLang(lang string) string {
