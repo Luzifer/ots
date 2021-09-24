@@ -4,14 +4,22 @@ import (
 	"crypto/sha512"
 	"encoding/base64"
 	"path"
+	"sync"
 	"text/template"
 )
 
-var tplFuncs = template.FuncMap{
-	"SRIHash": assetSRIHash,
-}
+var (
+	sriCacheStore = newSRICache()
+	tplFuncs      = template.FuncMap{
+		"SRIHash": assetSRIHash,
+	}
+)
 
 func assetSRIHash(assetName string) string {
+	if sri, ok := sriCacheStore.Get(assetName); ok {
+		return sri
+	}
+
 	data, err := assets.ReadFile(path.Join("frontend", assetName))
 	if err != nil {
 		panic(err)
@@ -21,5 +29,29 @@ func assetSRIHash(assetName string) string {
 	h.Write(data)
 	sum := h.Sum(nil)
 
-	return "sha384-" + base64.StdEncoding.EncodeToString(sum)
+	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum)
+	sriCacheStore.Set(assetName, sri)
+	return sri
+}
+
+type sriCache struct {
+	c map[string]string
+	l sync.RWMutex
+}
+
+func newSRICache() *sriCache { return &sriCache{c: map[string]string{}} }
+
+func (s *sriCache) Get(assetName string) (string, bool) {
+	s.l.RLock()
+	defer s.l.RUnlock()
+
+	h, ok := s.c[assetName]
+	return h, ok
+}
+
+func (s *sriCache) Set(assetName, hash string) {
+	s.l.Lock()
+	defer s.l.Unlock()
+
+	s.c[assetName] = hash
 }

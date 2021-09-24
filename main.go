@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"embed"
 	"fmt"
 	"mime"
@@ -26,8 +25,6 @@ var (
 		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
-
-	cachedIndex []byte
 
 	product = "ots"
 	version = "dev"
@@ -93,11 +90,6 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	if cachedIndex != nil {
-		w.Write(cachedIndex)
-		return
-	}
-
 	indexTpl, err := assets.ReadFile("frontend/index.html")
 	if err != nil {
 		http.Error(w, "404 not found", http.StatusNotFound)
@@ -110,14 +102,10 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	buf := new(bytes.Buffer)
-	if err = tpl.Execute(buf, struct{ Vars map[string]string }{Vars: getJSVars(r)}); err != nil {
+	if err = tpl.Execute(w, struct{ Vars map[string]string }{Vars: getJSVars(r)}); err != nil {
 		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
 		return
 	}
-
-	cachedIndex = buf.Bytes()
-	w.Write(buf.Bytes())
 }
 
 func getJSVars(r *http.Request) map[string]string {
