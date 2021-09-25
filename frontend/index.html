@@ -6,9 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    {{ range (list "webfonts/fa-solid-900.woff2" "webfonts/fa-brands-400.woff2" "lato-v20-latin-ext_latin-regular.woff2" "lato-v20-latin-ext_latin-700.woff2") }}
     <link
+      as="font"
+      crossorigin="anonymous"
+      href="{{ . }}"
+      integrity="{{ assetSRI . }}"
+      rel="preload"
+    >
+    {{ end }}
+
+    <link
+      crossorigin="anonymous"
       href="css/all.min.css"
-      integrity="{{ SRIHash `css/all.min.css` }}"
+      integrity="{{ assetSRI `css/all.min.css` }}"
       rel="stylesheet"
     >
 
@@ -39,7 +50,8 @@
     <div id="app"></div>
 
     <script
-      integrity="{{ SRIHash `app.js` }}"
+      crossorigin="anonymous"
+      integrity="{{ assetSRI `app.js` }}"
       src="app.js"
     ></script>
   </body>

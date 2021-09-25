@@ -11,7 +11,8 @@ import (
 var (
 	sriCacheStore = newSRICache()
 	tplFuncs      = template.FuncMap{
-		"SRIHash": assetSRIHash,
+		"list":     func(args ...string) []string { return args },
+		"assetSRI": assetSRIHash,
 	}
 )
 
