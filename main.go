@@ -120,12 +120,10 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Security-Policy", cspHeader)
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
-	if err = tpl.Execute(w, struct {
-		Vars map[string]string
+	if err := indexTpl.Execute(w, struct {
+		Version string
 	}{
-		Vars: map[string]string{
-			"version": version,
-		},
+		Version: version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
