@@ -90,29 +90,29 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	w.Write(assetData)
 }
 
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-var cspHeader = strings.Join([]string{
-	"default-src 'none'",
-	"connect-src 'self'",
-	"font-src 'self'",
-	"img-src 'self'",
-	"script-src 'self' 'unsafe-inline'",
-	"style-src 'self' 'unsafe-inline'",
-}, ";")
+var (
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+	cspHeader = strings.Join([]string{
+		"default-src 'none'",
+		"connect-src 'self'",
+		"font-src 'self'",
+		"img-src 'self'",
+		"script-src 'self' 'unsafe-inline'",
+		"style-src 'self' 'unsafe-inline'",
+	}, ";")
+
+	indexTpl *template.Template
+)
+
+func init() {
+	source, err := assets.ReadFile("frontend/index.html")
+	if err != nil {
+		log.WithError(err).Fatal("frontend folder should contain index.html Go template")
+	}
+	indexTpl = template.Must(template.New("index.html").Funcs(tplFuncs).Parse(string(source)))
+}
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	indexTpl, err := assets.ReadFile("frontend/index.html")
-	if err != nil {
-		http.Error(w, "404 not found", http.StatusNotFound)
-		return
-	}
-
-	tpl, err := template.New("index.html").Funcs(tplFuncs).Parse(string(indexTpl))
-	if err != nil {
-		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
-		return
-	}
-
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Referrer-Policy", "no-referrer")
 	w.Header().Set("X-Frame-Options", "DENY")
@@ -127,7 +127,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 			"version": version,
 		},
 	}); err != nil {
-		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
 }
