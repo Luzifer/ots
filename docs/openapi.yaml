@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+  description: >
+    OTS is a one-time-secret sharing platform.
+
+
+    When using the web application, the secret is encrypted with a symmetric
+    256bit AES encryption in the browser before being sent to the server.
+    Afterwards an URL containing the ID of the secret and the password is
+    generated. The password is never sent to the server so the server will never
+    be able to decrypt the secrets it delivers with a reasonable effort.
+
+
+    This API allows you to store and read the same secrets as the web
+    application.
+  title: Luzifer/OTS API
+  version: 0.x
+externalDocs:
+  description: Luzifer/OTS on Github
+  url: https://github.com/Luzifer/ots
+servers:
+  - url: https://ots.fyi/api
+    description: Public hosted instance
+paths:
+  /create:
+    post:
+      summary: Store a new secret on the OTS server
+      description: >-
+        You should encrypt the secret prior to sending it to the server. For
+        maximum compatibility, [use the same encryption as the web
+        application](https://github.com/Luzifer/ots). Plain text secrets are
+        supported but not recommended.
+
+
+        To generate a URL that works with the web application, append
+        `#SECRET_ID|PASSWORD` after the URL. For an instance on
+        `https://ots.fyi`, the example response in this documentation would
+        become `https://ots.fyi/#5e0065ee-5734-4548-9fd3-bb0bcd4c899d|mypass`.
+        Note that you should correctly [percent
+        encode](https://datatracker.ietf.org/doc/html/rfc3986) the `|` (pipe)
+        character for it to work in all browsers. 
+      operationId: createSecret
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Secret'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Secret'
+      responses:
+        '200':
+          description: Reference to the newly stored secret.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedSecret'
+        '400':
+          description: Secret missing or invalid JSON body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error, nothing is wrong with the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /get/{id}:
+    get:
+      summary: Retrieve an existing secret from the OTS server
+      description: >-
+        You may need to decrypt the secret after retrieving it. For maximum
+        compatibility, [use the same encryption as the web
+        application](https://github.com/Luzifer/ots). Plain text secrets are
+        supported but not recommended.
+      operationId: getSecret
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            example: 5e0065ee-5734-4548-9fd3-bb0bcd4c899d
+          required: true
+          description: Reference to the stored secret.
+      responses:
+        '200':
+          description: Stored secret contents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrievedSecret'
+        '400':
+          description: Secret ID missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Secret does not exist, may be read by someone else.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error, nothing is wrong with the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Secret:
+      type: object
+      properties:
+        secret:
+          type: string
+          example: U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ=
+      required:
+        - secret
+    CreatedSecret:
+      type: object
+      properties:
+        success:
+          type: boolean
+        secret_id:
+          type: string
+          example: 5e0065ee-5734-4548-9fd3-bb0bcd4c899d
+    RetrievedSecret:
+      type: object
+      properties:
+        success:
+          type: boolean
+        secret:
+          type: string
+          example: U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ=
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: Something went wrong.
