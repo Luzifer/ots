@@ -1,7 +1,14 @@
+// Force local fonts
+$web-font-path: '';
+
+@import "lato";
+
 :root { 
 
   &[mode="dark"] {
-    @import "node_modules/bootswatch/dist/darkly/bootstrap";
+    @import "node_modules/bootswatch/dist/darkly/_variables";
+    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootswatch/dist/darkly/_bootswatch";
 
     .custom-control-input:checked ~ .custom-control-label::before {
       border-color: #333;
@@ -31,7 +38,9 @@
   }
 
   &[mode="light"] {
-    @import "node_modules/bootswatch/dist/flatly/bootstrap";
+    @import "node_modules/bootswatch/dist/flatly/_variables";
+    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootswatch/dist/flatly/_bootswatch";
 
     .footer {
       color: #2f2f2f;

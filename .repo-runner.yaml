@@ -1,13 +1,14 @@
 ---
 
-image: "reporunner/golang-alpine"
+image: "reporunner/archlinux"
 checkout_dir: /go/src/github.com/Luzifer/ots
 
 commands:
   # Dependencies for downloading libraries
-  - apk add --update curl git make tar unzip
+  - pacman -Syy --noconfirm awk curl git go make nodejs-lts-fermium npm tar unzip which zip
   - make publish
 
 environment:
-  DRAFT: "false"
   CGO_ENABLED: 0
+  DRAFT: "false"
+  GOPATH: /go

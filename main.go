@@ -8,8 +8,10 @@ import (
 	"os"
 	"path"
 	"strings"
+	"text/template"
 
 	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
@@ -56,66 +58,58 @@ func main() {
 	api := newAPI(store)
 
 	r := mux.NewRouter()
+	r.Use(http_helpers.GzipHandler)
+
 	api.Register(r.PathPrefix("/api").Subrouter())
-	r.HandleFunc("/vars.js", handleVars)
-	r.PathPrefix("/").HandlerFunc(http_helpers.GzipFunc(assetDelivery))
+
+	r.HandleFunc("/", handleIndex)
+	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
 	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
 }
 
-func assetDelivery(res http.ResponseWriter, r *http.Request) {
+func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	assetName := r.URL.Path
-	if assetName == "/" {
-		assetName = "/index.html"
-	}
 
 	dot := strings.LastIndex(assetName, ".")
 	if dot < 0 {
 		// There are no assets with no dot in it
-		http.Error(res, "404 not found", http.StatusNotFound)
+		http.Error(w, "404 not found", http.StatusNotFound)
 		return
 	}
 
 	ext := assetName[dot:]
 	assetData, err := assets.ReadFile(path.Join("frontend", assetName))
 	if err != nil {
-		http.Error(res, "404 not found", http.StatusNotFound)
+		http.Error(w, "404 not found", http.StatusNotFound)
 		return
 	}
 
-	res.Header().Set("Content-Type", mime.TypeByExtension(ext))
-	res.Write(assetData)
+	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	w.Write(assetData)
 }
 
-func handleVars(w http.ResponseWriter, r *http.Request) {
-	cookie, _ := r.Cookie("lang")
-
-	cookieLang := ""
-	if cookie != nil {
-		cookieLang = cookie.Value
-	}
-	acceptLang := r.Header.Get("Accept-Language")
-	defaultLang := "en" // known valid language
-
-	vars := map[string]string{
-		"version": version,
+func handleIndex(w http.ResponseWriter, r *http.Request) {
+	indexTpl, err := assets.ReadFile("frontend/index.html")
+	if err != nil {
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
 	}
 
-	switch {
-	case cookieLang != "":
-		vars["locale"] = normalizeLang(cookieLang)
-	case acceptLang != "":
-		vars["locale"] = normalizeLang(strings.Split(acceptLang, ",")[0])
-	default:
-		vars["locale"] = defaultLang
+	tpl, err := template.New("index.html").Funcs(tplFuncs).Parse(string(indexTpl))
+	if err != nil {
+		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		return
 	}
 
-	w.Header().Set("Content-Type", "application/javascript")
-	for k, v := range vars {
-		fmt.Fprintf(w, "var %s = %q\n", k, v)
+	if err = tpl.Execute(w, struct {
+		Vars map[string]string
+	}{
+		Vars: map[string]string{
+			"version": version,
+		},
+	}); err != nil {
+		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		return
 	}
-}
-
-func normalizeLang(lang string) string {
-	return strings.ToLower(strings.Split(lang, "-")[0])
 }

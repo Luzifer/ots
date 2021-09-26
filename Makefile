@@ -4,10 +4,15 @@ VER_FONTAWESOME=5.14.0
 default: generate download_libs
 
 generate:
-	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR)/src node:14-alpine \
-		sh -exc "npx npm@lts ci && npx npm@lts run build && chown -R $(shell id -u) ../frontend node_modules"
+	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:14-alpine \
+		sh -exc "apk add make && make -C src -f ../Makefile generate-inner && chown -R $(shell id -u) frontend src/node_modules"
+
+generate-inner:
+	npx npm@lts ci
+	npx npm@lts run build
 
 publish: download_libs
+	$(MAKE) -C src -f ../Makefile generate-inner
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh
 
