@@ -41,9 +41,7 @@
       document.addEventListener('DOMContentLoaded', () => window.refreshTheme())
 
       // Template variable from Golang process
-      {{- range $key, $value := .Vars }}
-      const {{ $key }} = "{{ $value }}"
-      {{- end }}
+      const version = "{{ .Version }}"
     </script>
   </head>
   <body>

@@ -86,30 +86,46 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Write(assetData)
 }
 
+var (
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+	cspHeader = strings.Join([]string{
+		"default-src 'none'",
+		"connect-src 'self'",
+		"font-src 'self'",
+		"img-src 'self'",
+		"script-src 'self' 'unsafe-inline'",
+		"style-src 'self' 'unsafe-inline'",
+	}, ";")
+
+	indexTpl *template.Template
+)
+
+func init() {
+	source, err := assets.ReadFile("frontend/index.html")
+	if err != nil {
+		log.WithError(err).Fatal("frontend folder should contain index.html Go template")
+	}
+	indexTpl = template.Must(template.New("index.html").Funcs(tplFuncs).Parse(string(source)))
+}
+
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	indexTpl, err := assets.ReadFile("frontend/index.html")
-	if err != nil {
-		http.Error(w, "404 not found", http.StatusNotFound)
-		return
-	}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Referrer-Policy", "no-referrer")
+	w.Header().Set("X-Frame-Options", "DENY")
+	w.Header().Set("X-Xss-Protection", "1; mode=block")
+	w.Header().Set("Content-Security-Policy", cspHeader)
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 
-	tpl, err := template.New("index.html").Funcs(tplFuncs).Parse(string(indexTpl))
-	if err != nil {
-		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if err = tpl.Execute(w, struct {
-		Vars map[string]string
+	if err := indexTpl.Execute(w, struct {
+		Version string
 	}{
-		Vars: map[string]string{
-			"version": version,
-		},
+		Version: version,
 	}); err != nil {
-		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
+		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
 }
