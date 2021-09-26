@@ -102,38 +102,14 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = tpl.Execute(w, struct{ Vars map[string]string }{Vars: getJSVars(r)}); err != nil {
+	if err = tpl.Execute(w, struct {
+		Vars map[string]string
+	}{
+		Vars: map[string]string{
+			"version": version,
+		},
+	}); err != nil {
 		http.Error(w, errors.Wrap(err, "parsing template").Error(), http.StatusInternalServerError)
 		return
 	}
-}
-
-func getJSVars(r *http.Request) map[string]string {
-	cookie, _ := r.Cookie("lang")
-
-	cookieLang := ""
-	if cookie != nil {
-		cookieLang = cookie.Value
-	}
-	acceptLang := r.Header.Get("Accept-Language")
-	defaultLang := "en" // known valid language
-
-	vars := map[string]string{
-		"version": version,
-	}
-
-	switch {
-	case cookieLang != "":
-		vars["locale"] = normalizeLang(cookieLang)
-	case acceptLang != "":
-		vars["locale"] = normalizeLang(strings.Split(acceptLang, ",")[0])
-	default:
-		vars["locale"] = defaultLang
-	}
-
-	return vars
-}
-
-func normalizeLang(lang string) string {
-	return strings.ToLower(strings.Split(lang, "-")[0])
 }

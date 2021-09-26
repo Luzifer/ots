@@ -13,8 +13,12 @@ import messages from './langs/langs.js'
 Vue.use(BootstrapVue)
 Vue.use(VueI18n)
 
+const cookieSet = Object.fromEntries(document.cookie.split('; ')
+  .map(el => el.split('=')
+    .map(el => decodeURIComponent(el))))
+
 const i18n = new VueI18n({
-  locale,
+  locale: cookieSet.lang?.split(/[_-]/)[0] || navigator?.language?.split(/[_-]/)[0] || 'en',
   fallbackLocale: 'en',
   messages,
 })
