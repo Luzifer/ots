@@ -17,7 +17,7 @@ RUN set -ex \
       tar \
       unzip \
  && make -C src -f ../Makefile generate-inner \
- && make download_libs \
+ && make download_libs generate-apidocs \
  && go install \
       -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
       -mod=readonly

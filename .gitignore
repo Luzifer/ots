@@ -2,6 +2,7 @@ frontend/app.js
 frontend/app.js.LICENSE.txt
 frontend/css
 frontend/js
+frontend/api.html
 frontend/locale/*.untranslated.json
 frontend/webfonts
 frontend/*.woff2
