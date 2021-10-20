@@ -13,8 +13,8 @@ generate-apidocs:
 	npx redoc-cli bundle docs/openapi.yaml --disableGoogleFont true -o frontend/api.html
 
 generate-inner:
-	npx npm@lts ci
-	npx npm@lts run build
+	npx npm@latest ci
+	npx npm@latest run build
 
 publish: download_libs generate-apidocs
 	$(MAKE) -C src -f ../Makefile generate-inner
