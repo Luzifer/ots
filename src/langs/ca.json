@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "Aquest no és el secret que busques&hellip; - Si esperaves que el secret estiguera ací, és possible que s'haja vist compromés, ja que una altra persona podria haver obert l'enllaç en comptes de tu.",
+  "alert-something-went-wrong": "Alguna cosa ha eixit malament. Ens sap molt greu&hellip;",
+  "btn-create-secret": "Crea el secret!",
+  "btn-new-secret": "Nou secret",
+  "btn-reveal-secret": "Mostra'm el secret!",
+  "btn-show-explanation": "Com funciona?",
+  "items-explanation": [
+    "Introduïx un secret en el formulari que hi ha en aquesta pàgina",
+    "El teu navegador xifra el secret utilitzant una contrasenya generada",
+    "Únicament s'envia al servidor el secret xifrat (mai s'envien ni el secret sense xifrar ni la contrasenya!)",
+    "El servidor emmagatzema el secret xifrat durant un temps limitat",
+    "Envia al destinatari l'enllaç mostrat, que conté l'identificador del secret i la contrasenya de desxifrat",
+    "El destinatari pot veure el secret una sola vegada: si no pot, el secret podria haver sigut vist per una altra persona!",
+    "Quan s'ha obtingut per primera i única vegada el secret xifrat, s'elimina del servidor"
+  ],
+  "label-secret-data": "Informació secreta:",
+  "text-burn-hint": "Per favor, recorda no accedir a aquest enllaç tu mateix, ja que això destruiria el secret. Només has de passar-li'l a una altra persona!",
+  "text-hint-burned": "<strong>Atenció:</strong> Només veuràs això una vegada. Quan recarregues la pàgina, el secret desapareixerà, així que copia'l ja&hellip;",
+  "text-powered-by": "Funciona amb",
+  "text-pre-reveal-hint": "Per a mostrar el secret prem aquest botó, però tingues en compte que en fer-ho es destruirà. Només pots veure'l una vegada!",
+  "text-pre-url": "El teu secret ha sigut creat i emmagatzemat en el següent enllaç:",
+  "title-explanation": "Així és com funciona&hellip;",
+  "title-new-secret": "Crea un nou secret",
+  "title-reading-secret": "Obtenint el teu secret&hellip;",
+  "title-secret-created": "Secret creat!"
+}
