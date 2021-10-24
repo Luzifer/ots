@@ -17,7 +17,7 @@
   "label-secret-data": "Informació secreta:",
   "text-burn-hint": "Per favor, recorda no accedir a aquest enllaç tu mateix, ja que això destruiria el secret. Només has de passar-li'l a una altra persona!",
   "text-hint-burned": "<strong>Atenció:</strong> Només veuràs això una vegada. Quan recarregues la pàgina, el secret desapareixerà, així que copia'l ja&hellip;",
-  "text-powered-by": "Desenvolupat per",
+  "text-powered-by": "Funciona amb",
   "text-pre-reveal-hint": "Per a mostrar el secret prem aquest botó, però tingues en compte que en fer-ho es destruirà. Només pots veure'l una vegada!",
   "text-pre-url": "El teu secret ha sigut creat i emmagatzemat en el següent enllaç:",
   "title-explanation": "Així és com funciona&hellip;",
