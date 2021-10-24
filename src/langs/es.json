@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "Este no es el secreto que buscas&hellip; - Si esperabas que el secreto estuviera aquí, es posible que se haya visto comprometido, ya que otra persona podría haber abierto el enlace en tu lugar.",
+  "alert-something-went-wrong": "Algo ha salido mal. Lo sentimos mucho&hellip;",
+  "btn-create-secret": "¡Crea el secreto!",
+  "btn-new-secret": "Nuevo secreto",
+  "btn-reveal-secret": "¡Muéstrame el secreto!",
+  "btn-show-explanation": "¿Cómo funciona?",
+  "items-explanation": [
+    "Introduce un secreto en el formulario que hay en esta página",
+    "Tu navegador cifra el secreto utilizando una contraseña generada",
+    "Únicamente se envía al servidor el secreto cifrado (¡nunca se envían ni el secreto sin cifrar ni la contraseña!)",
+    "El servidor almacena el secreto cifrado durante un tiempo limitado",
+    "Envía al destinatario el enlace mostrado, que contiene el identificador del secreto y la contraseña de descifrado",
+    "El destinatario puede ver el secreto una sola vez: si no puede, ¡el secreto podría haber sido visto por otra persona!",
+    "Cuando se ha obtenido por primera y única vez el secreto cifrado, se elimina del servidor"
+  ],
+  "label-secret-data": "Información secreta:",
+  "text-burn-hint": "Por favor, recuerda no acceder a este enlace tú mismo, ya que esto destruiría el secreto. ¡Solo tienes que pasárselo a otra persona!",
+  "text-hint-burned": "<strong>Atención:</strong> Solo verás esto una vez. En cuanto recargues la página, el secreto desaparecerá, así que cópialo ya&hellip;",
+  "text-powered-by": "Funciona con",
+  "text-pre-reveal-hint": "Para mostrar el secreto pulsa este botón, pero ten en cuenta que al hacerlo se destruirá. ¡Solo puedes verlo una vez!",
+  "text-pre-url": "Tu secreto ha sido creado y almacenado en el siguiente enlace:",
+  "title-explanation": "Así es como funciona&hellip;",
+  "title-new-secret": "Crea un nuevo secreto",
+  "title-reading-secret": "Obteniendo tu secreto&hellip;",
+  "title-secret-created": "¡Secreto creado!"
+}
