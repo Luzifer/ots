@@ -9,7 +9,7 @@
         href="#"
         @click="newSecret"
       >
-        <i class="fas fa-user-secret" /> OTS - One Time Secrets
+        bluvo – One Time Secrets
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
@@ -157,7 +157,7 @@
 
       <b-row class="mt-5">
         <b-col class="footer">
-          {{ $t('text-powered-by') }} <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> Luzifer/OTS</a> {{ $root.version }}
+          <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> OTS</a>
         </b-col>
       </b-row>
     </b-container>
