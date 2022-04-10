@@ -1,3 +1,13 @@
+# 0.22.0 / 2022-04-10
+
+  * Upgrade golang dependencies
+  * Upgrade node dependencies
+  * Add Catalan translation (#50)
+  * Add Spanish translation (#49)
+  * Add OpenAPI documentation (#48)
+  * Add security HTTP headers (#45)
+  * [#46] Remove external font deps, add SRI checks (#47)
+
 # 0.21.0 / 2021-09-18
 
   * Add Theme-Switcher for Dark-/Light-Mode
