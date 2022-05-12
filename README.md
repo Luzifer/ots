@@ -73,6 +73,94 @@ cache-control: no-cache
 
 You can then use the URL `https://ots.fyi/#1cb08e53-46b9-4f21-bbd9-f1eea1594ad9` to access the secret.
 
+--------
+
+### Detailed usage - OTS
+
+Download the latest stable release depending upon the operating system [here](https://github.com/Luzifer/ots/releases) ([https://github.com/Luzifer/ots/releases](https://github.com/Luzifer/ots/releases))
+
+#### For Windows User -
+
+Download ots binary available at URL  -[https://github.com/Luzifer/ots/releases/download/v0.21.0/ots_windows_amd64.zip](https://github.com/Luzifer/ots/releases/download/v0.21.0/ots_windows_amd64.zip)
+
+![ots2.PNG](images/ots2.png)
+
+Double click to unzip/extract the `ots_windows_amd64.exe` file.
+
+Run/execute the `ots_windows_amd64.exe` file. Notice a command prompt as shown below - 
+
+![ots3.PNG](images/ots3.png)
+
+Open your favourite browser and navigate to `http://localhost:3000`
+
+![ots4.PNG](images/ots4.png)
+
+Type your secret in the input field as shown below `secret123`
+
+![ots5.PNG](images/ots5.png)
+
+Click on **Create the secret!**
+
+![ots6.PNG](images/ots6.png)
+
+- You can share the above URL `http://localhost:3000/#2f6e1abc......` with the person you wanted to share the password with.
+    
+    **Note** - This URL is only valid for one use. Once you retrieve the password the URL will become invalid 
+    
+
+Ask the person to navigate to the URL `http://localhost:3000/#2f6e1abc......`
+
+Click on **Show me the secret!** 
+
+![ots7.PNG](images/ots7.png)
+
+#### For Linux users -
+
+Download file available at URL  - [https://github.com/Luzifer/ots/releases/download/v0.21.0/ots_linux_amd64.tar.gz](https://github.com/Luzifer/ots/releases/download/v0.21.0/ots_linux_amd64.tar.gz)
+
+- Next Run below command
+
+```jsx
+tar -zxvf ots_linux_amd64.tar.gz
+```
+
+- Next,
+
+```jsx
+./ots_linux_amd64
+```
+
+- Browse URL http://localhost:3000
+
+Use the OTS application to share secrets
+
+To add an extra layer of security, encrypt the secret using OpenSSL before creating the secret in OTS
+
+#### Encrypting secrets using a passphrase using OpenSSL
+
+```bash
+**echo "Secret124" | openssl enc -aes-256-cbc -a -pbkdf2**
+```
+
+Output - U2FsdGVkX19N6IuZJ9POuXkgQe++Kdr/+nsuGc+HqbA=
+
+Now, pass this encrypted token into OTS application and share the OTS URL with the relevant person.
+
+![Untitled](images/Untitled.png)
+
+Once the receiver opens the URL and clicks on `show me the secret!` button. They will notice the encrypted token.
+
+#### Decrypting token using OpenSSL
+
+```bash
+**echo "U2FsdGVkX19N6IuZJ9POuXkgQe++Kdr/+nsuGc+HqbA=" | openssl enc -aes-256-cbc -d -a -pbkdf2**
+```
+
+![Untitled](images/Untitled%201.png)
+
+
+-------
+
 ## Localize to your own language
 
 If you want to help translating the application to your own language please download the [`en.json`](https://github.com/Luzifer/ots/blob/master/src/langs/en.json) file from this repository and translate the strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
