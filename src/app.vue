@@ -166,7 +166,6 @@
 
 <script>
 import axios from 'axios'
-import AES from 'gibberish-aes/src/gibberish-aes'
 
 export default {
   name: 'App',
@@ -212,9 +211,17 @@ export default {
   methods: {
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
-      this.securePassword = Math.random().toString(36)
-        .substring(2)
-      const secret = AES.enc(this.secret, this.securePassword)
+      const key = this.crypto.generateKey({
+        name: 'AES-GCM',
+        length: 256,
+      })
+      const iv = window.crypto.getRandomValues(new Uint8Array(12))
+      this.securePassword = `${window.btoa(key)}|${window.btoa(iv)}`
+
+      const enc = new TextEncoder()
+      const secret = this.crypto.subtle.encrypt({
+        name: 'AES-GCM', iv,
+      }, enc.encode(this.secret), key)
 
       axios.post('api/create', { secret })
         .then(resp => {
@@ -247,8 +254,10 @@ export default {
       }
 
       const parts = hash.substring(1).split('|')
-      if (parts.length === 2) {
-        this.securePassword = parts[1]
+      // TODO add the other parts too and filter them
+      if (parts.length === 3) {
+        this.key = window.atob(parts[1])
+        this.iv = window.atob(parts[2])
       }
       this.secretId = parts[0]
       this.mode = 'view'
@@ -264,8 +273,11 @@ export default {
       axios.get(`api/get/${this.secretId}`)
         .then(resp => {
           let secret = resp.data.secret
-          if (this.securePassword) {
-            secret = AES.dec(secret, this.securePassword)
+          if (this.key) {
+            const iv = this.iv
+            secret = this.crypto.subtle.encrypt({
+              name: 'AES-GCM', iv,
+            }, secret, this.key)
           }
           this.secret = secret
         })
