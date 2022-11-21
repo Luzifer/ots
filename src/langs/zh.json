@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "这不是您正在寻找的机密&hellip; - 如果您期望机密会出现在这里，它可能已经被泄漏了，因为可能有其他人已经打开了此链接。",
+  "alert-something-went-wrong": "看样子出了一些问题，对此我非常抱歉&hellip;",
+  "btn-create-secret": "创建机密！",
+  "btn-new-secret": "新的机密",
+  "btn-reveal-secret": "向我展示机密！",
+  "btn-show-explanation": "这是如何工作的？",
+  "items-explanation": [
+    "您在当前页面上的字段输入一个机密",
+    "您的浏览器使用生成的密码加密刚才的机密",
+    "只有加密后的机密被发送到服务器（无论是机密的明文内容还是加密的密码都不会被发送！）",
+    "服务器将加密的机密存储一定时间",
+    "您将显示的包含 ID 和解密密码的 URL 链接发送给收件人",
+    "收件人只能查看一次机密：如果他们无法查看，就代表这个机密已经被其他人看过来！",
+    "当加密的机密被取回一次以后，他将从服务器上被删除"
+  ],
+  "label-secret-data": "机密数据",
+  "text-burn-hint": "请注意您自己不要访问这个 URL 地址，否则这会破坏机密。 就这样把它发送给别人就可以了！",
+  "text-hint-burned": "<strong>请注意：</strong> 您只能看到这一次！ 一旦您刷新当前页面，机密就会消失，所以应该现在就复制机密&hellip;",
+  "text-powered-by": "强力驱动通过",
+  "text-pre-reveal-hint": "要揭露这个机密，请点击此按钮，但注意这样做之后会破坏此机密。 您只能查看一次！",
+  "text-pre-url": "您的机密是使用此 URL 创建和存储：",
+  "title-explanation": "这就是它的工作方式&hellip;",
+  "title-new-secret": "创建一个机密",
+  "title-reading-secret": "读取你的机密&hellip;",
+  "title-secret-created": "机密已创建！"
+}

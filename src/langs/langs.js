@@ -5,6 +5,7 @@ import es from './es.json'
 import fr from './fr.json'
 import lv from './lv.json'
 import nl from './nl.json'
+import zh from './zh.json'
 
 export default {
   ca,
@@ -14,4 +15,5 @@ export default {
   fr,
   lv,
   nl,
+  zh,
 }
