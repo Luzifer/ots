@@ -1,3 +1,9 @@
+# 0.23.0 / 2022-11-21
+
+  * Add Simplified Chinese translations (#67)
+  * Replace password generation with web-crypto API
+  * [typo] comprimise -> compromise (#63)
+
 # 0.22.0 / 2022-04-10
 
   * Upgrade golang dependencies
