@@ -18,7 +18,7 @@ const cookieSet = Object.fromEntries(document.cookie.split('; ')
     .map(el => decodeURIComponent(el))))
 
 const i18n = new VueI18n({
-  locale: cookieSet.lang?.split(/[_-]/)[0] || navigator?.language?.split(/[_-]/)[0] || 'en',
+  locale: cookieSet.lang || navigator?.language || 'en',
   fallbackLocale: 'en',
   messages,
 })
