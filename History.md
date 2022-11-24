@@ -1,3 +1,8 @@
+# 0.24.0 / 2022-11-24
+
+  * Add Traditional Chinese translations (#68)
+  * Fix: Use full browser provided language tag
+
 # 0.23.0 / 2022-11-21
 
   * Add Simplified Chinese translations (#67)
