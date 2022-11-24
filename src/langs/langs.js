@@ -17,5 +17,5 @@ export default {
   lv,
   nl,
   zh,
-  tw,
+  'zh-TW': tw,
 }
