@@ -1,3 +1,8 @@
+# 0.24.1 / 2023-03-07
+
+  * Update dependencies / fix vulnerabilities
+  * CI: Fix release publishing
+
 # 0.24.0 / 2022-11-24
 
   * Add Traditional Chinese translations (#68)
