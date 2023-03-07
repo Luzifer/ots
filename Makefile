@@ -10,7 +10,8 @@ generate:
 		sh -exc "apk add make && make generate-apidocs && chown -R $(shell id -u) frontend"
 
 generate-apidocs:
-	npx redoc-cli bundle docs/openapi.yaml --disableGoogleFont true -o frontend/api.html
+	npx @redocly/cli build-docs docs/openapi.yaml --disableGoogleFont true -o /tmp/api.html
+	mv /tmp/api.html frontend/
 
 generate-inner:
 	npx npm@latest ci

@@ -1,0 +1,77 @@
+---
+
+name: test-and-build
+on:
+  push:
+    branches: ['*']
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  test-and-build:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: luzifer/archlinux
+      env:
+        CGO_ENABLED: 0
+        GOPATH: /go
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable custom AUR package repo
+        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://s3-eu-west-1.amazonaws.com/arch-luzifer-io/repo/\$arch" >>/etc/pacman.conf
+
+      - name: Install required packages
+        run: |
+          pacman -Syy --noconfirm \
+            awk \
+            curl \
+            diffutils \
+            git \
+            go \
+            golangci-lint-bin \
+            make \
+            nodejs-lts-fermium \
+            npm \
+            tar \
+            unzip \
+            which \
+            zip
+
+      - uses: actions/checkout@v3
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: Lint and test code
+        run: |
+          go test -v ./...
+
+      - name: Build release
+        run: make publish
+        env:
+          FORCE_SKIP_UPLOAD: 'true'
+          MOD_MODE: readonly
+          NO_TESTS: 'true'
+          PACKAGES: '.'
+
+      - name: Extract changelog
+        run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: release_changelog.md
+          draft: false
+          fail_on_unmatched_files: true
+          files: '.build/*'
+          generate_release_notes: false
+
+...
