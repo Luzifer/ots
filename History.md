@@ -1,3 +1,7 @@
+# 0.25.0 / 2023-03-17
+
+  * Add Russian language (#79) (Thanks to [@alexovchinnicov](https://github.com/alexovchinnicov)!)
+
 # 0.24.1 / 2023-03-07
 
   * Update dependencies / fix vulnerabilities
@@ -5,12 +9,12 @@
 
 # 0.24.0 / 2022-11-24
 
-  * Add Traditional Chinese translations (#68)
+  * Add Traditional Chinese translations (#68) (Thanks to [@DejavuMoe](https://github.com/DejavuMoe)!)
   * Fix: Use full browser provided language tag
 
 # 0.23.0 / 2022-11-21
 
-  * Add Simplified Chinese translations (#67)
+  * Add Simplified Chinese translations (#67) (Thanks to [@DejavuMoe](https://github.com/DejavuMoe)!)
   * Replace password generation with web-crypto API
   * [typo] comprimise -> compromise (#63)
 
