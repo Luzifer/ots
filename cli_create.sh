@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+: ${INSTANCE:=https://ots.fyi} # Where to reach the API of the instance (omit trailing slash)
+
 deps=(curl jq)
 for cmd in "${deps[@]}"; do
   which ${cmd} >/dev/null || {
@@ -28,9 +30,9 @@ id=$(
     -X POST \
     -H 'content-type: application/json' \
     -d "$(jq --arg secret "${ciphertext}" -cn '{"secret": $secret}')" \
-    https://ots.fyi/api/create |
+    "${INSTANCE}/api/create" |
     jq -r '.secret_id'
 )
 
 # Display URL to user
-echo -e "Secret is now available at:\nhttps://ots.fyi/#${id}%7C${pass}"
+echo -e "Secret is now available at:\n${INSTANCE}/#${id}%7C${pass}"
