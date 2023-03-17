@@ -5,7 +5,7 @@ import es from './es.json'
 import fr from './fr.json'
 import lv from './lv.json'
 import nl from './nl.json'
-import nl from './ru.json'
+import ru from './ru.json'
 import zh from './zh.json'
 import tw from './tw.json'
 
