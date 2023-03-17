@@ -18,8 +18,8 @@ SECRET=${1:-}
   exit 1
 }
 
-# Generate a random 8 character password
-pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 8 || true)
+# Generate a random 20 character password
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 20 || true)
 
 # Encrypt the secret
 ciphertext=$(echo "${SECRET}" | openssl aes-256-cbc -base64 -pass "pass:${pass}" -iter 300000 -md sha512 2>/dev/null)
