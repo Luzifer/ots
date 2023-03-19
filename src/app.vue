@@ -276,6 +276,10 @@ export default {
             .then(secret => {
               this.secret = secret
             })
+            .catch(() => {
+              this.error = this.$t('alert-something-went-wrong')
+              this.showError = true
+            })
         })
         .catch(err => {
           switch (err.response.status) {
