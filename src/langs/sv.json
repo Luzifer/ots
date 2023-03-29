@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "Hemlighet hittades inte&hellip; - Om du förväntade dig att hemligheten skulle finnas här kan den vara röjd då någon annan kan ha öppnat denna länk tidigare.",
+  "alert-something-went-wrong": "Något gick fel. Jag ber om ursäkt för detta!&hellip;",
+  "btn-create-secret": "Skapa hemliget!",
+  "btn-new-secret": "Ny hemlighet.",
+  "btn-reveal-secret": "Visa mig hemligheten!",
+  "btn-show-explanation": "Hur fungerar detta?",
+  "items-explanation": [
+    "Skriv in en hemlighet i rutan nedan",
+    "Din webbläsare krypterar hemligheten med hjälp av ett genererat lösenord",
+    "Endast den krypterade hemligheten skickas till servern. (varken lösenordet eller hemligheten i klartext skickas!)",
+    "Servern lagrar den krypterade hemligheten för en begränsad tid",
+    "Du skickar URL-länken med ID-numret och avkrypteringslösenordet till mottagaren",
+    "Mottagaren kan se hemligheten exakt en gång: Om detta misslyckas kan hemligheten redan ha setts av någon annan!",
+    "När hemligheten har setts en gång, raderas den från servern"
+  ],
+  "label-secret-data": "Hemlig data:",
+  "text-burn-hint": "Kom ihåg att inte gå till denna URL själv eftersom detta skulle förbruka hemligheten. Skicka bara vidare den till mottagaren!",
+  "text-hint-burned": "<strong>Observera:</strong> Du kan endast se denna sida en gång. Så fort du laddar om sidan kommer hemligheten att försvinna så kopiera den nu&hellip;",
+  "text-powered-by": "Drivs av",
+  "text-pre-reveal-hint": "För att visa hemligheten klicka på denna knapp. Var medveten om att när du gör det kommer hemligheten att förbrukas, du kan endast se den en gång!",
+  "text-pre-url": "Din hemlighet har skapats och lagrats med denna URL:",
+  "title-explanation": "Såhär fungerar det&hellip;",
+  "title-new-secret": "Skapa ny hemlighet",
+  "title-reading-secret": "Läs din hemlighet&hellip;",
+  "title-secret-created": "Hemlighet skapad!"
+}

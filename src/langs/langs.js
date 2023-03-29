@@ -6,6 +6,7 @@ import fr from './fr.json'
 import lv from './lv.json'
 import nl from './nl.json'
 import ru from './ru.json'
+import sv from './sv.json'
 import zh from './zh.json'
 import tw from './tw.json'
 
@@ -18,6 +19,7 @@ export default {
   lv,
   nl,
   ru,
+  sv,
   zh,
   'zh-TW': tw,
 }
