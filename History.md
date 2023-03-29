@@ -1,3 +1,7 @@
+# 0.26.0 / 2023-03-29
+
+  * Add Swedish language (Thanks to [@artingu](https://github.com/artingu)!)
+
 # 0.25.0 / 2023-03-17
 
   * Add Russian language (#79) (Thanks to [@alexovchinnicov](https://github.com/alexovchinnicov)!)
