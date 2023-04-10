@@ -1,0 +1,27 @@
+{
+  "alert-secret-not-found": "Esta não é o segredo que você está procurando… - Se você esperava que o segredo estaria aqui, ele pode ter sido comprometido por alguém que já acessou o link.",
+  "alert-something-went-wrong": "Desculpe, algo deu errado…",
+  "btn-create-secret": "Criar segredo!",
+  "btn-new-secret": "Novo segredo",
+  "btn-reveal-secret": "Mostrar o segredo!",
+  "btn-show-explanation": "Como funciona?",
+  "items-explanation": [
+    "Você insere o segredo no campo de texto desta página",
+    "Seu navegador criptografa o segredo usando uma senha gerada",
+    "Somente o segredo criptografado é enviado para o servidor (nem o segredo em texto claro, nem a senha é enviada para o servidor!)",
+    "O servidor armazena o segredo criptografado por um certo tempo",
+    "Você envia a URL mostrada contendo a ID e a senha de descriptografia para o destinatário",
+    "O destinatário pode ver o segredo apenas uma vez: se ele não pode ver, o segredo pode ter sido visto por outra pessoa!",
+    "Após o segredo ter sido obtido uma vez, o mesmo é deletado do servidor"
+  ],
+  "label-secret-data": "Informação secreta:",
+  "text-burn-hint": "Importante você lembrar de não acessar esta URL, pois isto irá indisponibilizar o segredo. Apenas encaminhe para outra pessoa!",
+  "text-hint-burned": "Atenção: Você está vendo esta informação apenas uma vez. Logo que você recarregar a página o segredo ficará indisponível. É recomendado que você copie a informação agora…",
+  "text-powered-by": "Powered by",
+  "text-pre-reveal-hint": "Para revelar o segredo clique neste botão, mas lembre-se que esta ação vai destruir o segredo. Você só pode ver uma única vez!",
+  "text-pre-url": "Seu segredo foi criado e armazenado na seguinte URL:",
+  "title-explanation": "É assim como funciona…",
+  "title-new-secret": "Criar um novo segredo",
+  "title-reading-secret": "Lendo seu segredo…",
+  "title-secret-created": "Segredo criado!"
+}

@@ -5,10 +5,11 @@ import es from './es.json'
 import fr from './fr.json'
 import lv from './lv.json'
 import nl from './nl.json'
+import ptBR from './ptBR.json'
 import ru from './ru.json'
 import sv from './sv.json'
 import zh from './zh.json'
-import tw from './tw.json'
+import zhTW from './zhTW.json'
 
 export default {
   ca,
@@ -18,8 +19,9 @@ export default {
   fr,
   lv,
   nl,
+  'pt-BR':ptBR,
   ru,
   sv,
   zh,
-  'zh-TW': tw,
+  'zh-TW': zhTW,
 }
