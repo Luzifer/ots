@@ -1,3 +1,7 @@
+# 0.27.0 / 2023-04-10
+
+  * Add pt-BR translation (Thanks to [@imfvieira](https://github.com/imfvieira)!)
+
 # 0.26.0 / 2023-03-29
 
   * Add Swedish language (Thanks to [@artingu](https://github.com/artingu)!)
