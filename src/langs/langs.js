@@ -19,7 +19,7 @@ export default {
   fr,
   lv,
   nl,
-  'pt-BR':ptBR,
+  'pt-BR': ptBR,
   ru,
   sv,
   zh,
