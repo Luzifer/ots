@@ -1,3 +1,7 @@
+# 1.0.0 / 2023-04-14
+
+  * Breaking: Replace deprecated / archived crypto library (#80)
+
 # 0.27.0 / 2023-04-10
 
   * Add pt-BR translation (Thanks to [@imfvieira](https://github.com/imfvieira)!)
