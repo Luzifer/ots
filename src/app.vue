@@ -166,7 +166,7 @@
 
 <script>
 import axios from 'axios'
-import AES from 'gibberish-aes/src/gibberish-aes'
+import crypto from './crypto.js'
 
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
@@ -218,27 +218,26 @@ export default {
       this.securePassword = [...window.crypto.getRandomValues(new Uint8Array(passwordLength))]
         .map(n => passwordCharset[n % passwordCharset.length])
         .join('')
-      const secret = AES.enc(this.secret, this.securePassword)
+      crypto.enc(this.secret, this.securePassword)
+        .then(secret => axios.post('api/create', { secret })
+          .then(resp => {
+            this.secretId = resp.data.secret_id
+            this.secret = ''
 
-      axios.post('api/create', { secret })
-        .then(resp => {
-          this.secretId = resp.data.secret_id
-          this.secret = ''
-
-          // Give the interface a moment to transistion and focus
-          window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
-        })
-        .catch(err => {
-          switch (err.response.status) {
-          case 404:
+            // Give the interface a moment to transistion and focus
+            window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
+          })
+          .catch(err => {
+            switch (err.response.status) {
+            case 404:
             // Mock for interface testing
-            this.secretId = 'foobar'
-            break
-          default:
-            this.error = this.$t('alert-something-went-wrong')
-            this.showError = true
-          }
-        })
+              this.secretId = 'foobar'
+              break
+            default:
+              this.error = this.$t('alert-something-went-wrong')
+              this.showError = true
+            }
+          }))
 
       return false
     },
@@ -267,11 +266,20 @@ export default {
     requestSecret() {
       axios.get(`api/get/${this.secretId}`)
         .then(resp => {
-          let secret = resp.data.secret
-          if (this.securePassword) {
-            secret = AES.dec(secret, this.securePassword)
+          const secret = resp.data.secret
+          if (!this.securePassword) {
+            this.secret = secret
+            return
           }
-          this.secret = secret
+
+          crypto.dec(secret, this.securePassword)
+            .then(secret => {
+              this.secret = secret
+            })
+            .catch(() => {
+              this.error = this.$t('alert-something-went-wrong')
+              this.showError = true
+            })
         })
         .catch(err => {
           switch (err.response.status) {

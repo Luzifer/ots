@@ -36,7 +36,7 @@ As `ots` is designed to never let the server know the secret you are sharing you
 This is slightly more complex as you first need to encrypt your secret before sending it to the API but in this case you can be sure the server will in no case be able to access the secret. Especially if you are using ots.fyi (my public hosted instance) you should not trust me with your secret but use an encrypted secret:
 
 ```console
-# echo "my password" | openssl aes-256-cbc -base64 -pass pass:mypass -md md5
+# echo "my password" | openssl aes-256-cbc -base64 -pass pass:mypass -iter 300000 -md sha512
 U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ=
 
 # curl -X POST -H 'content-type: application/json' -i -s -d '{"secret": "U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ="}' https://ots.fyi/api/create
