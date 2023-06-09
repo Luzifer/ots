@@ -22,6 +22,7 @@ var (
 	cfg struct {
 		Listen         string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
+		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
 		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}

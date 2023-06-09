@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -53,7 +54,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := a.store.Create(secret)
+	id, err := a.store.Create(secret, time.Duration(cfg.SecretExpiry)*time.Second)
 	if err != nil {
 		a.errorResponse(res, http.StatusInternalServerError, err.Error())
 		return

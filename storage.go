@@ -3,12 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
+	"time"
 )
 
 var errSecretNotFound = errors.New("Secret not found")
 
 type storage interface {
-	Create(secret string) (string, error)
+	Create(secret string, expireIn time.Duration) (string, error)
 	ReadAndDestroy(id string) (string, error)
 }
 

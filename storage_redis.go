@@ -1,17 +1,21 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gofrs/uuid/v3"
-	"github.com/xuyu/goredis"
+	"github.com/pkg/errors"
+	redis "github.com/redis/go-redis/v9"
 )
 
+const redisDefaultPrefix = "io.luzifer.ots"
+
 type storageRedis struct {
-	conn *goredis.Redis
+	conn *redis.Client
 }
 
 func newStorageRedis() (storage, error) {
@@ -19,76 +23,48 @@ func newStorageRedis() (storage, error) {
 		return nil, fmt.Errorf("REDIS_URL environment variable not set")
 	}
 
-	c, err := goredis.DialURL(os.Getenv("REDIS_URL"))
+	// We replace the old URI format
+	//		tcp://auth:password@127.0.0.1:6379/0
+	// with the new one
+	//		redis://<user>:<password>@<host>:<port>/<db_number>
+	// in order to maintain backwards compatibility
+	opt, err := redis.ParseURL(strings.Replace(os.Getenv("REDIS_URL"), "tcp://", "redis://", 1))
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "parsing REDIS_URL")
 	}
 
 	s := &storageRedis{
-		conn: c,
+		conn: redis.NewClient(opt),
 	}
 
 	return s, nil
 }
 
-func (s storageRedis) redisExpiry() int {
-	var expStr string
-	for _, eVar := range []string{"SECRET_EXPIRY", "REDIS_EXPIRY"} {
-		if v := os.Getenv(eVar); v != "" {
-			expStr = v
-			break
-		}
-	}
-
-	if expStr == "" {
-		return 0
-	}
-
-	e, err := strconv.Atoi(expStr)
-	if err != nil {
-		return 0
-	}
-
-	return e
-}
-
-func (s storageRedis) redisKey() string {
-	key := os.Getenv("REDIS_KEY")
-	if key == "" {
-		key = "io.luzifer.ots"
-	}
-
-	return key
-}
-
-func (s storageRedis) Create(secret string) (string, error) {
+func (s storageRedis) Create(secret string, expireIn time.Duration) (string, error) {
 	id := uuid.Must(uuid.NewV4()).String()
-	err := s.writeKey(id, secret)
+	err := s.conn.SetEx(context.Background(), s.redisKey(id), secret, expireIn).Err()
 
-	return id, err
+	return id, errors.Wrap(err, "writing redis key")
 }
 
 func (s storageRedis) ReadAndDestroy(id string) (string, error) {
-	secret, err := s.conn.Get(strings.Join([]string{s.redisKey(), id}, ":"))
+	secret, err := s.conn.Get(context.Background(), s.redisKey(id)).Result()
 	if err != nil {
+		if errors.Is(err, redis.Nil) {
+			return "", errSecretNotFound
+		}
 		return "", err
 	}
 
-	if secret == nil {
-		return "", errSecretNotFound
-	}
-
-	_, err = s.conn.Del(strings.Join([]string{s.redisKey(), id}, ":"))
-	return string(secret), err
+	err = s.conn.Del(context.Background(), s.redisKey(id)).Err()
+	return string(secret), errors.Wrap(err, "deleting key")
 }
 
-func (s storageRedis) writeKey(id, value string) error {
-	return s.conn.Set(
-		strings.Join([]string{s.redisKey(), id}, ":"), // Key
-		value,           // Secret
-		s.redisExpiry(), // Expiry in seconds
-		0,               // Expiry milliseconds
-		false,           // MustExist
-		true,            // MustNotExist
-	)
+func (s storageRedis) redisKey(id string) string {
+	prefix := redisDefaultPrefix
+	if prfx := os.Getenv("REDIS_KEY"); prfx != "" {
+		prefix = prfx
+	}
+
+	return strings.Join([]string{prefix, id}, ":")
 }

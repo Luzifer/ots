@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-	"strconv"
 	"time"
 
 	"github.com/gofrs/uuid/v3"
@@ -23,10 +21,10 @@ func newStorageMem() storage {
 	}
 }
 
-func (s storageMem) Create(secret string) (string, error) {
+func (s storageMem) Create(secret string, expireIn time.Duration) (string, error) {
 	id := uuid.Must(uuid.NewV4()).String()
 	s.store[id] = memStorageSecret{
-		Expiry: s.expiry(),
+		Expiry: time.Now().Add(expireIn),
 		Secret: secret,
 	}
 
@@ -46,18 +44,4 @@ func (s storageMem) ReadAndDestroy(id string) (string, error) {
 	}
 
 	return secret.Secret, nil
-}
-
-func (s storageMem) expiry() time.Time {
-	exp := os.Getenv("SECRET_EXPIRY")
-	if exp == "" {
-		return time.Time{}
-	}
-
-	e, err := strconv.ParseInt(exp, 10, 64)
-	if err != nil {
-		return time.Time{}
-	}
-
-	return time.Now().Add(time.Duration(e) * time.Second)
 }
