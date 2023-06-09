@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Enable custom AUR package repo
-        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://s3-eu-west-1.amazonaws.com/arch-luzifer-io/repo/\$arch" >>/etc/pacman.conf
+        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://archrepo.hub.luzifer.io/\$arch" >>/etc/pacman.conf
 
       - name: Install required packages
         run: |
