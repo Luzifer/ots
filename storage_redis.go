@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/gofrs/uuid/v3"
-	log "github.com/sirupsen/logrus"
 	"github.com/xuyu/goredis"
 )
 
@@ -29,39 +28,7 @@ func newStorageRedis() (storage, error) {
 		conn: c,
 	}
 
-	if err := s.migrate(); err != nil { // Move from the old to the new storage format
-		return nil, err
-	}
-
 	return s, nil
-}
-
-func (s storageRedis) migrate() error {
-	t, err := s.conn.Type(s.redisKey())
-	if err != nil {
-		return err
-	}
-
-	log.Printf("Key %q type: %s", s.redisKey(), t)
-
-	if t == "hash" {
-		hashs, err := s.conn.HGetAll(s.redisKey())
-		if err != nil {
-			return err
-		}
-
-		for k, v := range hashs {
-			if err := s.writeKey(k, v); err != nil {
-				return err
-			}
-		}
-
-		if _, err = s.conn.Del(s.redisKey()); err != nil {
-			return err
-		}
-	}
-
-	return nil
 }
 
 func (s storageRedis) redisExpiry() int {
