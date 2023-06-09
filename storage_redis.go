@@ -77,12 +77,12 @@ func (s storageRedis) redisExpiry() int {
 		return 0
 	}
 
-	e, err := strconv.ParseInt(expStr, 10, 64)
+	e, err := strconv.Atoi(expStr)
 	if err != nil {
 		return 0
 	}
 
-	return int(e)
+	return e
 }
 
 func (s storageRedis) redisKey() string {
