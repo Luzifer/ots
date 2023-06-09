@@ -90,6 +90,7 @@
               />
             </b-form-group>
             <b-button
+              :disabled="secret.trim().length < 1"
               variant="success"
               @click="createSecret"
             >
@@ -215,6 +216,10 @@ export default {
   methods: {
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
+      if (this.secret.trim().length < 1) {
+        return false
+      }
+
       this.securePassword = [...window.crypto.getRandomValues(new Uint8Array(passwordLength))]
         .map(n => passwordCharset[n % passwordCharset.length])
         .join('')
@@ -230,7 +235,7 @@ export default {
           .catch(err => {
             switch (err.response.status) {
             case 404:
-            // Mock for interface testing
+              // Mock for interface testing
               this.secretId = 'foobar'
               break
             default:
