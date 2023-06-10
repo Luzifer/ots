@@ -42,7 +42,7 @@ func newStorageRedis() (storage, error) {
 
 func (s storageRedis) Create(secret string, expireIn time.Duration) (string, error) {
 	id := uuid.Must(uuid.NewV4()).String()
-	err := s.conn.SetEx(context.Background(), s.redisKey(id), secret, expireIn).Err()
+	err := s.conn.Set(context.Background(), s.redisKey(id), secret, expireIn).Err()
 
 	return id, errors.Wrap(err, "writing redis key")
 }

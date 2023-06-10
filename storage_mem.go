@@ -22,9 +22,17 @@ func newStorageMem() storage {
 }
 
 func (s storageMem) Create(secret string, expireIn time.Duration) (string, error) {
-	id := uuid.Must(uuid.NewV4()).String()
+	var (
+		expire time.Time
+		id     = uuid.Must(uuid.NewV4()).String()
+	)
+
+	if expireIn > 0 {
+		expire = time.Now().Add(expireIn)
+	}
+
 	s.store[id] = memStorageSecret{
-		Expiry: time.Now().Add(expireIn),
+		Expiry: expire,
 		Secret: secret,
 	}
 
