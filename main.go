@@ -111,7 +111,10 @@ func main() {
 	r.HandleFunc("/", handleIndex)
 	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
-	logrus.WithField("version", version).Info("ots started")
+	logrus.WithFields(logrus.Fields{
+		"secret_expiry": time.Duration(cfg.SecretExpiry) * time.Second,
+		"version":       version,
+	}).Info("ots started")
 
 	server := &http.Server{
 		Addr:              cfg.Listen,
