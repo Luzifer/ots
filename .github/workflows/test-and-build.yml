@@ -37,7 +37,7 @@ jobs:
             go \
             golangci-lint-bin \
             make \
-            nodejs-lts-fermium \
+            nodejs-lts-hydrogen \
             npm \
             tar \
             unzip \

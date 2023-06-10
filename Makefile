@@ -1,13 +1,11 @@
-VER_FONTAWESOME=5.14.0
+VER_FONTAWESOME=6.4.0
 
 
 default: generate download_libs
 
 generate:
-	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:14-alpine \
-		sh -exc "apk add make && make -C src -f ../Makefile generate-inner && chown -R $(shell id -u) frontend src/node_modules"
-	docker run --rm -ti -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:14-alpine \
-		sh -exc "apk add make && make generate-apidocs && chown -R $(shell id -u) frontend"
+	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:18-alpine \
+		sh -exc "apk add make && make generate-inner generate-apidocs && chown -R $(shell id -u) frontend node_modules"
 
 generate-apidocs:
 	npx @redocly/cli build-docs docs/openapi.yaml --disableGoogleFont true -o /tmp/api.html
@@ -15,10 +13,9 @@ generate-apidocs:
 
 generate-inner:
 	npx npm@latest ci
-	npx npm@latest run build
+	node ./ci/build.mjs
 
-publish: download_libs generate-apidocs
-	$(MAKE) -C src -f ../Makefile generate-inner
+publish: download_libs generate-inner generate-apidocs
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh
 
@@ -28,7 +25,6 @@ clean_libs:
 	rm -rf \
 		frontend/css \
 		frontend/js \
-		frontend/openssl \
 		frontend/webfonts
 
 download_libs: clean_libs

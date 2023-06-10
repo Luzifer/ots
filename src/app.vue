@@ -166,7 +166,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import crypto from './crypto.js'
 
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -224,8 +223,17 @@ export default {
         .map(n => passwordCharset[n % passwordCharset.length])
         .join('')
       crypto.enc(this.secret, this.securePassword)
-        .then(secret => axios.post('api/create', { secret })
+        .then(secret => fetch('api/create', {
+          body: JSON.stringify({ secret }),
+          headers: {
+            'content-type': 'application/json',
+          },
+          method: 'POST',
+        })
+          .then(resp => resp.json())
+          .then(data => ({ data }))
           .then(resp => {
+            console.warn(resp)
             this.secretId = resp.data.secret_id
             this.secret = ''
 
@@ -269,7 +277,9 @@ export default {
 
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
-      axios.get(`api/get/${this.secretId}`)
+      fetch(`api/get/${this.secretId}`)
+        .then(resp => resp.json())
+        .then(data => ({ data }))
         .then(resp => {
           const secret = resp.data.secret
           if (!this.securePassword) {

@@ -12,12 +12,11 @@ RUN set -ex \
       git \
       go \
       make \
-      nodejs-lts-fermium \
+      nodejs-lts-hydrogen \
       npm \
       tar \
       unzip \
- && make -C src -f ../Makefile generate-inner \
- && make download_libs generate-apidocs \
+ && make download_libs generate-inner generate-apidocs \
  && go install \
       -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
       -mod=readonly
