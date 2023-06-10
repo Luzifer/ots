@@ -123,15 +123,42 @@
             />
             <p v-html="$t('text-pre-url')" />
             <b-form-group>
-              <b-form-input
-                ref="secretUrl"
-                :value="secretUrl"
-                readonly
-                @focus="$refs.secretUrl.select()"
-              />
+              <b-input-group>
+                <b-form-input
+                  ref="secretUrl"
+                  :value="secretUrl"
+                  readonly
+                  @focus="$refs.secretUrl.select()"
+                />
+                <b-input-group-append
+                  v-if="!customize.disableQRSupport"
+                >
+                  <b-button
+                    id="secret-url-qrcode"
+                    :disabled="!secretQRDataURL"
+                    variant="primary"
+                  >
+                    <i class="fas fa-qrcode" />
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
             </b-form-group>
             <p v-html="$t('text-burn-hint')" />
+
+            <b-popover
+              v-id="!customize.disableQRSupport"
+              target="secret-url-qrcode"
+              triggers="focus"
+              placement="leftbottom"
+            >
+              <b-img
+                height="200"
+                :src="secretQRDataURL"
+                width="200"
+              />
+            </b-popover>
           </b-card>
+
 
           <!-- Display secret -->
           <b-card
@@ -182,6 +209,7 @@
 
 <script>
 import crypto from './crypto.js'
+import qrcode from 'qrcode'
 
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
@@ -198,6 +226,7 @@ export default {
       secret: '',
       securePassword: '',
       secretId: '',
+      secretQRDataURL: '',
       showError: false,
       darkTheme: false,
     }
@@ -326,6 +355,19 @@ export default {
         })
     },
 
+  },
+
+  watch: {
+    secretUrl(to) {
+      if (this.customize.disableQRSupport) {
+        return
+      }
+
+      qrcode.toDataURL(this.secretUrl, { width: 200 })
+        .then(url => {
+          this.secretQRDataURL = url
+        })
+    },
   },
 }
 </script>

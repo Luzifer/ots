@@ -49,6 +49,10 @@ disableAppTitle: false
 # please consider a donation to support the project.
 disablePoweredBy: false
 
+# Disable the button to display and the generation of the QR-Code
+# for the secret URL
+disableQRSupport: false
+
 # Disable the switcher for dark / light theme in the top right corner
 # for example if your custom theme does not support two themes.
 disableThemeSwitcher: false

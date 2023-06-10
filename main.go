@@ -34,7 +34,7 @@ var (
 		"default-src 'none'",
 		"connect-src 'self'",
 		"font-src 'self'",
-		"img-src 'self'",
+		"img-src 'self' data:",
 		"script-src 'self' 'unsafe-inline'",
 		"style-src 'self' 'unsafe-inline'",
 	}, ";")

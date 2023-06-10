@@ -16,6 +16,7 @@ type (
 		AppTitle             string `json:"appTitle,omitempty" yaml:"appTitle"`
 		DisableAppTitle      bool   `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
 		DisablePoweredBy     bool   `json:"disablePoweredBy,omitempty" yaml:"disablePoweredBy"`
+		DisableQRSupport     bool   `json:"disableQRSupport,omitempty" yaml:"disableQRSupport"`
 		DisableThemeSwitcher bool   `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
 		OverlayFSPath        string `json:"-" yaml:"overlayFSPath"`
 	}
