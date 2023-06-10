@@ -215,23 +215,6 @@ const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 const passwordLength = 20
 
 export default {
-  name: 'App',
-
-  data() {
-    return {
-      customize: {},
-      error: '',
-      explanationShown: false,
-      mode: 'create',
-      secret: '',
-      securePassword: '',
-      secretId: '',
-      secretQRDataURL: '',
-      showError: false,
-      darkTheme: false,
-    }
-  },
-
   computed: {
     secretUrl() {
       return [
@@ -244,18 +227,19 @@ export default {
     },
   },
 
-  watch: {
-    darkTheme(to) {
-      window.setTheme(to ? 'dark' : 'light')
-    },
-  },
-
-  // Trigger initialization functions
-  mounted() {
-    this.customize = window.OTSCustomize
-    this.darkTheme = window.getTheme() === 'dark'
-    window.onhashchange = this.hashLoad
-    this.hashLoad()
+  data() {
+    return {
+      customize: {},
+      darkTheme: false,
+      error: '',
+      explanationShown: false,
+      mode: 'create',
+      secret: '',
+      secretId: '',
+      secretQRDataURL: '',
+      securePassword: '',
+      showError: false,
+    }
   },
 
   methods: {
@@ -354,16 +338,29 @@ export default {
           }
         })
     },
-
   },
 
+  // Trigger initialization functions
+  mounted() {
+    this.customize = window.OTSCustomize
+    this.darkTheme = window.getTheme() === 'dark'
+    window.onhashchange = this.hashLoad
+    this.hashLoad()
+  },
+
+  name: 'App',
+
   watch: {
+    darkTheme(to) {
+      window.setTheme(to ? 'dark' : 'light')
+    },
+
     secretUrl(to) {
       if (this.customize.disableQRSupport) {
         return
       }
 
-      qrcode.toDataURL(this.secretUrl, { width: 200 })
+      qrcode.toDataURL(to, { width: 200 })
         .then(url => {
           this.secretQRDataURL = url
         })
