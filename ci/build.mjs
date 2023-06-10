@@ -9,6 +9,7 @@ esbuild.build({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'dev'),
   },
   entryPoints: ['src/main.js'],
+  legalComments: 'none',
   loader: {
     '.woff2': 'file',
   },

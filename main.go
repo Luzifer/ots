@@ -2,24 +2,26 @@ package main
 
 import (
 	"embed"
-	"fmt"
+	"io/fs"
 	"mime"
 	"net/http"
 	"os"
-	"path"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 
+	file_helpers "github.com/Luzifer/go_helpers/v2/file"
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
 	"github.com/Luzifer/rconfig/v2"
 )
 
 var (
 	cfg struct {
+		Customize      string `flag:"customize" default:"" description:"Customize-File to load"`
 		Listen         string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
 		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
@@ -27,34 +29,77 @@ var (
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
 
-	product = "ots"
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+	cspHeader = strings.Join([]string{
+		"default-src 'none'",
+		"connect-src 'self'",
+		"font-src 'self'",
+		"img-src 'self'",
+		"script-src 'self' 'unsafe-inline'",
+		"style-src 'self' 'unsafe-inline'",
+	}, ";")
+
+	assets   file_helpers.FSStack
+	cust     customize
+	indexTpl *template.Template
+
 	version = "dev"
 )
 
 //go:embed frontend/*
-var assets embed.FS
+var embeddedAssets embed.FS
 
-func init() {
+func initApp() error {
+	rconfig.AutoEnv(true)
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
-		log.Fatalf("Error parsing CLI arguments: %s", err)
+		return errors.Wrap(err, "parsing cli options")
 	}
 
-	if l, err := log.ParseLevel(cfg.LogLevel); err == nil {
-		log.SetLevel(l)
-	} else {
-		log.Fatalf("Invalid log level: %s", err)
+	l, err := logrus.ParseLevel(cfg.LogLevel)
+	if err != nil {
+		return errors.Wrap(err, "parsing log-level")
+	}
+	logrus.SetLevel(l)
+
+	if cust, err = loadCustomize(cfg.Customize); err != nil {
+		return errors.Wrap(err, "loading customizations")
 	}
 
-	if cfg.VersionAndExit {
-		fmt.Printf("%s %s\n", product, version)
-		os.Exit(0)
+	frontendFS, err := fs.Sub(embeddedAssets, "frontend")
+	if err != nil {
+		return errors.Wrap(err, "creating sub-fs for assets")
 	}
+	assets = append(assets, frontendFS)
+
+	if cust.OverlayFSPath != "" {
+		assets = append(file_helpers.FSStack{os.DirFS(cust.OverlayFSPath)}, assets...)
+	}
+
+	return nil
 }
 
 func main() {
+	var err error
+	if err = initApp(); err != nil {
+		logrus.WithError(err).Fatal("initializing app")
+	}
+
+	if cfg.VersionAndExit {
+		logrus.WithField("version", version).Info("ots")
+		os.Exit(0)
+	}
+
+	// Initialize index template in order not to parse it multiple times
+	source, err := assets.ReadFile("index.html")
+	if err != nil {
+		logrus.WithError(err).Fatal("frontend folder should contain index.html Go template")
+	}
+	indexTpl = template.Must(template.New("index.html").Funcs(tplFuncs).Parse(string(source)))
+
+	// Initialize storage
 	store, err := getStorageByType(cfg.StorageType)
 	if err != nil {
-		log.Fatalf("Could not initialize storage: %s", err)
+		logrus.WithError(err).Fatal("initializing storage")
 	}
 	api := newAPI(store)
 
@@ -66,11 +111,21 @@ func main() {
 	r.HandleFunc("/", handleIndex)
 	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
-	log.Fatalf("HTTP server quit: %s", http.ListenAndServe(cfg.Listen, http_helpers.NewHTTPLogHandler(r)))
+	logrus.WithField("version", version).Info("ots started")
+
+	server := &http.Server{
+		Addr:              cfg.Listen,
+		Handler:           http_helpers.NewHTTPLogHandlerWithLogger(r, logrus.StandardLogger()),
+		ReadHeaderTimeout: time.Second,
+	}
+
+	if err = server.ListenAndServe(); err != nil {
+		logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
+	}
 }
 
 func assetDelivery(w http.ResponseWriter, r *http.Request) {
-	assetName := r.URL.Path
+	assetName := strings.TrimLeft(r.URL.Path, "/")
 
 	dot := strings.LastIndex(assetName, ".")
 	if dot < 0 {
@@ -80,7 +135,7 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ext := assetName[dot:]
-	assetData, err := assets.ReadFile(path.Join("frontend", assetName))
+	assetData, err := assets.ReadFile(assetName)
 	if err != nil {
 		http.Error(w, "404 not found", http.StatusNotFound)
 		return
@@ -89,28 +144,6 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.Write(assetData)
-}
-
-var (
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-	cspHeader = strings.Join([]string{
-		"default-src 'none'",
-		"connect-src 'self'",
-		"font-src 'self'",
-		"img-src 'self'",
-		"script-src 'self' 'unsafe-inline'",
-		"style-src 'self' 'unsafe-inline'",
-	}, ";")
-
-	indexTpl *template.Template
-)
-
-func init() {
-	source, err := assets.ReadFile("frontend/index.html")
-	if err != nil {
-		log.WithError(err).Fatal("frontend folder should contain index.html Go template")
-	}
-	indexTpl = template.Must(template.New("index.html").Funcs(tplFuncs).Parse(string(source)))
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -122,9 +155,11 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
 	if err := indexTpl.Execute(w, struct {
-		Version string
+		Customize customize
+		Version   string
 	}{
-		Version: version,
+		Customize: cust,
+		Version:   version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return

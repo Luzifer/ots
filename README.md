@@ -27,6 +27,45 @@ For a better setup you can choose the backend which is used to store the secrets
 - Common options
   - `SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
 
+### Customization
+
+In order to be adjustable to your needs there are some ways to customize your OTS setup. All of those require you to create a YAML file containing the definitions of your customizations and to load this file through the `--customize=path/to/customize.yaml`:
+
+```yaml
+# Override the app-icon, present a path to the image to use, if unset
+# or empty the default FontAwesome icon will be displayed. Recommended
+# is a height of 30px.
+appIcon: ''
+
+# Override the app-title, if unset or empty the default app-title
+# "OTS - One Time Secret" will be used
+appTitle: ''
+
+# Disable display of the app-title (for example if you included the
+# title within the appIcon)
+disableAppTitle: false
+
+# Disable the footer linking back to the project. If you disable it
+# please consider a donation to support the project.
+disablePoweredBy: false
+
+# Disable the switcher for dark / light theme in the top right corner
+# for example if your custom theme does not support two themes.
+disableThemeSwitcher: false
+
+# Custom path to override embedded resources. You can override any
+# file present in the `frontend` directory (which is baked into the
+# binary during compile-time). You also can add new files (for
+# example the appIcon given above). Those files are available at the
+# root of the application (i.e. an app.png would be served at
+# https://ots.example.com/app.png).
+overlayFSPath: /path/to/ots-customization
+```
+
+To override the styling of the application have a look at the [`src/style.scss`](./src/style.scss) file how the theme of the application is built and present the compiled `app.css` in the `overlayFSPath`.
+
+After modifying files in the `overlayFSPath` make sure to restart the application as otherwise the file integrity hashes are no longer matching and your resources will be blocked by the browsers.
+
 ## Creating secrets through CLI / scripts
 
 As `ots` is designed to never let the server know the secret you are sharing you should not just send the plain secret to it though it is possible.

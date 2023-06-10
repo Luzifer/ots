@@ -49,6 +49,7 @@
 
       // Template variable from Golang process
       const version = "{{ .Version }}"
+      window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
     </script>
   </head>
   <body>

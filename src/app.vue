@@ -9,7 +9,16 @@
         href="#"
         @click="newSecret"
       >
-        <i class="fas fa-user-secret" /> OTS - One Time Secrets
+        <i
+          v-if="!customize.appIcon"
+          class="fas fa-user-secret mr-1"
+        />
+        <img
+          v-else
+          class="mr-1"
+          :src="customize.appIcon"
+        >
+        <span v-if="!customize.disableAppTitle">{{ customize.appTitle || 'OTS - One Time Secrets' }}</span>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
@@ -25,7 +34,10 @@
           <b-nav-item @click="newSecret">
             <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
           </b-nav-item>
-          <b-nav-form class="ml-2">
+          <b-nav-form
+            v-if="!customize.disableThemeSwitcher"
+            class="ml-2"
+          >
             <b-form-checkbox
               v-model="darkTheme"
               switch
@@ -156,7 +168,10 @@
         </b-col>
       </b-row>
 
-      <b-row class="mt-5">
+      <b-row
+        v-if="!customize.disablePoweredBy"
+        class="mt-5"
+      >
         <b-col class="footer">
           {{ $t('text-powered-by') }} <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> OTS</a> {{ $root.version }}
         </b-col>
@@ -176,6 +191,7 @@ export default {
 
   data() {
     return {
+      customize: {},
       error: '',
       explanationShown: false,
       mode: 'create',
@@ -207,6 +223,7 @@ export default {
 
   // Trigger initialization functions
   mounted() {
+    this.customize = window.OTSCustomize
     this.darkTheme = window.getTheme() === 'dark'
     window.onhashchange = this.hashLoad
     this.hashLoad()

@@ -3,7 +3,7 @@ module github.com/Luzifer/ots
 go 1.20
 
 require (
-	github.com/Luzifer/go_helpers/v2 v2.17.1
+	github.com/Luzifer/go_helpers/v2 v2.18.0
 	github.com/Luzifer/rconfig/v2 v2.4.0
 	github.com/gofrs/uuid/v3 v3.1.2
 	github.com/gorilla/mux v1.8.0

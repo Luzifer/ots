@@ -3,8 +3,6 @@ import VueI18n from 'vue-i18n'
 
 import BootstrapVue from 'bootstrap-vue'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './style.scss'
 
 import app from './app.vue'

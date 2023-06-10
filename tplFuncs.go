@@ -3,7 +3,6 @@ package main
 import (
 	"crypto/sha512"
 	"encoding/base64"
-	"path"
 	"sync"
 	"text/template"
 )
@@ -21,7 +20,7 @@ func assetSRIHash(assetName string) string {
 		return sri
 	}
 
-	data, err := assets.ReadFile(path.Join("frontend", assetName))
+	data, err := assets.ReadFile(assetName)
 	if err != nil {
 		panic(err)
 	}
