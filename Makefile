@@ -1,4 +1,4 @@
-VER_FONTAWESOME=6.4.0
+VER_FONTAWESOME:=6.4.0
 
 
 default: generate download_libs
@@ -33,3 +33,16 @@ download_libs: fontawesome
 fontawesome:
 	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \
 		tar -vC frontend -xz --strip-components=1 --wildcards --exclude='*/js-packages' '*/css' '*/webfonts'
+
+# -- Vulnerability scanning --
+
+trivy:
+	trivy fs . \
+		--dependency-tree \
+		--exit-code 1 \
+		--format table \
+		--ignore-unfixed \
+		--quiet \
+		--scanners config,license,secret,vuln \
+		--severity HIGH,CRITICAL \
+		--skip-dirs docs

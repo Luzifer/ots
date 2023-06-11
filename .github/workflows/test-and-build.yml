@@ -40,6 +40,7 @@ jobs:
             nodejs-lts-hydrogen \
             npm \
             tar \
+            trivy \
             unzip \
             which \
             zip
@@ -52,6 +53,9 @@ jobs:
       - name: Lint and test code
         run: |
           go test -v ./...
+
+      - name: Execute Trivy scan
+        run: make trivy
 
       - name: Build release
         run: make publish

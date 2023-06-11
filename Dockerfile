@@ -34,6 +34,8 @@ COPY --from=builder /go/bin/ots /usr/local/bin/ots
 
 EXPOSE 3000
 
+USER 1000:1000
+
 ENTRYPOINT ["/usr/local/bin/ots"]
 CMD ["--"]
 
