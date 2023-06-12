@@ -54,9 +54,6 @@ jobs:
         run: |
           go test -v ./...
 
-      - name: Execute Trivy scan
-        run: make trivy
-
       - name: Build release
         run: make publish
         env:
@@ -64,6 +61,9 @@ jobs:
           MOD_MODE: readonly
           NO_TESTS: 'true'
           PACKAGES: '.'
+
+      - name: Execute Trivy scan
+        run: make trivy
 
       - name: Extract changelog
         run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
