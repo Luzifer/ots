@@ -22,7 +22,7 @@ For a better setup you can choose the backend which is used to store the secrets
 
 - `mem` - In memory storage (wiped on restart of the daemon)
 - `redis` - Storing the secrets in a hash under one key
-  - `REDIS_URL` - Redis connection string `redis://auth:PWD@HOST:PORT/DB`
+  - `REDIS_URL` - Redis connection string `redis://USR:PWD@HOST:PORT/DB` (pre Redis v6 use `auth` as user, afterwards use a user available in your ACLs)
   - `REDIS_KEY` - Key prefix to store the keys under (Default `io.luzifer.ots`)
 - Common options
   - `SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
