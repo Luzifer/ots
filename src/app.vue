@@ -260,16 +260,25 @@ export default {
           },
           method: 'POST',
         })
-          .then(resp => resp.json())
-          .then(data => ({ data }))
           .then(resp => {
-            this.secretId = resp.data.secret_id
-            this.secret = ''
+            if (resp.status !== 201) {
+              // Server says "no"
+              this.error = this.$t('alert-something-went-wrong')
+              this.showError = true
+              return
+            }
 
-            // Give the interface a moment to transistion and focus
-            window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
+            resp.json()
+              .then(data => {
+                this.secretId = data.secret_id
+                this.secret = ''
+
+                // Give the interface a moment to transistion and focus
+                window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
+              })
           })
           .catch(err => {
+            // Network error
             this.error = this.$t('alert-something-went-wrong')
             this.showError = true
           }))
@@ -300,34 +309,43 @@ export default {
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
       fetch(`api/get/${this.secretId}`)
-        .then(resp => resp.json())
-        .then(data => ({ data }))
         .then(resp => {
-          const secret = resp.data.secret
-          if (!this.securePassword) {
-            this.secret = secret
+          if (resp.status === 404) {
+            // Secret has already been consumed
+            this.error = this.$t('alert-secret-not-found')
+            this.showError = true
             return
           }
 
-          crypto.dec(secret, this.securePassword)
-            .then(secret => {
-              this.secret = secret
-            })
-            .catch(() => {
-              this.error = this.$t('alert-something-went-wrong')
-              this.showError = true
+          if (resp.status !== 200) {
+            // Some other non-200: Something(tm) was wrong
+            this.error = this.$t('alert-something-went-wrong')
+            this.showError = true
+            return
+          }
+
+          resp.json()
+            .then(data => {
+              const secret = data.secret
+              if (!this.securePassword) {
+                this.secret = secret
+                return
+              }
+
+              crypto.dec(secret, this.securePassword)
+                .then(secret => {
+                  this.secret = secret
+                })
+                .catch(() => {
+                  this.error = this.$t('alert-something-went-wrong')
+                  this.showError = true
+                })
             })
         })
         .catch(err => {
-          switch (err.response.status) {
-          case 404:
-            this.error = this.$t('alert-secret-not-found')
-            this.showError = true
-            break
-          default:
-            this.error = this.$t('alert-something-went-wrong')
-            this.showError = true
-          }
+          // Network error
+          this.error = this.$t('alert-something-went-wrong')
+          this.showError = true
         })
     },
   },
