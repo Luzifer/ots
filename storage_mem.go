@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"github.com/gofrs/uuid/v3"
+	"github.com/gofrs/uuid"
 )
 
 type memStorageSecret struct {

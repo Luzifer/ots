@@ -2,11 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 
+	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 type apiServer struct {
@@ -41,7 +44,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
 		tmp := apiRequest{}
 		if err := json.NewDecoder(r.Body).Decode(&tmp); err != nil {
-			a.errorResponse(res, http.StatusBadRequest, err.Error())
+			a.errorResponse(res, http.StatusBadRequest, err, "decoding request body")
 			return
 		}
 		secret = tmp.Secret
@@ -50,13 +53,13 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	}
 
 	if secret == "" {
-		a.errorResponse(res, http.StatusBadRequest, "Secret missing")
+		a.errorResponse(res, http.StatusBadRequest, errors.New("secret missing"), "")
 		return
 	}
 
 	id, err := a.store.Create(secret, time.Duration(cfg.SecretExpiry)*time.Second)
 	if err != nil {
-		a.errorResponse(res, http.StatusInternalServerError, err.Error())
+		a.errorResponse(res, http.StatusInternalServerError, err, "creating secret")
 		return
 	}
 
@@ -70,7 +73,7 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	if id == "" {
-		a.errorResponse(res, http.StatusBadRequest, "ID missing")
+		a.errorResponse(res, http.StatusBadRequest, errors.New("id missing"), "")
 		return
 	}
 
@@ -80,7 +83,7 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 		if err == errSecretNotFound {
 			status = http.StatusNotFound
 		}
-		a.errorResponse(res, status, err.Error())
+		a.errorResponse(res, status, err, "reading & destroying secret")
 		return
 	}
 
@@ -90,9 +93,16 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (a apiServer) errorResponse(res http.ResponseWriter, status int, msg string) {
+func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
+	errID := uuid.Must(uuid.NewV4()).String()
+
+	if desc != "" {
+		// No description: Nothing interesting for the server log
+		logrus.WithField("err_id", errID).WithError(err).Error(desc)
+	}
+
 	a.jsonResponse(res, status, apiResponse{
-		Error: msg,
+		Error: errID,
 	})
 }
 
