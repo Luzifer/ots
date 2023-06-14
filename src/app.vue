@@ -270,15 +270,8 @@ export default {
             window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
           })
           .catch(err => {
-            switch (err.response.status) {
-            case 404:
-              // Mock for interface testing
-              this.secretId = 'foobar'
-              break
-            default:
-              this.error = this.$t('alert-something-went-wrong')
-              this.showError = true
-            }
+            this.error = this.$t('alert-something-went-wrong')
+            this.showError = true
           }))
 
       return false
