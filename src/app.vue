@@ -130,13 +130,20 @@
                   readonly
                   @focus="$refs.secretUrl.select()"
                 />
-                <b-input-group-append
-                  v-if="!customize.disableQRSupport"
-                >
+                <b-input-group-append>
                   <b-button
+                    v-if="hasClipboard"
+                    :disabled="!secretUrl"
+                    :variant="copyToClipboardSuccess ? 'success' : 'primary'"
+                    @click="copySecretUrl"
+                  >
+                    <i class="fas fa-clipboard" />
+                  </b-button>
+                  <b-button
+                    v-if="!customize.disableQRSupport"
                     id="secret-url-qrcode"
                     :disabled="!secretQRDataURL"
-                    variant="primary"
+                    variant="secondary"
                   >
                     <i class="fas fa-qrcode" />
                   </b-button>
@@ -216,6 +223,10 @@ const passwordLength = 20
 
 export default {
   computed: {
+    hasClipboard() {
+      return Boolean(navigator.clipboard && navigator.clipboard.writeText)
+    },
+
     secretUrl() {
       return [
         window.location.href,
@@ -229,6 +240,7 @@ export default {
 
   data() {
     return {
+      copyToClipboardSuccess: false,
       customize: {},
       darkTheme: false,
       error: '',
@@ -243,6 +255,16 @@ export default {
   },
 
   methods: {
+    copySecretUrl() {
+      navigator.clipboard.writeText(this.secretUrl)
+        .then(() => {
+          this.copyToClipboardSuccess = true
+          window.setTimeout(() => {
+            this.copyToClipboardSuccess = false
+          }, 500)
+        })
+    },
+
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
       if (this.secret.trim().length < 1) {
