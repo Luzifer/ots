@@ -263,7 +263,6 @@ export default {
           .then(resp => resp.json())
           .then(data => ({ data }))
           .then(resp => {
-            console.warn(resp)
             this.secretId = resp.data.secret_id
             this.secret = ''
 
