@@ -1,3 +1,12 @@
+# 1.2.0 / 2023-06-14
+
+  * Improvements
+    * Log API errors in server log
+
+  * Bugfixes
+    * [#89] Fix error handling of `fetch` API
+
+
 # 1.1.0 / 2023-06-14
 
   * New Features
