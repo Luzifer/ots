@@ -1,3 +1,17 @@
+# 1.1.0 / 2023-06-14
+
+  * New Features
+    * Add QR-code display for secret URL (#61)
+    * Implement frontend customizations (#71)
+
+  * Improvements
+    * Disable secret creation when secret is empty (#86)
+    * Log secret expiry on startup
+    * Only mention tool name in footer (#71)
+    * Replace redis client, move expiry into creation interface
+
+With this release an old migration was removed and in case you are still using the `REDIS_EXPIRY` environment variable you need to switch to `SECRET_EXPIRY`. Also with the new redis client you might need to adjust the username in your `REDIS_URL` to a proper ACL username (or enable legacy auth in Redis) - see the README for the `REDIS_URL` format.
+
 # 1.0.0 / 2023-04-14
 
   * Breaking: Replace deprecated / archived crypto library (#80)
