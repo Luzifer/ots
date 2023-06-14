@@ -8,6 +8,7 @@ import nl from './nl.json'
 import ptBR from './ptBR.json'
 import ru from './ru.json'
 import sv from './sv.json'
+import tr from './tr.json'
 import zh from './zh.json'
 import zhTW from './zhTW.json'
 
@@ -22,6 +23,7 @@ export default {
   'pt-BR': ptBR,
   ru,
   sv,
+  tr,
   zh,
   'zh-TW': zhTW,
 }
