@@ -1,4 +1,5 @@
 {
+  "__lang": "nl",
   "alert-secret-not-found": "De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!",
   "alert-something-went-wrong": "Er ging iets verkeerd, sorry&hellip;",
   "btn-create-secret": "Nieuwe vertrouwelijke info aanmaken!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Mogelijk gemaakt door",
   "text-pre-reveal-hint": "Gebruik deze knop om de vertrouwelijke info op te halen. Let op: Je kan dit slechts eenmaal doen!",
   "text-pre-url": "Je vertrouwelijke informatie kan opgevraagd worden via deze URL:",
+  "text-secret-create-disabled": "Het aanmaken van nieuwe geheimen is in dit geval uitgeschakeld.",
   "title-explanation": "Dit is hoe het werkt&hellip;",
   "title-new-secret": "Nieuwe vertrouwelijke info opslaan",
   "title-reading-secret": "Vertrouwelijke info lezen&hellip;",
+  "title-secret-create-disabled": "Geheime creatie uitgeschakeld...",
   "title-secret-created": "Vertrouwelijke info opgeslaan!"
 }

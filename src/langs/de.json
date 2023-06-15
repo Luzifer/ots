@@ -1,4 +1,5 @@
 {
+  "__lang": "de",
   "alert-secret-not-found": "Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.",
   "alert-something-went-wrong": "Irgendwas ging schief. Entschuldigung&hellip;",
   "btn-create-secret": "Secret erstellen!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Läuft mit",
   "text-pre-reveal-hint": "Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.",
   "text-pre-url": "Dein Secret wurde angelegt und unter folgender URL gespeichert:",
+  "text-secret-create-disabled": "Auf dieser Instanz wurde das Erstellen neuer Secrets deaktiviert.",
   "title-explanation": "So funktioniert es&hellip;",
   "title-new-secret": "Erstelle ein neues Secret",
   "title-reading-secret": "Secret auslesen&hellip;",
+  "title-secret-create-disabled": "Erstellen von Secrets deaktiviert…",
   "title-secret-created": "Secret erstellt!"
 }

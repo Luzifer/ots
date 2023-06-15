@@ -36,6 +36,7 @@ func newAPI(s storage) *apiServer {
 func (a apiServer) Register(r *mux.Router) {
 	r.HandleFunc("/create", a.handleCreate)
 	r.HandleFunc("/get/{id}", a.handleRead)
+	r.HandleFunc("/isWritable", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusNoContent) })
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {

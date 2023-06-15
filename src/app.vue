@@ -84,7 +84,7 @@
 
           <!-- Creation dialog -->
           <b-card
-            v-if="mode == 'create' && !secretId"
+            v-if="mode == 'create' && !secretId && canWrite"
             border-variant="primary"
             header-bg-variant="primary"
             header-text-variant="white"
@@ -108,6 +108,20 @@
             >
               {{ $t('btn-create-secret') }}
             </b-button>
+          </b-card>
+
+          <!-- Creation disabled -->
+          <b-card
+            v-if="mode == 'create' && !secretId && canWrite === false"
+            border-variant="info"
+            header-bg-variant="info"
+            header-text-variant="white"
+          >
+            <span
+              slot="header"
+              v-html="$t('title-secret-create-disabled')"
+            />
+            <p v-html="$t('text-secret-create-disabled')" />
           </b-card>
 
           <!-- Secret created, show secret URL -->
@@ -240,6 +254,7 @@ export default {
 
   data() {
     return {
+      canWrite: null,
       copyToClipboardSuccess: false,
       customize: {},
       darkTheme: false,
@@ -255,6 +270,23 @@ export default {
   },
 
   methods: {
+    checkWriteAccess() {
+      fetch('api/isWritable', {
+        credentials: 'same-origin',
+        method: 'GET',
+        redirect: 'error',
+      })
+        .then(resp => {
+          if (resp.status !== 204) {
+            throw new Error(`unexpected status: ${resp.status}`)
+          }
+          this.canWrite = true
+        })
+        .catch(() => {
+          this.canWrite = false
+        })
+    },
+
     copySecretUrl() {
       navigator.clipboard.writeText(this.secretUrl)
         .then(() => {
@@ -374,6 +406,7 @@ export default {
 
   // Trigger initialization functions
   mounted() {
+    this.checkWriteAccess()
     this.customize = window.OTSCustomize
     this.darkTheme = window.getTheme() === 'dark'
     window.onhashchange = this.hashLoad

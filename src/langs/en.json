@@ -1,4 +1,5 @@
 {
+  "__lang": "en",
   "alert-secret-not-found": "This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be compromised as someone else might have opened the link already.",
   "alert-something-went-wrong": "Something went wrong. I'm very sorry about this&hellip;",
   "btn-create-secret": "Create the secret!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Powered by",
   "text-pre-reveal-hint": "To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!",
   "text-pre-url": "Your secret was created and stored using this URL:",
+  "text-secret-create-disabled": "The creation of new secrets is disabled in this instance.",
   "title-explanation": "This is how it works&hellip;",
   "title-new-secret": "Create a new secret",
   "title-reading-secret": "Reading your secret&hellip;",
+  "title-secret-create-disabled": "Secret creation disabled…",
   "title-secret-created": "Secret created!"
 }

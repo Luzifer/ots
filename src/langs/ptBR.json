@@ -1,4 +1,5 @@
 {
+  "__lang": "PT-BR",
   "alert-secret-not-found": "Esta não é o segredo que você está procurando… - Se você esperava que o segredo estaria aqui, ele pode ter sido comprometido por alguém que já acessou o link.",
   "alert-something-went-wrong": "Desculpe, algo deu errado…",
   "btn-create-secret": "Criar segredo!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Powered by",
   "text-pre-reveal-hint": "Para revelar o segredo clique neste botão, mas lembre-se que esta ação vai destruir o segredo. Você só pode ver uma única vez!",
   "text-pre-url": "Seu segredo foi criado e armazenado na seguinte URL:",
+  "text-secret-create-disabled": "A criação de novos segredos é desativada nesse caso.",
   "title-explanation": "É assim como funciona…",
   "title-new-secret": "Criar um novo segredo",
   "title-reading-secret": "Lendo seu segredo…",
+  "title-secret-create-disabled": "Criação secreta desativada...",
   "title-secret-created": "Segredo criado!"
 }

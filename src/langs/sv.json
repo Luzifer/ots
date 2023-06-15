@@ -1,4 +1,5 @@
 {
+  "__lang": "sv",
   "alert-secret-not-found": "Hemlighet hittades inte&hellip; - Om du förväntade dig att hemligheten skulle finnas här kan den vara röjd då någon annan kan ha öppnat denna länk tidigare.",
   "alert-something-went-wrong": "Något gick fel. Jag ber om ursäkt för detta!&hellip;",
   "btn-create-secret": "Skapa hemliget!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Drivs av",
   "text-pre-reveal-hint": "För att visa hemligheten klicka på denna knapp. Var medveten om att när du gör det kommer hemligheten att förbrukas, du kan endast se den en gång!",
   "text-pre-url": "Din hemlighet har skapats och lagrats med denna URL:",
+  "text-secret-create-disabled": "Skapandet av nya hemligheter blockeras i detta fall.",
   "title-explanation": "Såhär fungerar det&hellip;",
   "title-new-secret": "Skapa ny hemlighet",
   "title-reading-secret": "Läs din hemlighet&hellip;",
+  "title-secret-create-disabled": "Hemlig skapelse avaktiverad...",
   "title-secret-created": "Hemlighet skapad!"
 }

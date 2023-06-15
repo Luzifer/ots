@@ -1,4 +1,5 @@
 {
+  "__lang": "ru",
   "alert-secret-not-found": "Секрет недоступен&hellip; - Помните, он может быть скомпрометирован. Возможно кто-то другой уже открыл вашу ссылку.",
   "alert-something-went-wrong": "Что-то пошло не так. Приносим свои извинения&hellip;",
   "btn-create-secret": "Создать секрет!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Powered by",
   "text-pre-reveal-hint": "Чтобы раскрыть секрет, нажмите эту кнопку, но имейте в виду, что это приведет к уничтожению секрета. Вы можете просмотреть его только один раз!",
   "text-pre-url": "Ваш секрет создан и сохранён, его URL:",
+  "text-secret-create-disabled": "Создание новых секретов в этом случае отключено.",
   "title-explanation": "Как это работает&hellip;",
   "title-new-secret": "Создать новый секрет",
   "title-reading-secret": "Читаем ваш секрет&hellip;",
+  "title-secret-create-disabled": "Секретное создание отключено...",
   "title-secret-created": "Секрет создан!"
 }

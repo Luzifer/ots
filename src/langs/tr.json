@@ -1,4 +1,5 @@
 {
+  "__lang": "tr",
   "alert-secret-not-found": "Aradığınız sır bu değil… - Sırrın burada olmasını bekliyorsanız, bu link başkası tarafından açılmış ve sırrınız tehlikede olabilir.",
   "alert-something-went-wrong": "Bir şeyler ters gitti. Bunun için çok üzgünüm…",
   "btn-create-secret": "Sır oluştur!",
@@ -20,8 +21,10 @@
   "text-powered-by": "Tarafından desteklenmektedir",
   "text-pre-reveal-hint": "Sırrı görmek için bu düğmeye tıklayın, ama bunu yaptıktan sonra sırrın silineceğini unutmayın. Bunu sadece bir kez görebilirsin!",
   "text-pre-url": "Sırrınız oluşturuldu ve bu link kullanılarak kaydedildi:",
+  "text-secret-create-disabled": "Bu durumda yeni gizli dizilerin oluşturulması devre dışı bırakılır.",
   "title-explanation": "Bu sekilde çalışır…",
   "title-new-secret": "Yeni sır oluştur",
   "title-reading-secret": "Sırrınız okunuyor…",
+  "title-secret-create-disabled": "Gizli yaratım devre dışı bırakıldı...",
   "title-secret-created": "Sır oluşturuldu!"
 }

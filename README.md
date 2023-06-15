@@ -71,6 +71,8 @@ To override the styling of the application have a look at the [`src/style.scss`]
 
 After modifying files in the `overlayFSPath` make sure to restart the application as otherwise the file integrity hashes are no longer matching and your resources will be blocked by the browsers.
 
+If you want to disable secret creation for users not logged into your company SSO you can apply an ACL on the `/api/create` and `/api/isWritable` endpoints to allow access to them only for logged in users. This will also disable the secret-creation interface for all not having access to the `/api/isWritable` endpoint.
+
 ## Creating secrets through CLI / scripts
 
 As `ots` is designed to never let the server know the secret you are sharing you should not just send the plain secret to it though it is possible.
