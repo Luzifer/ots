@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/rand"
 	"embed"
+	"encoding/base64"
 	"io/fs"
 	"mime"
 	"net/http"
@@ -19,6 +21,8 @@ import (
 	"github.com/Luzifer/rconfig/v2"
 )
 
+const scriptNonceSize = 32
+
 var (
 	cfg struct {
 		Customize      string `flag:"customize" default:"" description:"Customize-File to load"`
@@ -29,16 +33,6 @@ var (
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
 
-	// https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-	cspHeader = strings.Join([]string{
-		"default-src 'none'",
-		"connect-src 'self'",
-		"font-src 'self'",
-		"img-src 'self' data:",
-		"script-src 'self' 'unsafe-inline'",
-		"style-src 'self' 'unsafe-inline'",
-	}, ";")
-
 	assets   file_helpers.FSStack
 	cust     customize
 	indexTpl *template.Template
@@ -48,6 +42,21 @@ var (
 
 //go:embed frontend/*
 var embeddedAssets embed.FS
+
+func defaultCSP() http_helpers.CSP {
+	c := http_helpers.CSP{}
+
+	c.Add("base-uri", http_helpers.CSPSrcSelf)
+	c.Add("default-src", http_helpers.CSPSrcNone)
+	c.Add("connect-src", http_helpers.CSPSrcSelf)
+	c.Add("font-src", http_helpers.CSPSrcSelf)
+	c.Add("img-src", http_helpers.CSPSrcSelf)
+	c.Add("img-src", http_helpers.CSPSrcSchemeData)
+	c.Add("script-src", http_helpers.CSPSrcSelf)
+	c.Add("style-src", http_helpers.CSPSrcSelf)
+
+	return c
+}
 
 func initApp() error {
 	rconfig.AutoEnv(true)
@@ -150,19 +159,34 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
+	inlineContentNonce := make([]byte, scriptNonceSize)
+	if _, err := rand.Read(inlineContentNonce); err != nil {
+		logrus.WithError(err).Error("generating script nonce")
+		http.Error(w, "something went wrong", http.StatusInternalServerError)
+		return
+	}
+
+	inlineContentNonceStr := base64.StdEncoding.EncodeToString(inlineContentNonce)
+
+	policy := defaultCSP()
+	policy.Add("script-src", http_helpers.CSPSrcNonce(inlineContentNonceStr))
+	policy.Add("style-src", http_helpers.CSPSrcNonce(inlineContentNonceStr))
+
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Referrer-Policy", "no-referrer")
 	w.Header().Set("X-Frame-Options", "DENY")
 	w.Header().Set("X-Xss-Protection", "1; mode=block")
-	w.Header().Set("Content-Security-Policy", cspHeader)
+	w.Header().Set("Content-Security-Policy", policy.ToHeaderValue())
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
 	if err := indexTpl.Execute(w, struct {
-		Customize customize
-		Version   string
+		Customize          customize
+		InlineContentNonce string
+		Version            string
 	}{
-		Customize: cust,
-		Version:   version,
+		Customize:          cust,
+		InlineContentNonce: inlineContentNonceStr,
+		Version:            version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
