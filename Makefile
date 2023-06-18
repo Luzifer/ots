@@ -19,6 +19,9 @@ publish: download_libs generate-inner generate-apidocs
 	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
 	bash golang.sh
 
+translate:
+	cd ci/translate && go run .
+
 # -- Download / refresh external libraries --
 
 clean_libs:

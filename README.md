@@ -121,8 +121,8 @@ You can then use the URL `https://ots.fyi/#1cb08e53-46b9-4f21-bbd9-f1eea1594ad9`
 
 ## Localize to your own language
 
-If you want to help translating the application to your own language please download the [`en.json`](https://github.com/Luzifer/ots/blob/master/src/langs/en.json) file from this repository and translate the strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
+If you want to help translating the application to your own language please see the [`i18n.yaml`](https://github.com/Luzifer/ots/blob/master/i18n.yaml) file from this repository and translate the English strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
 
-Of course you also could open a pull-request to add the new file to the `src/langs` folder. In this case please also edit the `langs.js` file and add your translation.
+Of course you also could open a pull-request to add the new translations to the `i18n.yaml` file.
 
 Same goes with when you're finding translation errors: Just open an issue and let me know!
