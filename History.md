@@ -1,3 +1,15 @@
+# 1.3.0 / 2023-06-24
+
+  * New Features
+    * [#91] Add Copy-to-Clipboard button to secret URL
+    * [#92] Add detection for write-disabled instances
+    * Add Turkish language (thanks to @vehbiyilmaz)
+
+  * Improvements
+    * Implement proper tool to manage translations
+    * Improve README readability
+    * Mitigate possible XSS through `unsafe-inline` script CSP
+
 # 1.2.0 / 2023-06-14
 
   * Improvements
@@ -5,7 +17,6 @@
 
   * Bugfixes
     * [#89] Fix error handling of `fetch` API
-
 
 # 1.1.0 / 2023-06-14
 
