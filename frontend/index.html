@@ -48,6 +48,7 @@
       document.addEventListener('DOMContentLoaded', () => window.refreshTheme())
 
       // Template variable from Golang process
+      const maxSecretExpire = {{ .MaxSecretExpiry }}
       const version = "{{ .Version }}"
       window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
     </script>

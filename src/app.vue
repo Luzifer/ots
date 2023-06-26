@@ -101,13 +101,42 @@
                 rows="5"
               />
             </b-form-group>
-            <b-button
-              :disabled="secret.trim().length < 1"
-              variant="success"
-              @click="createSecret"
-            >
-              {{ $t('btn-create-secret') }}
-            </b-button>
+            <b-row>
+              <b-col
+                cols="12"
+                md="6"
+                order="2"
+                order-md="1"
+              >
+                <b-button
+                  :disabled="secret.trim().length < 1"
+                  variant="success"
+                  @click="createSecret"
+                >
+                  {{ $t('btn-create-secret') }}
+                </b-button>
+              </b-col>
+              <b-col
+                v-if="!customize.disableExpiryOverride"
+                cols="12"
+                md="6"
+                order="1"
+                order-md="2"
+              >
+                <b-form-group
+                  :label="$t('label-expiry')"
+                  label-for="expiry"
+                  label-align-md="right"
+                  label-cols-md
+                >
+                  <b-form-select
+                    id="expiry"
+                    v-model="selectedExpiry"
+                    :options="expiryChoices()"
+                  />
+                </b-form-group>
+              </b-col>
+            </b-row>
           </b-card>
 
           <!-- Creation disabled -->
@@ -165,6 +194,10 @@
               </b-input-group>
             </b-form-group>
             <p v-html="$t('text-burn-hint')" />
+            <p v-if="secretExpiry">
+              {{ $t('text-burn-time') }}
+              <strong>{{ secretExpiry.toLocaleString() }}</strong>
+            </p>
 
             <b-popover
               v-id="!customize.disableQRSupport"
@@ -232,6 +265,19 @@
 import crypto from './crypto.js'
 import qrcode from 'qrcode'
 
+const defaultExpiryChoices = [
+  90 * 86400, // 90 days
+  30 * 86400, // 30 days
+  7 * 86400, // 7 days
+  3 * 86400, // 3 days
+  24 * 3600, // 1 day
+  12 * 3600, // 12 hours
+  4 * 3600, // 4 hours
+  60 * 60, // 1 hour
+  30 * 60, // 30 minutes
+  5 * 60, // 5 minutes
+]
+
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
 
@@ -262,9 +308,11 @@ export default {
       explanationShown: false,
       mode: 'create',
       secret: '',
+      secretExpiry: null,
       secretId: '',
       secretQRDataURL: '',
       securePassword: '',
+      selectedExpiry: null,
       showError: false,
     }
   },
@@ -307,37 +355,72 @@ export default {
         .map(n => passwordCharset[n % passwordCharset.length])
         .join('')
       crypto.enc(this.secret, this.securePassword)
-        .then(secret => fetch('api/create', {
-          body: JSON.stringify({ secret }),
-          headers: {
-            'content-type': 'application/json',
-          },
-          method: 'POST',
-        })
-          .then(resp => {
-            if (resp.status !== 201) {
+        .then(secret => {
+          let reqURL = 'api/create'
+          if (this.selectedExpiry !== null) {
+            reqURL = `api/create?expire=${this.selectedExpiry}`
+          }
+
+          return fetch(reqURL, {
+            body: JSON.stringify({ secret }),
+            headers: {
+              'content-type': 'application/json',
+            },
+            method: 'POST',
+          })
+            .then(resp => {
+              if (resp.status !== 201) {
               // Server says "no"
+                this.error = this.$t('alert-something-went-wrong')
+                this.showError = true
+                return
+              }
+
+              resp.json()
+                .then(data => {
+                  this.secretId = data.secret_id
+                  this.secret = ''
+
+                  if (data.expires_at) {
+                    this.secretExpiry = new Date(data.expires_at)
+                  }
+
+                  // Give the interface a moment to transistion and focus
+                  window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
+                })
+            })
+            .catch(err => {
+            // Network error
               this.error = this.$t('alert-something-went-wrong')
               this.showError = true
-              return
-            }
-
-            resp.json()
-              .then(data => {
-                this.secretId = data.secret_id
-                this.secret = ''
-
-                // Give the interface a moment to transistion and focus
-                window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
-              })
-          })
-          .catch(err => {
-            // Network error
-            this.error = this.$t('alert-something-went-wrong')
-            this.showError = true
-          }))
+            })
+        })
 
       return false
+    },
+
+    expiryChoices() {
+      const choices = [{ text: this.$t('expire-default'), value: null }]
+      for (const choice of this.customize.expiryChoices || defaultExpiryChoices) {
+        if (maxSecretExpire > 0 && choice > maxSecretExpire) {
+          continue
+        }
+
+        const option = { value: choice }
+        if (choice >= 86400) {
+          option.text = this.$tc('expire-n-days', Math.round(choice / 86400))
+        } else if (choice >= 3600) {
+          option.text = this.$tc('expire-n-hours', Math.round(choice / 3600))
+        } else if (choice >= 60) {
+          option.text = this.$tc('expire-n-minutes', Math.round(choice / 60))
+        } else {
+          option.text = this.$tc('expire-n-seconds', choice)
+        }
+
+        choices.push(option)
+      }
+
+      return choices
     },
 
     // hashLoad reacts on a changed window hash an starts the diplaying of the secret
