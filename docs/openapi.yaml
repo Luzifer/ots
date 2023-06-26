@@ -14,7 +14,7 @@ info:
     This API allows you to store and read the same secrets as the web
     application.
   title: Luzifer/OTS API
-  version: 0.x
+  version: 1.x
 externalDocs:
   description: Luzifer/OTS on Github
   url: https://github.com/Luzifer/ots
@@ -38,8 +38,20 @@ paths:
         become `https://ots.fyi/#5e0065ee-5734-4548-9fd3-bb0bcd4c899d|mypass`.
         Note that you should correctly [percent
         encode](https://datatracker.ietf.org/doc/html/rfc3986) the `|` (pipe)
-        character for it to work in all browsers. 
+        character for it to work in all browsers.
       operationId: createSecret
+      parameters:
+        - name: expire
+          in: query
+          description: >-
+            Override the default secret expiry with this value given in seconds.
+            Values bigger than the configured secret expiry will silently be
+            ignored and the default expiry will be used.
+          required: false
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
       requestBody:
         required: true
         content:

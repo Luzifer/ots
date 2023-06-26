@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -17,10 +18,11 @@ type apiServer struct {
 }
 
 type apiResponse struct {
-	Success  bool   `json:"success"`
-	Error    string `json:"error,omitempty"`
-	Secret   string `json:"secret,omitempty"`
-	SecretId string `json:"secret_id,omitempty"`
+	Success   bool       `json:"success"`
+	Error     string     `json:"error,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	Secret    string     `json:"secret,omitempty"`
+	SecretId  string     `json:"secret_id,omitempty"`
 }
 
 type apiRequest struct {
@@ -40,7 +42,14 @@ func (a apiServer) Register(r *mux.Router) {
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
-	var secret string
+	var (
+		expiry = cfg.SecretExpiry
+		secret string
+	)
+
+	if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
+		expiry = ev
+	}
 
 	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
 		tmp := apiRequest{}
@@ -58,15 +67,21 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := a.store.Create(secret, time.Duration(cfg.SecretExpiry)*time.Second)
+	id, err := a.store.Create(secret, time.Duration(expiry)*time.Second)
 	if err != nil {
 		a.errorResponse(res, http.StatusInternalServerError, err, "creating secret")
 		return
 	}
 
+	var expiresAt *time.Time
+	if expiry > 0 {
+		expiresAt = func(v time.Time) *time.Time { return &v }(time.Now().Add(time.Duration(expiry) * time.Second))
+	}
+
 	a.jsonResponse(res, http.StatusCreated, apiResponse{
-		Success:  true,
-		SecretId: id,
+		ExpiresAt: expiresAt,
+		Success:   true,
+		SecretId:  id,
 	})
 }
 
