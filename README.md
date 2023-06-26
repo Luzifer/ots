@@ -48,7 +48,7 @@ disableAppTitle: false
 
 # Disable the dropdown and the API functionality to override the
 # secret expiry
-disableExpiry: false
+disableExpiryOverride: false
 
 # Disable the footer linking back to the project. If you disable it
 # please consider a donation to support the project.

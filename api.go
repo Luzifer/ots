@@ -47,8 +47,10 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		secret string
 	)
 
-	if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) && !cust.DisableExpiry {
-		expiry = ev
+	if !cust.DisableExpiryOverride {
+		if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
+			expiry = ev
+		}
 	}
 
 	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {

@@ -117,7 +117,7 @@
                 </b-button>
               </b-col>
               <b-col
-                v-if="!customize.disableExpiry"
+                v-if="!customize.disableExpiryOverride"
                 cols="12"
                 md="6"
                 order="1"
