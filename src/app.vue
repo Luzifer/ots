@@ -117,6 +117,7 @@
                 </b-button>
               </b-col>
               <b-col
+                v-if="!customize.disableExpiry"
                 cols="12"
                 md="6"
                 order="1"
@@ -264,6 +265,19 @@
 import crypto from './crypto.js'
 import qrcode from 'qrcode'
 
+const defaultExpiryChoices = [
+  90 * 86400, // 90 days
+  30 * 86400, // 30 days
+  7 * 86400, // 7 days
+  3 * 86400, // 3 days
+  24 * 3600, // 1 day
+  12 * 3600, // 12 hours
+  4 * 3600, // 4 hours
+  60 * 60, // 1 hour
+  30 * 60, // 30 minutes
+  5 * 60, // 5 minutes
+]
+
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
 
@@ -387,23 +401,23 @@ export default {
 
     expiryChoices() {
       const choices = [{ text: this.$t('expire-default'), value: null }]
-      for (const choice of [
-        { text: this.$tc('expire-n-days', 90), value: 90 * 86400 }, // 90 days
-        { text: this.$tc('expire-n-days', 30), value: 30 * 86400 }, // 30 days
-        { text: this.$tc('expire-n-days', 7), value: 7 * 86400 }, // 7 days
-        { text: this.$tc('expire-n-days', 3), value: 3 * 86400 }, // 3 days
-        { text: this.$tc('expire-n-days', 1), value: 24 * 3600 }, // 1 day
-        { text: this.$tc('expire-n-hours', 12), value: 12 * 3600 }, // 12 hours
-        { text: this.$tc('expire-n-hours', 4), value: 4 * 3600 }, // 4 hours
-        { text: this.$tc('expire-n-hours', 1), value: 60 * 60 }, // 1 hour
-        { text: this.$tc('expire-n-minutes', 30), value: 30 * 60 }, // 30 minutes
-        { text: this.$tc('expire-n-minutes', 5), value: 5 * 60 }, // 5 minutes
-      ]) {
-        if (maxSecretExpire > 0 && choice.value > maxSecretExpire) {
+      for (const choice of this.customize.expiryChoices || defaultExpiryChoices) {
+        if (maxSecretExpire > 0 && choice > maxSecretExpire) {
           continue
         }
 
-        choices.push(choice)
+        const option = { value: choice }
+        if (choice >= 86400) {
+          option.text = this.$tc('expire-n-days', Math.round(choice / 86400))
+        } else if (choice >= 3600) {
+          option.text = this.$tc('expire-n-hours', Math.round(choice / 3600))
+        } else if (choice >= 60) {
+          option.text = this.$tc('expire-n-minutes', Math.round(choice / 60))
+        } else {
+          option.text = this.$tc('expire-n-seconds', choice)
+        }
+
+        choices.push(option)
       }
 
       return choices

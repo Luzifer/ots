@@ -46,6 +46,10 @@ appTitle: ''
 # title within the appIcon)
 disableAppTitle: false
 
+# Disable the dropdown and the API functionality to override the
+# secret expiry
+disableExpiry: false
+
 # Disable the footer linking back to the project. If you disable it
 # please consider a donation to support the project.
 disablePoweredBy: false
@@ -57,6 +61,11 @@ disableQRSupport: false
 # Disable the switcher for dark / light theme in the top right corner
 # for example if your custom theme does not support two themes.
 disableThemeSwitcher: false
+
+# Override the choices to be displayed in the expiry dropdown. Values
+# are given in seconds and the order of the values controls the order
+# in the dropdown.
+expiryChoices: [300, ...]
 
 # Custom path to override embedded resources. You can override any
 # file present in the `frontend` directory (which is baked into the

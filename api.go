@@ -47,7 +47,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		secret string
 	)
 
-	if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
+	if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) && !cust.DisableExpiry {
 		expiry = ev
 	}
 
@@ -75,7 +75,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 
 	var expiresAt *time.Time
 	if expiry > 0 {
-		expiresAt = func(v time.Time) *time.Time { return &v }(time.Now().Add(time.Duration(expiry) * time.Second))
+		expiresAt = func(v time.Time) *time.Time { return &v }(time.Now().UTC().Add(time.Duration(expiry) * time.Second))
 	}
 
 	a.jsonResponse(res, http.StatusCreated, apiResponse{

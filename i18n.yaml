@@ -12,6 +12,7 @@ reference:
     expire-n-days: '{n} day | {n} days'
     expire-n-hours: '{n} hour | {n} hours'
     expire-n-minutes: '{n} minute | {n} minutes'
+    expire-n-seconds: '{n} second | {n} seconds'
     items-explanation:
       - You enter a secret into the field on this page
       - Your browser encrypts the secret using a generated password
@@ -74,6 +75,7 @@ translations:
       expire-n-days: '{n} Tag | {n} Tage'
       expire-n-hours: '{n} Stunde | {n} Stunden'
       expire-n-minutes: '{n} Minute | {n} Minuten'
+      expire-n-seconds: '{n} Sekunde | {n} Sekunden'
       items-explanation:
         - Du gibst ein Secret auf dieser Seite ein
         - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
@@ -108,6 +110,7 @@ translations:
       expire-n-days: '{n} día | {n} días'
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minuto | {n} minutos'
+      expire-n-seconds: '{n} segundo | {n} segundos'
       items-explanation:
         - Introduce un secreto en el formulario que hay en esta página
         - Tu navegador cifra el secreto utilizando una contraseña generada
@@ -140,6 +143,7 @@ translations:
       expire-n-days: '{n} jour | {n} jours'
       expire-n-hours: '{n} heure | {n} heures'
       expire-n-minutes: '{n} minute | {n} minutes'
+      expire-n-seconds: '{n} seconde | {n} secondes'
       items-explanation:
         - Vous saisissez le secret dans un champ sur cette page
         - Votre navigateur chiffre le secret en utilisant un mot de passe généré
@@ -172,6 +176,7 @@ translations:
       expire-n-days: '{n} diena | {n} dienas'
       expire-n-hours: '{n} stunda | {n} stundas'
       expire-n-minutes: '{n} minūte | {n} minūtes'
+      expire-n-seconds: '{n} sekundes | {n} sekundes'
       items-explanation:
         - Tu ievadi ziņu ievades laukā
         - Pārlūks nošifrē ziņu ar uzģenerētu paroli
@@ -204,6 +209,7 @@ translations:
       expire-n-days: '{n} dag | {n} dagen'
       expire-n-hours: '{n} uur | {n} uur'
       expire-n-minutes: '{n} minute | {n} minuten'
+      expire-n-seconds: '{n} seconde | {n} seconden'
       items-explanation:
         - Je vult vertrouwelijke informatie in op deze pagina.
         - Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.
@@ -236,6 +242,7 @@ translations:
       expire-n-days: '{n} dia | {n} dias'
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minutos | {n} minutos'
+      expire-n-seconds: '{n} segundos | {n} segundos'
       items-explanation:
         - Você insere o segredo no campo de texto desta página
         - Seu navegador criptografa o segredo usando uma senha gerada
@@ -268,6 +275,7 @@ translations:
       expire-n-days: '{n} день | {n} дней'
       expire-n-hours: '{n} час | {n} часов'
       expire-n-minutes: '{n} минут | {n} минут'
+      expire-n-seconds: '{n} секунда | {n} секунд'
       items-explanation:
         - Вы вводите секрет в поле на этой странице.
         - Ваш браузер шифрует секрет с помощью сгенерированного пароля.
@@ -300,6 +308,7 @@ translations:
       expire-n-days: '{n} dag | {n} dagar'
       expire-n-hours: '{n} timme | {n} timmar'
       expire-n-minutes: '{n} minut | {n} minuter'
+      expire-n-seconds: '{n} sekund | {n} sekunder'
       items-explanation:
         - Skriv in en hemlighet i rutan nedan
         - Din webbläsare krypterar hemligheten med hjälp av ett genererat lösenord
@@ -332,6 +341,7 @@ translations:
       expire-n-days: '{n} gün | {n} gün'
       expire-n-hours: '{n} saat | {n} saat'
       expire-n-minutes: '{n} dakika | {n} dakika'
+      expire-n-seconds: '{n} saniye | {n} saniye'
       items-explanation:
         - Bu sayfadaki alana sırrınızı giriniz
         - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
