@@ -22,7 +22,7 @@ $web-font-path: '';
       color: #d1d1d1;
     }
 
-    .form-control {
+    .form-control, .custom-select {
       /* Force overwrite bright textareas */
       background-color: rgb(24, 26, 27);
       border-color: rgb(129, 120, 106);

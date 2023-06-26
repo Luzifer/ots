@@ -8,6 +8,10 @@ reference:
     btn-new-secret: New Secret
     btn-reveal-secret: Show me the secret!
     btn-show-explanation: How does this work?
+    expire-default: Default Expiry
+    expire-n-days: '{n} day | {n} days'
+    expire-n-hours: '{n} hour | {n} hours'
+    expire-n-minutes: '{n} minute | {n} minutes'
     items-explanation:
       - You enter a secret into the field on this page
       - Your browser encrypts the secret using a generated password
@@ -16,8 +20,10 @@ reference:
       - You pass the displayed URL containing the ID and the decryption password to the recipient
       - 'The recipient can view the secret exactly once: If they can''t, the secret might have been viewed by someone else!'
       - After the encrypted secret has been retrieved once, it is deleted from the server
+    label-expiry: 'Expire in:'
     label-secret-data: 'Secret data:'
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
+    text-burn-time: If not viewed before, this secret will automatically be burned on
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
