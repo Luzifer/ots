@@ -23,7 +23,7 @@ reference:
     label-expiry: 'Expire in:'
     label-secret-data: 'Secret data:'
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
-    text-burn-time: If not viewed before, this secret will automatically be burned on
+    text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
@@ -70,6 +70,10 @@ translations:
       btn-new-secret: Neues Secret
       btn-reveal-secret: Zeig mir das Secret!
       btn-show-explanation: Wie funktioniert das?
+      expire-default: Server-Standard
+      expire-n-days: '{n} Tag | {n} Tage'
+      expire-n-hours: '{n} Stunde | {n} Stunden'
+      expire-n-minutes: '{n} Minute | {n} Minuten'
       items-explanation:
         - Du gibst ein Secret auf dieser Seite ein
         - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
@@ -78,8 +82,10 @@ translations:
         - Du gibst die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
         - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
+      label-expiry: 'Ablauf in:'
       label-secret-data: 'Inhalt des Secrets:'
       text-burn-hint: Bitte rufe die URL nicht selbst auf, da das Secret dadurch zerstört würde. Gib sie einfach weiter!
+      text-burn-time: 'Wenn es vorher nicht eingesehen wurde, wird dieses Secret automatisch gelöscht:'
       text-hint-burned: <strong>Achtung:</strong> Du kannst das nur einmal ansehen! Sobald du die Seite neu lädst, ist das Secret verschwunden, also besser direkt kopieren und sicher abspeichern&hellip;
       text-powered-by: Läuft mit
       text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
@@ -99,6 +105,9 @@ translations:
       btn-new-secret: Nuevo secreto
       btn-reveal-secret: ¡Muéstrame el secreto!
       btn-show-explanation: ¿Cómo funciona?
+      expire-n-days: '{n} día | {n} días'
+      expire-n-hours: '{n} hora | {n} horas'
+      expire-n-minutes: '{n} minuto | {n} minutos'
       items-explanation:
         - Introduce un secreto en el formulario que hay en esta página
         - Tu navegador cifra el secreto utilizando una contraseña generada
@@ -128,6 +137,9 @@ translations:
       btn-new-secret: Nouveau secret
       btn-reveal-secret: Voir le secret!
       btn-show-explanation: Comment ça fonctionne?
+      expire-n-days: '{n} jour | {n} jours'
+      expire-n-hours: '{n} heure | {n} heures'
+      expire-n-minutes: '{n} minute | {n} minutes'
       items-explanation:
         - Vous saisissez le secret dans un champ sur cette page
         - Votre navigateur chiffre le secret en utilisant un mot de passe généré
@@ -157,6 +169,9 @@ translations:
       btn-new-secret: Jauna ziņa
       btn-reveal-secret: Atvērt ziņu!
       btn-show-explanation: Kā tas strādā?
+      expire-n-days: '{n} diena | {n} dienas'
+      expire-n-hours: '{n} stunda | {n} stundas'
+      expire-n-minutes: '{n} minūte | {n} minūtes'
       items-explanation:
         - Tu ievadi ziņu ievades laukā
         - Pārlūks nošifrē ziņu ar uzģenerētu paroli
@@ -186,6 +201,9 @@ translations:
       btn-new-secret: Nieuw
       btn-reveal-secret: Toon mij de vertrouwelijke info!
       btn-show-explanation: Hoe werkt dit?
+      expire-n-days: '{n} dag | {n} dagen'
+      expire-n-hours: '{n} uur | {n} uur'
+      expire-n-minutes: '{n} minute | {n} minuten'
       items-explanation:
         - Je vult vertrouwelijke informatie in op deze pagina.
         - Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.
@@ -215,6 +233,9 @@ translations:
       btn-new-secret: Novo segredo
       btn-reveal-secret: Mostrar o segredo!
       btn-show-explanation: Como funciona?
+      expire-n-days: '{n} dia | {n} dias'
+      expire-n-hours: '{n} hora | {n} horas'
+      expire-n-minutes: '{n} minutos | {n} minutos'
       items-explanation:
         - Você insere o segredo no campo de texto desta página
         - Seu navegador criptografa o segredo usando uma senha gerada
@@ -244,6 +265,9 @@ translations:
       btn-new-secret: Новый секрет
       btn-reveal-secret: Показать секрет!
       btn-show-explanation: Как это работает?
+      expire-n-days: '{n} день | {n} дней'
+      expire-n-hours: '{n} час | {n} часов'
+      expire-n-minutes: '{n} минут | {n} минут'
       items-explanation:
         - Вы вводите секрет в поле на этой странице.
         - Ваш браузер шифрует секрет с помощью сгенерированного пароля.
@@ -273,6 +297,9 @@ translations:
       btn-new-secret: Ny hemlighet.
       btn-reveal-secret: Visa mig hemligheten!
       btn-show-explanation: Hur fungerar detta?
+      expire-n-days: '{n} dag | {n} dagar'
+      expire-n-hours: '{n} timme | {n} timmar'
+      expire-n-minutes: '{n} minut | {n} minuter'
       items-explanation:
         - Skriv in en hemlighet i rutan nedan
         - Din webbläsare krypterar hemligheten med hjälp av ett genererat lösenord
@@ -302,6 +329,9 @@ translations:
       btn-new-secret: Yeni sır
       btn-reveal-secret: Sırrı göster!
       btn-show-explanation: Nasıl çalışır?
+      expire-n-days: '{n} gün | {n} gün'
+      expire-n-hours: '{n} saat | {n} saat'
+      expire-n-minutes: '{n} dakika | {n} dakika'
       items-explanation:
         - Bu sayfadaki alana sırrınızı giriniz
         - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
