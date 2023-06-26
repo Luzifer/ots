@@ -182,10 +182,12 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	if err := indexTpl.Execute(w, struct {
 		Customize          customize
 		InlineContentNonce string
+		MaxSecretExpiry    int64
 		Version            string
 	}{
 		Customize:          cust,
 		InlineContentNonce: inlineContentNonceStr,
+		MaxSecretExpiry:    cfg.SecretExpiry,
 		Version:            version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
