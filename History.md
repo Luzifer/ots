@@ -1,3 +1,8 @@
+# 1.4.0 / 2023-06-27
+
+  * New Features
+    * [#85] Allow to customize secret expiry (#93)
+
 # 1.3.0 / 2023-06-24
 
   * New Features
