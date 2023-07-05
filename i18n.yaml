@@ -98,6 +98,22 @@ translations:
       title-reading-secret: Secret auslesen&hellip;
       title-secret-create-disabled: Erstellen von Secrets deaktiviert…
       title-secret-created: Secret erstellt!
+    formalTranslations:
+      alert-secret-not-found: Dieses Secret existiert nicht. - Falls Sie diesen Link nocht nicht selbst geöffnet haben, könnte der Inhalt kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
+      btn-reveal-secret: Secret anzeigen
+      items-explanation:
+        - Sie geben ein Secret auf dieser Seite ein
+        - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
+        - Nur das verschlüsselte Secret wird an den Server geschickt (das Passwort oder das Secret im Klartext werden niemals übertragen!)
+        - Der Server speichert das verschlüsselte Secret für eine Weile
+        - Sie geben die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
+        - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
+        - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
+      text-burn-hint: Bitte rufen Sie die URL nicht selbst auf, da das Secret dadurch zerstört würde.
+      text-hint-burned: <strong>Achtung:</strong> Sie können das Secret nur einmal ansehen! Sobald Sie die Seite neu laden, kann das Secret nicht erneut abgerufen werden, also besser direkt kopieren und sicher abspeichern&hellip;
+      text-pre-reveal-hint: Klicken Sie auf diesen Button um das Secret anzuzeigen, bedenken Sie aber, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
+      text-pre-url: 'Das Secret wurde angelegt und unter folgender URL gespeichert:'
+      title-new-secret: Ein neues Secret erstellen
   es:
     deeplLanguage: es
     translations:
