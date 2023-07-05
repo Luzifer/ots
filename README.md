@@ -74,6 +74,11 @@ expiryChoices: [300, ...]
 # root of the application (i.e. an app.png would be served at
 # https://ots.example.com/app.png).
 overlayFSPath: /path/to/ots-customization
+
+# Switch to formal translations for languages having those defined.
+# Languages not having a formal version will still display the normal
+# translations in the respective language.
+useFormalLanguage: false
 ```
 
 To override the styling of the application have a look at the [`src/style.scss`](./src/style.scss) file how the theme of the application is built and present the compiled `app.css` in the `overlayFSPath`.
