@@ -65,7 +65,7 @@ translations:
   de:
     deeplLanguage: de
     translations:
-      alert-secret-not-found: Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
+      alert-secret-not-found: Das ist nicht das Secret, das du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       alert-something-went-wrong: Irgendwas ging schief. Entschuldigung&hellip;
       btn-create-secret: Secret erstellen!
       btn-new-secret: Neues Secret
@@ -82,7 +82,7 @@ translations:
         - Nur das verschlüsselte Secret wird an den Server geschickt (das Passwort oder das Secret im Klartext werden niemals übertragen!)
         - Der Server speichert das verschlüsselte Secret für eine Weile
         - Du gibst die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
-        - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
+        - Der Empfänger kann das Secret einmalig abrufen. Funktioniert das nicht, könnte jemand anderes es abgerufen haben!
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
       label-expiry: 'Ablauf in:'
       label-secret-data: 'Inhalt des Secrets:'
@@ -99,15 +99,15 @@ translations:
       title-secret-create-disabled: Erstellen von Secrets deaktiviert…
       title-secret-created: Secret erstellt!
     formalTranslations:
-      alert-secret-not-found: Dieses Secret existiert nicht. - Falls Sie diesen Link nocht nicht selbst geöffnet haben, könnte der Inhalt kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
+      alert-secret-not-found: Dieses Secret existiert nicht. - Falls Sie diesen Link noch nicht selbst geöffnet haben, könnte der Inhalt kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       btn-reveal-secret: Secret anzeigen
       items-explanation:
         - Sie geben ein Secret auf dieser Seite ein
-        - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
+        - Ihr Browser verschlüsselt das Secret mit einem generierten Passwort
         - Nur das verschlüsselte Secret wird an den Server geschickt (das Passwort oder das Secret im Klartext werden niemals übertragen!)
         - Der Server speichert das verschlüsselte Secret für eine Weile
         - Sie geben die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
-        - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
+        - Der Empfänger kann das Secret einmalig abrufen. Funktioniert das nicht, könnte jemand anderes es abgerufen haben!
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
       text-burn-hint: Bitte rufen Sie die URL nicht selbst auf, da das Secret dadurch zerstört würde.
       text-hint-burned: <strong>Achtung:</strong> Sie können das Secret nur einmal ansehen! Sobald Sie die Seite neu laden, kann das Secret nicht erneut abgerufen werden, also besser direkt kopieren und sicher abspeichern&hellip;
