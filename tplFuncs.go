@@ -5,15 +5,19 @@ import (
 	"encoding/base64"
 	"sync"
 	"text/template"
+
+	"github.com/Masterminds/sprig/v3"
 )
 
 var (
 	sriCacheStore = newSRICache()
-	tplFuncs      = template.FuncMap{
-		"list":     func(args ...string) []string { return args },
-		"assetSRI": assetSRIHash,
-	}
+	tplFuncs      template.FuncMap
 )
+
+func init() {
+	tplFuncs = sprig.FuncMap()
+	tplFuncs["assetSRI"] = assetSRIHash
+}
 
 func assetSRIHash(assetName string) string {
 	if sri, ok := sriCacheStore.Get(assetName); ok {

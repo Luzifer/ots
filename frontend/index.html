@@ -51,6 +51,7 @@
       const maxSecretExpire = {{ .MaxSecretExpiry }}
       const version = "{{ .Version }}"
       window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
+      window.useFormalLanguage = {{ .Customize.UseFormalLanguage | mustToJson }}
     </script>
   </head>
   <body>

@@ -21,6 +21,7 @@ type (
 		DisableThemeSwitcher  bool    `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
 		ExpiryChoices         []int64 `json:"expiryChoices,omitempty" yaml:"expiryChoices"`
 		OverlayFSPath         string  `json:"-" yaml:"overlayFSPath"`
+		UseFormalLanguage     bool    `json:"-" yaml:"useFormalLanguage"`
 	}
 )
 

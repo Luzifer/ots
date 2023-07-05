@@ -74,6 +74,11 @@ expiryChoices: [300, ...]
 # root of the application (i.e. an app.png would be served at
 # https://ots.example.com/app.png).
 overlayFSPath: /path/to/ots-customization
+
+# Switch to formal translations for languages having those defined.
+# Languages not having a formal version will still display the normal
+# translations in the respective language.
+useFormalLanguage: false
 ```
 
 To override the styling of the application have a look at the [`src/style.scss`](./src/style.scss) file how the theme of the application is built and present the compiled `app.css` in the `overlayFSPath`.
@@ -135,3 +140,27 @@ If you want to help translating the application to your own language please see 
 Of course you also could open a pull-request to add the new translations to the `i18n.yaml` file.
 
 Same goes with when you're finding translation errors: Just open an issue and let me know!
+
+The format for the `i18n.yaml` is as follows:
+```yaml
+reference:                 # Reference strings (English)
+  deeplLanguage: en        # Source language for DeepL automated translations
+  languageKey: en          # Browser language to use this translation for
+  translations: {}         # Map of translation keys to their translations
+
+translations:              # Translations into other languages
+  de:                      # Identifier for the language, used as `languageKey`
+    deeplLanguage: de      # Target language for DeepL automated translations
+    translations: {}       # Informal / base translations for the language.
+                           # Missing keys will be loaded from the `reference`
+                           # and therefore get displayed in English. Missing
+                           # keys can be generated through DeepL through the
+                           # translation tool included in `ci/translate` but
+                           # will have low quality as partial sentences or
+                           # even only words lack the context for the
+                           # translation
+    formalTranslations: {} # Formal translations for the language (these will
+                           # be merged over the `translations` for this language
+                           # so you don't have to copy keys being equal in formal
+                           # and informal translation.)
+```

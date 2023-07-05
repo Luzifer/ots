@@ -10,6 +10,7 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/Masterminds/sprig/v3"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
@@ -17,17 +18,7 @@ import (
 	"github.com/Luzifer/rconfig/v2"
 )
 
-const (
-	deeplRequestTimeout = 10 * time.Second
-	jsTemplate          = `// Auto-Generated, do not edit!
-
-export default {
-{{- range $lang, $translation := .Translations }}
-  '{{ $lang }}': JSON.parse('{{ .Translations.ToJSON }}'),
-{{- end }}
-}
-`
-)
+const deeplRequestTimeout = 10 * time.Second
 
 type (
 	translation     map[string]any
@@ -36,19 +27,23 @@ type (
 		Translations map[string]*translationMapping `yaml:"translations"`
 	}
 	translationMapping struct {
-		DeeplLanguage string      `yaml:"deeplLanguage,omitempty"`
-		LanguageKey   string      `yaml:"languageKey,omitempty"`
-		Translations  translation `yaml:"translations"`
+		DeeplLanguage      string      `yaml:"deeplLanguage,omitempty"`
+		LanguageKey        string      `yaml:"languageKey,omitempty"`
+		Translations       translation `yaml:"translations"`
+		FormalTranslations translation `yaml:"formalTranslations,omitempty"`
 	}
 )
 
 var (
 	cfg = struct {
+		AutoTranslate    bool   `flag:"auto-translate" default:"false" description:"Enable auto-translation through DeepL"`
 		DeeplAPIEndpoint string `flag:"deepl-api-endpoint" default:"https://api-free.deepl.com/v2/translate" description:"DeepL API endpoint to request translations from"`
 		DeeplAPIKey      string `flag:"deepl-api-key" default:"" description:"API key for the DeepL API"`
 		OutputFile       string `flag:"output-file,o" default:"../../src/langs/langs.js" description:"Where to put rendered translations"`
+		Template         string `flag:"template" default:"../../src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
 		TranslationFile  string `flag:"translation-file,t" default:"../../i18n.yaml" description:"File to use for translations"`
 		LogLevel         string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
+		Verify           bool   `flag:"verify" default:"true" description:"Run verification against translation file"`
 		VersionAndExit   bool   `flag:"version" default:"false" description:"Prints current version and exits"`
 	}{}
 
@@ -88,10 +83,20 @@ func main() {
 		logrus.WithError(err).Fatal("loading translation file")
 	}
 
-	logrus.Info("auto-translating new strings...")
+	if cfg.AutoTranslate {
+		logrus.Info("auto-translating new strings...")
 
-	if err = autoTranslate(&tf); err != nil {
-		logrus.WithError(err).Fatal("adding missing translations")
+		if err = autoTranslate(&tf); err != nil {
+			logrus.WithError(err).Fatal("adding missing translations")
+		}
+	}
+
+	if cfg.Verify {
+		logrus.Info("verify translation file...")
+
+		if err = verify(tf); err != nil {
+			logrus.WithError(err).Fatal("verifying translations")
+		}
 	}
 
 	logrus.Info("saving translation file...")
@@ -234,11 +239,19 @@ func loadTranslationFile() (translationFile, error) {
 	}
 	defer f.Close()
 
-	return tf, errors.Wrap(yaml.NewDecoder(f).Decode(&tf), "decoding translation file")
+	decoder := yaml.NewDecoder(f)
+	decoder.KnownFields(true)
+
+	return tf, errors.Wrap(decoder.Decode(&tf), "decoding translation file")
 }
 
 func renderJSFile(tf translationFile) error {
-	tpl, err := template.New("js").Parse(jsTemplate)
+	jsTemplate, err := os.ReadFile(cfg.Template)
+	if err != nil {
+		return errors.Wrap(err, "reading template file")
+	}
+
+	tpl, err := template.New("js").Funcs(sprig.FuncMap()).Parse(string(jsTemplate))
 	if err != nil {
 		return errors.Wrap(err, "parsing template")
 	}
