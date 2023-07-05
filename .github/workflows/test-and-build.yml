@@ -54,6 +54,9 @@ jobs:
         run: |
           go test -v ./...
 
+      - name: Generate (and validate) translations
+        run: make translate
+
       - name: Build release
         run: make publish
         env:
