@@ -329,6 +329,39 @@ translations:
       title-reading-secret: Läs din hemlighet&hellip;
       title-secret-create-disabled: Hemlig skapelse avaktiverad...
       title-secret-created: Hemlighet skapad!
+  tr:
+    deeplLanguage: tr
+    translations:
+      alert-secret-not-found: Aradığınız sır bu değil… - Sırrın burada olmasını bekliyorsanız, bu link başkası tarafından açılmış ve sırrınız tehlikede olabilir.
+      alert-something-went-wrong: Bir şeyler ters gitti. Bunun için çok üzgünüm…
+      btn-create-secret: Sır oluştur!
+      btn-new-secret: Yeni sır
+      btn-reveal-secret: Sırrı göster!
+      btn-show-explanation: Nasıl çalışır?
+      expire-n-days: '{n} gün | {n} gün'
+      expire-n-hours: '{n} saat | {n} saat'
+      expire-n-minutes: '{n} dakika | {n} dakika'
+      expire-n-seconds: '{n} saniye | {n} saniye'
+      items-explanation:
+        - Bu sayfadaki alana sırrınızı giriniz
+        - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
+        - Sadece ektripte edilmiş sır sunucuya gönderilir (ne sır metni nede şifre gönderilmez!)
+        - Sunucu enkripte edilmiş sırrı bünyesinde belli bir süre saklar
+        - Gösterilen linki, id ve deşifre bilgisi ile birlikte alıcıya gönder
+        - 'Alcı sırrı tam olarak sadece bir kez görebilir: Eğer göremez ise, sır bir başkası tarafından daha önce görülmüş olabilir!'
+        - Sır bir kez gösterildikten sonra hemen sunucudan silinir
+      label-secret-data: 'Sır bilgisi:'
+      text-burn-hint: Lütfen linki kendiniz acmayın, bu sırrın silinmesine neden olur. Linki sadece alıcıya gönderin!
+      text-hint-burned: 'Dikkat: Bunu sadece bir kez göreceksiniz. Sayfayı güncellediğinizde yada kapattiğınızda sır kaybolacaktır, belkide şimdi sırrı kopyalamanız akıllıca olacaktır…'
+      text-powered-by: Tarafından desteklenmektedir
+      text-pre-reveal-hint: Sırrı görmek için bu düğmeye tıklayın, ama bunu yaptıktan sonra sırrın silineceğini unutmayın. Bunu sadece bir kez görebilirsin!
+      text-pre-url: 'Sırrınız oluşturuldu ve bu link kullanılarak kaydedildi:'
+      text-secret-create-disabled: Bu durumda yeni gizli dizilerin oluşturulması devre dışı bırakılır.
+      title-explanation: Bu sekilde çalışır…
+      title-new-secret: Yeni sır oluştur
+      title-reading-secret: Sırrınız okunuyor…
+      title-secret-create-disabled: Gizli yaratım devre dışı bırakıldı...
+      title-secret-created: Sır oluşturuldu!
   uk:
     deeplLanguage: uk
     translations:
@@ -365,39 +398,6 @@ translations:
       title-reading-secret: Читання вашого секрету&hellip;
       title-secret-create-disabled: Створення секрету вимкнено…
       title-secret-created: Секрет створений!
-  tr:
-    deeplLanguage: tr
-    translations:
-      alert-secret-not-found: Aradığınız sır bu değil… - Sırrın burada olmasını bekliyorsanız, bu link başkası tarafından açılmış ve sırrınız tehlikede olabilir.
-      alert-something-went-wrong: Bir şeyler ters gitti. Bunun için çok üzgünüm…
-      btn-create-secret: Sır oluştur!
-      btn-new-secret: Yeni sır
-      btn-reveal-secret: Sırrı göster!
-      btn-show-explanation: Nasıl çalışır?
-      expire-n-days: '{n} gün | {n} gün'
-      expire-n-hours: '{n} saat | {n} saat'
-      expire-n-minutes: '{n} dakika | {n} dakika'
-      expire-n-seconds: '{n} saniye | {n} saniye'
-      items-explanation:
-        - Bu sayfadaki alana sırrınızı giriniz
-        - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
-        - Sadece ektripte edilmiş sır sunucuya gönderilir (ne sır metni nede şifre gönderilmez!)
-        - Sunucu enkripte edilmiş sırrı bünyesinde belli bir süre saklar
-        - Gösterilen linki, id ve deşifre bilgisi ile birlikte alıcıya gönder
-        - 'Alcı sırrı tam olarak sadece bir kez görebilir: Eğer göremez ise, sır bir başkası tarafından daha önce görülmüş olabilir!'
-        - Sır bir kez gösterildikten sonra hemen sunucudan silinir
-      label-secret-data: 'Sır bilgisi:'
-      text-burn-hint: Lütfen linki kendiniz acmayın, bu sırrın silinmesine neden olur. Linki sadece alıcıya gönderin!
-      text-hint-burned: 'Dikkat: Bunu sadece bir kez göreceksiniz. Sayfayı güncellediğinizde yada kapattiğınızda sır kaybolacaktır, belkide şimdi sırrı kopyalamanız akıllıca olacaktır…'
-      text-powered-by: Tarafından desteklenmektedir
-      text-pre-reveal-hint: Sırrı görmek için bu düğmeye tıklayın, ama bunu yaptıktan sonra sırrın silineceğini unutmayın. Bunu sadece bir kez görebilirsin!
-      text-pre-url: 'Sırrınız oluşturuldu ve bu link kullanılarak kaydedildi:'
-      text-secret-create-disabled: Bu durumda yeni gizli dizilerin oluşturulması devre dışı bırakılır.
-      title-explanation: Bu sekilde çalışır…
-      title-new-secret: Yeni sır oluştur
-      title-reading-secret: Sırrınız okunuyor…
-      title-secret-create-disabled: Gizli yaratım devre dışı bırakıldı...
-      title-secret-created: Sır oluşturuldu!
   zh:
     translations:
       alert-secret-not-found: 这不是您正在寻找的机密&hellip; - 如果您期望机密会出现在这里，它可能已经被泄漏了，因为可能有其他人已经打开了此链接。
