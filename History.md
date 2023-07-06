@@ -1,3 +1,9 @@
+# 1.5.0 / 2023-07-06
+
+  * New Features
+    * [#97] Add framework for formal language & formal German translation (#98)
+    * Add Ukrainian language (thanks to @t0rik) (#99)
+
 # 1.4.0 / 2023-06-27
 
   * New Features
