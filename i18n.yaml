@@ -44,6 +44,11 @@ translations:
       btn-new-secret: Nou secret
       btn-reveal-secret: Mostra'm el secret!
       btn-show-explanation: Com funciona?
+      expire-default: Caducitat predeterminada
+      expire-n-days: '{n} dia | {n} dies'
+      expire-n-hours: '{n} hora | {n} hores'
+      expire-n-minutes: '{n} minut | {n} minuts'
+      expire-n-seconds: '{n} segon | {n} segons'
       items-explanation:
         - Introduïx un secret en el formulari que hi ha en aquesta pàgina
         - El teu navegador xifra el secret utilitzant una contrasenya generada
@@ -52,15 +57,19 @@ translations:
         - Envia al destinatari l'enllaç mostrat, que conté l'identificador del secret i la contrasenya de desxifrat
         - 'El destinatari pot veure el secret una sola vegada: si no pot, el secret podria haver sigut vist per una altra persona!'
         - Quan s'ha obtingut per primera i única vegada el secret xifrat, s'elimina del servidor
+      label-expiry: 'Caduca en:'
       label-secret-data: 'Informació secreta:'
       text-burn-hint: Per favor, recorda no accedir a aquest enllaç tu mateix, ja que això destruiria el secret. Només has de passar-li'l a una altra persona!
+      text-burn-time: 'Si no es mostra abans, aquest secret s''eliminarà automàticament:'
       text-hint-burned: <strong>Atenció:</strong> Només veuràs això una vegada. Quan recarregues la pàgina, el secret desapareixerà, així que copia'l ja&hellip;
       text-powered-by: Funciona amb
       text-pre-reveal-hint: Per a mostrar el secret prem aquest botó, però tingues en compte que en fer-ho es destruirà. Només pots veure'l una vegada!
       text-pre-url: 'El teu secret ha sigut creat i emmagatzemat en el següent enllaç:'
+      text-secret-create-disabled: La creació de nous secrets està desactivada en aquesta instància.
       title-explanation: Així és com funciona&hellip;
       title-new-secret: Crea un nou secret
       title-reading-secret: Obtenint el teu secret&hellip;
+      title-secret-create-disabled: 'S''ha desactivat la creació de secrets...'
       title-secret-created: Secret creat!
   de:
     deeplLanguage: de
