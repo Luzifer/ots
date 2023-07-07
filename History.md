@@ -1,3 +1,8 @@
+# 1.5.1 / 2023-07-07
+
+  * Add missing Catalan translations (thanks to @v0ctor) (#102)
+  * Add missing Spanish translations (thanks to @v0ctor) (#103)
+
 # 1.5.0 / 2023-07-06
 
   * New Features
