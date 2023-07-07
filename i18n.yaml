@@ -144,11 +144,11 @@ translations:
       text-powered-by: Funciona con
       text-pre-reveal-hint: Para mostrar el secreto pulsa este botón, pero ten en cuenta que al hacerlo se destruirá. ¡Solo puedes verlo una vez!
       text-pre-url: 'Tu secreto ha sido creado y almacenado en el siguiente enlace:'
-      text-secret-create-disabled: En este caso, la creación de nuevos secretos está desactivada.
+      text-secret-create-disabled: La creación de nuevos secretos está desactivada en esta instancia.
       title-explanation: Así es como funciona&hellip;
       title-new-secret: Crea un nuevo secreto
       title-reading-secret: Obteniendo tu secreto&hellip;
-      title-secret-create-disabled: Creación secreta desactivada...
+      title-secret-create-disabled: Creación de secretos desactivada...
       title-secret-created: ¡Secreto creado!
   fr:
     deeplLanguage: fr
