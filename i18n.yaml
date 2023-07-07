@@ -69,7 +69,7 @@ translations:
       title-explanation: Així és com funciona&hellip;
       title-new-secret: Crea un nou secret
       title-reading-secret: Obtenint el teu secret&hellip;
-      title-secret-create-disabled: 'S''ha desactivat la creació de secrets...'
+      title-secret-create-disabled: S'ha desactivat la creació de secrets...
       title-secret-created: Secret creat!
   de:
     deeplLanguage: de
