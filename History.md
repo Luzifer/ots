@@ -1,3 +1,7 @@
+# 1.6.0 / 2023-08-04
+
+  * Add Polish translation (thanks to @Icikowski) (#106)
+
 # 1.5.1 / 2023-07-07
 
   * Add missing Catalan translations (thanks to @v0ctor) (#102)
