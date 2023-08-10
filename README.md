@@ -39,7 +39,7 @@ In order to be adjustable to your needs there are some ways to customize your OT
 appIcon: ''
 
 # Override the app-title, if unset or empty the default app-title
-# "OTS - One Time Secret" will be used
+# "OTS - One Time Secrets" will be used
 appTitle: ''
 
 # Disable display of the app-title (for example if you included the

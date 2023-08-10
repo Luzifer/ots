@@ -25,13 +25,12 @@ type (
 	}
 )
 
-func loadCustomize(filename string) (customize, error) {
+func loadCustomize(filename string) (cust customize, err error) {
 	if filename == "" {
 		// None given, take a shortcut
-		return customize{}, nil
+		cust.applyFixes()
+		return cust, nil
 	}
-
-	var cust customize
 
 	cf, err := os.Open(filename)
 	if err != nil {
@@ -43,13 +42,22 @@ func loadCustomize(filename string) (customize, error) {
 	}
 	defer cf.Close()
 
-	return cust, errors.Wrap(
-		yaml.NewDecoder(cf).Decode(&cust),
-		"decoding customize file",
-	)
+	if err = yaml.NewDecoder(cf).Decode(&cust); err != nil {
+		return cust, errors.Wrap(err, "decoding customize file")
+	}
+
+	cust.applyFixes()
+
+	return cust, nil
 }
 
 func (c customize) ToJSON() (string, error) {
 	j, err := json.Marshal(c)
 	return string(j), errors.Wrap(err, "marshalling JSON")
+}
+
+func (c *customize) applyFixes() {
+	if len(c.AppTitle) == 0 {
+		c.AppTitle = "OTS - One Time Secrets"
+	}
 }
