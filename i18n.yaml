@@ -236,7 +236,7 @@ translations:
       btn-show-explanation: Hoe werkt dit?
       expire-n-days: '{n} dag | {n} dagen'
       expire-n-hours: '{n} uur | {n} uur'
-      expire-n-minutes: '{n} minute | {n} minuten'
+      expire-n-minutes: '{n} minuut | {n} minuten'
       expire-n-seconds: '{n} seconde | {n} seconden'
       items-explanation:
         - Je vult vertrouwelijke informatie in op deze pagina.
