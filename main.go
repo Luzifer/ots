@@ -73,7 +73,6 @@ func initApp() error {
 	if cust, err = loadCustomize(cfg.Customize); err != nil {
 		return errors.Wrap(err, "loading customizations")
 	}
-	cust.defaults()
 
 	frontendFS, err := fs.Sub(embeddedAssets, "frontend")
 	if err != nil {

@@ -18,7 +18,7 @@
           class="mr-1"
           :src="customize.appIcon"
         >
-        <span v-if="!customize.disableAppTitle">{{ customize.appTitle || 'OTS - One Time Secrets' }}</span>
+        <span v-if="!customize.disableAppTitle">{{ customize.appTitle }}</span>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
