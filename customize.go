@@ -49,6 +49,12 @@ func loadCustomize(filename string) (customize, error) {
 	)
 }
 
+func (c *customize) defaults() {
+	if len(c.AppTitle) == 0 {
+		c.AppTitle = "OTS - One Time Secrets"
+	}
+}
+
 func (c customize) ToJSON() (string, error) {
 	j, err := json.Marshal(c)
 	return string(j), errors.Wrap(err, "marshalling JSON")

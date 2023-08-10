@@ -30,7 +30,7 @@
       rel="stylesheet"
     >
 
-    <title>OTS - One Time Secrets</title>
+    <title>{{ .Customize.AppTitle }}</title>
 
     <script nonce="{{ .InlineContentNonce }}">
       window.getTheme = () => localStorage.getItem('set-color-scheme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
