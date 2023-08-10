@@ -1,3 +1,8 @@
+# 1.6.1 / 2023-08-11
+
+  * Fix: Adjust HTML page title to customized AppTitle (#107)
+  * Fix dutch translation for minute (#108)
+
 # 1.6.0 / 2023-08-04
 
   * Add Polish translation (thanks to @Icikowski) (#106)
