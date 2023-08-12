@@ -235,15 +235,56 @@
               </b-button>
             </template>
             <template v-else>
-              <b-form-group>
+              <b-input-group>
                 <b-form-textarea
                   max-rows="25"
                   readonly
                   rows="5"
                   :value="secret"
                 />
-              </b-form-group>
+                <b-input-group-text class="d-flex align-items-start p-0">
+                  <b-button-group vertical>
+                    <b-button
+                      v-if="hasClipboard"
+                      :disabled="!secretUrl"
+                      :variant="copyToClipboardSuccess ? 'success' : 'primary'"
+                      title="Copy Secret to Clipboard"
+                      @click="copySecret"
+                    >
+                      <i class="fas fa-fw fa-clipboard" />
+                    </b-button>
+                    <b-button
+                      :href="`data:text/plain;charset=UTF-8,${secret}`"
+                      download
+                      title="Download Secret as Text File"
+                    >
+                      <i class="fas fa-fw fa-download" />
+                    </b-button>
+                    <b-button
+                      v-if="!customize.disableQRSupport && secretContentQRDataURL"
+                      id="secret-data-qrcode"
+                      variant="secondary"
+                      title="Display Content as QR-Code"
+                    >
+                      <i class="fas fa-fw fa-qrcode" />
+                    </b-button>
+                  </b-button-group>
+                </b-input-group-text>
+              </b-input-group>
               <p v-html="$t('text-hint-burned')" />
+
+              <b-popover
+                v-id="!customize.disableQRSupport"
+                target="secret-data-qrcode"
+                triggers="focus"
+                placement="leftbottom"
+              >
+                <b-img
+                  height="200"
+                  :src="secretContentQRDataURL"
+                  width="200"
+                />
+              </b-popover>
             </template>
           </b-card>
         </b-col>
@@ -311,6 +352,7 @@ export default {
       secretExpiry: null,
       secretId: '',
       secretQRDataURL: '',
+      secretContentQRDataURL: '',
       securePassword: '',
       selectedExpiry: null,
       showError: false,
@@ -332,6 +374,16 @@ export default {
         })
         .catch(() => {
           this.canWrite = false
+        })
+    },
+
+    copySecret() {
+      navigator.clipboard.writeText(this.secret)
+        .then(() => {
+          this.copyToClipboardSuccess = true
+          window.setTimeout(() => {
+            this.copyToClipboardSuccess = false
+          }, 500)
         })
     },
 
@@ -501,6 +553,18 @@ export default {
   watch: {
     darkTheme(to) {
       window.setTheme(to ? 'dark' : 'light')
+    },
+
+    secret(to) {
+      if (this.customize.disableQRSupport || !to) {
+        return
+      }
+
+      qrcode.toDataURL(to, { width: 200 })
+        .then(url => {
+          this.secretContentQRDataURL = url
+        })
+        .catch(() => this.secretContentQRDataURL = null)
     },
 
     secretUrl(to) {
