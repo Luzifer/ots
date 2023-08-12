@@ -239,7 +239,7 @@
                 <b-form-textarea
                   max-rows="25"
                   readonly
-                  rows="5"
+                  rows="4"
                   :value="secret"
                 />
                 <b-input-group-text class="d-flex align-items-start p-0">
