@@ -1,3 +1,7 @@
+# 1.7.0 / 2023-08-13
+
+  * [#110] Add interaction buttons for displayed secret (#111)
+
 # 1.6.1 / 2023-08-11
 
   * Fix: Adjust HTML page title to customized AppTitle (#107)
