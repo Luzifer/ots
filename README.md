@@ -17,6 +17,8 @@
 
 - Download the [release](https://github.com/Luzifer/ots/releases)
 - Start it and you can access the server on http://localhost:3000/
+- Consult `./ots --help` for more options
+- See [Wiki](https://github.com/Luzifer/ots/wiki) for a more detailed overview
 
 For a better setup you can choose the backend which is used to store the secrets:
 
