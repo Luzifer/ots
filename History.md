@@ -1,3 +1,8 @@
+# 1.7.1 / 2023-08-25
+
+  * Fix: Encode data for download
+  * [ci] Add local build target
+
 # 1.7.0 / 2023-08-13
 
   * [#110] Add interaction buttons for displayed secret (#111)
