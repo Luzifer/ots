@@ -255,7 +255,7 @@
                         <i class="fas fa-fw fa-clipboard" />
                       </b-button>
                       <b-button
-                        :href="`data:text/plain;charset=UTF-8,${secret}`"
+                        :href="`data:text/plain;charset=UTF-8,${encodeURIComponent(secret)}`"
                         download
                         title="Download Secret as Text File"
                       >
