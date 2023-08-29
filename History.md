@@ -1,3 +1,7 @@
+# 1.8.0 / 2023-08-29
+
+  * Update zh translations (thanks to @YongJie-Xie) (#113)
+
 # 1.7.1 / 2023-08-25
 
   * Fix: Encode data for download
