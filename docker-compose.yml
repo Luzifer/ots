@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: https://github.com/Luzifer/ots.git#v1.8.0
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    ports:
+      - 3000:3000
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - ./data:/data
