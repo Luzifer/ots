@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+/* global version */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
@@ -16,15 +18,16 @@ const cookieSet = Object.fromEntries(document.cookie.split('; ')
     .map(el => decodeURIComponent(el))))
 
 const i18n = new VueI18n({
-  locale: cookieSet.lang || navigator?.language || 'en',
   fallbackLocale: 'en',
+  locale: cookieSet.lang || navigator?.language || 'en',
   messages,
 })
 
 new Vue({
-  el: '#app',
   components: { app },
   data: { version },
+  el: '#app',
   i18n,
+  name: 'OTSAppInterface',
   render: createElement => createElement('app'),
 })

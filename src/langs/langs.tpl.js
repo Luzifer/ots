@@ -1,8 +1,6 @@
 // Auto-Generated, do not edit!
 
-const switchFormal = (formal, informal) => {
-  return window.useFormalLanguage ? formal : informal
-}
+const switchFormal = (formal, informal) => window.useFormalLanguage ? formal : informal
 
 export default {
 {{- range $lang, $translation := .Translations -}}

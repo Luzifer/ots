@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div id="app">
     <b-navbar
@@ -76,7 +77,10 @@
               v-html="$t('title-explanation')"
             />
             <ul>
-              <li v-for="explanation in $t('items-explanation')">
+              <li
+                v-for="(explanation, idx) in $t('items-explanation')"
+                :key="`idx${idx}`"
+              >
                 {{ explanation }}
               </li>
             </ul>
@@ -255,7 +259,7 @@
                         <i class="fas fa-fw fa-clipboard" />
                       </b-button>
                       <b-button
-                        :href="`data:text/plain;charset=UTF-8,${encodeURIComponent(secret)}`"
+                        :href="secretContentBlobURL"
                         download
                         title="Download Secret as Text File"
                       >
@@ -305,6 +309,8 @@
 </template>
 
 <script>
+/* global maxSecretExpire */
+
 import crypto from './crypto.js'
 import qrcode from 'qrcode'
 
@@ -351,10 +357,11 @@ export default {
       explanationShown: false,
       mode: 'create',
       secret: '',
+      secretContentBlobURL: '',
+      secretContentQRDataURL: '',
       secretExpiry: null,
       secretId: '',
       secretQRDataURL: '',
-      secretContentQRDataURL: '',
       securePassword: '',
       selectedExpiry: null,
       showError: false,
@@ -443,7 +450,7 @@ export default {
                   window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
                 })
             })
-            .catch(err => {
+            .catch(() => {
             // Network error
               this.error = this.$t('alert-something-went-wrong')
               this.showError = true
@@ -533,7 +540,7 @@ export default {
                 })
             })
         })
-        .catch(err => {
+        .catch(() => {
           // Network error
           this.error = this.$t('alert-something-went-wrong')
           this.showError = true
@@ -558,6 +565,11 @@ export default {
     },
 
     secret(to) {
+      if (this.secretContentBlobURL) {
+        window.URL.revokeObjectURL(this.secretContentBlobURL)
+      }
+      this.secretContentBlobURL = window.URL.createObjectURL(new Blob([to], { type: 'text/plain' }))
+
       if (this.customize.disableQRSupport || !to) {
         return
       }
@@ -566,7 +578,9 @@ export default {
         .then(url => {
           this.secretContentQRDataURL = url
         })
-        .catch(() => this.secretContentQRDataURL = null)
+        .catch(() => {
+          this.secretContentQRDataURL = null
+        })
     },
 
     secretUrl(to) {
