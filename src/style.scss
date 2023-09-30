@@ -2,61 +2,10 @@
 $web-font-path: '';
 
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
-@import "../node_modules/bootstrap-vue/dist/bootstrap-vue.css";
-
 @import "lato";
 
 :root {
-
-  &[mode="dark"] {
-    @import "../node_modules/bootswatch/dist/darkly/_variables";
-    @import "../node_modules/bootstrap/scss/bootstrap";
-    @import "../node_modules/bootswatch/dist/darkly/_bootswatch";
-
-    .custom-control-input:checked ~ .custom-control-label::before {
-      border-color: #333;
-      background-color: #444;
-    }
-
-    .footer {
-      color: #d1d1d1;
-    }
-
-    .form-control, .custom-select {
-      /* Force overwrite bright textareas */
-      background-color: rgb(24, 26, 27);
-      border-color: rgb(129, 120, 106);
-      color: rgb(189, 183, 175);
-
-      &:focus {
-        background-color: rgb(24, 26, 27);
-        border-color: rgb(49, 81, 113);
-        color: rgb(189, 183, 175);
-      }
-
-      &[readonly] {
-        background-color: rgb(24, 26, 27);
-      }
-    }
-  }
-
-  &[mode="light"] {
-    @import "../node_modules/bootswatch/dist/flatly/_variables";
-    @import "../node_modules/bootstrap/scss/bootstrap";
-    @import "../node_modules/bootswatch/dist/flatly/_bootswatch";
-
-    .footer {
-      color: #2f2f2f;
-    }
-  }
-
   textarea {
     font-family: monospace !important;
   }
-
-  .footer {
-    font-size: 0.9em;
-    text-align: center;
-  }
-
 }

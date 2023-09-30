@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {{ range (list "webfonts/fa-solid-900.woff2" "webfonts/fa-brands-400.woff2" "lato-v20-latin-ext_latin-regular.woff2" "lato-v20-latin-ext_latin-700.woff2") }}
@@ -35,7 +34,7 @@
       window.getTheme = () => localStorage.getItem('set-color-scheme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
 
       window.refreshTheme = () => {
-        document.querySelector('html').setAttribute('mode', window.getTheme())
+        document.querySelector('html').setAttribute('data-bs-theme', window.getTheme())
       }
 
       window.setTheme = (theme) => {

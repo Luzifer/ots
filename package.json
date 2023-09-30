@@ -2,20 +2,19 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.5",
     "esbuild": "^0.17.17",
+    "esbuild-sass-plugin": "^2.9.0",
     "esbuild-vue": "^1.2.2",
     "eslint": "^8.42.0",
-    "esbuild-sass-plugin": "^2.9.0",
     "eslint-plugin-vue": "^9.14.1",
     "vue-template-compiler": "^2.7.14"
   },
   "name": "ots",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.6.2",
-    "bootstrap-vue": "^2.23.1",
-    "bootswatch": "^4.6.2",
+    "bootstrap": "^5.3.2",
     "qrcode": "^1.5.3",
     "vue": "^2.7.14",
-    "vue-i18n": "^8.28.2"
+    "vue-i18n": "^8.28.2",
+    "vue-router": "^3.6.5"
   }
 }
