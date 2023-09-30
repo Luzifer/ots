@@ -1,7 +1,8 @@
 FROM luzifer/archlinux as builder
 
 ENV CGO_ENABLED=0 \
-    GOPATH=/go
+    GOPATH=/go \
+    NODE_ENV=production
 
 COPY . /go/src/github.com/Luzifer/ots
 WORKDIR /go/src/github.com/Luzifer/ots
