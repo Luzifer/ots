@@ -93,7 +93,9 @@ acceptedFileTypes: ''
 # Disable the file attachment functionality alltogether
 disableFileAttachment: false
 
-# Define how big all attachments might be in bytes
+# Define how big all attachments might be in bytes. Leave it set to
+# zero to use the internal limit of 64 MiB (which is there to ensure
+# the encrypted object does not cause the frontend to break).
 maxAttachmentSizeTotal: 0
 ```
 
