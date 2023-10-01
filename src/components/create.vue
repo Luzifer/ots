@@ -116,6 +116,17 @@ const defaultExpiryChoices = [
   5 * 60, // 5 minutes
 ]
 
+/*
+ * We define an internal max file-size which cannot get exceeded even
+ * though the server might accept more: at around 70 MiB the base64
+ * encoding broke and nothing works anymore. This might be fixed by
+ * changing how the base64 implementation works (maybe use a WASM
+ * object?) or switching to a browser-native implementation in case
+ * that will appear somewhen in the future but for now we just "fix"
+ * the issue by disallowing bigger files.
+ */
+const internalMaxFileSize = 64 * 1024 * 1024 // 64 MiB
+
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
 
@@ -146,7 +157,7 @@ export default {
     },
 
     maxFileSizeExceeded() {
-      return this.$root.customize.maxAttachmentSizeTotal !== 0 && this.fileSize > this.$root.customize.maxAttachmentSizeTotal
+      return this.fileSize > internalMaxFileSize || this.$root.customize.maxAttachmentSizeTotal !== 0 && this.fileSize > this.$root.customize.maxAttachmentSizeTotal
     },
   },
 
