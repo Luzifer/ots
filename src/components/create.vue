@@ -63,9 +63,14 @@
           <button
             type="submit"
             class="btn btn-success"
-            :disabled="secret.trim().length < 1 || maxFileSizeExceeded"
+            :disabled="secret.trim().length < 1 || maxFileSizeExceeded || createRunning"
           >
-            {{ $t('btn-create-secret') }}
+            <template v-if="!createRunning">
+              {{ $t('btn-create-secret') }}
+            </template>
+            <template v-else>
+              <i class="fa-solid fa-spinner fa-spin-pulse" />
+            </template>
           </button>
         </div>
         <div
@@ -168,6 +173,7 @@ export default {
   data() {
     return {
       canWrite: null,
+      createRunning: false,
       fileSize: 0,
       secret: '',
       securePassword: null,
@@ -198,6 +204,9 @@ export default {
       if (this.secret.trim().length < 1 || this.maxFileSizeExceeded) {
         return false
       }
+
+      // Encoding large files takes a while, prevent duplicate click on "create"
+      this.createRunning = true
 
       this.securePassword = [...window.crypto.getRandomValues(new Uint8Array(passwordLength))]
         .map(n => passwordCharset[n % passwordCharset.length])

@@ -10,9 +10,15 @@
         <p v-html="$t('text-pre-reveal-hint')" />
         <button
           class="btn btn-success"
+          :disabled="secretLoading"
           @click="requestSecret"
         >
-          {{ $t('btn-reveal-secret') }}
+          <template v-if="!secretLoading">
+            {{ $t('btn-reveal-secret') }}
+          </template>
+          <template v-else>
+            <i class="fa-solid fa-spinner fa-spin-pulse" />
+          </template>
         </button>
       </template>
       <template v-else>
@@ -77,12 +83,14 @@ export default {
       popover: null,
       secret: null,
       secretContentBlobURL: null,
+      secretLoading: false,
     }
   },
 
   methods: {
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
+      this.secretLoading = true
       window.history.replaceState({}, '', window.location.href.split('#')[0])
       fetch(`api/get/${this.secretId}`)
         .then(resp => {
@@ -118,6 +126,7 @@ export default {
                         this.files.push({ name: file.name, url: blobURL })
                       })
                   })
+                  this.secretLoading = false
                 })
                 .catch(() => this.$emit('error', this.$t('alert-something-went-wrong')))
             })
