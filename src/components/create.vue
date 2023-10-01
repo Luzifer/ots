@@ -52,11 +52,14 @@
             :accept="$root.customize.acceptedFileTypes"
             @change="updateFileSize"
           >
+          <div class="form-text">
+            {{ $t('text-max-filesize', { maxSize: bytesToHuman(maxFileSize) }) }}
+          </div>
           <div
             v-if="maxFileSizeExceeded"
             class="alert alert-danger"
           >
-            {{ $t('text-max-filesize-exceeded') }}
+            {{ $t('text-max-filesize-exceeded', { curSize: bytesToHuman(fileSize), maxSize: bytesToHuman(maxFileSize) }) }}
           </div>
         </div>
         <div class="col-md-6 col-12 order-2 order-md-1">
@@ -161,8 +164,12 @@ export default {
       return choices
     },
 
+    maxFileSize() {
+      return this.$root.customize.maxAttachmentSizeTotal === 0 ? internalMaxFileSize : Math.min(internalMaxFileSize, this.$root.customize.maxAttachmentSizeTotal)
+    },
+
     maxFileSizeExceeded() {
-      return this.fileSize > internalMaxFileSize || this.$root.customize.maxAttachmentSizeTotal !== 0 && this.fileSize > this.$root.customize.maxAttachmentSizeTotal
+      return this.fileSize > this.maxFileSize
     },
   },
 
@@ -182,6 +189,19 @@ export default {
   },
 
   methods: {
+    bytesToHuman(bytes) {
+      for (const t of [
+        { thresh: 1024 * 1024, unit: 'MiB' },
+        { thresh: 1024, unit: 'KiB' },
+      ]) {
+        if (bytes > t.thresh) {
+          return `${(bytes / t.thresh).toFixed(1)} ${t.unit}`
+        }
+      }
+
+      return `${bytes} B`
+    },
+
     checkWriteAccess() {
       fetch('api/isWritable', {
         credentials: 'same-origin',
