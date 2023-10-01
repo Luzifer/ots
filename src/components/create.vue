@@ -73,6 +73,7 @@
             </template>
             <template v-else>
               <i class="fa-solid fa-spinner fa-spin-pulse" />
+              {{ $t('btn-create-secret-processing') }}
             </template>
           </button>
         </div>
@@ -109,6 +110,7 @@
 /* global maxSecretExpire */
 
 import appCrypto from '../crypto.js'
+import { bytesToHuman } from '../helpers'
 import OTSMeta from '../ots-meta'
 
 const defaultExpiryChoices = [
@@ -189,18 +191,7 @@ export default {
   },
 
   methods: {
-    bytesToHuman(bytes) {
-      for (const t of [
-        { thresh: 1024 * 1024, unit: 'MiB' },
-        { thresh: 1024, unit: 'KiB' },
-      ]) {
-        if (bytes > t.thresh) {
-          return `${(bytes / t.thresh).toFixed(1)} ${t.unit}`
-        }
-      }
-
-      return `${bytes} B`
-    },
+    bytesToHuman,
 
     checkWriteAccess() {
       fetch('api/isWritable', {

@@ -5,8 +5,10 @@ reference:
     alert-secret-not-found: This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be compromised as someone else might have opened the link already.
     alert-something-went-wrong: Something went wrong. I'm very sorry about this&hellip;
     btn-create-secret: Create the secret!
+    btn-create-secret-processing: Secret is being created…
     btn-new-secret: New Secret
     btn-reveal-secret: Show me the secret!
+    btn-reveal-secret-processing: Secret is being decrypted…
     btn-show-explanation: How does this work?
     expire-default: Default Expiry
     expire-n-days: '{n} day | {n} days'
@@ -81,8 +83,10 @@ translations:
       alert-secret-not-found: Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       alert-something-went-wrong: Irgendwas ging schief. Entschuldigung&hellip;
       btn-create-secret: Secret erstellen!
+      btn-create-secret-processing: Secret wird erstellt…
       btn-new-secret: Neues Secret
       btn-reveal-secret: Zeig mir das Secret!
+      btn-reveal-secret-processing: Secret wird entschlüsselt…
       btn-show-explanation: Wie funktioniert das?
       expire-default: Server-Standard
       expire-n-days: '{n} Tag | {n} Tage'

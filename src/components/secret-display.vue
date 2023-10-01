@@ -18,6 +18,7 @@
           </template>
           <template v-else>
             <i class="fa-solid fa-spinner fa-spin-pulse" />
+            {{ $t('btn-reveal-secret-processing') }}
           </template>
         </button>
       </template>
@@ -53,14 +54,13 @@
             <li
               v-for="file in files"
               :key="file.name"
+              class="font-monospace"
             >
               <a
-                class="font-monospace"
                 :href="file.url"
                 :download="file.name"
-              >
-                {{ file.name }}
-              </a>
+              >{{ file.name }}</a>
+              ({{ bytesToHuman(file.size) }})
             </li>
           </ul>
         </template>
@@ -72,6 +72,7 @@
 import appClipboardButton from './clipboard-button.vue'
 import appCrypto from '../crypto.js'
 import appQrButton from './qr-button.vue'
+import { bytesToHuman } from '../helpers'
 import OTSMeta from '../ots-meta'
 
 export default {
@@ -88,6 +89,8 @@ export default {
   },
 
   methods: {
+    bytesToHuman,
+
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
       this.secretLoading = true
@@ -123,7 +126,7 @@ export default {
                     file.arrayBuffer()
                       .then(ab => {
                         const blobURL = window.URL.createObjectURL(new Blob([ab], { type: file.type }))
-                        this.files.push({ name: file.name, url: blobURL })
+                        this.files.push({ name: file.name, size: ab.byteLength, url: blobURL })
                       })
                   })
                   this.secretLoading = false
