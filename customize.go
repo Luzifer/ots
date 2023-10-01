@@ -12,16 +12,22 @@ import (
 
 type (
 	customize struct {
-		AppIcon               string  `json:"appIcon,omitempty" yaml:"appIcon"`
-		AppTitle              string  `json:"appTitle,omitempty" yaml:"appTitle"`
-		DisableAppTitle       bool    `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
+		AppIcon              string `json:"appIcon,omitempty" yaml:"appIcon"`
+		AppTitle             string `json:"appTitle,omitempty" yaml:"appTitle"`
+		DisableAppTitle      bool   `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
+		DisablePoweredBy     bool   `json:"disablePoweredBy,omitempty" yaml:"disablePoweredBy"`
+		DisableQRSupport     bool   `json:"disableQRSupport,omitempty" yaml:"disableQRSupport"`
+		DisableThemeSwitcher bool   `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
+
 		DisableExpiryOverride bool    `json:"disableExpiryOverride,omitempty" yaml:"disableExpiryOverride"`
-		DisablePoweredBy      bool    `json:"disablePoweredBy,omitempty" yaml:"disablePoweredBy"`
-		DisableQRSupport      bool    `json:"disableQRSupport,omitempty" yaml:"disableQRSupport"`
-		DisableThemeSwitcher  bool    `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
 		ExpiryChoices         []int64 `json:"expiryChoices,omitempty" yaml:"expiryChoices"`
-		OverlayFSPath         string  `json:"-" yaml:"overlayFSPath"`
-		UseFormalLanguage     bool    `json:"-" yaml:"useFormalLanguage"`
+
+		AcceptedFileTypes      string `json:"acceptedFileTypes" yaml:"acceptedFileTypes"`
+		DisableFileAttachment  bool   `json:"disableFileAttachment" yaml:"disableFileAttachment"`
+		MaxAttachmentSizeTotal int64  `json:"maxAttachmentSizeTotal" yaml:"maxAttachmentSizeTotal"`
+
+		OverlayFSPath     string `json:"-" yaml:"overlayFSPath"`
+		UseFormalLanguage bool   `json:"-" yaml:"useFormalLanguage"`
 	}
 )
 

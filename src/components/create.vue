@@ -38,7 +38,10 @@
             rows="5"
           />
         </div>
-        <div class="col-12 mb-3">
+        <div
+          v-if="!$root.customize.disableFileAttachment"
+          class="col-12 mb-3"
+        >
           <label for="createSecretFiles">{{ $t('label-secret-files') }}</label>
           <input
             id="createSecretFiles"
@@ -46,13 +49,21 @@
             class="form-control"
             type="file"
             multiple
+            :accept="$root.customize.acceptedFileTypes"
+            @change="updateFileSize"
           >
+          <div
+            v-if="maxFileSizeExceeded"
+            class="alert alert-danger"
+          >
+            {{ $t('text-max-filesize-exceeded') }}
+          </div>
         </div>
         <div class="col-md-6 col-12 order-2 order-md-1">
           <button
             type="submit"
             class="btn btn-success"
-            :disabled="secret.trim().length < 1"
+            :disabled="secret.trim().length < 1 || maxFileSizeExceeded"
           >
             {{ $t('btn-create-secret') }}
           </button>
@@ -133,6 +144,10 @@ export default {
 
       return choices
     },
+
+    maxFileSizeExceeded() {
+      return this.$root.customize.maxAttachmentSizeTotal !== 0 && this.fileSize > this.$root.customize.maxAttachmentSizeTotal
+    },
   },
 
   created() {
@@ -142,6 +157,7 @@ export default {
   data() {
     return {
       canWrite: null,
+      fileSize: 0,
       secret: '',
       securePassword: null,
       selectedExpiry: null,
@@ -168,7 +184,7 @@ export default {
 
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
-      if (this.secret.trim().length < 1) {
+      if (this.secret.trim().length < 1 || this.maxFileSizeExceeded) {
         return false
       }
 
@@ -226,6 +242,15 @@ export default {
         })
 
       return false
+    },
+
+    updateFileSize() {
+      let cumSize = 0
+      for (const f of [...this.$refs.createSecretFiles.files]) {
+        cumSize += f.size
+      }
+
+      this.fileSize = cumSize
     },
   },
 

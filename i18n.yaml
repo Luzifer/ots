@@ -28,6 +28,7 @@ reference:
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
     text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
+    text-max-filesize-exceeded: The file(s) you chose are too big to attach.
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
     text-pre-url: 'Your secret was created and stored using this URL:'
