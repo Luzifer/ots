@@ -25,4 +25,4 @@ geturl="${host}/api/get/${id}"
 
 # fetch secret and decrypt to STDOUT
 curl -sSf "${geturl}" | jq -r ".secret" |
-  openssl aes-256-cbc -base64 -pass "pass:${pass}" -iter 300000 -md sha512 -d 2>/dev/null
+  openssl aes-256-cbc -base64 -A -pass "pass:${pass}" -iter 300000 -md sha512 -d

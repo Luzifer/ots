@@ -1,28 +1,7 @@
+import base64 from 'base64-js'
+
 const opensslBanner = new Uint8Array(new TextEncoder('utf8').encode('Salted__'))
 const pbkdf2Params = { hash: 'SHA-512', iterations: 300000, name: 'PBKDF2' }
-
-/**
- * @param {ArrayBuffer} data Data to encode to base64
- * @returns String
- */
-function abToB64(data) {
-  const outdata = []
-  const bytes = new Uint8Array(data)
-  for (let i = 0; i < bytes.byteLength; i++) {
-    outdata.push(String.fromCodePoint(bytes[i]))
-  }
-  return btoa(outdata.join(''))
-}
-
-/**
- *
- * @param {String} encoded Base64 encoded data
- * @returns ArrayBuffer
- */
-function b64ToAb(encoded) {
-  const binary = atob(encoded)
-  return Uint8Array.from(binary, c => c.codePointAt(0)).buffer
-}
 
 /**
  * @param {String} cipherText Encrypted data in base64 encoded form
@@ -48,7 +27,7 @@ function enc(plainText, passphrase) {
  * @returns String
  */
 function decrypt(passphrase, encData) {
-  const data = new Uint8Array(b64ToAb(encData))
+  const data = base64.toByteArray(encData)
 
   return deriveKey(passphrase, data.slice(8, 16))
     .then(({ iv, key }) => window.crypto.subtle.decrypt({ iv, name: 'AES-CBC' }, key, data.slice(16)))
@@ -78,7 +57,7 @@ function encrypt(passphrase, salt, plainData) {
   return deriveKey(passphrase, salt)
     .then(({ iv, key }) => window.crypto.subtle.encrypt({ iv, name: 'AES-CBC' }, key, new TextEncoder('utf8').encode(plainData)))
     .then(encData => new Uint8Array([...opensslBanner, ...salt, ...new Uint8Array(encData)]))
-    .then(data => abToB64(data.buffer))
+    .then(data => base64.fromByteArray(data))
 }
 
 /**
@@ -91,4 +70,4 @@ function generateSalt() {
   return window.crypto.getRandomValues(salt)
 }
 
-export default { abToB64, b64ToAb, dec, enc }
+export default { dec, enc }

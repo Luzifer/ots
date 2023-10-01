@@ -1,4 +1,4 @@
-import appCrypto from './crypto'
+import base64 from 'base64-js'
 
 /**
  * OTSMeta defines the structure of (de-)serializing stored payload for secrets
@@ -33,7 +33,7 @@ class OTSMeta {
     this.#version = data.v
 
     for (const f of data.attachments || []) {
-      const content = appCrypto.b64ToAb(f.data)
+      const content = base64.toByteArray(f.data)
       this.#files.push(new File([content], f.name, { type: f.type }))
     }
   }
@@ -75,7 +75,7 @@ class OTSMeta {
     for (const f of this.#files) {
       encodes.push(f.arrayBuffer()
         .then(ab => {
-          const data = appCrypto.abToB64(ab)
+          const data = base64.fromByteArray(new Uint8Array(ab))
           output.attachments.push({ data, name: f.name, type: f.type })
         }))
     }

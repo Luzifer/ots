@@ -11,6 +11,7 @@
   "name": "ots",
   "private": true,
   "dependencies": {
+    "base64-js": "^1.5.1",
     "bootstrap": "^5.3.2",
     "qrcode": "^1.5.3",
     "vue": "^2.7.14",
