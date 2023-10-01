@@ -24,7 +24,7 @@ reference:
     label-expiry: 'Expire in:'
     label-secret-data: 'Secret data:'
     label-secret-files: 'Files to attach:'
-    text-attached-files: 'The sender attached files to the secret. Click to download them but make sure you trust the sender when using them:'
+    text-attached-files: The sender attached files to the secret. Make sure you trust the sender when using them as OTS did not check them!
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
     text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
@@ -99,9 +99,13 @@ translations:
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
       label-expiry: 'Ablauf in:'
       label-secret-data: 'Inhalt des Secrets:'
+      label-secret-files: 'Dateien zum Anhängen:'
+      text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stell sicher, dass du dem Absender vertraust, da die Dateien von OTS nicht geprüft wurden!
       text-burn-hint: Bitte rufe die URL nicht selbst auf, da das Secret dadurch zerstört würde. Gib sie einfach weiter!
       text-burn-time: 'Wenn es vorher nicht eingesehen wurde, wird dieses Secret automatisch gelöscht:'
       text-hint-burned: <strong>Achtung:</strong> Du kannst das nur einmal ansehen! Sobald du die Seite neu lädst, ist das Secret verschwunden, also besser direkt kopieren und sicher abspeichern&hellip;
+      text-max-filesize: 'Maximale Größe: {maxSize}'
+      text-max-filesize-exceeded: 'Die ausgewählten Dateien übersteigen die maximale Größe: {curSize} / {maxSize}'
       text-powered-by: Läuft mit
       text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Dein Secret wurde angelegt und unter folgender URL gespeichert:'
@@ -122,6 +126,7 @@ translations:
         - Sie geben die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
         - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
+      text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stellen Sie sicher, dass Sie dem Absender vertrauen, da die Dateien von OTS nicht geprüft wurden!
       text-burn-hint: Bitte rufen Sie die URL nicht selbst auf, da das Secret dadurch zerstört würde.
       text-hint-burned: <strong>Achtung:</strong> Sie können das Secret nur einmal ansehen! Sobald Sie die Seite neu laden, kann das Secret nicht erneut abgerufen werden, also besser direkt kopieren und sicher abspeichern&hellip;
       text-pre-reveal-hint: Klicken Sie auf diesen Button um das Secret anzuzeigen, bedenken Sie aber, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
