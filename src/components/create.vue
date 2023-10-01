@@ -29,7 +29,7 @@
         class="row"
         @submit.prevent="createSecret"
       >
-        <div class="col-12 mb-3 order-0">
+        <div class="col-12 mb-3">
           <label for="createSecretData">{{ $t('label-secret-data') }}</label>
           <textarea
             id="createSecretData"
@@ -37,6 +37,16 @@
             class="form-control"
             rows="5"
           />
+        </div>
+        <div class="col-12 mb-3">
+          <label for="createSecretFiles">{{ $t('label-secret-files') }}</label>
+          <input
+            id="createSecretFiles"
+            ref="createSecretFiles"
+            class="form-control"
+            type="file"
+            multiple
+          >
         </div>
         <div class="col-md-6 col-12 order-2 order-md-1">
           <button
@@ -168,6 +178,12 @@ export default {
 
       const meta = new OTSMeta()
       meta.secret = this.secret
+
+      if (this.$refs.createSecretFiles) {
+        for (const f of [...this.$refs.createSecretFiles.files]) {
+          meta.files.push(f)
+        }
+      }
 
       meta.serialize()
         .then(secret => appCrypto.enc(secret, this.securePassword))

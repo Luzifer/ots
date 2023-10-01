@@ -23,6 +23,8 @@ reference:
       - After the encrypted secret has been retrieved once, it is deleted from the server
     label-expiry: 'Expire in:'
     label-secret-data: 'Secret data:'
+    label-secret-files: 'Files to attach:'
+    text-attached-files: 'The sender attached files to the secret. Click to download them but make sure you trust the sender when using them:'
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
     text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;

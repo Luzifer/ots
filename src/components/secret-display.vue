@@ -41,6 +41,23 @@
           </div>
         </div>
         <p v-html="$t('text-hint-burned')" />
+        <template v-if="files.length > 0">
+          <p v-html="$t('text-attached-files')" />
+          <ul>
+            <li
+              v-for="file in files"
+              :key="file.name"
+            >
+              <a
+                class="font-monospace"
+                :href="file.url"
+                :download="file.name"
+              >
+                {{ file.name }}
+              </a>
+            </li>
+          </ul>
+        </template>
       </template>
     </div>
   </div>
@@ -56,6 +73,7 @@ export default {
 
   data() {
     return {
+      files: [],
       popover: null,
       secret: null,
       secretContentBlobURL: null,
@@ -92,6 +110,14 @@ export default {
                 .then(secret => {
                   const meta = new OTSMeta(secret)
                   this.secret = meta.secret
+
+                  meta.files.forEach(file => {
+                    file.arrayBuffer()
+                      .then(ab => {
+                        const blobURL = window.URL.createObjectURL(new Blob([ab], { type: file.type }))
+                        this.files.push({ name: file.name, url: blobURL })
+                      })
+                  })
                 })
                 .catch(() => this.$emit('error', this.$t('alert-something-went-wrong')))
             })
