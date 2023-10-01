@@ -80,6 +80,7 @@
 /* global maxSecretExpire */
 
 import appCrypto from '../crypto.js'
+import OTSMeta from '../ots-meta'
 
 const defaultExpiryChoices = [
   90 * 86400, // 90 days
@@ -164,7 +165,12 @@ export default {
       this.securePassword = [...window.crypto.getRandomValues(new Uint8Array(passwordLength))]
         .map(n => passwordCharset[n % passwordCharset.length])
         .join('')
-      appCrypto.enc(this.secret, this.securePassword)
+
+      const meta = new OTSMeta()
+      meta.secret = this.secret
+
+      meta.serialize()
+        .then(secret => appCrypto.enc(secret, this.securePassword))
         .then(secret => {
           let reqURL = 'api/create'
           if (this.selectedExpiry !== null) {

@@ -49,6 +49,7 @@
 import appClipboardButton from './clipboard-button.vue'
 import appCrypto from '../crypto.js'
 import appQrButton from './qr-button.vue'
+import OTSMeta from '../ots-meta'
 
 export default {
   components: { appClipboardButton, appQrButton },
@@ -89,11 +90,10 @@ export default {
 
               appCrypto.dec(secret, this.securePassword)
                 .then(secret => {
-                  this.secret = secret
+                  const meta = new OTSMeta(secret)
+                  this.secret = meta.secret
                 })
-                .catch(() => {
-                  this.$emit('error', this.$t('alert-something-went-wrong'))
-                })
+                .catch(() => this.$emit('error', this.$t('alert-something-went-wrong')))
             })
         })
         .catch(() => {
