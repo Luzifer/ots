@@ -6,7 +6,12 @@ const pbkdf2Params = { hash: 'SHA-512', iterations: 300000, name: 'PBKDF2' }
  * @returns String
  */
 function abToB64(data) {
-  return btoa(String.fromCodePoint(...new Uint8Array(data)))
+  const outdata = []
+  const bytes = new Uint8Array(data)
+  for (let i = 0; i < bytes.byteLength; i++) {
+    outdata.push(String.fromCodePoint(bytes[i]))
+  }
+  return btoa(outdata.join(''))
 }
 
 /**
@@ -43,8 +48,7 @@ function enc(plainText, passphrase) {
  * @returns String
  */
 function decrypt(passphrase, encData) {
-  const data = new Uint8Array(atob(encData).split('')
-    .map(c => c.charCodeAt(0)))
+  const data = new Uint8Array(b64ToAb(encData))
 
   return deriveKey(passphrase, data.slice(8, 16))
     .then(({ iv, key }) => window.crypto.subtle.decrypt({ iv, name: 'AES-CBC' }, key, data.slice(16)))
@@ -74,7 +78,7 @@ function encrypt(passphrase, salt, plainData) {
   return deriveKey(passphrase, salt)
     .then(({ iv, key }) => window.crypto.subtle.encrypt({ iv, name: 'AES-CBC' }, key, new TextEncoder('utf8').encode(plainData)))
     .then(encData => new Uint8Array([...opensslBanner, ...salt, ...new Uint8Array(encData)]))
-    .then(data => btoa(String.fromCharCode.apply(null, data)))
+    .then(data => abToB64(data.buffer))
 }
 
 /**
