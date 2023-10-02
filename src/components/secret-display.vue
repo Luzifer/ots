@@ -10,9 +10,16 @@
         <p v-html="$t('text-pre-reveal-hint')" />
         <button
           class="btn btn-success"
+          :disabled="secretLoading"
           @click="requestSecret"
         >
-          {{ $t('btn-reveal-secret') }}
+          <template v-if="!secretLoading">
+            {{ $t('btn-reveal-secret') }}
+          </template>
+          <template v-else>
+            <i class="fa-solid fa-spinner fa-spin-pulse" />
+            {{ $t('btn-reveal-secret-processing') }}
+          </template>
         </button>
       </template>
       <template v-else>
@@ -41,6 +48,22 @@
           </div>
         </div>
         <p v-html="$t('text-hint-burned')" />
+        <template v-if="files.length > 0">
+          <p v-html="$t('text-attached-files')" />
+          <ul>
+            <li
+              v-for="file in files"
+              :key="file.name"
+              class="font-monospace"
+            >
+              <a
+                :href="file.url"
+                :download="file.name"
+              >{{ file.name }}</a>
+              ({{ bytesToHuman(file.size) }})
+            </li>
+          </ul>
+        </template>
       </template>
     </div>
   </div>
@@ -49,21 +72,28 @@
 import appClipboardButton from './clipboard-button.vue'
 import appCrypto from '../crypto.js'
 import appQrButton from './qr-button.vue'
+import { bytesToHuman } from '../helpers'
+import OTSMeta from '../ots-meta'
 
 export default {
   components: { appClipboardButton, appQrButton },
 
   data() {
     return {
+      files: [],
       popover: null,
       secret: null,
       secretContentBlobURL: null,
+      secretLoading: false,
     }
   },
 
   methods: {
+    bytesToHuman,
+
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
+      this.secretLoading = true
       window.history.replaceState({}, '', window.location.href.split('#')[0])
       fetch(`api/get/${this.secretId}`)
         .then(resp => {
@@ -89,11 +119,19 @@ export default {
 
               appCrypto.dec(secret, this.securePassword)
                 .then(secret => {
-                  this.secret = secret
+                  const meta = new OTSMeta(secret)
+                  this.secret = meta.secret
+
+                  meta.files.forEach(file => {
+                    file.arrayBuffer()
+                      .then(ab => {
+                        const blobURL = window.URL.createObjectURL(new Blob([ab], { type: file.type }))
+                        this.files.push({ name: file.name, size: ab.byteLength, url: blobURL })
+                      })
+                  })
+                  this.secretLoading = false
                 })
-                .catch(() => {
-                  this.$emit('error', this.$t('alert-something-went-wrong'))
-                })
+                .catch(() => this.$emit('error', this.$t('alert-something-went-wrong')))
             })
         })
         .catch(() => {

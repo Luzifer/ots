@@ -81,6 +81,22 @@ overlayFSPath: /path/to/ots-customization
 # Languages not having a formal version will still display the normal
 # translations in the respective language.
 useFormalLanguage: false
+
+# Define which file types are selectable by the user when uploading
+# files to attach. This fuels the `accept` attribute of the file
+# select and requires the same format. Pay attention this is not
+# suited as a security measure as this is purely a frontend
+# implementation and can be circumvented.
+# https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
+acceptedFileTypes: ''
+
+# Disable the file attachment functionality alltogether
+disableFileAttachment: false
+
+# Define how big all attachments might be in bytes. Leave it set to
+# zero to use the internal limit of 64 MiB (which is there to ensure
+# the encrypted object does not cause the frontend to break).
+maxAttachmentSizeTotal: 0
 ```
 
 To override the styling of the application have a look at the [`src/style.scss`](./src/style.scss) file how the theme of the application is built and present the compiled `app.css` in the `overlayFSPath`.

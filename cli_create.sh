@@ -22,7 +22,7 @@ SECRET=${1:-}
 pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 20 || true)
 
 # Encrypt the secret
-ciphertext=$(echo "${SECRET}" | openssl aes-256-cbc -base64 -pass "pass:${pass}" -iter 300000 -md sha512 2>/dev/null)
+ciphertext=$(echo "${SECRET}" | openssl aes-256-cbc -base64 -A -pass "pass:${pass}" -iter 300000 -md sha512 2>/dev/null)
 
 # Create a secret and extract the secret ID
 id=$(

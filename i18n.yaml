@@ -5,8 +5,10 @@ reference:
     alert-secret-not-found: This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be compromised as someone else might have opened the link already.
     alert-something-went-wrong: Something went wrong. I'm very sorry about this&hellip;
     btn-create-secret: Create the secret!
+    btn-create-secret-processing: Secret is being created…
     btn-new-secret: New Secret
     btn-reveal-secret: Show me the secret!
+    btn-reveal-secret-processing: Secret is being decrypted…
     btn-show-explanation: How does this work?
     expire-default: Default Expiry
     expire-n-days: '{n} day | {n} days'
@@ -23,9 +25,13 @@ reference:
       - After the encrypted secret has been retrieved once, it is deleted from the server
     label-expiry: 'Expire in:'
     label-secret-data: 'Secret data:'
+    label-secret-files: 'Attach Files:'
+    text-attached-files: The sender attached files to the secret. Make sure you trust the sender as the files were not checked!
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
     text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
+    text-max-filesize: 'Maximum size: {maxSize}'
+    text-max-filesize-exceeded: 'The file(s) you chose are too big to attach: {curSize} / {maxSize}'
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
     text-pre-url: 'Your secret was created and stored using this URL:'
@@ -77,8 +83,10 @@ translations:
       alert-secret-not-found: Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       alert-something-went-wrong: Irgendwas ging schief. Entschuldigung&hellip;
       btn-create-secret: Secret erstellen!
+      btn-create-secret-processing: Secret wird erstellt…
       btn-new-secret: Neues Secret
       btn-reveal-secret: Zeig mir das Secret!
+      btn-reveal-secret-processing: Secret wird entschlüsselt…
       btn-show-explanation: Wie funktioniert das?
       expire-default: Server-Standard
       expire-n-days: '{n} Tag | {n} Tage'
@@ -95,9 +103,13 @@ translations:
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
       label-expiry: 'Ablauf in:'
       label-secret-data: 'Inhalt des Secrets:'
+      label-secret-files: 'Dateien Anhängen:'
+      text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stell sicher, dass du dem Absender vertraust, da die Dateien nicht geprüft wurden!
       text-burn-hint: Bitte rufe die URL nicht selbst auf, da das Secret dadurch zerstört würde. Gib sie einfach weiter!
       text-burn-time: 'Wenn es vorher nicht eingesehen wurde, wird dieses Secret automatisch gelöscht:'
       text-hint-burned: <strong>Achtung:</strong> Du kannst das nur einmal ansehen! Sobald du die Seite neu lädst, ist das Secret verschwunden, also besser direkt kopieren und sicher abspeichern&hellip;
+      text-max-filesize: 'Maximale Größe: {maxSize}'
+      text-max-filesize-exceeded: 'Die ausgewählten Dateien übersteigen die maximale Größe: {curSize} / {maxSize}'
       text-powered-by: Läuft mit
       text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Dein Secret wurde angelegt und unter folgender URL gespeichert:'
@@ -118,6 +130,7 @@ translations:
         - Sie geben die angezeigte URL, welche die ID und das Passwort des Secrets enthält, an den Empfänger
         - 'Der Empfänger kann das Secret einmalig abrufen: Funktioniert das nicht, könnte jemand anderes es abgerufen haben!'
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
+      text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stellen Sie sicher, dass Sie dem Absender vertrauen, da die Dateien nicht geprüft wurden!
       text-burn-hint: Bitte rufen Sie die URL nicht selbst auf, da das Secret dadurch zerstört würde.
       text-hint-burned: <strong>Achtung:</strong> Sie können das Secret nur einmal ansehen! Sobald Sie die Seite neu laden, kann das Secret nicht erneut abgerufen werden, also besser direkt kopieren und sicher abspeichern&hellip;
       text-pre-reveal-hint: Klicken Sie auf diesen Button um das Secret anzuzeigen, bedenken Sie aber, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
