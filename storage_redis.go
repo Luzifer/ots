@@ -53,14 +53,14 @@ func (s storageRedis) ReadAndDestroy(id string) (string, error) {
 		if errors.Is(err, redis.Nil) {
 			return "", errSecretNotFound
 		}
-		return "", err
+		return "", errors.Wrap(err, "getting key")
 	}
 
 	err = s.conn.Del(context.Background(), s.redisKey(id)).Err()
-	return string(secret), errors.Wrap(err, "deleting key")
+	return secret, errors.Wrap(err, "deleting key")
 }
 
-func (s storageRedis) redisKey(id string) string {
+func (storageRedis) redisKey(id string) string {
 	prefix := redisDefaultPrefix
 	if prfx := os.Getenv("REDIS_KEY"); prfx != "" {
 		prefix = prfx

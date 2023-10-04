@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var errSecretNotFound = errors.New("Secret not found")
+var errSecretNotFound = errors.New("secret not found")
 
 type storage interface {
 	Create(secret string, expireIn time.Duration) (string, error)
@@ -20,6 +20,6 @@ func getStorageByType(t string) (storage, error) {
 	case "redis":
 		return newStorageRedis()
 	default:
-		return nil, fmt.Errorf("Storage type %q not found", t)
+		return nil, fmt.Errorf("storage type %q not found", t)
 	}
 }
