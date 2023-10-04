@@ -23,8 +23,7 @@ generate-inner:
 	node ./ci/build.mjs
 
 publish: download_libs generate-inner generate-apidocs
-	curl -sSLo golang.sh https://raw.githubusercontent.com/Luzifer/github-publish/master/golang.sh
-	bash golang.sh
+	bash ./ci/build.sh
 
 translate:
 	cd ci/translate && go run .
