@@ -53,16 +53,19 @@ jobs:
       - name: 'Lint and test code: API'
         run: |
           go test -cover -v ./...
+          golangci-lint run ./...
 
       - name: 'Lint and test code: Client'
         working-directory: ./pkg/client
         run: |
           go test -cover -v ./...
+          golangci-lint run ./...
 
       - name: 'Lint and test code: OTS-CLI'
         working-directory: ./cmd/ots-cli
         run: |
           go test -cover -v ./...
+          golangci-lint run ./...
 
       - name: Generate (and validate) translations
         run: make translate
