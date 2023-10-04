@@ -30,7 +30,7 @@ func assetSRIHash(assetName string) string {
 	}
 
 	h := sha512.New384()
-	h.Write(data)
+	_, _ = h.Write(data)
 	sum := h.Sum(nil)
 
 	sri := "sha384-" + base64.StdEncoding.EncodeToString(sum)

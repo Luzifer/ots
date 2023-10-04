@@ -38,7 +38,7 @@ func loadCustomize(filename string) (cust customize, err error) {
 		return cust, nil
 	}
 
-	cf, err := os.Open(filename)
+	cf, err := os.Open(filename) //#nosec:G304 // Loading a custom file is the intention here
 	if err != nil {
 		if errors.Is(err, fs.ErrNotExist) {
 			logrus.Warn("customize file given but not found")
@@ -46,7 +46,11 @@ func loadCustomize(filename string) (cust customize, err error) {
 		}
 		return cust, errors.Wrap(err, "opening customize file")
 	}
-	defer cf.Close()
+	defer func() {
+		if err := cf.Close(); err != nil {
+			logrus.WithError(err).Error("closing customize file (leaked fd)")
+		}
+	}()
 
 	if err = yaml.NewDecoder(cf).Decode(&cust); err != nil {
 		return cust, errors.Wrap(err, "decoding customize file")

@@ -155,10 +155,12 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
 	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Write(assetData)
+	if _, err = w.Write(assetData); err != nil {
+		logrus.WithError(err).Error("writing asset data")
+	}
 }
 
-func handleIndex(w http.ResponseWriter, r *http.Request) {
+func handleIndex(w http.ResponseWriter, _ *http.Request) {
 	inlineContentNonce := make([]byte, scriptNonceSize)
 	if _, err := rand.Read(inlineContentNonce); err != nil {
 		logrus.WithError(err).Error("generating script nonce")

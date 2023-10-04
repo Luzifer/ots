@@ -1,0 +1,174 @@
+# Derived from https://github.com/golangci/golangci-lint/blob/master/.golangci.example.yml
+
+---
+
+run:
+  # timeout for analysis, e.g. 30s, 5m, default is 1m
+  timeout: 5m
+  # Force readonly modules usage for checking
+  modules-download-mode: readonly
+
+output:
+  format: tab
+
+issues:
+  # This disables the included exclude-list in golangci-lint as that
+  # list for example fully hides G304 gosec rule, errcheck, exported
+  # rule of revive and other errors one really wants to see.
+  # Smme detail: https://github.com/golangci/golangci-lint/issues/456
+  exclude-use-default: false
+  # Don't limit the number of shown issues: Report ALL of them
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  disable-all: true
+  enable:
+    - asciicheck    # Simple linter to check that your code does not contain non-ASCII identifiers [fast: true, auto-fix: false]
+    - bidichk       # Checks for dangerous unicode character sequences [fast: true, auto-fix: false]
+    - bodyclose     # checks whether HTTP response body is closed successfully [fast: true, auto-fix: false]
+    - containedctx  # containedctx is a linter that detects struct contained context.Context field [fast: true, auto-fix: false]
+    - contextcheck  # check the function whether use a non-inherited context [fast: false, auto-fix: false]
+    - dogsled       # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
+    - durationcheck # check for two durations multiplied together [fast: false, auto-fix: false]
+    - errcheck      # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases [fast: false, auto-fix: false]
+    - errchkjson    # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occations, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
+    - exportloopref # checks for pointers to enclosing loop variables [fast: true, auto-fix: false]
+    - forbidigo     # Forbids identifiers [fast: true, auto-fix: false]
+    - funlen        # Tool for detection of long functions [fast: true, auto-fix: false]
+    - gocognit      # Computes and checks the cognitive complexity of functions [fast: true, auto-fix: false]
+    - goconst       # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
+    - gocritic      # The most opinionated Go source code linter [fast: true, auto-fix: false]
+    - gocyclo       # Computes and checks the cyclomatic complexity of functions [fast: true, auto-fix: false]
+    - godox         # Tool for detection of FIXME, TODO and other comment keywords [fast: true, auto-fix: false]
+    - gofmt         # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
+    - gofumpt       # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
+    - goimports     # Goimports does everything that gofmt does. Additionally it checks unused imports [fast: true, auto-fix: true]
+    - gomnd         # An analyzer to detect magic numbers. [fast: true, auto-fix: false]
+    - gosec         # Inspects source code for security problems [fast: true, auto-fix: false]
+    - gosimple      # Linter for Go source code that specializes in simplifying a code [fast: true, auto-fix: false]
+    - govet         # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: true, auto-fix: false]
+    - ineffassign   # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
+    - misspell      # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
+    - nakedret      # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
+    - nilerr        # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
+    - nilnil        # Checks that there is no simultaneous return of `nil` error and an invalid value. [fast: false, auto-fix: false]
+    - noctx         # noctx finds sending http request without context.Context [fast: true, auto-fix: false]
+    - nolintlint    # Reports ill-formed or insufficient nolint directives [fast: true, auto-fix: false]
+    - revive        # Fast, configurable, extensible, flexible, and beautiful linter for Go. Drop-in replacement of golint. [fast: false, auto-fix: false]
+    - staticcheck   # Staticcheck is a go vet on steroids, applying a ton of static analysis checks [fast: true, auto-fix: false]
+    - stylecheck    # Stylecheck is a replacement for golint [fast: true, auto-fix: false]
+    - tenv          # tenv is analyzer that detects using os.Setenv instead of t.Setenv since Go1.17 [fast: false, auto-fix: false]
+    - typecheck     # Like the front-end of a Go compiler, parses and type-checks Go code [fast: true, auto-fix: false]
+    - unconvert     # Remove unnecessary type conversions [fast: true, auto-fix: false]
+    - unused        # Checks Go code for unused constants, variables, functions and types [fast: false, auto-fix: false]
+    - wastedassign  # wastedassign finds wasted assignment statements. [fast: false, auto-fix: false]
+    - wrapcheck     # Checks that errors returned from external packages are wrapped [fast: false, auto-fix: false]
+
+linters-settings:
+  funlen:
+    lines: 100
+    statements: 60
+
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 15
+
+  gomnd:
+    settings:
+      mnd:
+        ignored-functions: 'strconv.(?:Format|Parse)\B+'
+
+  revive:
+    rules:
+      #- name: add-constant           # Suggests using constant for magic numbers and string literals
+                                      # Opinion: Makes sense for strings, not for numbers but checks numbers
+      #- name: argument-limit         # Specifies the maximum number of arguments a function can receive | Opinion: Don't need this
+      - name: atomic                  # Check for common mistaken usages of the `sync/atomic` package
+      - name: banned-characters       # Checks banned characters in identifiers
+        arguments:
+          - ';' # Greek question mark
+      - name: bare-return             # Warns on bare returns
+      - name: blank-imports           # Disallows blank imports
+      - name: bool-literal-in-expr    # Suggests removing Boolean literals from logic expressions
+      - name: call-to-gc              # Warns on explicit call to the garbage collector
+      #- name: cognitive-complexity   # Sets restriction for maximum Cognitive complexity.
+                                      # There is a dedicated linter for this
+      - name: confusing-naming        # Warns on methods with names that differ only by capitalization
+      - name: confusing-results       # Suggests to name potentially confusing function results
+      - name: constant-logical-expr   # Warns on constant logical expressions
+      - name: context-as-argument     # `context.Context` should be the first argument of a function.
+      - name: context-keys-type       # Disallows the usage of basic types in `context.WithValue`.
+      #- name: cyclomatic             # Sets restriction for maximum Cyclomatic complexity.
+                                      # There is a dedicated linter for this
+      #- name: datarace               # Spots potential dataraces
+                                      # Is not (yet) available?
+      - name: deep-exit               # Looks for program exits in funcs other than `main()` or `init()`
+      - name: defer                   # Warns on some [defer gotchas](https://blog.learngoprogramming.com/5-gotchas-of-defer-in-go-golang-part-iii-36a1ab3d6ef1)
+      - name: dot-imports             # Forbids `.` imports.
+      - name: duplicated-imports      # Looks for packages that are imported two or more times
+      - name: early-return            # Spots if-then-else statements that can be refactored to simplify code reading
+      - name: empty-block             # Warns on empty code blocks
+      - name: empty-lines             # Warns when there are heading or trailing newlines in a block
+      - name: errorf                  # Should replace `errors.New(fmt.Sprintf())` with `fmt.Errorf()`
+      - name: error-naming            # Naming of error variables.
+      - name: error-return            # The error return parameter should be last.
+      - name: error-strings           # Conventions around error strings.
+      - name: exported                # Naming and commenting conventions on exported symbols.
+        arguments: ['sayRepetitiveInsteadOfStutters']
+      #- name: file-header            # Header which each file should have.
+                                      # Useless without config, have no config for it
+      - name: flag-parameter          # Warns on boolean parameters that create a control coupling
+      #- name: function-length        # Warns on functions exceeding the statements or lines max
+                                      # There is a dedicated linter for this
+      #- name: function-result-limit  # Specifies the maximum number of results a function can return
+                                      # Opinion: Don't need this
+      - name: get-return              # Warns on getters that do not yield any result
+      - name: identical-branches      # Spots if-then-else statements with identical `then` and `else` branches
+      - name: if-return               # Redundant if when returning an error.
+      #- name: imports-blacklist      # Disallows importing the specified packages
+                                      # Useless without config, have no config for it
+      - name: import-shadowing        # Spots identifiers that shadow an import
+      - name: increment-decrement     # Use `i++` and `i--` instead of `i += 1` and `i -= 1`.
+      - name: indent-error-flow       # Prevents redundant else statements.
+      #- name: line-length-limit      # Specifies the maximum number of characters in a lined
+                                      # There is a dedicated linter for this
+      #- name: max-public-structs     # The maximum number of public structs in a file.
+                                      # Opinion: Don't need this
+      - name: modifies-parameter      # Warns on assignments to function parameters
+      - name: modifies-value-receiver # Warns on assignments to value-passed method receivers
+      #- name: nested-structs         # Warns on structs within structs
+                                      # Opinion: Don't need this
+      - name: optimize-operands-order # Checks inefficient conditional expressions
+      #- name: package-comments       # Package commenting conventions.
+                                      # Opinion: Don't need this
+      - name: range                   # Prevents redundant variables when iterating over a collection.
+      - name: range-val-address       # Warns if address of range value is used dangerously
+      - name: range-val-in-closure    # Warns if range value is used in a closure dispatched as goroutine
+      - name: receiver-naming         # Conventions around the naming of receivers.
+      - name: redefines-builtin-id    # Warns on redefinitions of builtin identifiers
+      #- name: string-format          # Warns on specific string literals that fail one or more user-configured regular expressions
+                                      # Useless without config, have no config for it
+      - name: string-of-int           # Warns on suspicious casts from int to string
+      - name: struct-tag              # Checks common struct tags like `json`,`xml`,`yaml`
+      - name: superfluous-else        # Prevents redundant else statements (extends indent-error-flow)
+      - name: time-equal              # Suggests to use `time.Time.Equal` instead of `==` and `!=` for equality check time.
+      - name: time-naming             # Conventions around the naming of time variables.
+      - name: unconditional-recursion # Warns on function calls that will lead to (direct) infinite recursion
+      - name: unexported-naming       # Warns on wrongly named un-exported symbols
+      - name: unexported-return       # Warns when a public return is from unexported type.
+      - name: unhandled-error         # Warns on unhandled errors returned by funcion calls
+        arguments:
+          - "fmt.(Fp|P)rint(f|ln|)"
+      - name: unnecessary-stmt        # Suggests removing or simplifying unnecessary statements
+      - name: unreachable-code        # Warns on unreachable code
+      - name: unused-parameter        # Suggests to rename or remove unused function parameters
+      - name: unused-receiver         # Suggests to rename or remove unused method receivers
+      #- name: use-any                # Proposes to replace `interface{}` with its alias `any`
+                                      # Is not (yet) available?
+      - name: useless-break           # Warns on useless `break` statements in case clauses
+      - name: var-declaration         # Reduces redundancies around variable declaration.
+      - name: var-naming              # Naming rules.
+      - name: waitgroup-by-value      # Warns on functions taking sync.WaitGroup as a by-value parameter
+
+...

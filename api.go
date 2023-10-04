@@ -22,7 +22,7 @@ type apiResponse struct {
 	Error     string     `json:"error,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	Secret    string     `json:"secret,omitempty"`
-	SecretId  string     `json:"secret_id,omitempty"`
+	SecretID  string     `json:"secret_id,omitempty"`
 }
 
 type apiRequest struct {
@@ -83,7 +83,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	a.jsonResponse(res, http.StatusCreated, apiResponse{
 		ExpiresAt: expiresAt,
 		Success:   true,
-		SecretId:  id,
+		SecretID:  id,
 	})
 }
 
@@ -124,10 +124,13 @@ func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error,
 	})
 }
 
-func (a apiServer) jsonResponse(res http.ResponseWriter, status int, response apiResponse) {
+func (apiServer) jsonResponse(res http.ResponseWriter, status int, response apiResponse) {
 	res.Header().Set("Content-Type", "application/json")
 	res.Header().Set("Cache-Control", "no-store, max-age=0")
 	res.WriteHeader(status)
 
-	json.NewEncoder(res).Encode(response)
+	if err := json.NewEncoder(res).Encode(response); err != nil {
+		logrus.WithError(err).Error("encoding JSON response")
+		http.Error(res, `{"error":"could not encode response"}`, http.StatusInternalServerError)
+	}
 }
