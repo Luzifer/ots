@@ -50,9 +50,19 @@ jobs:
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
 
-      - name: Lint and test code
+      - name: 'Lint and test code: API'
         run: |
-          go test -v ./...
+          go test -cover -v ./...
+
+      - name: 'Lint and test code: Client'
+        working-directory: ./pkg/client
+        run: |
+          go test -cover -v ./...
+
+      - name: 'Lint and test code: OTS-CLI'
+        working-directory: ./cmd/ots-cli
+        run: |
+          go test -cover -v ./...
 
       - name: Generate (and validate) translations
         run: make translate
