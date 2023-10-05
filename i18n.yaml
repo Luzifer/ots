@@ -281,7 +281,6 @@ translations:
       title-secret-create-disabled: Geheime creatie uitgeschakeld...
       title-secret-created: Vertrouwelijke info opgeslaan!
   pl:
-    languageKey: pl
     deeplLanguage: pl
     translators:
       - Icikowski
