@@ -507,13 +507,16 @@ translations:
       title-secret-create-disabled: Створення секрету вимкнено…
       title-secret-created: Секрет створений!
   zh:
-    translators: []
+    translators:
+      - YongJie-Xie
     translations:
-      alert-secret-not-found: 该秘密不存在 - 如果这与您的预期不符，那么该链接可能已经泄露，且您的秘密已经被其他人查看了。
+      alert-secret-not-found: 不存在该机密 - 如果这不符合您的预期，那么该链接可能已经泄露，且您的机密已经被他人查看过了。
       alert-something-went-wrong: 运行异常，对此我深感抱歉…
-      btn-create-secret: 创建秘密
-      btn-new-secret: 新的秘密
-      btn-reveal-secret: 向我展示秘密
+      btn-create-secret: 创建机密
+      btn-create-secret-processing: 机密正在创建中…
+      btn-new-secret: 新的机密
+      btn-reveal-secret: 向我展示机密
+      btn-reveal-secret-processing: 机密正在解密中…
       btn-show-explanation: 它如何运作？
       expire-default: 默认过期时间
       expire-n-days: '{n} 天 | {n} 天'
@@ -521,27 +524,31 @@ translations:
       expire-n-minutes: '{n} 分钟 | {n} 分钟'
       expire-n-seconds: '{n} 秒 | {n} 秒'
       items-explanation:
-        - 您在当前页面的文本框内输入“秘密”内容
-        - 您的浏览器会生成随机密钥并对“秘密”进行加密
-        - 您的浏览器会发送加密后的“秘密”到服务器（明文内容和随机密钥都不会被发送！）
-        - 服务器接收加密的“秘密”并在指定的时间段内保留（过期自动销毁）
+        - 您在当前页面的文本框内输入机密内容
+        - 您的浏览器会生成随机密钥并对机密内容进行加密
+        - 您的浏览器会发送加密后的机密内容到服务器（明文内容和随机密钥都不会被发送！）
+        - 服务器将接收加密的机密并在指定的时间段内保留（过期会自动销毁）
         - 您需要将包含 ID 和随机密钥的访问链接发送给收件人
-        - 收件人仅有一次查看“秘密”的机会（如果无法查看，则表示“秘密”已被其他人查看过！）
-        - 服务器会在“秘密”被查看一次后立即将其销毁
+        - 收件人仅有一次查看机密的机会（如果无法查看，则表示机密已被其他人查看过！）
+        - 服务器会在机密被查看一次后立即将其销毁
       label-expiry: 过期时间：
-      label-secret-data: 秘密内容：
-      text-burn-hint: 请您记住不要自己访问此链接，因为这会导致秘密被销毁。就这样转发给收件人吧！
-      text-burn-time: 如果秘密没有被查看，将会在此时间自动销毁：
-      text-hint-burned: <strong>注意：</strong>您只能查看一次秘密，请尽快拷贝！刷新页面会导致秘密消失！
+      label-secret-data: 机密内容：
+      label-secret-files: 附加文件：
+      text-attached-files: 发件人在此机密中附加了文件，但该文件未经检查，请确保发件人可信！
+      text-burn-hint: 请您记住不要自己访问此链接，因为这会导致机密被销毁。请原封不动的转发给收件人吧！
+      text-burn-time: 如果机密没有被查看，将会在此时间自动销毁：
+      text-hint-burned: <strong>注意：</strong>您只能查看一次机密，请尽快拷贝！刷新页面也会导致机密消失！
+      text-max-filesize: 附加文件大小上限：{maxSize}
+      text-max-filesize-exceeded: 您选择的文件过大，无法附加：{curSize} / {maxSize}
       text-powered-by: Powered by
-      text-pre-reveal-hint: 点击按钮即可查看秘密，但请注意该操作会销毁秘密，而且您只能查看一次！
-      text-pre-url: 您的秘密已创建，访问链接如下：
-      text-secret-create-disabled: 该实例被禁止创建秘密。
+      text-pre-reveal-hint: 点击按钮即可查看机密，但请注意该操作会立即销毁机密，而且您也只能查看一次！
+      text-pre-url: 您的机密已创建，访问链接如下：
+      text-secret-create-disabled: 该实例被禁止创建机密。
       title-explanation: 这就是它的运作原理…
-      title-new-secret: 创建一个秘密
-      title-reading-secret: 查看你的秘密…
-      title-secret-create-disabled: 创建秘密被禁止…
-      title-secret-created: 秘密已创建！
+      title-new-secret: 创建一个机密
+      title-reading-secret: 查看您的机密…
+      title-secret-create-disabled: 创建机密被禁止…
+      title-secret-created: 机密已创建！
   zh-TW:
     translators: []
     translations:
