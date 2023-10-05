@@ -71,9 +71,13 @@ jobs:
       - name: Generate (and validate) translations
         run: make translate
 
+      - name: Delete issue template when no languages require translation
+        run: |
+          grep -q "### Language" translate-issue.md || rm -f translate-issue.md
+
       - name: Update Translations Issue
         uses: JasonEtco/create-an-issue@v2
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && hashFiles('translate-issue.md') != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
