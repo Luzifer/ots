@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-//go:embed issue.tpl
+//go:embed issue.tpl.md
 var issueTemplate string
 
 func generateIssue(tf translationFile) error {
