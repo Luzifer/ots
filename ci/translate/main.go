@@ -20,31 +20,19 @@ import (
 
 const deeplRequestTimeout = 10 * time.Second
 
-type (
-	translation     map[string]any
-	translationFile struct {
-		Reference    translationMapping             `yaml:"reference"`
-		Translations map[string]*translationMapping `yaml:"translations"`
-	}
-	translationMapping struct {
-		DeeplLanguage      string      `yaml:"deeplLanguage,omitempty"`
-		LanguageKey        string      `yaml:"languageKey,omitempty"`
-		Translations       translation `yaml:"translations"`
-		FormalTranslations translation `yaml:"formalTranslations,omitempty"`
-	}
-)
-
 var (
 	cfg = struct {
 		AutoTranslate    bool   `flag:"auto-translate" default:"false" description:"Enable auto-translation through DeepL"`
 		DeeplAPIEndpoint string `flag:"deepl-api-endpoint" default:"https://api-free.deepl.com/v2/translate" description:"DeepL API endpoint to request translations from"`
 		DeeplAPIKey      string `flag:"deepl-api-key" default:"" description:"API key for the DeepL API"`
+		IssueFile        string `flag:"issue-file" default:"../../translate-issue.md" description:"Where to create the translate issue"`
 		OutputFile       string `flag:"output-file,o" default:"../../src/langs/langs.js" description:"Where to put rendered translations"`
 		Template         string `flag:"template" default:"../../src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
 		TranslationFile  string `flag:"translation-file,t" default:"../../i18n.yaml" description:"File to use for translations"`
 		LogLevel         string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
 		Verify           bool   `flag:"verify" default:"true" description:"Run verification against translation file"`
 		VersionAndExit   bool   `flag:"version" default:"false" description:"Prints current version and exits"`
+		WriteIssueFile   bool   `flag:"write-issue-file" default:"false" description:"Generates an issue body for missing translations"`
 	}{}
 
 	version = "dev"
@@ -112,6 +100,13 @@ func main() {
 
 	if err = renderJSFile(tf); err != nil {
 		logrus.WithError(err).Fatal("rendering JS output")
+	}
+
+	if cfg.WriteIssueFile {
+		logrus.Info("writing issue template...")
+		if err = generateIssue(tf); err != nil {
+			logrus.WithError(err).Fatal("generating issue template")
+		}
 	}
 }
 
@@ -212,7 +207,11 @@ func fetchTranslation(srcLang, destLang, text string) (string, error) {
 	if err != nil {
 		return "", errors.Wrap(err, "executing request")
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			logrus.WithError(err).Error("closing response body (leaked fd)")
+		}
+	}()
 
 	var payload struct {
 		Translations []struct {
@@ -237,7 +236,7 @@ func loadTranslationFile() (translationFile, error) {
 	if err != nil {
 		return tf, errors.Wrap(err, "opening translation file")
 	}
-	defer f.Close()
+	defer f.Close() //nolint:errcheck // Short-lived fd-leak
 
 	decoder := yaml.NewDecoder(f)
 	decoder.KnownFields(true)
@@ -262,11 +261,11 @@ func renderJSFile(tf translationFile) error {
 	}
 
 	if err = tpl.Execute(f, tf); err != nil {
-		f.Close()
+		f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
 		return errors.Wrap(err, "rendering js template")
 	}
 
-	f.Close()
+	f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
 	return errors.Wrap(os.Rename(cfg.OutputFile+".tmp", cfg.OutputFile), "moving file in place")
 }
 
@@ -277,18 +276,13 @@ func saveTranslationFile(tf translationFile) error {
 	}
 
 	encoder := yaml.NewEncoder(f)
-	encoder.SetIndent(2)
+	encoder.SetIndent(2) //nolint:gomnd
 
 	if err = encoder.Encode(tf); err != nil {
-		f.Close()
+		f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
 		return errors.Wrap(err, "encoding translation file")
 	}
 
-	f.Close()
+	f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
 	return errors.Wrap(os.Rename(cfg.TranslationFile+".tmp", cfg.TranslationFile), "moving file in place")
-}
-
-func (t translation) ToJSON() (string, error) {
-	j, err := json.Marshal(t)
-	return strings.ReplaceAll(string(j), "'", "\\'"), errors.Wrap(err, "marshalling JSON")
 }
