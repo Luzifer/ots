@@ -1,6 +1,8 @@
 reference:
   deeplLanguage: en
   languageKey: en
+  translators:
+    - Luzifer
   translations:
     alert-secret-not-found: This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be compromised as someone else might have opened the link already.
     alert-something-went-wrong: Something went wrong. I'm very sorry about this&hellip;
@@ -43,6 +45,7 @@ reference:
     title-secret-created: Secret created!
 translations:
   ca:
+    translators: []
     translations:
       alert-secret-not-found: Aquest no és el secret que busques&hellip; - Si esperaves que el secret estiguera ací, és possible que s'haja vist compromés, ja que una altra persona podria haver obert l'enllaç en comptes de tu.
       alert-something-went-wrong: Alguna cosa ha eixit malament. Ens sap molt greu&hellip;
@@ -79,6 +82,8 @@ translations:
       title-secret-created: Secret creat!
   de:
     deeplLanguage: de
+    translators:
+      - Luzifer
     translations:
       alert-secret-not-found: Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       alert-something-went-wrong: Irgendwas ging schief. Entschuldigung&hellip;
@@ -138,6 +143,7 @@ translations:
       title-new-secret: Ein neues Secret erstellen
   es:
     deeplLanguage: es
+    translators: []
     translations:
       alert-secret-not-found: Este no es el secreto que buscas&hellip; - Si esperabas que el secreto estuviera aquí, es posible que se haya visto comprometido, ya que otra persona podría haber abierto el enlace en tu lugar.
       alert-something-went-wrong: Algo ha salido mal. Lo sentimos mucho&hellip;
@@ -174,6 +180,7 @@ translations:
       title-secret-created: ¡Secreto creado!
   fr:
     deeplLanguage: fr
+    translators: []
     translations:
       alert-secret-not-found: Ce secret n'est pas celui que vous cherchez&hellip; - Si vous comptiez trouvez ce secret ici, il a pu être compromis car quelqu'un a probablement déjà ouvert le lien.
       alert-something-went-wrong: Un problème est survenu. Nous en sommes désolés&hellip;
@@ -207,6 +214,7 @@ translations:
       title-secret-created: Secret créé!
   lv:
     deeplLanguage: lv
+    translators: []
     translations:
       alert-secret-not-found: <strong>Ziņa nav atrasta!</strong>&hellip; - Ja ievadītā saite ir pareiza, tad ir beidzies ziņas glabāšanas laiks, vai arī tā jau vienreiz ir atvērta.
       alert-something-went-wrong: Neparedzēta sistēmas kļūda. Atvainojiet par sagādātajām neērtībām&hellip;
@@ -240,6 +248,7 @@ translations:
       title-secret-created: Ziņa nošifrēta!
   nl:
     deeplLanguage: nl
+    translators: []
     translations:
       alert-secret-not-found: De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!
       alert-something-went-wrong: Er ging iets verkeerd, sorry&hellip;
@@ -273,6 +282,7 @@ translations:
       title-secret-created: Vertrouwelijke info opgeslaan!
   pl:
     deeplLanguage: pl
+    translators: []
     translations:
       alert-secret-not-found: TO nie jest sekret, którego szukasz&hellip; - Jeśli spodziewałeś się tu sekretu, to może być on zagrożony, ponieważ ktoś inny mógł już otworzyć ten link.
       alert-something-went-wrong: Coś poszło nie tak. Bardzo mi przykro&hellip;
@@ -309,6 +319,7 @@ translations:
       title-secret-created: Sekret utworzony!
   pt-BR:
     deeplLanguage: pt-BR
+    translators: []
     translations:
       alert-secret-not-found: Esta não é o segredo que você está procurando… - Se você esperava que o segredo estaria aqui, ele pode ter sido comprometido por alguém que já acessou o link.
       alert-something-went-wrong: Desculpe, algo deu errado…
@@ -342,6 +353,7 @@ translations:
       title-secret-created: Segredo criado!
   ru:
     deeplLanguage: ru
+    translators: []
     translations:
       alert-secret-not-found: Секрет недоступен&hellip; - Помните, он может быть скомпрометирован. Возможно кто-то другой уже открыл вашу ссылку.
       alert-something-went-wrong: Что-то пошло не так. Приносим свои извинения&hellip;
@@ -375,6 +387,7 @@ translations:
       title-secret-created: Секрет создан!
   sv:
     deeplLanguage: sv
+    translators: []
     translations:
       alert-secret-not-found: Hemlighet hittades inte&hellip; - Om du förväntade dig att hemligheten skulle finnas här kan den vara röjd då någon annan kan ha öppnat denna länk tidigare.
       alert-something-went-wrong: Något gick fel. Jag ber om ursäkt för detta!&hellip;
@@ -408,6 +421,7 @@ translations:
       title-secret-created: Hemlighet skapad!
   tr:
     deeplLanguage: tr
+    translators: []
     translations:
       alert-secret-not-found: Aradığınız sır bu değil… - Sırrın burada olmasını bekliyorsanız, bu link başkası tarafından açılmış ve sırrınız tehlikede olabilir.
       alert-something-went-wrong: Bir şeyler ters gitti. Bunun için çok üzgünüm…
@@ -441,6 +455,7 @@ translations:
       title-secret-created: Sır oluşturuldu!
   uk:
     deeplLanguage: uk
+    translators: []
     translations:
       alert-secret-not-found: Це не секрет, який ви шукаєте&hellip; - Якщо ви очікували, що секрет буде тут, він міг бути скомпрометований, оскільки хтось інший міг уже відкрити посилання.
       alert-something-went-wrong: Щось пішло не так. Ми дуже шкодуємо про це&hellip;
@@ -476,6 +491,7 @@ translations:
       title-secret-create-disabled: Створення секрету вимкнено…
       title-secret-created: Секрет створений!
   zh:
+    translators: []
     translations:
       alert-secret-not-found: 该秘密不存在 - 如果这与您的预期不符，那么该链接可能已经泄露，且您的秘密已经被其他人查看了。
       alert-something-went-wrong: 运行异常，对此我深感抱歉…
@@ -511,6 +527,7 @@ translations:
       title-secret-create-disabled: 创建秘密被禁止…
       title-secret-created: 秘密已创建！
   zh-TW:
+    translators: []
     translations:
       alert-secret-not-found: 這不是您正在尋找的機密&hellip; - 如果您期望機密會出現在這裡，它可能已經被泄漏了，因為可能有其他人已經打開了此連結。
       alert-something-went-wrong: 看樣子出了一些問題，對此我非常抱歉&hellip;

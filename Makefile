@@ -26,7 +26,7 @@ publish: download_libs generate-inner generate-apidocs
 	bash ./ci/build.sh
 
 translate:
-	cd ci/translate && go run .
+	cd ci/translate && go run . --write-issue-file
 
 # -- Download / refresh external libraries --
 

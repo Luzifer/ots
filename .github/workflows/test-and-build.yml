@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   test-and-build:
@@ -69,6 +70,15 @@ jobs:
 
       - name: Generate (and validate) translations
         run: make translate
+
+      - name: Update Translations Issue
+        uses: JasonEtco/create-an-issue@v2
+        if: github.ref == 'refs/heads/master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: translate-issue.md
+          update_existing: true
 
       - name: Build release
         run: make publish

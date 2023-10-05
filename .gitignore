@@ -11,3 +11,4 @@ frontend/webfonts
 frontend/*.woff2
 node_modules
 ots
+translate-issue.md

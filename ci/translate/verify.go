@@ -1,41 +1,35 @@
 package main
 
 import (
-	"reflect"
 	"regexp"
+	"sort"
 
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-
-	"github.com/Luzifer/go_helpers/v2/str"
 )
 
 var langKeyFormat = regexp.MustCompile(`^[a-z]{2}(-[A-Z]{2})?$`)
 
 func verify(tf translationFile) error {
-	var (
-		err     error
-		keys    []string
-		keyType = map[string]reflect.Type{}
-	)
-
-	for k, v := range tf.Reference.Translations {
-		keys = append(keys, k)
-		keyType[k] = reflect.TypeOf(v)
-	}
+	var err error
 
 	if !langKeyFormat.MatchString(tf.Reference.LanguageKey) {
 		return errors.New("reference contains invalid languageKey")
 	}
 
-	if len(keys) == 0 {
+	if len(tf.Reference.Translations) == 0 {
 		return errors.New("reference does not contain translations")
 	}
 
-	logrus.Infof("found %d translation keys in reference", len(keys))
+	logrus.Infof("found %d translation keys in reference", len(tf.Reference.Translations))
 
 	if tf.Reference.FormalTranslations != nil {
-		if verifyTranslationKeys(logrus.NewEntry(logrus.StandardLogger()), tf.Reference.FormalTranslations, keys, keyType, false); err != nil {
+		if verifyTranslationKeys(
+			logrus.NewEntry(logrus.StandardLogger()),
+			tf.Reference.FormalTranslations,
+			tf.Reference.Translations,
+			false,
+		); err != nil {
 			return errors.New("reference contains error in formalTranslations")
 		}
 	}
@@ -54,8 +48,18 @@ func verify(tf translationFile) error {
 			logger.Info("no deeplLanguage is set")
 		}
 
-		hadErrors = hadErrors || verifyTranslationKeys(logger, tm.Translations, keys, keyType, true)
-		hadErrors = hadErrors || verifyTranslationKeys(logger, tm.FormalTranslations, keys, keyType, false)
+		hadErrors = hadErrors || verifyTranslationKeys(
+			logger,
+			tm.Translations,
+			tf.Reference.Translations,
+			true,
+		)
+		hadErrors = hadErrors || verifyTranslationKeys(
+			logger,
+			tm.FormalTranslations,
+			tf.Reference.Translations,
+			false,
+		)
 	}
 
 	if hadErrors {
@@ -64,31 +68,27 @@ func verify(tf translationFile) error {
 	return nil
 }
 
-func verifyTranslationKeys(logger *logrus.Entry, t translation, keys []string, keyType map[string]reflect.Type, warnMissing bool) (hadErrors bool) {
-	var seenKeys []string
+//revive:disable-next-line:flag-parameter
+func verifyTranslationKeys(logger *logrus.Entry, t, ref translation, warnMissing bool) (hadErrors bool) {
+	missing, extra, wrongType := t.GetErrorKeys(ref)
 
-	for k, v := range t {
-		keyLogger := logger.WithField("translation_key", k)
-		if !str.StringInSlice(k, keys) {
-			// Contains extra key, is error
-			hadErrors = true
-			keyLogger.Error("extra key found")
-			continue // No further checks for that key
-		}
+	sort.Strings(extra)
+	sort.Strings(missing)
+	sort.Strings(wrongType)
 
-		seenKeys = append(seenKeys, k)
-		if kt := reflect.TypeOf(v); keyType[k] != kt {
-			// Type mismatches (i.e. string vs []string)
-			hadErrors = true
-			keyLogger.Errorf("key has invalid type %s != %s", kt, keyType[k])
-		}
+	for _, k := range extra {
+		logger.WithField("translation_key", k).Error("extra key found")
 	}
 
-	for _, k := range keys {
-		if warnMissing && !str.StringInSlice(k, seenKeys) {
+	for _, k := range wrongType {
+		logger.WithField("translation_key", k).Error("key has invalid type")
+	}
+
+	if warnMissing {
+		for _, k := range missing {
 			logger.WithField("translation_key", k).Warn("missing translation")
 		}
 	}
 
-	return hadErrors
+	return len(extra)+len(wrongType) > 0
 }
