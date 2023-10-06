@@ -369,7 +369,8 @@ translations:
       title-secret-created: Segredo criado!
   ru:
     deeplLanguage: ru
-    translators: []
+    translators:
+      - alexovchinnicov
     translations:
       alert-secret-not-found: Секрет недоступен&hellip; - Помните, он может быть скомпрометирован. Возможно кто-то другой уже открыл вашу ссылку.
       alert-something-went-wrong: Что-то пошло не так. Приносим свои извинения&hellip;
@@ -392,7 +393,7 @@ translations:
       label-secret-data: 'Секретные данные:'
       text-burn-hint: Пожалуйста, не переходите по этому URL для проверки, так как это удалит секрет. Просто скопируйте и передайте его!
       text-hint-burned: <strong>Внимание:</strong> Секрет будет показан только один раз. Как только вы перезагрузите страницу, секрет исчезнет, скопируйте его незамедлительно&hellip;
-      text-powered-by: Powered by
+      text-powered-by: Основан
       text-pre-reveal-hint: Чтобы раскрыть секрет, нажмите эту кнопку, но имейте в виду, что это приведет к уничтожению секрета. Вы можете просмотреть его только один раз!
       text-pre-url: 'Ваш секрет создан и сохранён, его URL:'
       text-secret-create-disabled: Создание новых секретов в этом случае отключено.
