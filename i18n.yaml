@@ -418,9 +418,12 @@ translations:
       alert-secret-not-found: Hemlighet hittades inte&hellip; - Om du förväntade dig att hemligheten skulle finnas här kan den vara röjd då någon annan kan ha öppnat denna länk tidigare.
       alert-something-went-wrong: Något gick fel. Jag ber om ursäkt för detta!&hellip;
       btn-create-secret: Skapa hemliget!
+      btn-create-secret-processing: Hemlighet håller på att skapas..
       btn-new-secret: Ny hemlighet.
       btn-reveal-secret: Visa mig hemligheten!
+      btn-reveal-secret-processing: Hemlighet håller på att dekrypteras..
       btn-show-explanation: Hur fungerar detta?
+      expire-default: Standard utgångstid
       expire-n-days: '{n} dag | {n} dagar'
       expire-n-hours: '{n} timme | {n} timmar'
       expire-n-minutes: '{n} minut | {n} minuter'
@@ -433,9 +436,15 @@ translations:
         - Du skickar URL-länken med ID-numret och avkrypteringslösenordet till mottagaren
         - 'Mottagaren kan se hemligheten exakt en gång: Om detta misslyckas kan hemligheten redan ha setts av någon annan!'
         - När hemligheten har setts en gång, raderas den från servern
+      label-expiry: 'Expirerar om:'
       label-secret-data: 'Hemlig data:'
+      label-secret-files: 'Bifoga filer:'
+      text-attached-files: Avsändaren har bifogat filer till denna hemlighet. Se till att du litar på avsändaren, eftersom filerna inte har kontrollerats!
       text-burn-hint: Kom ihåg att inte gå till denna URL själv eftersom detta skulle förbruka hemligheten. Skicka bara vidare den till mottagaren!
+      text-burn-time: 'Om hemligheten inte visas innan, kommer den att förbrukas automatiskt:'
       text-hint-burned: <strong>Observera:</strong> Du kan endast se denna sida en gång. Så fort du laddar om sidan kommer hemligheten att försvinna så kopiera den nu&hellip;
+      text-max-filesize: 'Maximal storlek: {maxSize}'
+      text-max-filesize-exceeded: 'Filerna du valt är för stora för att kunna bifogas: {curSize} / {maxSize}'
       text-powered-by: Drivs av
       text-pre-reveal-hint: För att visa hemligheten klicka på denna knapp. Var medveten om att när du gör det kommer hemligheten att förbrukas, du kan endast se den en gång!
       text-pre-url: 'Din hemlighet har skapats och lagrats med denna URL:'
