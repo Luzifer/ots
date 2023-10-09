@@ -32,89 +32,44 @@ For a better setup you can choose the backend which is used to store the secrets
 
 ### Customization
 
-In order to be adjustable to your needs there are some ways to customize your OTS setup. All of those require you to create a YAML file containing the definitions of your customizations and to load this file through the `--customize=path/to/customize.yaml`:
-
-```yaml
-# Override the app-icon, present a path to the image to use, if unset
-# or empty the default FontAwesome icon will be displayed. Recommended
-# is a height of 30px.
-appIcon: ''
-
-# Override the app-title, if unset or empty the default app-title
-# "OTS - One Time Secrets" will be used
-appTitle: ''
-
-# Disable display of the app-title (for example if you included the
-# title within the appIcon)
-disableAppTitle: false
-
-# Disable the dropdown and the API functionality to override the
-# secret expiry
-disableExpiryOverride: false
-
-# Disable the footer linking back to the project. If you disable it
-# please consider a donation to support the project.
-disablePoweredBy: false
-
-# Disable the button to display and the generation of the QR-Code
-# for the secret URL
-disableQRSupport: false
-
-# Disable the switcher for dark / light theme in the top right corner
-# for example if your custom theme does not support two themes.
-disableThemeSwitcher: false
-
-# Override the choices to be displayed in the expiry dropdown. Values
-# are given in seconds and the order of the values controls the order
-# in the dropdown.
-expiryChoices: [300, ...]
-
-# Custom path to override embedded resources. You can override any
-# file present in the `frontend` directory (which is baked into the
-# binary during compile-time). You also can add new files (for
-# example the appIcon given above). Those files are available at the
-# root of the application (i.e. an app.png would be served at
-# https://ots.example.com/app.png).
-overlayFSPath: /path/to/ots-customization
-
-# Switch to formal translations for languages having those defined.
-# Languages not having a formal version will still display the normal
-# translations in the respective language.
-useFormalLanguage: false
-
-# Define which file types are selectable by the user when uploading
-# files to attach. This fuels the `accept` attribute of the file
-# select and requires the same format. Pay attention this is not
-# suited as a security measure as this is purely a frontend
-# implementation and can be circumvented.
-# https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept
-acceptedFileTypes: ''
-
-# Disable the file attachment functionality alltogether
-disableFileAttachment: false
-
-# Define how big all attachments might be in bytes. Leave it set to
-# zero to use the internal limit of 64 MiB (which is there to ensure
-# the encrypted object does not cause the frontend to break).
-maxAttachmentSizeTotal: 0
-```
-
-To override the styling of the application have a look at the [`src/style.scss`](./src/style.scss) file how the theme of the application is built and present the compiled `app.css` in the `overlayFSPath`.
-
-After modifying files in the `overlayFSPath` make sure to restart the application as otherwise the file integrity hashes are no longer matching and your resources will be blocked by the browsers.
-
-If you want to disable secret creation for users not logged into your company SSO you can apply an ACL on the `/api/create` and `/api/isWritable` endpoints to allow access to them only for logged in users. This will also disable the secret-creation interface for all not having access to the `/api/isWritable` endpoint.
+To shorten the README this documentation has been moved to the Wiki:
+https://github.com/Luzifer/ots/wiki/Customization
 
 ## Creating secrets through CLI / scripts
 
 As `ots` is designed to never let the server know the secret you are sharing you should not just send the plain secret to it though it is possible.
 
-### Sharing an encrypted secret (strongly recommended!)
+### OTS-CLI
+
+Download OTS-CLI from the [Releases](https://github.com/Luzifer/ots/releases) section of the repo or build it yourself having a Go toolchain available from the `./cmd/ots-cli` directory.
+
+Afterwards you can just create and fetch secrets:
+
+```console
+# echo "my password" | ots-cli create
+INFO[0000] reading secret content...                    
+INFO[0000] creating the secret...                       
+INFO[0000] secret created, see URL below                 expires-at="2023-10-16 16:33:27.422174121 +0000 UTC"
+https://ots.fyi/#37a75a7f-0c2d-4ae6-bcca-4208b6d596ab%7CHGShVWm5umv4lmswfM73
+
+# ots-cli fetch 'https://ots.fyi/#37a75a7f-0c2d-4ae6-bcca-4208b6d596ab%7CHGShVWm5umv4lmswfM73'
+INFO[0000] fetching secret...                           
+my password
+```
+
+To set the instance to send the secret to or to attach files see `ots-cli create --help` and to define where downloaded files are stored see `ots-cli fetch --help`.
+
+Both commands can be used in scripts:
+- `create` reads from `STDIN` or the specified file and yields the URL to `STDOUT`
+- `fetch` prints the secret to `STDOUT` and stores files to the given directory
+- both sends logs to `STDERR` which you can disable (`--log-level=fatal`) or ignore in your script
+
+### Bash: Sharing an encrypted secret (strongly recommended!)
 
 This is slightly more complex as you first need to encrypt your secret before sending it to the API but in this case you can be sure the server will in no case be able to access the secret. Especially if you are using ots.fyi (my public hosted instance) you should not trust me with your secret but use an encrypted secret:
 
 ```console
-# echo "my password" | openssl aes-256-cbc -base64 -pass pass:mypass -iter 300000 -md sha512
+# echo "my password" | openssl aes-256-cbc -base64 -pass pass:mypass -pbkdf2 -iter 300000 -md sha512
 U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ=
 
 # curl -X POST -H 'content-type: application/json' -i -s -d '{"secret": "U2FsdGVkX18wJtHr6YpTe8QrvMUUdaLZ+JMBNi1OvOQ="}' https://ots.fyi/api/create
@@ -131,25 +86,6 @@ cache-control: no-cache
 You will now need to supply the web application with the password in addition to the ID of the secret: `https://ots.fyi/#5e0065ee-5734-4548-9fd3-bb0bcd4c899d|mypass`
 
 In this case due to how browsers are handling hashes in URLs (the part after the `#`) the only URL the server gets to know is `https://ots.fyi/` which loads the frontend. Afterwards the Javascript executed in the browser fetches the encrypted secret at the given ID and decrypts it with the given password (in this case `mypass`). I will not be able to tell the content of your secret and just see the AES 256bit encrypted content.
-
-You can find a script [`cli_create.sh`](cli_create.sh) in this repo demonstrating the creation of the secret with all steps.
-
-### Sharing the plain secret
-
-```console
-# curl -X POST -H 'content-type: application/json' -i -s -d '{"secret": "my password"}' https://ots.fyi/api/create
-
-HTTP/2 201
-server: nginx
-date: Wed, 29 Jan 2020 14:02:42 GMT
-content-type: application/json
-content-length: 68
-cache-control: no-cache
-
-{"secret_id":"1cb08e53-46b9-4f21-bbd9-f1eea1594ad9","success":true}
-```
-
-You can then use the URL `https://ots.fyi/#1cb08e53-46b9-4f21-bbd9-f1eea1594ad9` to access the secret.
 
 ## Localize to your own language
 
@@ -169,6 +105,12 @@ reference:                 # Reference strings (English)
 translations:              # Translations into other languages
   de:                      # Identifier for the language, used as `languageKey`
     deeplLanguage: de      # Target language for DeepL automated translations
+    translators: []        # Array of Github usernames who "own" the translation
+                           # and are pinged in the translation issue when there
+                           # are translations missing (as of new features being
+                           # added or features being improved). Add your username
+                           # to this array to get pinged by the bot when stuff
+                           # needs to be translated.
     translations: {}       # Informal / base translations for the language.
                            # Missing keys will be loaded from the `reference`
                            # and therefore get displayed in English. Missing
