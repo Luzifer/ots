@@ -45,13 +45,16 @@ reference:
     title-secret-created: Secret created!
 translations:
   ca:
-    translators: []
+    translators:
+      - v0ctor
     translations:
       alert-secret-not-found: Aquest no és el secret que busques&hellip; - Si esperaves que el secret estiguera ací, és possible que s'haja vist compromés, ja que una altra persona podria haver obert l'enllaç en comptes de tu.
       alert-something-went-wrong: Alguna cosa ha eixit malament. Ens sap molt greu&hellip;
       btn-create-secret: Crea el secret!
+      btn-create-secret-processing: El secret s'està creant...
       btn-new-secret: Nou secret
       btn-reveal-secret: Mostra'm el secret!
+      btn-reveal-secret-processing: El secret s'està desxifrant...
       btn-show-explanation: Com funciona?
       expire-default: Caducitat predeterminada
       expire-n-days: '{n} dia | {n} dies'
@@ -68,9 +71,13 @@ translations:
         - Quan s'ha obtingut per primera i única vegada el secret xifrat, s'elimina del servidor
       label-expiry: 'Caduca en:'
       label-secret-data: 'Informació secreta:'
+      label-secret-files: 'Adjuntar arxius:'
+      text-attached-files: El remitent ha adjuntat arxius al secret. Assegura't que confies en aquesta persona, ja que els arxius no han sigut revisats.
       text-burn-hint: Per favor, recorda no accedir a aquest enllaç tu mateix, ja que això destruiria el secret. Només has de passar-li'l a una altra persona!
       text-burn-time: 'Si no es mostra abans, aquest secret s''eliminarà automàticament:'
       text-hint-burned: <strong>Atenció:</strong> Només veuràs això una vegada. Quan recarregues la pàgina, el secret desapareixerà, així que copia'l ja&hellip;
+      text-max-filesize: 'Mida màxima: {maxSize}'
+      text-max-filesize-exceeded: 'Els arxius seleccionats són massa grans per adjuntar-los: {curSize} / {maxSize}'
       text-powered-by: Funciona amb
       text-pre-reveal-hint: Per a mostrar el secret prem aquest botó, però tingues en compte que en fer-ho es destruirà. Només pots veure'l una vegada!
       text-pre-url: 'El teu secret ha sigut creat i emmagatzemat en el següent enllaç:'
