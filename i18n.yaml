@@ -143,7 +143,8 @@ translations:
       title-new-secret: Ein neues Secret erstellen
   es:
     deeplLanguage: es
-    translators: []
+    translators:
+      - v0ctor
     translations:
       alert-secret-not-found: Este no es el secreto que buscas&hellip; - Si esperabas que el secreto estuviera aquí, es posible que se haya visto comprometido, ya que otra persona podría haber abierto el enlace en tu lugar.
       alert-something-went-wrong: Algo ha salido mal. Lo sentimos mucho&hellip;
