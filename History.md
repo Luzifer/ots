@@ -1,3 +1,30 @@
+# 1.9.0 / 2023-10-16
+
+> [!IMPORTANT]  
+> This release switches from Bootstrap-Vue (Bootstrap v4) to Bootstrap v5.3. In case you are using a custom theme / style you need to adjust your theme to the new version.
+
+  * New Features
+    * Implement Binary File Attachments (#116)
+    * Implement OTS-CLI utility (#117)
+
+  * Improvements
+    * Fix some linter errors, use blob URL for download
+    * Port frontend to Bootstrap 5.3, split components
+
+  * Bugfixes
+    * Build Docker image in production mode
+    * Update dependencies
+
+  * Translations
+    * Added new translation strings for Swedish (#127) (Thanks @artingu)
+    * Add missing Catalan translations (#130) (Thanks @v0ctor)
+    * Add missing Spanish translations (#129) (Thanks @v0ctor)
+    * Update Dutch translation (#122) (Thanks @sorcix)
+    * Update Polish translation (#123) (Thanks @Icikowski)
+    * Update Russian translations (#125) (Thanks @alexovchinnicov)
+    * Update Ukrainian translations (#126) (Thanks @t0rik)
+    * Update zh translations (#121) (Thanks @YongJie-Xie)
+
 # 1.8.0 / 2023-08-29
 
   * Update zh translations (thanks to @YongJie-Xie) (#113)
