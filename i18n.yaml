@@ -45,7 +45,8 @@ reference:
     title-secret-created: Secret created!
 translations:
   ca:
-    translators: []
+    translators:
+      - v0ctor
     translations:
       alert-secret-not-found: Aquest no és el secret que busques&hellip; - Si esperaves que el secret estiguera ací, és possible que s'haja vist compromés, ja que una altra persona podria haver obert l'enllaç en comptes de tu.
       alert-something-went-wrong: Alguna cosa ha eixit malament. Ens sap molt greu&hellip;
