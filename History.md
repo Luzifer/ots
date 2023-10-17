@@ -1,3 +1,7 @@
+# 1.9.1 / 2023-10-18
+
+  * Fix: Customize to disable powered by was ignored
+
 # 1.9.0 / 2023-10-16
 
 > [!IMPORTANT]  
