@@ -23,7 +23,10 @@
         </div>
       </div>
 
-      <div class="row mt-4">
+      <div
+        v-if="!$root.customize.disablePoweredBy"
+        class="row mt-4"
+      >
         <div class="col form-text text-center">
           {{ $t('text-powered-by') }}
           <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> OTS</a>
