@@ -87,7 +87,7 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 		}
 
 		secret.Attachments = append(secret.Attachments, client.SecretAttachment{
-			Name:    f,
+			Name:    path.Base(f),
 			Type:    mime.TypeByExtension(path.Ext(f)),
 			Content: content,
 		})
