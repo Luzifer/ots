@@ -307,7 +307,7 @@ export default {
     },
 
     isAcceptedBy(fileMeta, accept) {
-      if (/^(?:[a-z]+|\*)\/(?:[a-z.+-]+|\*)$/.test(accept)) {
+      if (/^(?:[a-z]+|\*)\/(?:[a-zA-Z0-9.+_-]+|\*)$/.test(accept)) {
         // That's likely supposed to be a mime-type
         return RegExp(`^${accept.replaceAll('*', '.*')}$`).test(fileMeta.type)
       } else if (/^\.[a-z.]+$/.test(accept)) {
