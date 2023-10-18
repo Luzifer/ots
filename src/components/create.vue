@@ -50,13 +50,19 @@
             type="file"
             multiple
             :accept="$root.customize.acceptedFileTypes"
-            @change="updateFileSize"
+            @change="updateFileMeta"
           >
           <div class="form-text">
             {{ $t('text-max-filesize', { maxSize: bytesToHuman(maxFileSize) }) }}
           </div>
           <div
-            v-if="maxFileSizeExceeded"
+            v-if="invalidFilesSelected"
+            class="alert alert-danger"
+          >
+            {{ $t('text-invalid-files-selected') }}
+          </div>
+          <div
+            v-else-if="maxFileSizeExceeded"
             class="alert alert-danger"
           >
             {{ $t('text-max-filesize-exceeded', { curSize: bytesToHuman(fileSize), maxSize: bytesToHuman(maxFileSize) }) }}
@@ -166,6 +172,30 @@ export default {
       return choices
     },
 
+    invalidFilesSelected() {
+      if (this.$root.customize.acceptedFileTypes === '') {
+        // No limitation configured, no need to check
+        return false
+      }
+
+      const accepted = this.$root.customize.acceptedFileTypes.split(',')
+      for (const fm of this.selectedFileMeta) {
+        let isAccepted = false
+
+        for (const a of accepted) {
+          isAccepted ||= this.isAcceptedBy(fm, a)
+        }
+
+        if (!isAccepted) {
+          // Well we only needed one rejected
+          return true
+        }
+      }
+
+      // We found no reason to reject: This is fine!
+      return false
+    },
+
     maxFileSize() {
       return this.$root.customize.maxAttachmentSizeTotal === 0 ? internalMaxFileSize : Math.min(internalMaxFileSize, this.$root.customize.maxAttachmentSizeTotal)
     },
@@ -187,6 +217,7 @@ export default {
       secret: '',
       securePassword: null,
       selectedExpiry: null,
+      selectedFileMeta: [],
     }
   },
 
@@ -275,13 +306,30 @@ export default {
       return false
     },
 
-    updateFileSize() {
+    isAcceptedBy(fileMeta, accept) {
+      if (/^(?:[a-z]+|\*)\/(?:[a-z.+-]+|\*)$/.test(accept)) {
+        // That's likely supposed to be a mime-type
+        return RegExp(`^${accept.replaceAll('*', '.*')}$`).test(fileMeta.type)
+      } else if (/^\.[a-z.]+$/.test(accept)) {
+        // That should be a file extension
+        return fileMeta.name.endsWith(accept)
+      }
+
+      // What exactly is it then? At least it can't accept anything.
+      return false
+    },
+
+    updateFileMeta() {
       let cumSize = 0
       for (const f of [...this.$refs.createSecretFiles.files]) {
         cumSize += f.size
       }
 
       this.fileSize = cumSize
+      this.selectedFileMeta = [...this.$refs.createSecretFiles.files].map(file => ({
+        name: file.name,
+        type: file.type,
+      }))
     },
   },
 
