@@ -4,12 +4,23 @@ import (
 	"fmt"
 	"io"
 	"mime"
+	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/Luzifer/ots/pkg/client"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+)
+
+type (
+	authRoundTripper struct {
+		http.RoundTripper
+
+		headers    http.Header
+		user, pass string
+	}
 )
 
 var createCmd = &cobra.Command{
@@ -23,14 +34,20 @@ var createCmd = &cobra.Command{
 
 func init() {
 	createCmd.Flags().Duration("expire", 0, "When to expire the secret (0 to use server-default)")
+	createCmd.Flags().StringSliceP("header", "H", nil, "Headers to include in the request (i.e. 'Authorization: Token ...')")
 	createCmd.Flags().String("instance", "https://ots.fyi/", "Instance to create the secret with")
 	createCmd.Flags().StringSliceP("file", "f", nil, "File(s) to attach to the secret")
 	createCmd.Flags().String("secret-from", "-", `File to read the secret content from ("-" for STDIN)`)
+	createCmd.Flags().StringP("user", "u", "", "Username / Password for basic auth, specified as 'user:pass'")
 	rootCmd.AddCommand(createCmd)
 }
 
-func createRunE(cmd *cobra.Command, _ []string) error {
+func createRunE(cmd *cobra.Command, _ []string) (err error) {
 	var secret client.Secret
+
+	if client.HTTPClient, err = constructHTTPClient(cmd); err != nil {
+		return fmt.Errorf("constructing authorized HTTP client: %w", err)
+	}
 
 	// Read the secret content
 	logrus.Info("reading secret content...")
@@ -102,4 +119,56 @@ func createRunE(cmd *cobra.Command, _ []string) error {
 	fmt.Println(secretURL) //nolint:forbidigo // Output intended for STDOUT
 
 	return nil
+}
+
+func constructHTTPClient(cmd *cobra.Command) (*http.Client, error) {
+	basic, _ := cmd.Flags().GetString("user")
+	headers, _ := cmd.Flags().GetStringSlice("header")
+
+	if basic == "" && headers == nil {
+		// No authorization needed
+		return http.DefaultClient, nil
+	}
+
+	t := authRoundTripper{RoundTripper: http.DefaultTransport, headers: http.Header{}}
+
+	// Set basic auth if available
+	user, pass, ok := strings.Cut(basic, ":")
+	if ok {
+		t.user = user
+		t.pass = pass
+	}
+
+	// Parse and set headers if available
+	for _, hdr := range headers {
+		key, value, ok := strings.Cut(hdr, ":")
+		if !ok {
+			logrus.WithField("header", hdr).Warn("invalid header format, skipping")
+			continue
+		}
+		t.headers.Add(key, strings.TrimSpace(value))
+	}
+
+	return &http.Client{Transport: t}, nil
+}
+
+func (a authRoundTripper) RoundTrip(r *http.Request) (*http.Response, error) {
+	if a.user != "" {
+		r.SetBasicAuth(a.user, a.pass)
+	}
+
+	for key, values := range a.headers {
+		if r.Header == nil {
+			r.Header = http.Header{}
+		}
+		for _, value := range values {
+			r.Header.Add(key, value)
+		}
+	}
+
+	resp, err := a.RoundTripper.RoundTrip(r)
+	if err != nil {
+		return nil, fmt.Errorf("executing round-trip: %w", err)
+	}
+	return resp, nil
 }

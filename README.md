@@ -64,6 +64,10 @@ Both commands can be used in scripts:
 - `fetch` prints the secret to `STDOUT` and stores files to the given directory
 - both sends logs to `STDERR` which you can disable (`--log-level=fatal`) or ignore in your script
 
+In case your instance needs credentials to use the `/api/create` endpoint you can pass them to OTS-CLI like you would do with curl:
+- `ots-cli create --instance ... -u myuser:mypass` for basic-auth
+- `ots-cli create --instance ... -H 'Authorization: Token abcde'` for token-auth (you can set any header you need, just repeat `-H ...`)
+
 ### Bash: Sharing an encrypted secret (strongly recommended!)
 
 This is slightly more complex as you first need to encrypt your secret before sending it to the API but in this case you can be sure the server will in no case be able to access the secret. Especially if you are using ots.fyi (my public hosted instance) you should not trust me with your secret but use an encrypted secret:
