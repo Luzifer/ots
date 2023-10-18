@@ -24,6 +24,14 @@ const i18n = new VueI18n({
   messages,
 })
 
+Vue.mixin({
+  beforeRouteLeave(_to, _from, next) {
+    // Before leaving the component, reset the errors the component displayed
+    this.$emit('error', null)
+    next()
+  },
+})
+
 new Vue({
   components: { app },
 
