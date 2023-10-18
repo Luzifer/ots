@@ -72,7 +72,7 @@
           <button
             type="submit"
             class="btn btn-success"
-            :disabled="secret.trim().length < 1 || maxFileSizeExceeded || createRunning"
+            :disabled="secret.trim().length < 1 || maxFileSizeExceeded || invalidFilesSelected || createRunning"
           >
             <template v-if="!createRunning">
               {{ $t('btn-create-secret') }}
@@ -243,7 +243,7 @@ export default {
 
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
-      if (this.secret.trim().length < 1 || this.maxFileSizeExceeded) {
+      if (this.secret.trim().length < 1 || this.maxFileSizeExceeded || this.invalidFilesSelected) {
         return false
       }
 
