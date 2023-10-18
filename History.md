@@ -1,3 +1,8 @@
+# 1.9.2 / 2023-10-18
+
+  * Add basic-auth / header addition to OTS-CLI
+  * Fix: Remove path from filename if given
+
 # 1.9.1 / 2023-10-18
 
   * Fix: Customize to disable powered by was ignored
