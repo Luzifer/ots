@@ -32,6 +32,7 @@ reference:
     text-burn-hint: Please remember not to go to this URL yourself as that would destroy the secret. Just pass it to someone else!
     text-burn-time: 'If not viewed before, this secret will automatically be deleted:'
     text-hint-burned: <strong>Attention:</strong> You're only seeing this once. As soon as you reload the page the secret will be gone so maybe copy it now&hellip;
+    text-invalid-files-selected: At least one of the selected files is not allowed as an attachment.
     text-max-filesize: 'Maximum size: {maxSize}'
     text-max-filesize-exceeded: 'The file(s) you chose are too big to attach: {curSize} / {maxSize}'
     text-powered-by: Powered by
@@ -120,6 +121,7 @@ translations:
       text-burn-hint: Bitte rufe die URL nicht selbst auf, da das Secret dadurch zerstört würde. Gib sie einfach weiter!
       text-burn-time: 'Wenn es vorher nicht eingesehen wurde, wird dieses Secret automatisch gelöscht:'
       text-hint-burned: <strong>Achtung:</strong> Du kannst das nur einmal ansehen! Sobald du die Seite neu lädst, ist das Secret verschwunden, also besser direkt kopieren und sicher abspeichern&hellip;
+      text-invalid-files-selected: Mindestens eine der ausgewählten Dateien ist nicht als Anhang erlaubt.
       text-max-filesize: 'Maximale Größe: {maxSize}'
       text-max-filesize-exceeded: 'Die ausgewählten Dateien übersteigen die maximale Größe: {curSize} / {maxSize}'
       text-powered-by: Läuft mit
