@@ -334,12 +334,13 @@ translations:
       label-expiry: 'Wygasa po:'
       label-secret-data: 'Dane sekretu:'
       label-secret-files: 'Dołącz pliki:'
-      text-attached-files: Nadawca dołączył pliki do tego skeretu. Upewnij się, że ufasz nadawcy, bo pliki nie są sprawdzane!
+      text-attached-files: Nadawca dołączył pliki do tego sekretu. Upewnij się, że ufasz nadawcy, bo pliki nie są sprawdzane!
       text-burn-hint: Pamiętaj, aby nie przechodzić na ten adres URL samemu, ponieważ to zniszczy sekret. Po prostu przekaż go odbiorcy!
       text-burn-time: 'Jeżeli nie zostanie wyświetlony, ten sekret zostanie automatycznie usunięty:'
       text-hint-burned: <strong>Uwaga:</strong> Zobaczysz to tylko raz. Gdy odświeżysz stronę, to sekret nie będzie już dostępny, więc lepiej skopiuj go teraz&hellip;
+      text-invalid-files-selected: Co najmniej jeden z załączonych plików nie jest dopuszczalny jako załącznik.
       text-max-filesize: 'Maksymalny rozmiar: {maxSize}'
-      text-max-filesize-exceeded: 'Wybrane załączniki przekraczają makrymalny rozmiar: {curSize} / {maxSize}'
+      text-max-filesize-exceeded: 'Wybrane załączniki przekraczają maksymalny rozmiar: {curSize} / {maxSize}'
       text-powered-by: Obsługiwane przez
       text-pre-reveal-hint: Aby odsłonić sekret, naciśnij ten przycisk, jednak wiedz, że to zniszczy sekret. Możesz go zobaczyć tylko raz!
       text-pre-url: 'Twój sekret został stworzony i zachowany pod tym adresem URL:'
