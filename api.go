@@ -39,6 +39,7 @@ func (a apiServer) Register(r *mux.Router) {
 	r.HandleFunc("/create", a.handleCreate)
 	r.HandleFunc("/get/{id}", a.handleRead)
 	r.HandleFunc("/isWritable", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusNoContent) })
+	r.HandleFunc("/settings", a.handleSettings).Methods(http.MethodGet)
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
@@ -111,6 +112,10 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (a apiServer) handleSettings(w http.ResponseWriter, _ *http.Request) {
+	a.jsonResponse(w, http.StatusOK, cust)
+}
+
 func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
 	errID := uuid.Must(uuid.NewV4()).String()
 
@@ -124,7 +129,7 @@ func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error,
 	})
 }
 
-func (apiServer) jsonResponse(res http.ResponseWriter, status int, response apiResponse) {
+func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any) {
 	res.Header().Set("Content-Type", "application/json")
 	res.Header().Set("Cache-Control", "no-store, max-age=0")
 	res.WriteHeader(status)
