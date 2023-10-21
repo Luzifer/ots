@@ -19,9 +19,18 @@ import (
 	"github.com/Luzifer/go-openssl/v4"
 )
 
+type (
+	// HTTPClientIntf describes a minimal interface to be fulfilled
+	// by the given HTTP client. This can be used for mocking and to
+	// pass in authenticated clients
+	HTTPClientIntf interface {
+		Do(*http.Request) (*http.Response, error)
+	}
+)
+
 // HTTPClient defines the client to use for create and fetch requests
 // and can be overwritten to provide authentication
-var HTTPClient = http.DefaultClient
+var HTTPClient HTTPClientIntf = http.DefaultClient
 
 // KeyDerivationFunc defines the key derivation algorithm used in OTS
 // to derive the key / iv from the password for encryption. You only

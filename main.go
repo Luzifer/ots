@@ -18,6 +18,7 @@ import (
 
 	file_helpers "github.com/Luzifer/go_helpers/v2/file"
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
+	"github.com/Luzifer/ots/pkg/customization"
 	"github.com/Luzifer/rconfig/v2"
 )
 
@@ -34,7 +35,7 @@ var (
 	}
 
 	assets   file_helpers.FSStack
-	cust     customize
+	cust     customization.Customize
 	indexTpl *template.Template
 
 	version = "dev"
@@ -70,7 +71,7 @@ func initApp() error {
 	}
 	logrus.SetLevel(l)
 
-	if cust, err = loadCustomize(cfg.Customize); err != nil {
+	if cust, err = customization.Load(cfg.Customize); err != nil {
 		return errors.Wrap(err, "loading customizations")
 	}
 
@@ -182,7 +183,7 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
 	if err := indexTpl.Execute(w, struct {
-		Customize          customize
+		Customize          customization.Customize
 		InlineContentNonce string
 		MaxSecretExpiry    int64
 		Version            string

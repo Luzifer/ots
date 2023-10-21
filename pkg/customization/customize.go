@@ -1,4 +1,6 @@
-package main
+// Package customization contains the structure for the customization
+// file to configure the OTS web- and command-line interface
+package customization
 
 import (
 	"encoding/json"
@@ -11,7 +13,8 @@ import (
 )
 
 type (
-	customize struct {
+	// Customize holds the structure of the customization file
+	Customize struct {
 		AppIcon              string `json:"appIcon,omitempty" yaml:"appIcon"`
 		AppTitle             string `json:"appTitle,omitempty" yaml:"appTitle"`
 		DisableAppTitle      bool   `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
@@ -31,7 +34,8 @@ type (
 	}
 )
 
-func loadCustomize(filename string) (cust customize, err error) {
+// Load retrieves the Customization file from filesystem
+func Load(filename string) (cust Customize, err error) {
 	if filename == "" {
 		// None given, take a shortcut
 		cust.applyFixes()
@@ -61,12 +65,14 @@ func loadCustomize(filename string) (cust customize, err error) {
 	return cust, nil
 }
 
-func (c customize) ToJSON() (string, error) {
+// ToJSON is a templating helper which returns the customization
+// serialized as JSON in a string
+func (c Customize) ToJSON() (string, error) {
 	j, err := json.Marshal(c)
 	return string(j), errors.Wrap(err, "marshalling JSON")
 }
 
-func (c *customize) applyFixes() {
+func (c *Customize) applyFixes() {
 	if len(c.AppTitle) == 0 {
 		c.AppTitle = "OTS - One Time Secrets"
 	}

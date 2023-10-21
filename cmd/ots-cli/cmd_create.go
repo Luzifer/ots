@@ -93,7 +93,7 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 		})
 	}
 
-	// Create the secret
+	// Get flags for creation
 	logrus.Info("creating the secret...")
 	instanceURL, err := cmd.Flags().GetString("instance")
 	if err != nil {
@@ -105,6 +105,12 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 		return fmt.Errorf("getting expire flag: %w", err)
 	}
 
+	// Execute sanity checks
+	if err = client.SanityCheck(instanceURL, secret); err != nil {
+		return fmt.Errorf("sanity checking secret: %w", err)
+	}
+
+	// Create the secret
 	secretURL, expiresAt, err := client.Create(instanceURL, secret, expire)
 	if err != nil {
 		return fmt.Errorf("creating secret: %w", err)
