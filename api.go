@@ -70,6 +70,11 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if cust.MaxSecretSize > 0 && len(secret) > int(cust.MaxSecretSize) {
+		a.errorResponse(res, http.StatusBadRequest, errors.New("secret size exceeds maximum"), "")
+		return
+	}
+
 	id, err := a.store.Create(secret, time.Duration(expiry)*time.Second)
 	if err != nil {
 		a.errorResponse(res, http.StatusInternalServerError, err, "creating secret")
