@@ -2,11 +2,11 @@ module github.com/Luzifer/ots/pkg/client
 
 go 1.21.1
 
-replace github.com/Luzifer/ots => ../../
+replace github.com/Luzifer/ots/pkg/customization => ../customization
 
 require (
 	github.com/Luzifer/go-openssl/v4 v4.2.1
-	github.com/Luzifer/ots v0.0.0-00010101000000-000000000000
+	github.com/Luzifer/ots/pkg/customization v0.0.0-00010101000000-000000000000
 	github.com/ryanuber/go-glob v1.0.0
 	github.com/stretchr/testify v1.8.4
 )
