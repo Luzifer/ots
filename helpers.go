@@ -4,6 +4,8 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/Luzifer/ots/pkg/metrics"
+	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/sirupsen/logrus"
 )
 
@@ -38,4 +40,13 @@ func requestInSubnetList(r *http.Request, subnets []string) bool {
 	}
 
 	return false
+}
+
+func updateStoredSecretsCount(store storage.Storage, collector *metrics.Collector) {
+	n, err := store.Count()
+	if err != nil {
+		logrus.WithError(err).Error("counting stored secrets")
+		return
+	}
+	collector.UpdateSecretsCount(n)
 }

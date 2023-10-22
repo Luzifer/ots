@@ -20,7 +20,6 @@ import (
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
 	"github.com/Luzifer/ots/pkg/customization"
 	"github.com/Luzifer/ots/pkg/metrics"
-	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/Luzifer/rconfig/v2"
 )
 
@@ -223,13 +222,4 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
-}
-
-func updateStoredSecretsCount(store storage.Storage, collector *metrics.Collector) {
-	n, err := store.Count()
-	if err != nil {
-		logrus.WithError(err).Error("counting stored secrets")
-		return
-	}
-	collector.UpdateSecretsCount(n)
 }
