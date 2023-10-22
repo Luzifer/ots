@@ -19,6 +19,8 @@ import (
 	file_helpers "github.com/Luzifer/go_helpers/v2/file"
 	http_helpers "github.com/Luzifer/go_helpers/v2/http"
 	"github.com/Luzifer/ots/pkg/customization"
+	"github.com/Luzifer/ots/pkg/metrics"
+	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/Luzifer/rconfig/v2"
 )
 
@@ -99,6 +101,9 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Initialize metrics collector
+	collector := metrics.New()
+
 	// Initialize index template in order not to parse it multiple times
 	source, err := assets.ReadFile("index.html")
 	if err != nil {
@@ -111,14 +116,14 @@ func main() {
 	if err != nil {
 		logrus.WithError(err).Fatal("initializing storage")
 	}
-	api := newAPI(store)
+	api := newAPI(store, collector)
 
 	r := mux.NewRouter()
-	r.Use(http_helpers.GzipHandler)
 
 	api.Register(r.PathPrefix("/api").Subrouter())
 
 	r.HandleFunc("/", handleIndex)
+	r.Handle("/metrics", metrics.Handler())
 	r.PathPrefix("/").HandlerFunc(assetDelivery)
 
 	logrus.WithFields(logrus.Fields{
@@ -126,11 +131,21 @@ func main() {
 		"version":       version,
 	}).Info("ots started")
 
+	var hdl http.Handler = r
+	hdl = http_helpers.GzipHandler(hdl)
+	hdl = http_helpers.NewHTTPLogHandlerWithLogger(hdl, logrus.StandardLogger())
+
 	server := &http.Server{
 		Addr:              cfg.Listen,
-		Handler:           http_helpers.NewHTTPLogHandlerWithLogger(r, logrus.StandardLogger()),
+		Handler:           hdl,
 		ReadHeaderTimeout: time.Second,
 	}
+
+	go func() {
+		for t := time.NewTicker(time.Minute); ; <-t.C {
+			updateStoredSecretsCount(store, collector)
+		}
+	}()
 
 	if err = server.ListenAndServe(); err != nil {
 		logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
@@ -196,4 +211,13 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func updateStoredSecretsCount(store storage.Storage, collector *metrics.Collector) {
+	n, err := store.Count()
+	if err != nil {
+		logrus.WithError(err).Error("counting stored secrets")
+		return
+	}
+	collector.UpdateSecretsCount(n)
 }

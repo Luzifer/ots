@@ -8,14 +8,24 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Luzifer/ots/pkg/metrics"
 	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
 
+const (
+	errorReasonInvalidJSON    = "invalid_json"
+	errorReasonSecretMissing  = "secret_missing"
+	errorReasonSecretSize     = "secret_size"
+	errorReasonStorageError   = "storage_error"
+	errorReasonSecretNotFound = "secret_not_found"
+)
+
 type apiServer struct {
-	store storage.Storage
+	collector *metrics.Collector
+	store     storage.Storage
 }
 
 type apiResponse struct {
@@ -30,9 +40,10 @@ type apiRequest struct {
 	Secret string `json:"secret"`
 }
 
-func newAPI(s storage.Storage) *apiServer {
+func newAPI(s storage.Storage, c *metrics.Collector) *apiServer {
 	return &apiServer{
-		store: s,
+		collector: c,
+		store:     s,
 	}
 }
 
@@ -58,6 +69,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
 		tmp := apiRequest{}
 		if err := json.NewDecoder(r.Body).Decode(&tmp); err != nil {
+			a.collector.CountSecretCreateError(errorReasonInvalidJSON)
 			a.errorResponse(res, http.StatusBadRequest, err, "decoding request body")
 			return
 		}
@@ -67,17 +79,20 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	}
 
 	if secret == "" {
+		a.collector.CountSecretCreateError(errorReasonSecretMissing)
 		a.errorResponse(res, http.StatusBadRequest, errors.New("secret missing"), "")
 		return
 	}
 
 	if cust.MaxSecretSize > 0 && len(secret) > int(cust.MaxSecretSize) {
+		a.collector.CountSecretCreateError(errorReasonSecretSize)
 		a.errorResponse(res, http.StatusBadRequest, errors.New("secret size exceeds maximum"), "")
 		return
 	}
 
 	id, err := a.store.Create(secret, time.Duration(expiry)*time.Second)
 	if err != nil {
+		a.collector.CountSecretCreateError(errorReasonStorageError)
 		a.errorResponse(res, http.StatusInternalServerError, err, "creating secret")
 		return
 	}
@@ -87,6 +102,8 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		expiresAt = func(v time.Time) *time.Time { return &v }(time.Now().UTC().Add(time.Duration(expiry) * time.Second))
 	}
 
+	a.collector.CountSecretCreated()
+	go updateStoredSecretsCount(a.store, a.collector)
 	a.jsonResponse(res, http.StatusCreated, apiResponse{
 		ExpiresAt: expiresAt,
 		Success:   true,
@@ -105,13 +122,18 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 	secret, err := a.store.ReadAndDestroy(id)
 	if err != nil {
 		status := http.StatusInternalServerError
-		if err == storage.ErrSecretNotFound {
+		if errors.Is(err, storage.ErrSecretNotFound) {
+			a.collector.CountSecretReadError(errorReasonSecretNotFound)
 			status = http.StatusNotFound
+		} else {
+			a.collector.CountSecretReadError(errorReasonStorageError)
 		}
 		a.errorResponse(res, status, err, "reading & destroying secret")
 		return
 	}
 
+	a.collector.CountSecretRead()
+	go updateStoredSecretsCount(a.store, a.collector)
 	a.jsonResponse(res, http.StatusOK, apiResponse{
 		Success: true,
 		Secret:  secret,
