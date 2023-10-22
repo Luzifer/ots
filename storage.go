@@ -15,7 +15,10 @@ func getStorageByType(t string) (storage.Storage, error) {
 
 	case "redis":
 		s, err := redis.New()
-		return s, fmt.Errorf("creating redis storage: %w", err)
+		if err != nil {
+			return s, fmt.Errorf("creating redis storage: %w", err)
+		}
+		return s, nil
 
 	default:
 		return nil, fmt.Errorf("storage type %q not found", t)
