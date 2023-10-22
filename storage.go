@@ -1,24 +1,22 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"time"
+
+	"github.com/Luzifer/ots/pkg/storage"
+	"github.com/Luzifer/ots/pkg/storage/memory"
+	"github.com/Luzifer/ots/pkg/storage/redis"
 )
 
-var errSecretNotFound = errors.New("secret not found")
-
-type storage interface {
-	Create(secret string, expireIn time.Duration) (string, error)
-	ReadAndDestroy(id string) (string, error)
-}
-
-func getStorageByType(t string) (storage, error) {
+func getStorageByType(t string) (storage.Storage, error) {
 	switch t {
 	case "mem":
-		return newStorageMem(), nil
+		return memory.New(), nil
+
 	case "redis":
-		return newStorageRedis()
+		s, err := redis.New()
+		return s, fmt.Errorf("creating redis storage: %w", err)
+
 	default:
 		return nil, fmt.Errorf("storage type %q not found", t)
 	}

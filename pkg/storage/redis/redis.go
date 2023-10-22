@@ -1,24 +1,30 @@
-package main
+// Package redis implements a Redis backed storage for secrets
+package redis
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
 	"time"
 
+	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
-	"github.com/pkg/errors"
 	redis "github.com/redis/go-redis/v9"
 )
 
-const redisDefaultPrefix = "io.luzifer.ots"
+const (
+	redisDefaultPrefix = "io.luzifer.ots"
+	redisScanCount     = 10
+)
 
 type storageRedis struct {
 	conn *redis.Client
 }
 
-func newStorageRedis() (storage, error) {
+// New returns a new Redis backed storage
+func New() (storage.Storage, error) {
 	if os.Getenv("REDIS_URL") == "" {
 		return nil, fmt.Errorf("REDIS_URL environment variable not set")
 	}
@@ -30,7 +36,7 @@ func newStorageRedis() (storage, error) {
 	// in order to maintain backwards compatibility
 	opt, err := redis.ParseURL(strings.Replace(os.Getenv("REDIS_URL"), "tcp://", "redis://", 1))
 	if err != nil {
-		return nil, errors.Wrap(err, "parsing REDIS_URL")
+		return nil, fmt.Errorf("parsing REDIS_URL: %w", err)
 	}
 
 	s := &storageRedis{
@@ -40,24 +46,50 @@ func newStorageRedis() (storage, error) {
 	return s, nil
 }
 
+func (s storageRedis) Count() (n int64, err error) {
+	var cursor uint64
+
+	for {
+		var keys []string
+
+		keys, cursor, err = s.conn.Scan(context.Background(), cursor, s.redisKey("*"), redisScanCount).Result()
+		if err != nil {
+			return n, fmt.Errorf("scanning stored keys: %w", err)
+		}
+
+		n += int64(len(keys))
+		if cursor == 0 {
+			break
+		}
+	}
+
+	return n, nil
+}
+
 func (s storageRedis) Create(secret string, expireIn time.Duration) (string, error) {
 	id := uuid.Must(uuid.NewV4()).String()
 	err := s.conn.Set(context.Background(), s.redisKey(id), secret, expireIn).Err()
+	if err != nil {
+		return "", fmt.Errorf("writing redis key: %w", err)
+	}
 
-	return id, errors.Wrap(err, "writing redis key")
+	return id, nil
 }
 
 func (s storageRedis) ReadAndDestroy(id string) (string, error) {
 	secret, err := s.conn.Get(context.Background(), s.redisKey(id)).Result()
 	if err != nil {
 		if errors.Is(err, redis.Nil) {
-			return "", errSecretNotFound
+			return "", storage.ErrSecretNotFound
 		}
-		return "", errors.Wrap(err, "getting key")
+		return "", fmt.Errorf("getting key: %w", err)
 	}
 
 	err = s.conn.Del(context.Background(), s.redisKey(id)).Err()
-	return secret, errors.Wrap(err, "deleting key")
+	if err != nil {
+		return secret, fmt.Errorf("deleting key: %w", err)
+	}
+	return secret, nil
 }
 
 func (storageRedis) redisKey(id string) string {

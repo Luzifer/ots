@@ -8,13 +8,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
 
 type apiServer struct {
-	store storage
+	store storage.Storage
 }
 
 type apiResponse struct {
@@ -29,7 +30,7 @@ type apiRequest struct {
 	Secret string `json:"secret"`
 }
 
-func newAPI(s storage) *apiServer {
+func newAPI(s storage.Storage) *apiServer {
 	return &apiServer{
 		store: s,
 	}
@@ -104,7 +105,7 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 	secret, err := a.store.ReadAndDestroy(id)
 	if err != nil {
 		status := http.StatusInternalServerError
-		if err == errSecretNotFound {
+		if err == storage.ErrSecretNotFound {
 			status = http.StatusNotFound
 		}
 		a.errorResponse(res, status, err, "reading & destroying secret")
