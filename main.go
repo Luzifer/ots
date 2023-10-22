@@ -118,18 +118,21 @@ func main() {
 	}
 	api := newAPI(store, collector)
 
+	// Initialize server
 	r := mux.NewRouter()
 
 	api.Register(r.PathPrefix("/api").Subrouter())
 
-	r.HandleFunc("/", handleIndex)
-	r.Handle("/metrics", metrics.Handler())
-	r.PathPrefix("/").HandlerFunc(assetDelivery)
+	r.Handle("/metrics", metrics.Handler()).
+		Methods(http.MethodGet).
+		MatcherFunc(func(r *http.Request, _ *mux.RouteMatch) bool {
+			return requestInSubnetList(r, cust.MetricsAllowedSubnets)
+		})
 
-	logrus.WithFields(logrus.Fields{
-		"secret_expiry": time.Duration(cfg.SecretExpiry) * time.Second,
-		"version":       version,
-	}).Info("ots started")
+	r.HandleFunc("/", handleIndex).
+		Methods(http.MethodGet)
+	r.PathPrefix("/").HandlerFunc(assetDelivery).
+		Methods(http.MethodGet)
 
 	var hdl http.Handler = r
 	hdl = http_helpers.GzipHandler(hdl)
@@ -141,11 +144,20 @@ func main() {
 		ReadHeaderTimeout: time.Second,
 	}
 
+	// Start periodic stored metrics update (required for multi-instance
+	// OTS hosting as other instances will create / delete secrets and
+	// we need to keep up with that)
 	go func() {
 		for t := time.NewTicker(time.Minute); ; <-t.C {
 			updateStoredSecretsCount(store, collector)
 		}
 	}()
+
+	// Start server
+	logrus.WithFields(logrus.Fields{
+		"secret_expiry": time.Duration(cfg.SecretExpiry) * time.Second,
+		"version":       version,
+	}).Info("ots started")
 
 	if err = server.ListenAndServe(); err != nil {
 		logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
