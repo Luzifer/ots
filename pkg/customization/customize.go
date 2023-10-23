@@ -29,9 +29,10 @@ type (
 		DisableFileAttachment  bool   `json:"disableFileAttachment" yaml:"disableFileAttachment"`
 		MaxAttachmentSizeTotal int64  `json:"maxAttachmentSizeTotal" yaml:"maxAttachmentSizeTotal"`
 
-		MaxSecretSize     int64  `json:"-" yaml:"maxSecretSize"`
-		OverlayFSPath     string `json:"-" yaml:"overlayFSPath"`
-		UseFormalLanguage bool   `json:"-" yaml:"useFormalLanguage"`
+		MaxSecretSize         int64    `json:"-" yaml:"maxSecretSize"`
+		MetricsAllowedSubnets []string `json:"-" yaml:"metricsAllowedSubnets"`
+		OverlayFSPath         string   `json:"-" yaml:"overlayFSPath"`
+		UseFormalLanguage     bool     `json:"-" yaml:"useFormalLanguage"`
 	}
 )
 
