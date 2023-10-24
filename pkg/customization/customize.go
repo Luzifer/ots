@@ -12,6 +12,13 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Frontend has a max attachment size of 64MiB as the base64 encoding
+// will break afterwards. Therefore we use a maximum secret size of
+// 65MiB and increase it by double base64 encoding:
+//
+// 65 MiB * 16/9 (twice 4/3 base64 size increase)
+const defaultMaxSecretSize = 65 * 1024 * 1024 * (16 / 9) // = 115.6MiB
+
 type (
 	// Customize holds the structure of the customization file
 	Customize struct {
@@ -77,5 +84,9 @@ func (c Customize) ToJSON() (string, error) {
 func (c *Customize) applyFixes() {
 	if len(c.AppTitle) == 0 {
 		c.AppTitle = "OTS - One Time Secrets"
+	}
+
+	if c.MaxSecretSize == 0 {
+		c.MaxSecretSize = defaultMaxSecretSize
 	}
 }

@@ -55,6 +55,13 @@ func (a apiServer) Register(r *mux.Router) {
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
+	if cust.MaxSecretSize > 0 {
+		// As a safeguard against HUGE payloads behind a misconfigured
+		// proxy we take double the maximum secret size after which we
+		// just close the read and cut the connection to the sender.
+		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2) //nolint:gomnd
+	}
+
 	var (
 		expiry = cfg.SecretExpiry
 		secret string
@@ -69,6 +76,14 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
 		tmp := apiRequest{}
 		if err := json.NewDecoder(r.Body).Decode(&tmp); err != nil {
+			if _, ok := err.(*http.MaxBytesError); ok {
+				a.collector.CountSecretCreateError(errorReasonSecretSize)
+				// We don't do an error response here as the MaxBytesReader
+				// automatically cuts the ResponseWriter and we simply cannot
+				// answer them.
+				return
+			}
+
 			a.collector.CountSecretCreateError(errorReasonInvalidJSON)
 			a.errorResponse(res, http.StatusBadRequest, err, "decoding request body")
 			return
