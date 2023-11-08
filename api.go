@@ -1,12 +1,9 @@
 package main
 
 import (
-	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -44,8 +41,6 @@ type apiResponse struct {
 type apiRequest struct {
 	Secret string `json:"secret"`
 }
-
-var opensslEncHeader = []byte("Salted__")
 
 func newAPI(s storage.Storage, c *metrics.Collector) *apiServer {
 	return &apiServer{
@@ -184,7 +179,7 @@ func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any)
 	}
 }
 
-func (a apiServer) sanityCheckSecret(secret string) (reason string, err error) {
+func (apiServer) sanityCheckSecret(secret string) (reason string, err error) {
 	if secret == "" {
 		return errorReasonSecretMissing, errors.New("secret missing")
 	}
@@ -193,22 +188,9 @@ func (a apiServer) sanityCheckSecret(secret string) (reason string, err error) {
 		return errorReasonSecretSize, errors.New("secret size exceeds maximum")
 	}
 
-	if err = a.secretContainsCryptoHeader(secret); err != nil && cust.RejectUnencryptedSecrets {
+	if cust.RejectUnencryptedSecrets && !strings.HasPrefix(secret, "U2FsdGVkX1") {
 		return errorReasonSecretUnencrypted, fmt.Errorf("checking secret encryption: %w", err)
 	}
 
 	return "", nil
-}
-
-func (apiServer) secretContainsCryptoHeader(secret string) (err error) {
-	header := make([]byte, len(opensslEncHeader))
-	if _, err = io.ReadFull(base64.NewDecoder(base64.StdEncoding, strings.NewReader(secret)), header); err != nil {
-		return fmt.Errorf("reading header: %w", err)
-	}
-
-	if !bytes.Equal(header, opensslEncHeader) {
-		return fmt.Errorf("header does not match")
-	}
-
-	return nil
 }
