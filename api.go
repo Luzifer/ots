@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -16,11 +20,12 @@ import (
 )
 
 const (
-	errorReasonInvalidJSON    = "invalid_json"
-	errorReasonSecretMissing  = "secret_missing"
-	errorReasonSecretSize     = "secret_size"
-	errorReasonStorageError   = "storage_error"
-	errorReasonSecretNotFound = "secret_not_found"
+	errorReasonInvalidJSON       = "invalid_json"
+	errorReasonSecretMissing     = "secret_missing"
+	errorReasonSecretSize        = "secret_size"
+	errorReasonStorageError      = "storage_error"
+	errorReasonSecretNotFound    = "secret_not_found"
+	errorReasonSecretUnencrypted = "unencrypted_secret" //#nosec:G101 // That's no secret.
 )
 
 type apiServer struct {
@@ -39,6 +44,8 @@ type apiResponse struct {
 type apiRequest struct {
 	Secret string `json:"secret"`
 }
+
+var opensslEncHeader = []byte("Salted__")
 
 func newAPI(s storage.Storage, c *metrics.Collector) *apiServer {
 	return &apiServer{
@@ -93,15 +100,9 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		secret = r.FormValue("secret")
 	}
 
-	if secret == "" {
-		a.collector.CountSecretCreateError(errorReasonSecretMissing)
-		a.errorResponse(res, http.StatusBadRequest, errors.New("secret missing"), "")
-		return
-	}
-
-	if cust.MaxSecretSize > 0 && len(secret) > int(cust.MaxSecretSize) {
-		a.collector.CountSecretCreateError(errorReasonSecretSize)
-		a.errorResponse(res, http.StatusBadRequest, errors.New("secret size exceeds maximum"), "")
+	if reason, err := a.sanityCheckSecret(secret); err != nil {
+		a.collector.CountSecretCreateError(reason)
+		a.errorResponse(res, http.StatusBadRequest, err, "sanity-checking secret input")
 		return
 	}
 
@@ -181,4 +182,33 @@ func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any)
 		logrus.WithError(err).Error("encoding JSON response")
 		http.Error(res, `{"error":"could not encode response"}`, http.StatusInternalServerError)
 	}
+}
+
+func (a apiServer) sanityCheckSecret(secret string) (reason string, err error) {
+	if secret == "" {
+		return errorReasonSecretMissing, errors.New("secret missing")
+	}
+
+	if cust.MaxSecretSize > 0 && len(secret) > int(cust.MaxSecretSize) {
+		return errorReasonSecretSize, errors.New("secret size exceeds maximum")
+	}
+
+	if err = a.secretContainsCryptoHeader(secret); err != nil && cust.RejectUnencryptedSecrets {
+		return errorReasonSecretUnencrypted, fmt.Errorf("checking secret encryption: %w", err)
+	}
+
+	return "", nil
+}
+
+func (apiServer) secretContainsCryptoHeader(secret string) (err error) {
+	header := make([]byte, len(opensslEncHeader))
+	if _, err = io.ReadFull(base64.NewDecoder(base64.StdEncoding, strings.NewReader(secret)), header); err != nil {
+		return fmt.Errorf("reading header: %w", err)
+	}
+
+	if !bytes.Equal(header, opensslEncHeader) {
+		return fmt.Errorf("header does not match")
+	}
+
+	return nil
 }

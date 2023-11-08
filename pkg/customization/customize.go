@@ -40,6 +40,8 @@ type (
 		MetricsAllowedSubnets []string `json:"-" yaml:"metricsAllowedSubnets"`
 		OverlayFSPath         string   `json:"-" yaml:"overlayFSPath"`
 		UseFormalLanguage     bool     `json:"-" yaml:"useFormalLanguage"`
+
+		RejectUnencryptedSecrets bool `json:"-" yaml:"rejectUnencryptedSecrets"`
 	}
 )
 
