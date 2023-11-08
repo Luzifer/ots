@@ -19,7 +19,7 @@ generate-apidocs:
 	mv /tmp/api.html frontend/
 
 generate-inner:
-	npx --yes npm@latest ci --include=dev
+	npm ci --include=dev
 	node ./ci/build.mjs
 
 publish: download_libs generate-inner generate-apidocs
