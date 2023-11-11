@@ -1,3 +1,20 @@
+# 1.10.0 / 2023-11-11
+
+  * New Features
+    * Add server side check for maximum secret size
+    * Implement metrics collection for API server (#143)
+
+  * Improvements
+    * Add frontend check for invalid attached files (#139)
+    * Implement attachment checking in CLI (#141)
+
+  * Bugfixes
+    * Fix: Clean error on component navigation
+    * [CI] Fix: npm@latest cannot run with Node 18
+
+  * Translations
+    * Update Polish translation (#140) (Thanks @Icikowski)
+
 # 1.9.2 / 2023-10-18
 
   * Add basic-auth / header addition to OTS-CLI
