@@ -86,6 +86,19 @@ spec:
     tier: backend
 
 ---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "custom"
+  namespace: "ots"
+data:
+  customize.yml: |
+    appTitle: "My very customized OTS"
+    disableQRSupport: true
+    maxAttachmentSizeTotal: 1048576
+    maxSecretSize: 2097152
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -103,10 +116,14 @@ spec:
         app: ots
         tier: frontend
     spec:
+      volumes:
+        - name: custom
+          configMap:
+            name: custom
       containers:
         - name: ots
-          image: "luzifer/ots:v0.19.0"
-          args: ["--storage-type", "redis"]
+          image: "luzifer/ots:v1.10.0"
+          args: ["--storage-type", "redis", "--customize", "/custom/customize.yml"]
           env:
             - name: REDIS_URL
               value: "tcp://redis.ots.svc.cluster.local:6379"
@@ -114,6 +131,9 @@ spec:
               value: "ots"
             - name: SECRET_EXPIRY
               value: "172800"
+          volumeMounts:
+            - mountPath: "/custom"
+              name: custom
           resources:
             requests:
               cpu: 100m
