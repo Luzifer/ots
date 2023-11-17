@@ -14,27 +14,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
+  name: ots-redis
   labels:
-    app: redis
+    app: ots-redis
     role: leader
     tier: backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: ots-redis
   template:
     metadata:
       labels:
-        app: redis
+        app: ots-redis
         role: leader
         tier: backend
     spec:
       volumes:
         - name: redis-storage
           persistentVolumeClaim:
-            claimName: redis
+            claimName: ots-redis
       containers:
         - name: leader
           image: "docker.io/redis:6.2.5-alpine"
@@ -62,9 +62,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis
+  name: ots-redis
   labels:
-    app: redis
+    app: ots-redis
     role: leader
     tier: backend
 spec:
@@ -72,7 +72,7 @@ spec:
     - port: 6379
       targetPort: 6379
   selector:
-    app: redis
+    app: ots-redis
     role: leader
     tier: backend
 
@@ -115,7 +115,7 @@ spec:
           args: ["--storage-type", "redis", "--customize", "/custom/customize.yml"]
           env:
             - name: REDIS_URL
-              value: "tcp://redis.ots.svc.cluster.local:6379"
+              value: "tcp://ots-redis:6379"
             - name: REDIS_KEY
               value: "ots"
             - name: SECRET_EXPIRY
@@ -174,4 +174,4 @@ spec:
   tls:
     - hosts:
         - ots.example.com
-      secretName: ingress-tls
+      secretName: ots-ingress-tls
