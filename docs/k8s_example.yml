@@ -89,7 +89,7 @@ spec:
 apiVersion: "v1"
 kind: "ConfigMap"
 metadata:
-  name: "custom"
+  name: "ots-customize"
   namespace: "ots"
 data:
   customize.yml: |
@@ -119,7 +119,7 @@ spec:
       volumes:
         - name: custom
           configMap:
-            name: custom
+            name: ots-cutomize
       containers:
         - name: ots
           image: "luzifer/ots:v1.10.0"
