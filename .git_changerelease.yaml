@@ -18,5 +18,8 @@ pre_commit_commands:
   - |-
     yq -iP "(select(.spec.template.spec | has(\"containers\")) | .spec.template.spec.containers[] | select(.name == \"ots\").image) = \"luzifer/ots:v${TAG_VERSION}\"" docs/k8s_example.yml
     git add docs/k8s_example.yml
+  - |-
+    yq -iP ".services.app.build.context = \"https://github.com/Luzifer/ots.git#v${TAG_VERSION}\"" docker-compose.yml
+    git add docker-compose.yml
 
 ...
