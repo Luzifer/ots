@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"mime"
@@ -37,6 +38,7 @@ func init() {
 	createCmd.Flags().StringSliceP("header", "H", nil, "Headers to include in the request (i.e. 'Authorization: Token ...')")
 	createCmd.Flags().String("instance", "https://ots.fyi/", "Instance to create the secret with")
 	createCmd.Flags().StringSliceP("file", "f", nil, "File(s) to attach to the secret")
+	createCmd.Flags().Bool("no-text", false, "Disable secret read (create a secret with only files)")
 	createCmd.Flags().String("secret-from", "-", `File to read the secret content from ("-" for STDIN)`)
 	createCmd.Flags().StringP("user", "u", "", "Username / Password for basic auth, specified as 'user:pass'")
 	rootCmd.AddCommand(createCmd)
@@ -51,28 +53,9 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 
 	// Read the secret content
 	logrus.Info("reading secret content...")
-	secretSourceName, err := cmd.Flags().GetString("secret-from")
-	if err != nil {
-		return fmt.Errorf("getting secret-from flag: %w", err)
+	if secret.Secret, err = getSecretContent(cmd); err != nil {
+		return fmt.Errorf("getting secret content: %w", err)
 	}
-
-	var secretSource io.Reader
-	if secretSourceName == "-" {
-		secretSource = os.Stdin
-	} else {
-		f, err := os.Open(secretSourceName) //#nosec:G304 // Opening user specified file is intended
-		if err != nil {
-			return fmt.Errorf("opening secret-from file: %w", err)
-		}
-		defer f.Close() //nolint:errcheck // The file will be force-closed by program exit
-		secretSource = f
-	}
-
-	secretContent, err := io.ReadAll(secretSource)
-	if err != nil {
-		return fmt.Errorf("reading secret content: %w", err)
-	}
-	secret.Secret = strings.TrimSpace(string(secretContent))
 
 	// Attach any file given
 	files, err := cmd.Flags().GetStringSlice("file")
@@ -91,6 +74,10 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 			Type:    mime.TypeByExtension(path.Ext(f)),
 			Content: content,
 		})
+	}
+
+	if secret.Secret == "" && secret.Attachments == nil {
+		return fmt.Errorf("secret has no content and no attachments")
 	}
 
 	// Get flags for creation
@@ -156,6 +143,42 @@ func constructHTTPClient(cmd *cobra.Command) (*http.Client, error) {
 	}
 
 	return &http.Client{Transport: t}, nil
+}
+
+func getSecretContent(cmd *cobra.Command) (string, error) {
+	secretSourceName, err := cmd.Flags().GetString("secret-from")
+	if err != nil {
+		return "", fmt.Errorf("getting secret-from flag: %w", err)
+	}
+
+	noSecret, err := cmd.Flags().GetBool("no-text")
+	if err != nil {
+		return "", fmt.Errorf("getting no-text flag: %w", err)
+	}
+
+	var secretSource io.Reader
+	switch {
+	case noSecret:
+		secretSource = bytes.NewReader(nil)
+
+	case secretSourceName == "-":
+		secretSource = os.Stdin
+
+	default:
+		f, err := os.Open(secretSourceName) //#nosec:G304 // Opening user specified file is intended
+		if err != nil {
+			return "", fmt.Errorf("opening secret-from file: %w", err)
+		}
+		defer f.Close() //nolint:errcheck // The file will be force-closed by program exit
+		secretSource = f
+	}
+
+	secretContent, err := io.ReadAll(secretSource)
+	if err != nil {
+		return "", fmt.Errorf("reading secret content: %w", err)
+	}
+
+	return strings.TrimSpace(string(secretContent)), nil
 }
 
 func (a authRoundTripper) RoundTrip(r *http.Request) (*http.Response, error) {
