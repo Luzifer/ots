@@ -72,7 +72,7 @@
           <button
             type="submit"
             class="btn btn-success"
-            :disabled="secret.trim().length < 1 || maxFileSizeExceeded || invalidFilesSelected || createRunning"
+            :disabled="!canCreate"
           >
             <template v-if="!createRunning">
               {{ $t('btn-create-secret') }}
@@ -148,6 +148,10 @@ const passwordLength = 20
 
 export default {
   computed: {
+    canCreate() {
+      return (this.secret.trim().length > 0 || this.selectedFileMeta.length > 0) && !this.maxFileSizeExceeded && !this.invalidFilesSelected
+    },
+
     expiryChoices() {
       const choices = [{ text: this.$t('expire-default'), value: null }]
       for (const choice of this.$root.customize.expiryChoices || defaultExpiryChoices) {
@@ -243,7 +247,7 @@ export default {
 
     // createSecret executes the secret creation after encrypting the secret
     createSecret() {
-      if (this.secret.trim().length < 1 || this.maxFileSizeExceeded || this.invalidFilesSelected) {
+      if (!this.canCreate) {
         return false
       }
 
