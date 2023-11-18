@@ -1,0 +1,22 @@
+---
+
+# Template to format the commit message containing the changelog change
+# which will be used to add the tag to.
+release_commit_message: "Release: OTS {{.Version}}"
+
+# Commands to run before committing the changelog and adding the tag.
+# Therefore these can add content to be included into the release-
+# commit. These commands have access to the `TAG_VERSION` variable
+# which contains the tag to be applied after the commit. If the
+# command specified here is prefixed with a `-` sign, the exit status
+# will not fail the release process. If it is not prefixed with a `-`
+# a non-zero exit status will terminate the release process. The
+# commands will be run from the repostory root, so sub-dirs MUST be
+# specified. All commands are run as `bash -ec "..."` so you can use
+# bash inside the commands.
+pre_commit_commands:
+  - |-
+    yq -iP "(select(.spec.template.spec | has(\"containers\")) | .spec.template.spec.containers[] | select(.name == \"ots\").image) = \"luzifer/ots:v${TAG_VERSION}\"" docs/k8s_example.yml
+    git add docs/k8s_example.yml
+
+...
