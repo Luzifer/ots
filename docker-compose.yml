@@ -6,10 +6,14 @@ services:
       context: https://github.com/Luzifer/ots.git#v1.8.0
     restart: always
     environment:
-      #CUSTOMIZE: '/etc/ots/customize.yaml'   # Optional, see "Customization" in README
-      REDIS_URL: 'redis://redis:6379/0'       # See README for details
-      SECRET_EXPIRY: '604800'                 # 168h = 1w
-      STORAGE_TYPE: 'redis'                   # "mem" or "redis" (See README)
+      # Optional, see "Customization" in README
+      #CUSTOMIZE: '/etc/ots/customize.yaml'
+      # See README for details
+      REDIS_URL: 'redis://redis:6379/0'
+      # 168h = 1w
+      SECRET_EXPIRY: '604800'
+      # "mem" or "redis" (See README)
+      STORAGE_TYPE: 'redis'
     depends_on:
       - redis
     ports:
