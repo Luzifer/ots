@@ -72,7 +72,7 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 	if err != nil {
 		return fmt.Errorf("reading secret content: %w", err)
 	}
-	secret.Secret = string(secretContent)
+	secret.Secret = strings.TrimSpace(string(secretContent))
 
 	// Attach any file given
 	files, err := cmd.Flags().GetStringSlice("file")
