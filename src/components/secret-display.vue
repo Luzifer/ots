@@ -6,7 +6,7 @@
       v-html="$t('title-reading-secret')"
     />
     <div class="card-body">
-      <template v-if="!secret">
+      <template v-if="!secret && files.length === 0">
         <p v-html="$t('text-pre-reveal-hint')" />
         <button
           class="btn btn-success"
@@ -23,7 +23,10 @@
         </button>
       </template>
       <template v-else>
-        <div class="input-group mb-3">
+        <div
+          v-if="secret"
+          class="input-group mb-3"
+        >
           <textarea
             class="form-control"
             readonly
@@ -47,7 +50,6 @@
             </div>
           </div>
         </div>
-        <p v-html="$t('text-hint-burned')" />
         <template v-if="files.length > 0">
           <p v-html="$t('text-attached-files')" />
           <ul>
@@ -64,6 +66,7 @@
             </li>
           </ul>
         </template>
+        <p v-html="$t('text-hint-burned')" />
       </template>
     </div>
   </div>
