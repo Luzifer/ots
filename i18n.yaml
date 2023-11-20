@@ -580,6 +580,7 @@ translations:
       text-burn-hint: 请您记住不要自己访问此链接，因为这会导致机密被销毁。请原封不动的转发给收件人吧！
       text-burn-time: 如果机密没有被查看，将会在此时间自动销毁：
       text-hint-burned: <strong>注意：</strong>您只能查看一次机密，请尽快拷贝！刷新页面也会导致机密消失！
+      text-invalid-files-selected: 选中了至少一个不允许被作为附件的文件。
       text-max-filesize: 附加文件大小上限：{maxSize}
       text-max-filesize-exceeded: 您选择的文件过大，无法附加：{curSize} / {maxSize}
       text-powered-by: Powered by
