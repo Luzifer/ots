@@ -63,6 +63,7 @@ func SanityCheck(instanceURL string, secret Secret) error {
 		allowed := strings.Split(cust.AcceptedFileTypes, ",")
 		for _, a := range secret.Attachments {
 			if !attachmentAllowed(a, allowed) {
+				Logger.WithField("content-type", a.Type).Debug("attachment type not allowed")
 				return ErrAttachmentTypeNotAllowed
 			}
 		}
