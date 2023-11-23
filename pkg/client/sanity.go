@@ -72,11 +72,12 @@ func SanityCheck(instanceURL string, secret Secret) error {
 }
 
 func attachmentAllowed(file SecretAttachment, allowed []string) bool {
+	mimeType, _, _ := strings.Cut(file.Type, ";")
 	for _, a := range allowed {
 		switch {
 		case mimeRegex.MatchString(a):
 			// That's a mime type
-			if glob.Glob(a, file.Type) {
+			if glob.Glob(a, mimeType) {
 				// The mime "glob" matches the file type
 				return true
 			}
@@ -90,6 +91,7 @@ func attachmentAllowed(file SecretAttachment, allowed []string) bool {
 		}
 	}
 
+	Logger.WithField("content-type", mimeType).Debug("attachment type not allowed")
 	return false
 }
 

@@ -17,6 +17,7 @@ import (
 	"time"
 
 	"github.com/Luzifer/go-openssl/v4"
+	"github.com/sirupsen/logrus"
 )
 
 type (
@@ -41,6 +42,10 @@ var HTTPClient HTTPClientIntf = http.DefaultClient
 // source code.
 var KeyDerivationFunc = openssl.NewPBKDF2Generator(sha512.New, 300000) //nolint:gomnd // that's the definition
 
+// Logger can be set to enable logging from the library. By default
+// all log-messages will be discarded.
+var Logger *logrus.Entry
+
 // PasswordLength defines the length of the generated encryption password
 var PasswordLength = 20
 
@@ -53,6 +58,12 @@ var RequestTimeout = 5 * time.Second
 // the operator of the instance can determine your client from and
 // provide an URL to useful information about your tool.
 var UserAgent = "ots-client/1.x +https://github.com/Luzifer/ots"
+
+func init() {
+	l := logrus.New()
+	l.SetOutput(io.Discard)
+	Logger = logrus.NewEntry(l)
+}
 
 // Create serializes the secret and creates a new secret on the
 // instance given by its URL.
