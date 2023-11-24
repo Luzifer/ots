@@ -29,7 +29,6 @@ ARG BUILD_DATE
 ARG APP_VERSION
 
 LABEL org.opencontainers.image.authors='Knut Ahlers <knut@ahlers.me>' \
-    org.opencontainers.image.created=$BUILD_DATE \
     org.opencontainers.image.version $APP_VERSION \
     org.opencontainers.image.url='https://hub.docker.com/r/luzifer/ots/' \
     org.opencontainers.image.documentation='https://github.com/Luzifer/ots/wiki' \
