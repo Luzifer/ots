@@ -45,6 +45,8 @@ func init() {
 }
 
 func createRunE(cmd *cobra.Command, _ []string) (err error) {
+	cmd.SilenceUsage = true
+
 	var secret client.Secret
 
 	if client.HTTPClient, err = constructHTTPClient(cmd); err != nil {

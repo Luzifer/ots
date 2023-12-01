@@ -16,7 +16,7 @@ import (
 const storeFileMode = 0o600 // We assume the attached file to be a secret
 
 var fetchCmd = &cobra.Command{
-	Use:   "fetch url",
+	Use:   "fetch <url>",
 	Short: "Retrieves a secret from the instance by its URL",
 	Long:  "",
 	Args:  cobra.ExactArgs(1),
@@ -39,6 +39,8 @@ func checkDirWritable(dir string) error {
 }
 
 func fetchRunE(cmd *cobra.Command, args []string) error {
+	cmd.SilenceUsage = true
+
 	fileDir, err := cmd.Flags().GetString("file-dir")
 	if err != nil {
 		return fmt.Errorf("getting file-dir parameter: %w", err)

@@ -73,12 +73,15 @@ func SanityCheck(instanceURL string, secret Secret) error {
 
 func attachmentAllowed(file SecretAttachment, allowed []string) bool {
 	mimeType, _, _ := strings.Cut(file.Type, ";")
+	logger := Logger.WithField("content-type", mimeType)
+
 	for _, a := range allowed {
 		switch {
 		case mimeRegex.MatchString(a):
 			// That's a mime type
 			if glob.Glob(a, mimeType) {
 				// The mime "glob" matches the file type
+				logger.WithField("allowed_by", a).Debug("attachment allowed")
 				return true
 			}
 
@@ -86,12 +89,13 @@ func attachmentAllowed(file SecretAttachment, allowed []string) bool {
 			// That's a file extension
 			if strings.HasSuffix(file.Name, a) {
 				// The filename has the right extension
+				logger.WithField("allowed_by", a).Debug("attachment allowed")
 				return true
 			}
 		}
 	}
 
-	Logger.WithField("content-type", mimeType).Debug("attachment type not allowed")
+	logger.Debug("attachment type not allowed")
 	return false
 }
 
