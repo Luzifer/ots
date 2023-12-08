@@ -6,7 +6,7 @@ default: generate download_libs
 build-local: download_libs generate-inner generate-apidocs
 	go build \
 		-buildmode=pie \
-		-ldflags "-s -w -X main.version=$(git describe --tags --always || echo dev)" \
+		-ldflags "-s -w -X main.version=$(shell git describe --tags --always || echo dev)" \
 		-mod=readonly \
 		-trimpath
 
