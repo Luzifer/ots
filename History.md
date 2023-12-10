@@ -1,3 +1,20 @@
+# 1.11.0 / 2023-12-10
+
+  * Improvements
+    * [#148] Make secret optional when files are attached (#150)
+    * [#149] Make attachments stand out more (#152)
+    * [#154] Add debug logging for rejected attachment types & strip meta-info from mime-type (#155)
+    * [#154] Improve UX for rejected / allowed files
+
+  * Bugfixes
+    * [client] Fix wrong method when creating secrets
+    * Fix: Baked in version-string empty in build-local
+    * Update dependencies
+
+  * Translations
+    * Add tool to update translations in PRs
+    * Update Chinese translations (#151) (Thanks @YongJie-Xie)
+
 # 1.10.0 / 2023-11-11
 
   * New Features
