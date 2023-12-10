@@ -106,7 +106,7 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 		}.Encode()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, createURL.String(), body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, createURL.String(), body)
 	if err != nil {
 		return "", time.Time{}, fmt.Errorf("creating request: %w", err)
 	}
