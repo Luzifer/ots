@@ -22,6 +22,7 @@ generate-inner:
 	npm ci --include=dev
 	node ./ci/build.mjs
 
+publish: export NODE_ENV=production
 publish: download_libs generate-inner generate-apidocs
 	bash ./ci/build.sh
 
