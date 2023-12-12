@@ -107,7 +107,7 @@ spec:
             name: ots-cutomize
       containers:
         - name: ots
-          image: luzifer/ots:v1.11.0
+          image: luzifer/ots:v1.11.1
           args:
             - --storage-type
             - redis

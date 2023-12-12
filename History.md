@@ -1,3 +1,8 @@
+# 1.11.1 / 2023-12-12
+
+  * Bugfixes
+    * [#158] Disable Vue Devtools in release builds
+
 # 1.11.0 / 2023-12-10
 
   * Improvements
