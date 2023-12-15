@@ -5,7 +5,7 @@
     :disabled="!content"
     @click="copy"
   >
-    <i class="fas fa-clipboard" />
+    <i :class="{'fas fa-fw fa-clipboard': !copyToClipboardSuccess, 'fas fa-fw fa-circle-check': copyToClipboardSuccess}" />
   </button>
 </template>
 <script>
@@ -29,7 +29,7 @@ export default {
           this.copyToClipboardSuccess = true
           window.setTimeout(() => {
             this.copyToClipboardSuccess = false
-          }, 500)
+          }, 1500)
         })
     },
   },
