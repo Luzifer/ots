@@ -27,12 +27,13 @@ const scriptNonceSize = 32
 
 var (
 	cfg struct {
-		Customize       string `flag:"customize" default:"" description:"Customize-File to load"`
-		Listen          string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
-		LogLevel        string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
-		MaxSecretExpiry int64  `flag:"max-secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
-		StorageType     string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
-		VersionAndExit  bool   `flag:"version" default:"false" description:"Print version information and exit"`
+		Customize           string `flag:"customize" default:"" description:"Customize-File to load"`
+		Listen              string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
+		LogLevel            string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
+		MaxSecretExpiry     int64  `flag:"max-secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
+		DefaultSecretExpiry int64  `flag:"default-secret-expiry" default:"0" description:"Default expiry of the stored secrets in seconds"`
+		StorageType         string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
+		VersionAndExit      bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
 
 	assets   file_helpers.FSStack
@@ -154,8 +155,9 @@ func main() {
 
 	// Start server
 	logrus.WithFields(logrus.Fields{
-		"max_secret_expiry": time.Duration(cfg.MaxSecretExpiry) * time.Second,
-		"version":           version,
+		"max_secret_expiry":     time.Duration(cfg.MaxSecretExpiry) * time.Second,
+		"default_secret_expiry": time.Duration(cfg.DefaultSecretExpiry) * time.Second,
+		"version":               version,
 	}).Info("ots started")
 
 	if err = server.ListenAndServe(); err != nil {
@@ -209,15 +211,17 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
 	if err := indexTpl.Execute(w, struct {
-		Customize          customization.Customize
-		InlineContentNonce string
-		MaxSecretExpiry    int64
-		Version            string
+		Customize           customization.Customize
+		InlineContentNonce  string
+		MaxSecretExpiry     int64
+		DefaultSecretExpiry int64
+		Version             string
 	}{
-		Customize:          cust,
-		InlineContentNonce: inlineContentNonceStr,
-		MaxSecretExpiry:    cfg.MaxSecretExpiry,
-		Version:            version,
+		Customize:           cust,
+		InlineContentNonce:  inlineContentNonceStr,
+		MaxSecretExpiry:     cfg.MaxSecretExpiry,
+		DefaultSecretExpiry: cfg.DefaultSecretExpiry,
+		Version:             version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return

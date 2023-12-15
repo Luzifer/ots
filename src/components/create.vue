@@ -114,6 +114,8 @@
 </template>
 <script>
 /* global maxSecretExpire */
+/* global defaultSecretExpire */
+
 
 import appCrypto from '../crypto.js'
 import { bytesToHuman } from '../helpers'
@@ -220,7 +222,7 @@ export default {
       fileSize: 0,
       secret: '',
       securePassword: null,
-      selectedExpiry: null,
+      selectedExpiry: defaultSecretExpire,
       selectedFileMeta: [],
     }
   },

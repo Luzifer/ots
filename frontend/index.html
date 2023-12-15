@@ -47,6 +47,8 @@
 
       // Template variable from Golang process
       const maxSecretExpire = {{ .MaxSecretExpiry }}
+      const defaultSecretExpire = {{ .DefaultSecretExpiry }}
+
       const version = "{{ .Version }}"
       window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
       window.useFormalLanguage = {{ .Customize.UseFormalLanguage | mustToJson }}
