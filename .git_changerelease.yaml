@@ -21,5 +21,8 @@ pre_commit_commands:
   - |-
     yq -iP ".services.app.build.context = \"https://github.com/Luzifer/ots.git#v${TAG_VERSION}\"" docker-compose.yml
     git add docker-compose.yml
+  - |-
+    sed -i -E "s@org.opencontainers.image.version='[^']*'@org.opencontainers.image.version='${TAG_VERSION}'@" Dockerfile Dockerfile.minimal
+    git add Dockerfile Dockerfile.minimal
 
 ...

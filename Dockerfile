@@ -25,7 +25,12 @@ RUN set -ex \
 
 FROM alpine:latest
 
-LABEL maintainer "Knut Ahlers <knut@ahlers.me>"
+LABEL org.opencontainers.image.authors='Knut Ahlers <knut@ahlers.me>' \
+    org.opencontainers.image.version='v1.11.1' \
+    org.opencontainers.image.url='https://hub.docker.com/r/luzifer/ots/' \
+    org.opencontainers.image.documentation='https://github.com/Luzifer/ots/wiki' \
+    org.opencontainers.image.source='https://github.com/Luzifer/ots' \
+    org.opencontainers.image.licenses='Apache-2.0'
 
 RUN set -ex \
  && apk --no-cache add \
