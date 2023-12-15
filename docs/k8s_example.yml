@@ -118,7 +118,7 @@ spec:
               value: tcp://ots-redis:6379
             - name: REDIS_KEY
               value: ots
-            - name: SECRET_EXPIRY
+            - name: MAX_SECRET_EXPIRY
               value: "172800"
           volumeMounts:
             - mountPath: /custom

@@ -28,7 +28,7 @@ For a better setup you can choose the backend which is used to store the secrets
     (pre Redis v6 use `auth` as user, afterwards use a user available in your ACLs)
   - `REDIS_KEY` - Key prefix to store the keys under (Default `io.luzifer.ots`)
 - Common options
-  - `SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
+  - `MAX_SECRET_EXPIRY` - Expiry of the keys in seconds (Default `0` = no expiry)
 
 ### Customization
 

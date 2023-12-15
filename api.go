@@ -63,12 +63,12 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		expiry = cfg.SecretExpiry
+		expiry = cfg.MaxSecretExpiry
 		secret string
 	)
 
 	if !cust.DisableExpiryOverride {
-		if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
+		if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.MaxSecretExpiry == 0) {
 			expiry = ev
 		}
 	}

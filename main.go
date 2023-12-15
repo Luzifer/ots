@@ -27,12 +27,12 @@ const scriptNonceSize = 32
 
 var (
 	cfg struct {
-		Customize      string `flag:"customize" default:"" description:"Customize-File to load"`
-		Listen         string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
-		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
-		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
-		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
-		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
+		Customize       string `flag:"customize" default:"" description:"Customize-File to load"`
+		Listen          string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
+		LogLevel        string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
+		MaxSecretExpiry int64  `flag:"max-secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
+		StorageType     string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
+		VersionAndExit  bool   `flag:"version" default:"false" description:"Print version information and exit"`
 	}
 
 	assets   file_helpers.FSStack
@@ -154,8 +154,8 @@ func main() {
 
 	// Start server
 	logrus.WithFields(logrus.Fields{
-		"secret_expiry": time.Duration(cfg.SecretExpiry) * time.Second,
-		"version":       version,
+		"max_secret_expiry": time.Duration(cfg.MaxSecretExpiry) * time.Second,
+		"version":           version,
 	}).Info("ots started")
 
 	if err = server.ListenAndServe(); err != nil {
@@ -216,7 +216,7 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 	}{
 		Customize:          cust,
 		InlineContentNonce: inlineContentNonceStr,
-		MaxSecretExpiry:    cfg.SecretExpiry,
+		MaxSecretExpiry:    cfg.MaxSecretExpiry,
 		Version:            version,
 	}); err != nil {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
