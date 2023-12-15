@@ -44,6 +44,8 @@ reference:
     title-reading-secret: Reading your secret&hellip;
     title-secret-create-disabled: Secret creation disabled…
     title-secret-created: Secret created!
+    tooltip-copy-to-clipboard: Copy to Clipboard
+    tooltip-download-as-file: Download as File
 translations:
   ca:
     translators:
@@ -133,6 +135,8 @@ translations:
       title-reading-secret: Secret auslesen&hellip;
       title-secret-create-disabled: Erstellen von Secrets deaktiviert…
       title-secret-created: Secret erstellt!
+      tooltip-copy-to-clipboard: In die Zwischenablage kopieren
+      tooltip-download-as-file: Als Datei herunterladen
     formalTranslations:
       alert-secret-not-found: Dieses Secret existiert nicht. - Falls Sie diesen Link noch nicht selbst geöffnet haben, könnte der Inhalt kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       btn-reveal-secret: Secret anzeigen

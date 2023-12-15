@@ -16,7 +16,10 @@
           :value="secretUrl"
           @focus="$refs.secretUrl.select()"
         >
-        <app-clipboard-button :content="secretUrl" />
+        <app-clipboard-button
+          :content="secretUrl"
+          :title="$t('tooltip-copy-to-clipboard')"
+        />
         <app-qr-button :qr-content="secretUrl" />
       </div>
       <p v-html="$t('text-burn-hint')" />

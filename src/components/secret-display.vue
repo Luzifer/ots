@@ -38,11 +38,15 @@
               class="btn-group-vertical"
               role="group"
             >
-              <app-clipboard-button :content="secret" />
+              <app-clipboard-button
+                :content="secret"
+                :title="$t('tooltip-copy-to-clipboard')"
+              />
               <a
                 class="btn btn-secondary"
                 :href="secretContentBlobURL"
                 download
+                :title="$t('tooltip-download-as-file')"
               >
                 <i class="fas fa-fw fa-download" />
               </a>
