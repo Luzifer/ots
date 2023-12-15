@@ -17,6 +17,7 @@ reference:
     expire-n-hours: '{n} hour | {n} hours'
     expire-n-minutes: '{n} minute | {n} minutes'
     expire-n-seconds: '{n} second | {n} seconds'
+    never: 'never'
     items-explanation:
       - You enter a secret into the field on this page
       - Your browser encrypts the secret using a generated password
@@ -62,6 +63,7 @@ translations:
       expire-n-hours: '{n} hora | {n} hores'
       expire-n-minutes: '{n} minut | {n} minuts'
       expire-n-seconds: '{n} segon | {n} segons'
+      never: 'Mai'
       items-explanation:
         - Introduïx un secret en el formulari que hi ha en aquesta pàgina
         - El teu navegador xifra el secret utilitzant una contrasenya generada
@@ -106,6 +108,7 @@ translations:
       expire-n-hours: '{n} Stunde | {n} Stunden'
       expire-n-minutes: '{n} Minute | {n} Minuten'
       expire-n-seconds: '{n} Sekunde | {n} Sekunden'
+      never: 'Nie'
       items-explanation:
         - Du gibst ein Secret auf dieser Seite ein
         - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
@@ -168,6 +171,7 @@ translations:
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minuto | {n} minutos'
       expire-n-seconds: '{n} segundo | {n} segundos'
+      never: 'Nunca'
       items-explanation:
         - Introduce un secreto en el formulario que hay en esta página
         - Tu navegador cifra el secreto utilizando una contraseña generada
@@ -208,6 +212,7 @@ translations:
       expire-n-hours: '{n} heure | {n} heures'
       expire-n-minutes: '{n} minute | {n} minutes'
       expire-n-seconds: '{n} seconde | {n} secondes'
+      never: 'Jamais'
       items-explanation:
         - Vous saisissez le secret dans un champ sur cette page
         - Votre navigateur chiffre le secret en utilisant un mot de passe généré
@@ -242,6 +247,7 @@ translations:
       expire-n-hours: '{n} stunda | {n} stundas'
       expire-n-minutes: '{n} minūte | {n} minūtes'
       expire-n-seconds: '{n} sekundes | {n} sekundes'
+      never: 'Nekad'
       items-explanation:
         - Tu ievadi ziņu ievades laukā
         - Pārlūks nošifrē ziņu ar uzģenerētu paroli
@@ -279,6 +285,7 @@ translations:
       expire-n-hours: '{n} uur | {n} uur'
       expire-n-minutes: '{n} minuut | {n} minuten'
       expire-n-seconds: '{n} seconde | {n} seconden'
+      never: 'Nooit'
       items-explanation:
         - Je vult vertrouwelijke informatie in op deze pagina.
         - Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.
@@ -323,6 +330,7 @@ translations:
       expire-n-hours: '{n} godzina | {n} godzin(y)'
       expire-n-minutes: '{n} minuta | {n} minut(y)'
       expire-n-seconds: '{n} sekunda | {n} sekund(y)'
+      never: 'Nigdy'
       items-explanation:
         - Wpisujesz sekret w pole na tej stronie
         - Twoja przeglądarka szyfruje sekret korzystając z wygenerowanego hasła
@@ -364,6 +372,7 @@ translations:
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minutos | {n} minutos'
       expire-n-seconds: '{n} segundos | {n} segundos'
+      never: 'Nunca'
       items-explanation:
         - Você insere o segredo no campo de texto desta página
         - Seu navegador criptografa o segredo usando uma senha gerada
@@ -402,6 +411,7 @@ translations:
       expire-n-hours: '{n} час | {n} часов'
       expire-n-minutes: '{n} минут | {n} минут'
       expire-n-seconds: '{n} секунда | {n} секунд'
+      never: 'Никогда'
       items-explanation:
         - Вы вводите секрет в поле на этой странице.
         - Ваш браузер шифрует секрет с помощью сгенерированного пароля.
@@ -445,6 +455,7 @@ translations:
       expire-n-hours: '{n} timme | {n} timmar'
       expire-n-minutes: '{n} minut | {n} minuter'
       expire-n-seconds: '{n} sekund | {n} sekunder'
+      never: 'Aldrig'
       items-explanation:
         - Skriv in en hemlighet i rutan nedan
         - Din webbläsare krypterar hemligheten med hjälp av ett genererat lösenord
@@ -485,6 +496,7 @@ translations:
       expire-n-hours: '{n} saat | {n} saat'
       expire-n-minutes: '{n} dakika | {n} dakika'
       expire-n-seconds: '{n} saniye | {n} saniye'
+      never: 'Asla'
       items-explanation:
         - Bu sayfadaki alana sırrınızı giriniz
         - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
@@ -522,6 +534,7 @@ translations:
       expire-n-hours: '{n} година | {n} годин'
       expire-n-minutes: '{n} хвилина | {n} хвилин'
       expire-n-seconds: '{n} секунда | {n} секунд'
+      never: 'Ніколи'
       items-explanation:
         - Уведіть секрет у поле на цій сторінці
         - Ваш браузер шифрує секрет за допомогою згенерованого пароля
@@ -565,6 +578,7 @@ translations:
       expire-n-hours: '{n} 小时 | {n} 小时'
       expire-n-minutes: '{n} 分钟 | {n} 分钟'
       expire-n-seconds: '{n} 秒 | {n} 秒'
+      never: '绝不'
       items-explanation:
         - 您在当前页面的文本框内输入机密内容
         - 您的浏览器会生成随机密钥并对机密内容进行加密
