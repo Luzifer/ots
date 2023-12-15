@@ -27,11 +27,11 @@
           v-if="secret"
           class="input-group mb-3"
         >
-          <textarea
+          <grow-area
             class="form-control"
             readonly
             :value="secret"
-            rows="4"
+            :rows="4"
           />
           <div class="d-flex align-items-start p-0">
             <div
@@ -85,10 +85,11 @@ import appClipboardButton from './clipboard-button.vue'
 import appCrypto from '../crypto.js'
 import appQrButton from './qr-button.vue'
 import { bytesToHuman } from '../helpers'
+import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
 export default {
-  components: { appClipboardButton, appQrButton },
+  components: { GrowArea, appClipboardButton, appQrButton },
 
   data() {
     return {

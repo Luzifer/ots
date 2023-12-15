@@ -31,11 +31,11 @@
       >
         <div class="col-12 mb-3">
           <label for="createSecretData">{{ $t('label-secret-data') }}</label>
-          <textarea
+          <grow-area
             id="createSecretData"
             v-model="secret"
             class="form-control"
-            rows="5"
+            :rows="2"
           />
         </div>
         <div
@@ -117,6 +117,7 @@
 
 import appCrypto from '../crypto.js'
 import { bytesToHuman } from '../helpers'
+import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
 const defaultExpiryChoices = [
@@ -147,6 +148,8 @@ const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 const passwordLength = 20
 
 export default {
+  components: { GrowArea },
+
   computed: {
     canCreate() {
       return (this.secret.trim().length > 0 || this.selectedFileMeta.length > 0) && !this.maxFileSizeExceeded && !this.invalidFilesSelected
