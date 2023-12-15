@@ -155,22 +155,18 @@ export default {
     },
 
     expiryChoices() {
-      const choices = [{ text: this.$t('expire-default'), value: null }]
+      const choices = [{
+        text: this.$t('expire-default') + " (" + this.getExpiryLabel(defaultSecretExpire) + ")",
+        value: defaultSecretExpire
+      }]
+
       for (const choice of this.$root.customize.expiryChoices || defaultExpiryChoices) {
         if (maxSecretExpire > 0 && choice > maxSecretExpire) {
           continue
         }
 
         const option = { value: choice }
-        if (choice >= 86400) {
-          option.text = this.$tc('expire-n-days', Math.round(choice / 86400))
-        } else if (choice >= 3600) {
-          option.text = this.$tc('expire-n-hours', Math.round(choice / 3600))
-        } else if (choice >= 60) {
-          option.text = this.$tc('expire-n-minutes', Math.round(choice / 60))
-        } else {
-          option.text = this.$tc('expire-n-seconds', choice)
-        }
+        option.text = this.getExpiryLabel(choice)
 
         choices.push(option)
       }
@@ -310,6 +306,21 @@ export default {
         })
 
       return false
+    },
+
+    getExpiryLabel(duration) {
+      if (duration >= 86400) {
+          text = this.$tc('expire-n-days', Math.round(duration / 86400))
+        } else if (duration >= 3600) {
+          text = this.$tc('expire-n-hours', Math.round(duration / 3600))
+        } else if (duration >= 60) {
+          text = this.$tc('expire-n-minutes', Math.round(duration / 60))
+        } else if (duration > 0) {
+          text = this.$tc('expire-n-seconds', duration)
+        } else {
+          text = this.$t('never')
+        }
+      return text
     },
 
     isAcceptedBy(fileMeta, accept) {
