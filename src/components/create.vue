@@ -116,6 +116,12 @@
 /* global maxSecretExpire */
 /* global defaultSecretExpire */
 
+let defaultSecretExpire_overwrite = defaultSecretExpire
+if( defaultSecretExpire == 0 && maxSecretExpire > 0 ){
+  defaultSecretExpire_overwrite = maxSecretExpire
+}
+
+
 
 import appCrypto from '../crypto.js'
 import { bytesToHuman } from '../helpers'
@@ -218,7 +224,7 @@ export default {
       fileSize: 0,
       secret: '',
       securePassword: null,
-      selectedExpiry: defaultSecretExpire,
+      selectedExpiry: defaultSecretExpire_overwrite,
       selectedFileMeta: [],
     }
   },
