@@ -12,12 +12,11 @@ reference:
     btn-reveal-secret: Show me the secret!
     btn-reveal-secret-processing: Secret is being decrypted…
     btn-show-explanation: How does this work?
-    expire-default: Default Expiry
+    expire-default: Default Expiry ({duration})
     expire-n-days: '{n} day | {n} days'
     expire-n-hours: '{n} hour | {n} hours'
     expire-n-minutes: '{n} minute | {n} minutes'
     expire-n-seconds: '{n} second | {n} seconds'
-    never: 'never'
     items-explanation:
       - You enter a secret into the field on this page
       - Your browser encrypts the secret using a generated password
@@ -36,6 +35,7 @@ reference:
     text-invalid-files-selected: At least one of the selected files is not allowed as an attachment.
     text-max-filesize: 'Maximum size: {maxSize}'
     text-max-filesize-exceeded: 'The file(s) you chose are too big to attach: {curSize} / {maxSize}'
+    text-never: never
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
     text-pre-url: 'Your secret was created and stored using this URL:'
@@ -58,12 +58,11 @@ translations:
       btn-reveal-secret: Mostra'm el secret!
       btn-reveal-secret-processing: El secret s'està desxifrant...
       btn-show-explanation: Com funciona?
-      expire-default: Caducitat predeterminada
+      expire-default: Caducitat predeterminada ({duration})
       expire-n-days: '{n} dia | {n} dies'
       expire-n-hours: '{n} hora | {n} hores'
       expire-n-minutes: '{n} minut | {n} minuts'
       expire-n-seconds: '{n} segon | {n} segons'
-      never: 'Mai'
       items-explanation:
         - Introduïx un secret en el formulari que hi ha en aquesta pàgina
         - El teu navegador xifra el secret utilitzant una contrasenya generada
@@ -81,6 +80,7 @@ translations:
       text-hint-burned: <strong>Atenció:</strong> Només veuràs això una vegada. Quan recarregues la pàgina, el secret desapareixerà, així que copia'l ja&hellip;
       text-max-filesize: 'Mida màxima: {maxSize}'
       text-max-filesize-exceeded: 'Els arxius seleccionats són massa grans per adjuntar-los: {curSize} / {maxSize}'
+      text-never: Mai
       text-powered-by: Funciona amb
       text-pre-reveal-hint: Per a mostrar el secret prem aquest botó, però tingues en compte que en fer-ho es destruirà. Només pots veure'l una vegada!
       text-pre-url: 'El teu secret ha sigut creat i emmagatzemat en el següent enllaç:'
@@ -103,12 +103,11 @@ translations:
       btn-reveal-secret: Zeig mir das Secret!
       btn-reveal-secret-processing: Secret wird entschlüsselt…
       btn-show-explanation: Wie funktioniert das?
-      expire-default: Server-Standard
+      expire-default: Server-Standard ({duration})
       expire-n-days: '{n} Tag | {n} Tage'
       expire-n-hours: '{n} Stunde | {n} Stunden'
       expire-n-minutes: '{n} Minute | {n} Minuten'
       expire-n-seconds: '{n} Sekunde | {n} Sekunden'
-      never: 'Nie'
       items-explanation:
         - Du gibst ein Secret auf dieser Seite ein
         - Dein Browser verschlüsselt das Secret mit einem generierten Passwort
@@ -127,6 +126,7 @@ translations:
       text-invalid-files-selected: Mindestens eine der ausgewählten Dateien ist nicht als Anhang erlaubt.
       text-max-filesize: 'Maximale Größe: {maxSize}'
       text-max-filesize-exceeded: 'Die ausgewählten Dateien übersteigen die maximale Größe: {curSize} / {maxSize}'
+      text-never: Nie
       text-powered-by: Läuft mit
       text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Dein Secret wurde angelegt und unter folgender URL gespeichert:'
@@ -166,12 +166,11 @@ translations:
       btn-reveal-secret: ¡Muéstrame el secreto!
       btn-reveal-secret-processing: El secreto se está descifrando...
       btn-show-explanation: ¿Cómo funciona?
-      expire-default: Caducidad predeterminada
+      expire-default: Caducidad predeterminada ({duration})
       expire-n-days: '{n} día | {n} días'
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minuto | {n} minutos'
       expire-n-seconds: '{n} segundo | {n} segundos'
-      never: 'Nunca'
       items-explanation:
         - Introduce un secreto en el formulario que hay en esta página
         - Tu navegador cifra el secreto utilizando una contraseña generada
@@ -189,6 +188,7 @@ translations:
       text-hint-burned: <strong>Atención:</strong> Solo verás esto una vez. En cuanto recargues la página, el secreto desaparecerá, así que cópialo ya&hellip;
       text-max-filesize: 'Tamaño máximo: {maxSize}'
       text-max-filesize-exceeded: 'Los archivos seleccionados son demasiado grandes para adjuntarlos: {curSize} / {maxSize}'
+      text-never: Nunca
       text-powered-by: Funciona con
       text-pre-reveal-hint: Para mostrar el secreto pulsa este botón, pero ten en cuenta que al hacerlo se destruirá. ¡Solo puedes verlo una vez!
       text-pre-url: 'Tu secreto ha sido creado y almacenado en el siguiente enlace:'
@@ -212,7 +212,6 @@ translations:
       expire-n-hours: '{n} heure | {n} heures'
       expire-n-minutes: '{n} minute | {n} minutes'
       expire-n-seconds: '{n} seconde | {n} secondes'
-      never: 'Jamais'
       items-explanation:
         - Vous saisissez le secret dans un champ sur cette page
         - Votre navigateur chiffre le secret en utilisant un mot de passe généré
@@ -224,6 +223,7 @@ translations:
       label-secret-data: 'Données secrètes:'
       text-burn-hint: Attention de ne pas ouvrir cette URL vous-même, cela détruirait le secret. Fournissez-la à quelqu'un d'autre!
       text-hint-burned: <strong>Attention:</strong> Vous ne pouvez consulter ce contenu qu'une fois. Le secret sera détruit dès que vous rechargez la page, donc copiez le maintenant&hellip;
+      text-never: Jamais
       text-powered-by: Propulsé par
       text-pre-reveal-hint: Pour afficher le secret, cliquez sur ce bouton, mais soyez conscient que cela le détruira. Vous ne pouvez l'afficher qu'une fois!
       text-pre-url: 'Votre secret a été créé et stocké à cette URL:'
@@ -247,7 +247,6 @@ translations:
       expire-n-hours: '{n} stunda | {n} stundas'
       expire-n-minutes: '{n} minūte | {n} minūtes'
       expire-n-seconds: '{n} sekundes | {n} sekundes'
-      never: 'Nekad'
       items-explanation:
         - Tu ievadi ziņu ievades laukā
         - Pārlūks nošifrē ziņu ar uzģenerētu paroli
@@ -259,6 +258,7 @@ translations:
       label-secret-data: 'Ziņa:'
       text-burn-hint: Lūdzu atceries neatvērt saiti pats, jo tad ziņa tiks dzēsta. Nodod saiti ziņas saņēmējam!
       text-hint-burned: <strong>Uzmanību:</strong> Ziņa tiek parādīta tikai vienu reizi. Līdzko lapa tiks pārlādēta, ziņa būs neatgriezeniski zaudēta, tāpēc nepieciešamības gadījumā nokopē to tagad&hellip;
+      text-never: Nekad
       text-powered-by: Darbina
       text-pre-reveal-hint: Lai parādītu ziņu nospied šo pogu, bet rēķinies ar to, ka pēc apskates ziņa vairs nebūs pieejama. To var atvērt tikai vienreiz!
       text-pre-url: 'Ziņa ir nošifrēta un ir atverama šajā adresē:'
@@ -280,12 +280,11 @@ translations:
       btn-reveal-secret: Toon mij de vertrouwelijke info!
       btn-reveal-secret-processing: Vertrouwelijke info wordt ontsleuteld...
       btn-show-explanation: Hoe werkt dit?
-      expire-default: Standaard termijn
+      expire-default: Standaard termijn ({duration})
       expire-n-days: '{n} dag | {n} dagen'
       expire-n-hours: '{n} uur | {n} uur'
       expire-n-minutes: '{n} minuut | {n} minuten'
       expire-n-seconds: '{n} seconde | {n} seconden'
-      never: 'Nooit'
       items-explanation:
         - Je vult vertrouwelijke informatie in op deze pagina.
         - Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.
@@ -303,6 +302,7 @@ translations:
       text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
       text-max-filesize: 'Maximum grootte: {maxSize}'
       text-max-filesize-exceeded: 'De bestanden die je toevoegde zijn te groot: {curSize} / {maxSize}'
+      text-never: Nooit
       text-powered-by: Mogelijk gemaakt door
       text-pre-reveal-hint: 'Gebruik deze knop om de vertrouwelijke info op te halen. Let op: Je kan dit slechts eenmaal doen!'
       text-pre-url: 'Je vertrouwelijke informatie kan opgevraagd worden via deze URL:'
@@ -325,12 +325,11 @@ translations:
       btn-reveal-secret: Pokaż mi sekret!
       btn-reveal-secret-processing: Sekret jest odszyfrowywany...
       btn-show-explanation: Jak to działa?
-      expire-default: Domyślne wygasanie
+      expire-default: Domyślne wygasanie ({duration})
       expire-n-days: '{n} dzień | {n} dni'
       expire-n-hours: '{n} godzina | {n} godzin(y)'
       expire-n-minutes: '{n} minuta | {n} minut(y)'
       expire-n-seconds: '{n} sekunda | {n} sekund(y)'
-      never: 'Nigdy'
       items-explanation:
         - Wpisujesz sekret w pole na tej stronie
         - Twoja przeglądarka szyfruje sekret korzystając z wygenerowanego hasła
@@ -349,6 +348,7 @@ translations:
       text-invalid-files-selected: Co najmniej jeden z załączonych plików nie jest dopuszczalny jako załącznik.
       text-max-filesize: 'Maksymalny rozmiar: {maxSize}'
       text-max-filesize-exceeded: 'Wybrane załączniki przekraczają maksymalny rozmiar: {curSize} / {maxSize}'
+      text-never: Nigdy
       text-powered-by: Obsługiwane przez
       text-pre-reveal-hint: Aby odsłonić sekret, naciśnij ten przycisk, jednak wiedz, że to zniszczy sekret. Możesz go zobaczyć tylko raz!
       text-pre-url: 'Twój sekret został stworzony i zachowany pod tym adresem URL:'
@@ -372,7 +372,6 @@ translations:
       expire-n-hours: '{n} hora | {n} horas'
       expire-n-minutes: '{n} minutos | {n} minutos'
       expire-n-seconds: '{n} segundos | {n} segundos'
-      never: 'Nunca'
       items-explanation:
         - Você insere o segredo no campo de texto desta página
         - Seu navegador criptografa o segredo usando uma senha gerada
@@ -384,6 +383,7 @@ translations:
       label-secret-data: 'Informação secreta:'
       text-burn-hint: Importante você lembrar de não acessar esta URL, pois isto irá indisponibilizar o segredo. Apenas encaminhe para outra pessoa!
       text-hint-burned: 'Atenção: Você está vendo esta informação apenas uma vez. Logo que você recarregar a página o segredo ficará indisponível. É recomendado que você copie a informação agora…'
+      text-never: Nunca
       text-powered-by: Powered by
       text-pre-reveal-hint: Para revelar o segredo clique neste botão, mas lembre-se que esta ação vai destruir o segredo. Você só pode ver uma única vez!
       text-pre-url: 'Seu segredo foi criado e armazenado na seguinte URL:'
@@ -406,12 +406,11 @@ translations:
       btn-reveal-secret: Показать секрет!
       btn-reveal-secret-processing: Секрет декодируется ...
       btn-show-explanation: Как это работает?
-      expire-default: Значение по умолчанию до исчезновения
+      expire-default: Значение по умолчанию до исчезновения ({duration})
       expire-n-days: '{n} день | {n} дней'
       expire-n-hours: '{n} час | {n} часов'
       expire-n-minutes: '{n} минут | {n} минут'
       expire-n-seconds: '{n} секунда | {n} секунд'
-      never: 'Никогда'
       items-explanation:
         - Вы вводите секрет в поле на этой странице.
         - Ваш браузер шифрует секрет с помощью сгенерированного пароля.
@@ -429,6 +428,7 @@ translations:
       text-hint-burned: <strong>Внимание:</strong> Секрет будет показан только один раз. Как только вы перезагрузите страницу, секрет исчезнет, скопируйте его незамедлительно&hellip;
       text-max-filesize: 'Максимальный размер: {maxSize}'
       text-max-filesize-exceeded: 'Ваш файл(ы) слишком большой для прикрепления к секрету: {curSize} / {maxSize}'
+      text-never: Никогда
       text-powered-by: Основан
       text-pre-reveal-hint: Чтобы раскрыть секрет, нажмите эту кнопку, но имейте в виду, что это приведет к уничтожению секрета. Вы можете просмотреть его только один раз!
       text-pre-url: 'Ваш секрет создан и сохранён, его URL:'
@@ -450,12 +450,11 @@ translations:
       btn-reveal-secret: Visa mig hemligheten!
       btn-reveal-secret-processing: Hemlighet håller på att dekrypteras..
       btn-show-explanation: Hur fungerar detta?
-      expire-default: Standard utgångstid
+      expire-default: Standard utgångstid ({duration})
       expire-n-days: '{n} dag | {n} dagar'
       expire-n-hours: '{n} timme | {n} timmar'
       expire-n-minutes: '{n} minut | {n} minuter'
       expire-n-seconds: '{n} sekund | {n} sekunder'
-      never: 'Aldrig'
       items-explanation:
         - Skriv in en hemlighet i rutan nedan
         - Din webbläsare krypterar hemligheten med hjälp av ett genererat lösenord
@@ -473,6 +472,7 @@ translations:
       text-hint-burned: <strong>Observera:</strong> Du kan endast se denna sida en gång. Så fort du laddar om sidan kommer hemligheten att försvinna så kopiera den nu&hellip;
       text-max-filesize: 'Maximal storlek: {maxSize}'
       text-max-filesize-exceeded: 'Filerna du valt är för stora för att kunna bifogas: {curSize} / {maxSize}'
+      text-never: Aldrig
       text-powered-by: Drivs av
       text-pre-reveal-hint: För att visa hemligheten klicka på denna knapp. Var medveten om att när du gör det kommer hemligheten att förbrukas, du kan endast se den en gång!
       text-pre-url: 'Din hemlighet har skapats och lagrats med denna URL:'
@@ -496,7 +496,6 @@ translations:
       expire-n-hours: '{n} saat | {n} saat'
       expire-n-minutes: '{n} dakika | {n} dakika'
       expire-n-seconds: '{n} saniye | {n} saniye'
-      never: 'Asla'
       items-explanation:
         - Bu sayfadaki alana sırrınızı giriniz
         - Internet tarayıcınız oluşturulan şifre yardımı ile sırrınızı enkripte eder
@@ -508,6 +507,7 @@ translations:
       label-secret-data: 'Sır bilgisi:'
       text-burn-hint: Lütfen linki kendiniz acmayın, bu sırrın silinmesine neden olur. Linki sadece alıcıya gönderin!
       text-hint-burned: 'Dikkat: Bunu sadece bir kez göreceksiniz. Sayfayı güncellediğinizde yada kapattiğınızda sır kaybolacaktır, belkide şimdi sırrı kopyalamanız akıllıca olacaktır…'
+      text-never: Asla
       text-powered-by: Tarafından desteklenmektedir
       text-pre-reveal-hint: Sırrı görmek için bu düğmeye tıklayın, ama bunu yaptıktan sonra sırrın silineceğini unutmayın. Bunu sadece bir kez görebilirsin!
       text-pre-url: 'Sırrınız oluşturuldu ve bu link kullanılarak kaydedildi:'
@@ -529,12 +529,11 @@ translations:
       btn-reveal-secret: Показати мені секрет!
       btn-reveal-secret-processing: Секрет розшифровується…
       btn-show-explanation: Як це працює?
-      expire-default: Термін дії за замовчуванням
+      expire-default: Термін дії за замовчуванням ({duration})
       expire-n-days: '{n} день | {n} днів'
       expire-n-hours: '{n} година | {n} годин'
       expire-n-minutes: '{n} хвилина | {n} хвилин'
       expire-n-seconds: '{n} секунда | {n} секунд'
-      never: 'Ніколи'
       items-explanation:
         - Уведіть секрет у поле на цій сторінці
         - Ваш браузер шифрує секрет за допомогою згенерованого пароля
@@ -552,6 +551,7 @@ translations:
       text-hint-burned: <strong>Увага:</strong> Ви бачите це лише раз. Щойно ви перезавантажите сторінку, секрет зникне, тому, можливо, скопіюйте його зараз&hellip;
       text-max-filesize: 'Максимальний розмір: {maxSize}'
       text-max-filesize-exceeded: 'Вибрані вами файли завеликі, щоб вкласти: {curSize} / {maxSize}'
+      text-never: Ніколи
       text-powered-by: Powered by
       text-pre-reveal-hint: Щоб розкрити секрет, натисніть цю кнопку, але майте на увазі, що це знищить секрет. Ви можете переглянути його лише один раз!
       text-pre-url: 'Ваш секрет було створено та збережено за допомогою цієї URL-адреси:'
@@ -573,12 +573,11 @@ translations:
       btn-reveal-secret: 向我展示机密
       btn-reveal-secret-processing: 机密正在解密中…
       btn-show-explanation: 它如何运作？
-      expire-default: 默认过期时间
+      expire-default: 默认过期时间 ({duration})
       expire-n-days: '{n} 天 | {n} 天'
       expire-n-hours: '{n} 小时 | {n} 小时'
       expire-n-minutes: '{n} 分钟 | {n} 分钟'
       expire-n-seconds: '{n} 秒 | {n} 秒'
-      never: '绝不'
       items-explanation:
         - 您在当前页面的文本框内输入机密内容
         - 您的浏览器会生成随机密钥并对机密内容进行加密
@@ -597,6 +596,7 @@ translations:
       text-invalid-files-selected: 选中了至少一个不允许被作为附件的文件。
       text-max-filesize: 附加文件大小上限：{maxSize}
       text-max-filesize-exceeded: 您选择的文件过大，无法附加：{curSize} / {maxSize}
+      text-never: 绝不
       text-powered-by: Powered by
       text-pre-reveal-hint: 点击按钮即可查看机密，但请注意该操作会立即销毁机密，而且您也只能查看一次！
       text-pre-url: 您的机密已创建，访问链接如下：

@@ -162,8 +162,8 @@ export default {
 
     expiryChoices() {
       const choices = [{
-        text: this.$t('expire-default') + " (" + this.getExpiryLabel(defaultSecretExpire) + ")",
-        value: defaultSecretExpire
+        text: this.$t('expire-default', { duration: this.getExpiryLabel(defaultSecretExpire_overwrite) }),
+        value: defaultSecretExpire_overwrite
       }]
 
       for (const choice of this.$root.customize.expiryChoices || defaultExpiryChoices) {
