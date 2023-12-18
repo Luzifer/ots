@@ -318,16 +318,16 @@ export default {
 
     getExpiryLabel(duration) {
       if (duration >= 86400) {
-          text = this.$tc('expire-n-days', Math.round(duration / 86400))
-        } else if (duration >= 3600) {
-          text = this.$tc('expire-n-hours', Math.round(duration / 3600))
-        } else if (duration >= 60) {
-          text = this.$tc('expire-n-minutes', Math.round(duration / 60))
-        } else if (duration > 0) {
-          text = this.$tc('expire-n-seconds', duration)
-        } else {
-          text = this.$t('never')
-        }
+        text = this.$tc('expire-n-days', Math.round(duration / 86400))
+      } else if (duration >= 3600) {
+        text = this.$tc('expire-n-hours', Math.round(duration / 3600))
+      } else if (duration >= 60) {
+        text = this.$tc('expire-n-minutes', Math.round(duration / 60))
+      } else if (duration > 0) {
+        text = this.$tc('expire-n-seconds', duration)
+      } else {
+        text = this.$t('text-never')
+      }
       return text
     },
 
