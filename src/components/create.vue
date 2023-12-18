@@ -171,8 +171,10 @@ export default {
           continue
         }
 
-        const option = { value: choice }
-        option.text = this.getExpiryLabel(choice)
+        const option = {
+          value: choice,
+          text: this.getExpiryLabel(choice)
+        }
 
         choices.push(option)
       }
