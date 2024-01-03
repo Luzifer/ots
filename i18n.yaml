@@ -354,6 +354,8 @@ translations:
       title-reading-secret: Odczytywanie Twojego sekretu&hellip;
       title-secret-create-disabled: Tworzenie sekretów wyłączone&hellip;
       title-secret-created: Sekret utworzony!
+      tooltip-copy-to-clipboard: Skopiuj do schowka
+      tooltip-download-as-file: Pobierz jako plik
   pt-BR:
     deeplLanguage: pt-BR
     translators: []
