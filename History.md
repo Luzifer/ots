@@ -1,3 +1,18 @@
+# 1.12.0 / 2024-01-24
+
+  * Improvements
+    * [#159] Add version-command for ots-cli
+    * [#160] Add auto-resizing textareas
+    * [#160] Add hover tooltips for buttons
+    * [#160] Make success indicator more clear
+    * Use OCI Label defaults on Docker images (#145)
+
+  * Bugfixes
+    * Update dependencies
+
+  * Translations
+    * Update Polish translation (#166) (Thanks @Icikowski)
+
 # 1.11.1 / 2023-12-12
 
   * Bugfixes
