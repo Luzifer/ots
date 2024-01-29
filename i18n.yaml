@@ -205,9 +205,12 @@ translations:
       alert-secret-not-found: Ce secret n'est pas celui que vous cherchez&hellip; - Si vous comptiez trouvez ce secret ici, il a pu être compromis car quelqu'un a probablement déjà ouvert le lien.
       alert-something-went-wrong: Un problème est survenu. Nous en sommes désolés&hellip;
       btn-create-secret: Créer le secret!
+      btn-create-secret-processing: Secret en cours de création ...
       btn-new-secret: Nouveau secret
       btn-reveal-secret: Voir le secret!
+      btn-reveal-secret-processing: Secret en cours de déchiffrement ...
       btn-show-explanation: Comment ça fonctionne?
+      expire-default: Expiration par défaut
       expire-n-days: '{n} jour | {n} jours'
       expire-n-hours: '{n} heure | {n} heures'
       expire-n-minutes: '{n} minute | {n} minutes'
@@ -218,11 +221,18 @@ translations:
         - Seul le secret chiffré est envoyé au serveur (ni le secret en clair, ni le mot de passe ne sont envoyés!)
         - Le serveur stocke le secret chiffré pendant un certain temps
         - Vous fournissez l'URL affichée contenant l'identifiant et le mot de passe de déchiffrage au destinataire
-        - 'Le destintaire ne peut voir le secret qu''une fois: si cela ne fonctionne pas, c''est que le secret a été consulté par quelqu''un d''autre!'
+        - 'Le destinataire ne peut voir le secret qu''une fois: si cela ne fonctionne pas, c''est que le secret a été consulté par quelqu''un d''autre!'
         - Dès que le secret chiffré a été récupéré, il est supprimé du serveur
+      label-expiry: 'Expiration dans:'
       label-secret-data: 'Données secrètes:'
+      label-secret-files: Attacher des fichiers:
+      text-attached-files: L'émetteur a attaché des fichiers au secret. Assurez-vous d'avoir confiance en l'émetteur, les fichiers n'ont pas été vérifiés !
       text-burn-hint: Attention de ne pas ouvrir cette URL vous-même, cela détruirait le secret. Fournissez-la à quelqu'un d'autre!
+      text-burn-time: 'S''il n'a pas été vu auparavant, ce secret sera automatiquement supprimé :'
       text-hint-burned: <strong>Attention:</strong> Vous ne pouvez consulter ce contenu qu'une fois. Le secret sera détruit dès que vous rechargez la page, donc copiez le maintenant&hellip;
+      text-invalid-files-selected: Au moins l'un des fichiers sélectionnés n'est pas autorisé comme pièce-jointe.
+      text-max-filesize: 'Taille maximum: {maxSize}'
+      text-max-filesize-exceeded: 'Le(s) fichier(s) que vous avez choisis sont trop volumineux pour être attachés : {curSize} / {maxSize}'
       text-powered-by: Propulsé par
       text-pre-reveal-hint: Pour afficher le secret, cliquez sur ce bouton, mais soyez conscient que cela le détruira. Vous ne pouvez l'afficher qu'une fois!
       text-pre-url: 'Votre secret a été créé et stocké à cette URL:'
@@ -232,6 +242,8 @@ translations:
       title-reading-secret: Lecture du secret&hellip;
       title-secret-create-disabled: Création secrète désactivée...
       title-secret-created: Secret créé!
+      tooltip-copy-to-clipboard: Copier dans le presse-papiers
+      tooltip-download-as-file: Télécharger en tant que fichier
   lv:
     deeplLanguage: lv
     translators: []
