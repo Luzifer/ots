@@ -307,7 +307,7 @@ translations:
       label-secret-data: 'Vertrouwelijke info:'
       label-secret-files: 'Bestanden toevoegen:'
       text-attached-files: De afzender heeft bestanden toegevoegd. Deze zijn niet gecontroleerd, gebruik deze enkel als je de afzender vertrouwt!
-      text-burn-hint: 'Open de URL niet zelf, deze is slechts eenmalig te gebruiken. Geef de URL aan de ontvanger.'
+      text-burn-hint: Open de URL niet zelf, deze is slechts eenmalig te gebruiken. Geef de URL aan de ontvanger.
       text-burn-time: 'Deze vertrouwelijke informatie wordt automatisch gewist indien niet bekeken voor:'
       text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
       text-max-filesize: 'Maximum grootte: {maxSize}'
