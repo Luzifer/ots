@@ -27,7 +27,7 @@ FROM alpine:latest
 
 LABEL org.opencontainers.image.authors='Knut Ahlers <knut@ahlers.me>' \
     org.opencontainers.image.version='1.12.0' \
-    org.opencontainers.image.url='https://hub.docker.com/r/luzifer/ots/' \
+    org.opencontainers.image.url='https://github.com/Luzifer/ots/pkgs/container/ots' \
     org.opencontainers.image.documentation='https://github.com/Luzifer/ots/wiki' \
     org.opencontainers.image.source='https://github.com/Luzifer/ots' \
     org.opencontainers.image.licenses='Apache-2.0'

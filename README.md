@@ -1,7 +1,6 @@
 ![](https://badges.fyi/github/license/Luzifer/ots)
 ![](https://badges.fyi/github/latest-release/Luzifer/ots)
 ![](https://badges.fyi/github/downloads/Luzifer/ots)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Luzifer/ots)](https://goreportcard.com/report/github.com/Luzifer/ots)
 
 # Luzifer / OTS
 

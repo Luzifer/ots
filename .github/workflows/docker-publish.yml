@@ -1,0 +1,36 @@
+---
+
+name: docker-publish
+on:
+  push:
+    branches: ['master']
+    tags: ['v*']
+
+permissions:
+  packages: write
+
+jobs:
+  docker-publish:
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          show-progress: false
+
+      - name: Log into registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Build & Publish
+        run: bash ci/docker-publish.sh
+
+...
