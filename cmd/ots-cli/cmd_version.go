@@ -9,7 +9,7 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Displays the tool version",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(*cobra.Command, []string) {
 		fmt.Printf("ots-cli %s\n", version) //nolint:forbidigo
 	},
 }
