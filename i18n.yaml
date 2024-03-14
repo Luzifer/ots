@@ -244,6 +244,52 @@ translations:
       title-secret-created: Secret créé!
       tooltip-copy-to-clipboard: Copier dans le presse-papiers
       tooltip-download-as-file: Télécharger en tant que fichier
+  it:
+    deeplLanguage: it
+    translators: []
+    translations:
+      alert-secret-not-found: Questo non è il secret che stai cercando&hellip; - Se ti aspettavi di vedere il secret allora potrebbe essere stato compromesso poichè qualcun altro potrebbe aver già aperto il link.
+      alert-something-went-wrong: Qualcosa non ha funzionato. Mi dispiace davvero&hellip;
+      btn-create-secret: Crea il secret!
+      btn-create-secret-processing: Creazione del secret in corso…
+      btn-new-secret: Nuovo secret
+      btn-reveal-secret: Mostrami il secret!
+      btn-reveal-secret-processing: Decrittazione del secret in corso…
+      btn-show-explanation: Come funziona?
+      expire-default: Scadenza predefinita
+      expire-n-days: '{n} giorno | {n} giorni'
+      expire-n-hours: '{n} ora | {n} ore'
+      expire-n-minutes: '{n} minuto | {n} minuti'
+      expire-n-seconds: '{n} secondo | {n} secondi'
+      items-explanation:
+        - Inserisci un secret nel campo di testo di questa pagina
+        - Il tuo browser critta il secret usando una password generata in modo casuale
+        - Solo il secret crittato viene inviato al server (nè il secret decrittato nè la password vengono mai inviati!)
+        - Il server conserva il secret crittato per un certo periodo di tempo
+        - Passi l'URL visualizzato contenente l'ID e la password di decrittazione al destinatario
+        - 'Il destinatario può vedere il secret esattamente una sola volta: se non può, il secret potrebbe essere stato visto da qualcun altro!'
+        - Dopo che il secret crittato è stato visualizzato la prima volta, viene cancellato dal server
+      label-expiry: 'Scade in:'
+      label-secret-data: 'Dati del secret:'
+      label-secret-files: 'Allega files:'
+      text-attached-files: Il mittente ha allegato alcuni files al secret. Assicurati di fidarti del mittente perchè i files non sono stati controllati!
+      text-burn-hint: Per favore ricorda di non visitare questo URL perchè il secret verrebbe cancellato. Passalo semplicemente a qualcun altro!
+      text-burn-time: 'Se non viene visualizzato prima, questo secret verrà cancellato automaticamente:'
+      text-hint-burned: <strong>Attenzione:</strong> Vedrai il secret solo questa volta. Non appena ricaricherai la pagina verrà cancellato, quindi magari copialo ora&hellip;
+      text-invalid-files-selected: Almeno uno dei files selezionati non è consentito come allegato.
+      text-max-filesize: 'Dimensione massima: {maxSize}'
+      text-max-filesize-exceeded: 'Il/I file(s) che hai scelto ha/hanno una dimensione troppo grande per essere allegato/allegati: {curSize} / {maxSize}'
+      text-powered-by: Realizzato con
+      text-pre-reveal-hint: Per rivelare il secret clicca su questo pulsante, ma attenzione perchè farlo lo cancellerà. Lo puoi vedere solo una volta!
+      text-pre-url: 'Il tuo secret è stato creato e salvato usando questo URL:'
+      text-secret-create-disabled: La creazione di nuovi secrets è disabilitata su questa istanza.
+      title-explanation: Questo è come funziona&hellip;
+      title-new-secret: Crea un nuovo secret
+      title-reading-secret: Leggi il tuo secret&hellip;
+      title-secret-create-disabled: Creazione secret disabilitata…
+      title-secret-created: Secret creato!
+      tooltip-copy-to-clipboard: Copia nella clipboard
+      tooltip-download-as-file: Scarica come file
   lv:
     deeplLanguage: lv
     translators: []
