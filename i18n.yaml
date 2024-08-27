@@ -367,6 +367,49 @@ translations:
       title-reading-secret: Geheim wordt gelezen&hellip;
       title-secret-create-disabled: Aanmaken geheimen uitgeschakeld...
       title-secret-created: Geheim aangemaakt!
+  nl-BE:
+    deeplLanguage: nl-BE
+    translators: []
+    translations:
+      alert-secret-not-found: De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!
+      alert-something-went-wrong: Er ging iets verkeerd, sorry&hellip;
+      btn-create-secret: Nieuwe vertrouwelijke info aanmaken!
+      btn-create-secret-processing: Vertrouwelijke info wordt versleuteld...
+      btn-new-secret: Nieuw
+      btn-reveal-secret: Toon mij de vertrouwelijke info!
+      btn-reveal-secret-processing: Vertrouwelijke info wordt ontsleuteld...
+      btn-show-explanation: Hoe werkt dit?
+      expire-default: Standaard termijn
+      expire-n-days: '{n} dag | {n} dagen'
+      expire-n-hours: '{n} uur | {n} uur'
+      expire-n-minutes: '{n} minuut | {n} minuten'
+      expire-n-seconds: '{n} seconde | {n} seconden'
+      items-explanation:
+        - Je vult vertrouwelijke informatie in op deze pagina.
+        - Je browser versleutelt de ingevulde tekst via een automatisch gegenereerd wachtwoord.
+        - Alleen de versleutelde data wordt naar de server gestuurd. (De leesbare versie of het wachtwoord worden nooit verstuurd!)
+        - De server slaat de versleutelde data gedurende een beperkte periode op.
+        - Je geeft de URL met identificatie en het gegenereerde wachtwoord aan de ontvanger.
+        - 'De ontvanger kan de vertrouwelijke informatie exact eenmaal bekijken: indien het niet lukt heeft mogelijk iemand anders de info gezien!'
+        - De versleutelde data wordt van de server gewist van zodra de ontvanger het bekeken heeft.
+      label-expiry: 'Verwijder na:'
+      label-secret-data: 'Vertrouwelijke info:'
+      label-secret-files: 'Bestanden toevoegen:'
+      text-attached-files: De afzender heeft bestanden toegevoegd. Deze werden niet gecontroleerd, gebruik deze enkel als je de afzender vertrouwt!
+      text-burn-hint: 'Bezoek de URL niet zelf: je kan deze slechts eenmaal gebruiken. Geef de URL aan de ontvanger.'
+      text-burn-time: 'Deze vertrouwelijke informatie wordt automatisch gewist indien niet bekeken voor:'
+      text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
+      text-max-filesize: 'Maximum grootte: {maxSize}'
+      text-max-filesize-exceeded: 'De bestanden die je toevoegde zijn te groot: {curSize} / {maxSize}'
+      text-powered-by: Mogelijk gemaakt door
+      text-pre-reveal-hint: 'Gebruik deze knop om de vertrouwelijke info op te halen. Let op: Je kan dit slechts eenmaal doen!'
+      text-pre-url: 'Je vertrouwelijke informatie kan opgevraagd worden via deze URL:'
+      text-secret-create-disabled: Het aanmaken van nieuwe geheimen is in dit geval uitgeschakeld.
+      title-explanation: Dit is hoe het werkt&hellip;
+      title-new-secret: Nieuwe vertrouwelijke info opslaan
+      title-reading-secret: Vertrouwelijke info lezen&hellip;
+      title-secret-create-disabled: Geheime creatie uitgeschakeld...
+      title-secret-created: Vertrouwelijke info opgeslaan!
   pl:
     deeplLanguage: pl
     translators:
