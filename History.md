@@ -1,3 +1,17 @@
+# 1.13.0 / 2024-08-27
+
+  * Bugfixes
+    * Update Node dependencies
+    * Update Go dependencies
+    * Lint: Resolve unused-parameter error
+
+  * Translations
+    * Add Italian translation (#173) (Thanks @ste93cry)
+    * Update Dutch translation (#168) (Thanks @mboeren & @sorcix)
+    * Restore old `nl` translation as `nl-BE`
+    * Update French translation (#167) (Thanks @toindev)
+    * Update Swedish translation (#171) (Thank @artingu)
+
 # 1.12.0 / 2024-01-24
 
   * Improvements
