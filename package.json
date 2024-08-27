@@ -1,20 +1,20 @@
 {
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
-    "esbuild": "^0.17.17",
-    "esbuild-sass-plugin": "^2.9.0",
+    "@babel/eslint-parser": "^7.25.1",
+    "esbuild": "^0.19.4",
+    "esbuild-sass-plugin": "^2.16.1",
     "esbuild-vue": "^1.2.2",
-    "eslint": "^8.42.0",
-    "eslint-plugin-vue": "^9.14.1",
-    "vue-template-compiler": "^2.7.14"
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "vue-template-compiler": "^2.7.16"
   },
   "name": "ots",
   "private": true,
   "dependencies": {
     "base64-js": "^1.5.1",
-    "bootstrap": "^5.3.2",
-    "qrcode": "^1.5.3",
-    "vue": "^2.7.14",
+    "bootstrap": "^5.3.3",
+    "qrcode": "^1.5.4",
+    "vue": "^2.7.16",
     "vue-i18n": "^8.28.2",
     "vue-router": "^3.6.5"
   }
