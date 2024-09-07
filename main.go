@@ -33,6 +33,9 @@ var (
 		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
 		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
+		EnableTLS      bool   `flag:"enable-tls" default:"false" description:"Enable HTTPS/TLS"`
+		CertFile       string `flag:"cert-file" default:"" description:"Path to the TLS certificate file"`
+		KeyFile        string `flag:"key-file" default:"" description:"Path to the TLS private key file"`
 	}
 
 	assets   file_helpers.FSStack
@@ -158,8 +161,21 @@ func main() {
 		"version":       version,
 	}).Info("ots started")
 
-	if err = server.ListenAndServe(); err != nil {
-		logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
+
+
+	if cfg.EnableTLS {
+		if cfg.CertFile == "" || cfg.KeyFile == "" {
+			logrus.Fatal("TLS is enabled but cert-file or key-file is not provided")
+		}
+		logrus.Infof("Starting HTTPS server on %s", cfg.Listen)
+		if err := server.ListenAndServeTLS(cfg.CertFile, cfg.KeyFile); err != nil {
+			logrus.WithError(err).Fatal("HTTPS server quit unexpectedly")
+		}
+	} else {
+		logrus.Infof("Starting HTTP server on %s", cfg.Listen)
+		if err := server.ListenAndServe(); err != nil {
+			logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
+		}
 	}
 }
 
