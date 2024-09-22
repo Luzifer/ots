@@ -11,8 +11,6 @@ import (
 var langKeyFormat = regexp.MustCompile(`^[a-z]{2}(-[A-Z]{2})?$`)
 
 func verify(tf translationFile) error {
-	var err error
-
 	if !langKeyFormat.MatchString(tf.Reference.LanguageKey) {
 		return errors.New("reference contains invalid languageKey")
 	}
@@ -29,7 +27,7 @@ func verify(tf translationFile) error {
 			tf.Reference.FormalTranslations,
 			tf.Reference.Translations,
 			false,
-		); err != nil {
+		) {
 			return errors.New("reference contains error in formalTranslations")
 		}
 	}

@@ -72,7 +72,7 @@ func fetchRunE(cmd *cobra.Command, args []string) error {
 func storeAttachment(dir string, f client.SecretAttachment) error {
 	// First lets find a free file name to save the file as
 	var (
-		fileNameFragments = strings.SplitN(f.Name, ".", 2) //nolint:gomnd
+		fileNameFragments = strings.SplitN(f.Name, ".", 2) //nolint:mnd
 		i                 int
 		storeName         = path.Join(dir, f.Name)
 		storeNameTpl      string

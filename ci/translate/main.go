@@ -276,7 +276,7 @@ func saveTranslationFile(tf translationFile) error {
 	}
 
 	encoder := yaml.NewEncoder(f)
-	encoder.SetIndent(2) //nolint:gomnd
+	encoder.SetIndent(2) //nolint:mnd
 
 	if err = encoder.Encode(tf); err != nil {
 		f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak

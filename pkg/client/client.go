@@ -40,7 +40,7 @@ var HTTPClient HTTPClientIntf = http.DefaultClient
 //
 // The corresponding settings are found in `/src/crypto.js` in the OTS
 // source code.
-var KeyDerivationFunc = openssl.NewPBKDF2Generator(sha512.New, 300000) //nolint:gomnd // that's the definition
+var KeyDerivationFunc = openssl.NewPBKDF2Generator(sha512.New, 300000) //nolint:mnd // that's the definition
 
 // Logger can be set to enable logging from the library. By default
 // all log-messages will be discarded.
@@ -158,7 +158,7 @@ func Fetch(secretURL string) (s Secret, err error) {
 	if err != nil {
 		return s, fmt.Errorf("unescaping fragment: %w", err)
 	}
-	fragmentParts := strings.SplitN(fragment, "|", 2) //nolint:gomnd
+	fragmentParts := strings.SplitN(fragment, "|", 2) //nolint:mnd
 
 	fetchURL := u.JoinPath(strings.Join([]string{".", "api", "get", fragmentParts[0]}, "/")).String()
 	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)

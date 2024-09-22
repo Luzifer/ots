@@ -9,7 +9,9 @@ run:
   modules-download-mode: readonly
 
 output:
-  format: tab
+  formats:
+    - format: tab
+      path: stdout
 
 issues:
   # This disables the included exclude-list in golangci-lint as that
@@ -29,11 +31,11 @@ linters:
     - bodyclose     # checks whether HTTP response body is closed successfully [fast: true, auto-fix: false]
     - containedctx  # containedctx is a linter that detects struct contained context.Context field [fast: true, auto-fix: false]
     - contextcheck  # check the function whether use a non-inherited context [fast: false, auto-fix: false]
+    - copyloopvar   # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - dogsled       # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
     - durationcheck # check for two durations multiplied together [fast: false, auto-fix: false]
     - errcheck      # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases [fast: false, auto-fix: false]
     - errchkjson    # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occations, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
-    - exportloopref # checks for pointers to enclosing loop variables [fast: true, auto-fix: false]
     - forbidigo     # Forbids identifiers [fast: true, auto-fix: false]
     - funlen        # Tool for detection of long functions [fast: true, auto-fix: false]
     - gocognit      # Computes and checks the cognitive complexity of functions [fast: true, auto-fix: false]
@@ -44,12 +46,12 @@ linters:
     - gofmt         # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
     - gofumpt       # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
     - goimports     # Goimports does everything that gofmt does. Additionally it checks unused imports [fast: true, auto-fix: true]
-    - gomnd         # An analyzer to detect magic numbers. [fast: true, auto-fix: false]
     - gosec         # Inspects source code for security problems [fast: true, auto-fix: false]
     - gosimple      # Linter for Go source code that specializes in simplifying a code [fast: true, auto-fix: false]
     - govet         # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: true, auto-fix: false]
     - ineffassign   # Detects when assignments to existing variables are not used [fast: true, auto-fix: false]
     - misspell      # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
+    - mnd           # An analyzer to detect magic numbers. [fast: true, auto-fix: false]
     - nakedret      # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
     - nilerr        # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
     - nilnil        # Checks that there is no simultaneous return of `nil` error and an invalid value. [fast: false, auto-fix: false]
@@ -75,9 +77,7 @@ linters-settings:
     min-complexity: 15
 
   gomnd:
-    settings:
-      mnd:
-        ignored-functions: 'strconv.(?:Format|Parse)\B+'
+    ignored-functions: 'strconv.(?:Format|Parse)\B+'
 
   revive:
     rules:

@@ -59,7 +59,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		// As a safeguard against HUGE payloads behind a misconfigured
 		// proxy we take double the maximum secret size after which we
 		// just close the read and cut the connection to the sender.
-		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2) //nolint:gomnd
+		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2) //nolint:mnd
 	}
 
 	var (
