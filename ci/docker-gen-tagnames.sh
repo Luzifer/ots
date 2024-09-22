@@ -5,7 +5,7 @@ function log() {
   echo "[$(date +%H:%M:%S)] $@" >&2
 }
 
-[[ -n $GITHUB_REF_NAME ]] || {
+[[ -n ${GITHUB_REF_NAME:-} ]] || {
   log "ERR: This script is intended to run on a Github Action only."
   exit 1
 }
@@ -16,11 +16,11 @@ tags=()
 case "${GITHUB_REF_TYPE}" in
 branch)
   # Generic build to develop: Workflow has to limit branches to master
-  tags+=(develop)
+  tags+=("${repo}:develop")
   ;;
 tag)
   # Build to latest & tag: Older tags are not intended to rebuild
-  tags+=(latest ${GITHUB_REF_NAME})
+  tags+=("${repo}:latest" "${repo}:${GITHUB_REF_NAME}")
   ;;
 *)
   log "ERR: The ref type ${GITHUB_REF_TYPE} is not handled."
@@ -28,13 +28,5 @@ tag)
   ;;
 esac
 
-log "Building Docker image..."
-docker build -t "${repo}:local" .
-
-for ref in "${tags[@]}"; do
-  log "Pushing Docker image to '${repo}:${ref}'..."
-  docker tag "${repo}:local" "${repo}:${ref}"
-  docker push "${repo}:${ref}"
-done
-
-log "Publish finished."
+export IFS=,
+echo "docker_build_tags=${tags[*]}" >>${GITHUB_OUTPUT}

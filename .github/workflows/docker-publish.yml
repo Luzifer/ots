@@ -18,6 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - uses: actions/checkout@v4
         with:
           lfs: true
@@ -31,6 +37,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Build & Publish
-        run: bash ci/docker-publish.sh
+        id: taggen
+        run: bash ci/docker-gen-tagnames.sh
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.taggen.outputs.docker_build_tags }}
 
 ...
