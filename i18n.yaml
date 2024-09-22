@@ -38,12 +38,14 @@ reference:
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
     text-pre-url: 'Your secret was created and stored using this URL:'
+    text-secret-burned: The secret was successfully destroyed.
     text-secret-create-disabled: The creation of new secrets is disabled in this instance.
     title-explanation: This is how it works&hellip;
     title-new-secret: Create a new secret
     title-reading-secret: Reading your secret&hellip;
     title-secret-create-disabled: Secret creation disabled…
     title-secret-created: Secret created!
+    tooltip-burn-secret: Burn Secret now!
     tooltip-copy-to-clipboard: Copy to Clipboard
     tooltip-download-as-file: Download as File
 translations:
