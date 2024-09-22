@@ -40,6 +40,13 @@ type (
 		MetricsAllowedSubnets []string `json:"-" yaml:"metricsAllowedSubnets"`
 		OverlayFSPath         string   `json:"-" yaml:"overlayFSPath"`
 		UseFormalLanguage     bool     `json:"-" yaml:"useFormalLanguage"`
+
+		FooterLinks []FooterLink `json:"footerLinks,omitempty" yaml:"footerLinks"`
+	}
+
+	FooterLink struct {
+		Name string `json:"name" yaml:"name"`
+		URL  string `json:"url" yaml:"url"`
 	}
 )
 
