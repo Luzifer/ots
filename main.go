@@ -161,8 +161,6 @@ func main() {
 		"version":       version,
 	}).Info("ots started")
 
-
-
 	if cfg.EnableTLS {
 		if cfg.CertFile == "" || cfg.KeyFile == "" {
 			logrus.Fatal("TLS is enabled but cert-file or key-file is not provided")
