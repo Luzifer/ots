@@ -38,12 +38,14 @@ reference:
     text-powered-by: Powered by
     text-pre-reveal-hint: To reveal the secret click this button but be aware doing so will destroy the secret. You can only view it once!
     text-pre-url: 'Your secret was created and stored using this URL:'
+    text-secret-burned: The secret was successfully destroyed.
     text-secret-create-disabled: The creation of new secrets is disabled in this instance.
     title-explanation: This is how it works&hellip;
     title-new-secret: Create a new secret
     title-reading-secret: Reading your secret&hellip;
     title-secret-create-disabled: Secret creation disabled…
     title-secret-created: Secret created!
+    tooltip-burn-secret: Burn Secret now!
     tooltip-copy-to-clipboard: Copy to Clipboard
     tooltip-download-as-file: Download as File
 translations:
@@ -129,12 +131,14 @@ translations:
       text-powered-by: Läuft mit
       text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Dein Secret wurde angelegt und unter folgender URL gespeichert:'
+      text-secret-burned: Das Secret wurde zerstört.
       text-secret-create-disabled: Auf dieser Instanz wurde das Erstellen neuer Secrets deaktiviert.
       title-explanation: So funktioniert es&hellip;
       title-new-secret: Erstelle ein neues Secret
       title-reading-secret: Secret auslesen&hellip;
       title-secret-create-disabled: Erstellen von Secrets deaktiviert…
       title-secret-created: Secret erstellt!
+      tooltip-burn-secret: Secret jetzt zerstören!
       tooltip-copy-to-clipboard: In die Zwischenablage kopieren
       tooltip-download-as-file: Als Datei herunterladen
     formalTranslations:
