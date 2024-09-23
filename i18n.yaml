@@ -453,12 +453,14 @@ translations:
       text-powered-by: Obsługiwane przez
       text-pre-reveal-hint: Aby odsłonić sekret, naciśnij ten przycisk, jednak wiedz, że to zniszczy sekret. Możesz go zobaczyć tylko raz!
       text-pre-url: 'Twój sekret został stworzony i zachowany pod tym adresem URL:'
+      text-secret-burned: Sekret został pomyślnie zniszczony.
       text-secret-create-disabled: Tworzenie nowych sekretów jest wyłączone na tej instancji.
       title-explanation: Oto, jak to działa&hellip;
       title-new-secret: Stwórz nowy sekret
       title-reading-secret: Odczytywanie Twojego sekretu&hellip;
       title-secret-create-disabled: Tworzenie sekretów wyłączone&hellip;
       title-secret-created: Sekret utworzony!
+      tooltip-burn-secret: Zniszcz sekret teraz!
       tooltip-copy-to-clipboard: Skopiuj do schowka
       tooltip-download-as-file: Pobierz jako plik
   pt-BR:
