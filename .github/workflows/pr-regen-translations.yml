@@ -1,0 +1,39 @@
+---
+
+name: pull-request-ci
+on:
+  pull_request:
+
+jobs:
+  generate-translations:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: luzifer/gh-arch-env
+      env:
+        CGO_ENABLED: 0
+        GOPATH: /go
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      # required to push a commit
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: Re-Generate embedded translations file
+        working-directory: ./ci/translate
+        run: go run .
+
+      - uses: int128/update-generated-files-action@v2
+        with:
+          commit-message: 'CI: Update embedded translations'
+
+...
