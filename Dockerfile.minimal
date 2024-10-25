@@ -1,4 +1,4 @@
-FROM luzifer/archlinux as builder
+FROM golang:1-alpine AS builder
 
 ENV CGO_ENABLED=0 \
     GOPATH=/go \
@@ -8,12 +8,11 @@ COPY . /go/src/github.com/Luzifer/ots
 WORKDIR /go/src/github.com/Luzifer/ots
 
 RUN set -ex \
- && pacman --noconfirm -Syy \
+ && apk update && apk add \
       curl \
       git \
-      go \
       make \
-      nodejs-lts-hydrogen \
+      nodejs-lts \
       npm \
       tar \
       unzip \
