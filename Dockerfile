@@ -8,7 +8,7 @@ COPY . /go/src/github.com/Luzifer/ots
 WORKDIR /go/src/github.com/Luzifer/ots
 
 RUN set -ex \
- && apk update && apk add \
+ && apk --no-cache add \
       curl \
       git \
       make \
