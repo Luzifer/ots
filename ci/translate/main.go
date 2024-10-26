@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/Masterminds/sprig/v3"
+	"github.com/mitchellh/hashstructure/v2"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
@@ -71,6 +72,11 @@ func main() {
 		logrus.WithError(err).Fatal("loading translation file")
 	}
 
+	tfHash, err := hashstructure.Hash(tf, hashstructure.FormatV2, nil)
+	if err != nil {
+		logrus.WithError(err).Fatal("hashing source translations")
+	}
+
 	if cfg.AutoTranslate {
 		logrus.Info("auto-translating new strings...")
 
@@ -87,10 +93,16 @@ func main() {
 		}
 	}
 
-	logrus.Info("saving translation file...")
+	tfHashNew, err := hashstructure.Hash(tf, hashstructure.FormatV2, nil)
+	if err != nil {
+		logrus.WithError(err).Fatal("hashing processed translations")
+	}
 
-	if err = saveTranslationFile(tf); err != nil {
-		logrus.WithError(err).Fatal("saving translation file")
+	if tfHash != tfHashNew {
+		logrus.Info("saving translation file...")
+		if err = saveTranslationFile(tf); err != nil {
+			logrus.WithError(err).Fatal("saving translation file")
+		}
 	}
 
 	logrus.Info("updating JS embedded translations...")

@@ -8,6 +8,7 @@ require (
 	github.com/Luzifer/go_helpers/v2 v2.25.0
 	github.com/Luzifer/rconfig/v2 v2.5.2
 	github.com/Masterminds/sprig/v3 v3.3.0
+	github.com/mitchellh/hashstructure/v2 v2.0.2
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	gopkg.in/yaml.v3 v3.0.1
@@ -24,7 +25,7 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/cast v1.7.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/crypto v0.27.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/crypto v0.28.0 // indirect
+	golang.org/x/sys v0.26.0 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
 )
