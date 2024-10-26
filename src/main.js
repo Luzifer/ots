@@ -35,6 +35,12 @@ Vue.mixin({
 new Vue({
   components: { app },
 
+  computed: {
+    isSecureEnvironment() {
+      return Boolean(window.crypto.subtle)
+    },
+  },
+
   data: {
     customize: {},
     darkTheme: false,

@@ -2,7 +2,7 @@
 <template>
   <!-- Creation disabled -->
   <div
-    v-if="!canWrite"
+    v-if="!showCreateForm"
     class="card border-info-subtle mb-3"
   >
     <div
@@ -209,6 +209,10 @@ export default {
 
     maxFileSizeExceeded() {
       return this.fileSize > this.maxFileSize
+    },
+
+    showCreateForm() {
+      return this.canWrite && this.$root.isSecureEnvironment
     },
   },
 

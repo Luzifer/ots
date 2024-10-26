@@ -4,6 +4,7 @@ reference:
   translators:
     - Luzifer
   translations:
+    alert-insecure-environment: You are accessing this instance using an insecure connection. You will not be able to create or read secrets.
     alert-secret-not-found: This is not the secret you are looking for&hellip; - If you expected the secret to be here it might be compromised as someone else might have opened the link already.
     alert-something-went-wrong: Something went wrong. I'm very sorry about this&hellip;
     btn-create-secret: Create the secret!
@@ -97,6 +98,7 @@ translations:
     translators:
       - Luzifer
     translations:
+      alert-insecure-environment: Du besuchst diese Instanz über eine unsichere Verbindung. Du kannst deswegen keine Secrets erstellen oder lesen.
       alert-secret-not-found: Das ist nicht das Secret, was du suchst&hellip; - Falls du diesen Link noch nicht selbst geöffnet hast, könnte das Secret kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       alert-something-went-wrong: Irgendwas ging schief. Entschuldigung&hellip;
       btn-create-secret: Secret erstellen!
@@ -142,6 +144,7 @@ translations:
       tooltip-copy-to-clipboard: In die Zwischenablage kopieren
       tooltip-download-as-file: Als Datei herunterladen
     formalTranslations:
+      alert-insecure-environment: Sie besuchen diese Instanz über eine unsichere Verbindung. Sie können deswegen keine Secrets erstellen oder lesen.
       alert-secret-not-found: Dieses Secret existiert nicht. - Falls Sie diesen Link noch nicht selbst geöffnet haben, könnte der Inhalt kompromittiert sein, da jemand anderes den Link geöffnet haben könnte.
       btn-reveal-secret: Secret anzeigen
       items-explanation:

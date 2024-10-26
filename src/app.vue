@@ -8,7 +8,7 @@
         v-if="error"
         class="row justify-content-center"
       >
-        <div class="col-8">
+        <div class="col-12 col-md-8">
           <div
             class="alert alert-danger"
             role="alert"
@@ -100,6 +100,10 @@ export default {
   mounted() {
     window.onhashchange = this.hashLoad
     this.hashLoad()
+
+    if (!this.$root.isSecureEnvironment) {
+      this.error = this.$t('alert-insecure-environment')
+    }
   },
 
   name: 'App',
