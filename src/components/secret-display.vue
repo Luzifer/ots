@@ -56,28 +56,7 @@
         </div>
         <template v-if="files.length > 0">
           <p v-html="$t('text-attached-files')" />
-          <div class="list-group mb-3">
-            <a
-              v-for="file in files"
-              :key="file.name"
-              class="list-group-item list-group-item-action font-monospace d-flex align-items-center"
-              :href="file.url"
-              :download="file.name"
-              @click="$set(hasDownloaded, file.name, true)"
-            >
-              <i :class="fasFileType(file.type)" />
-              <span>{{ file.name }}</span>
-              <span class="ms-auto">{{ bytesToHuman(file.size) }}</span>
-              <i
-                v-if="!hasDownloaded[file.name]"
-                class="fas fa-fw fa-download ms-2 text-warning"
-              />
-              <i
-                v-else
-                class="fas fa-fw fa-circle-check ms-2 text-success"
-              />
-            </a>
-          </div>
+          <FilesDisplay :files="files" />
         </template>
         <p v-html="$t('text-hint-burned')" />
       </template>
@@ -88,17 +67,16 @@
 import appClipboardButton from './clipboard-button.vue'
 import appCrypto from '../crypto.js'
 import appQrButton from './qr-button.vue'
-import { bytesToHuman } from '../helpers'
+import FilesDisplay from './fileDisplay.vue'
 import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
 export default {
-  components: { GrowArea, appClipboardButton, appQrButton },
+  components: { FilesDisplay, GrowArea, appClipboardButton, appQrButton },
 
   data() {
     return {
       files: [],
-      hasDownloaded: {},
       popover: null,
       secret: null,
       secretContentBlobURL: null,
@@ -107,25 +85,6 @@ export default {
   },
 
   methods: {
-    bytesToHuman,
-
-    fasFileType(type) {
-      return [
-        'fas',
-        'fa-fw',
-        'me-2',
-        ...[
-          { icon: ['fa-file-pdf'], match: /application\/pdf/ },
-          { icon: ['fa-file-audio'], match: /^audio\// },
-          { icon: ['fa-file-image'], match: /^image\// },
-          { icon: ['fa-file-lines'], match: /^text\// },
-          { icon: ['fa-file-video'], match: /^video\// },
-          { icon: ['fa-file-zipper'], match: /^application\/(gzip|x-tar|zip)$/ },
-          { icon: ['fa-file-circle-question'], match: /.*/ },
-        ].filter(el => el.match.test(type))[0].icon,
-      ].join(' ')
-    },
-
     // requestSecret requests the encrypted secret from the backend
     requestSecret() {
       this.secretLoading = true
@@ -161,7 +120,13 @@ export default {
                     file.arrayBuffer()
                       .then(ab => {
                         const blobURL = window.URL.createObjectURL(new Blob([ab], { type: file.type }))
-                        this.files.push({ name: file.name, size: ab.byteLength, type: file.type, url: blobURL })
+                        this.files.push({
+                          id: window.crypto.randomUUID(),
+                          name: file.name,
+                          size: ab.byteLength,
+                          type: file.type,
+                          url: blobURL,
+                        })
                       })
                   })
                   this.secretLoading = false

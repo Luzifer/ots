@@ -3,6 +3,7 @@
     ref="area"
     v-model="data"
     style="resize: none;"
+    @paste="handlePaste"
   />
 </template>
 
@@ -33,7 +34,31 @@ export default {
     getStyle(name) {
       return parseInt(getComputedStyle(this.$refs.area, null)[name])
     },
+
+    handlePaste(evt) {
+      if ([...evt.clipboardData.items]
+        .filter(item => item.kind !== 'string')
+        .length === 0) {
+        return
+      }
+
+      /*
+       * We have something else than text, prevent using clipboard and
+       * pasting and emit an event containing the file data
+       */
+      evt.stopPropagation()
+      evt.preventDefault()
+
+      for (const item of evt.clipboardData.items) {
+        if (item.kind === 'string') {
+          continue
+        }
+
+        this.$emit('pasteFile', item.getAsFile())
+      }
+    },
   },
+
 
   mounted() {
     this.changeSize()

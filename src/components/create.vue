@@ -36,6 +36,7 @@
             v-model="secret"
             class="form-control"
             :rows="2"
+            @pasteFile="handlePasteFile"
           />
         </div>
         <div
@@ -50,7 +51,7 @@
             type="file"
             multiple
             :accept="$root.customize.acceptedFileTypes"
-            @change="updateFileMeta"
+            @change="handleSelectFiles"
           >
           <div class="form-text">
             {{ $t('text-max-filesize', { maxSize: bytesToHuman(maxFileSize) }) }}
@@ -67,6 +68,14 @@
           >
             {{ $t('text-max-filesize-exceeded', { curSize: bytesToHuman(fileSize), maxSize: bytesToHuman(maxFileSize) }) }}
           </div>
+          <FilesDisplay
+            v-if="attachedFiles.length > 0"
+            class="mt-3"
+            :can-delete="true"
+            :track-download="false"
+            :files="attachedFiles"
+            @fileClicked="deleteFile"
+          />
         </div>
         <div class="col-md-6 col-12 order-2 order-md-1">
           <button
@@ -117,6 +126,7 @@
 
 import appCrypto from '../crypto.js'
 import { bytesToHuman } from '../helpers'
+import FilesDisplay from './fileDisplay.vue'
 import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
@@ -148,7 +158,7 @@ const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 const passwordLength = 20
 
 export default {
-  components: { GrowArea },
+  components: { FilesDisplay, GrowArea },
 
   computed: {
     canCreate() {
@@ -222,6 +232,7 @@ export default {
 
   data() {
     return {
+      attachedFiles: [],
       canWrite: null,
       createRunning: false,
       fileSize: 0,
@@ -268,9 +279,9 @@ export default {
       const meta = new OTSMeta()
       meta.secret = this.secret
 
-      if (this.$refs.createSecretFiles) {
-        for (const f of [...this.$refs.createSecretFiles.files]) {
-          meta.files.push(f)
+      if (this.attachedFiles.length > 0) {
+        for (const f of this.attachedFiles) {
+          meta.files.push(f.fileObj)
         }
       }
 
@@ -317,6 +328,37 @@ export default {
       return false
     },
 
+    deleteFile(fileId) {
+      this.attachedFiles = [...this.attachedFiles].filter(file => file.id !== fileId)
+      this.updateFileMeta()
+    },
+
+    handlePasteFile(file) {
+      this.attachedFiles.push({
+        fileObj: file,
+        id: window.crypto.randomUUID(),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      })
+      this.updateFileMeta()
+    },
+
+    handleSelectFiles() {
+      for (const file of this.$refs.createSecretFiles.files) {
+        this.attachedFiles.push({
+          fileObj: file,
+          id: window.crypto.randomUUID(),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        })
+      }
+      this.updateFileMeta()
+
+      this.$refs.createSecretFiles.value = ''
+    },
+
     isAcceptedBy(fileMeta, accept) {
       if (/^(?:[a-z]+|\*)\/(?:[a-zA-Z0-9.+_-]+|\*)$/.test(accept)) {
         // That's likely supposed to be a mime-type
@@ -332,12 +374,12 @@ export default {
 
     updateFileMeta() {
       let cumSize = 0
-      for (const f of [...this.$refs.createSecretFiles.files]) {
+      for (const f of this.attachedFiles) {
         cumSize += f.size
       }
 
       this.fileSize = cumSize
-      this.selectedFileMeta = [...this.$refs.createSecretFiles.files].map(file => ({
+      this.selectedFileMeta = this.attachedFiles.map(file => ({
         name: file.name,
         type: file.type,
       }))
