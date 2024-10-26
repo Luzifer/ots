@@ -29,6 +29,7 @@ var (
 	cfg struct {
 		Customize      string `flag:"customize" default:"" description:"Customize-File to load"`
 		Listen         string `flag:"listen" default:":3000" description:"IP/Port to listen on"`
+		LogRequests    bool   `flag:"log-requests" default:"true" description:"Enable request logging"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
 		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
 		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
@@ -138,7 +139,9 @@ func main() {
 
 	var hdl http.Handler = r
 	hdl = http_helpers.GzipHandler(hdl)
-	hdl = http_helpers.NewHTTPLogHandlerWithLogger(hdl, logrus.StandardLogger())
+	if cfg.LogRequests {
+		hdl = http_helpers.NewHTTPLogHandlerWithLogger(hdl, logrus.StandardLogger())
+	}
 
 	server := &http.Server{
 		Addr:              cfg.Listen,
