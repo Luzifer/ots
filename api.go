@@ -52,6 +52,7 @@ func (a apiServer) Register(r *mux.Router) {
 	r.HandleFunc("/get/{id}", a.handleRead)
 	r.HandleFunc("/isWritable", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusNoContent) })
 	r.HandleFunc("/settings", a.handleSettings).Methods(http.MethodGet)
+	r.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {

@@ -90,6 +90,17 @@ You will now need to supply the web application with the password in addition to
 
 In this case due to how browsers are handling hashes in URLs (the part after the `#`) the only URL the server gets to know is `https://ots.fyi/` which loads the frontend. Afterwards the Javascript executed in the browser fetches the encrypted secret at the given ID and decrypts it with the given password (in this case `mypass`). I will not be able to tell the content of your secret and just see the AES 256bit encrypted content.
 
+## Local development
+
+This repo contains a `Tilefile` to be used with [tilt v0.33+](https://tilt.dev/) to build and start the server for development.
+
+Requirements:
+- Go v1.23+
+- Node v22+
+- Tilt v0.33+
+
+Just run `tilt up` and visit `http://localhost:15641/` for the development server.
+
 ## Localize to your own language
 
 If you want to help translating the application to your own language please see the [`i18n.yaml`](https://github.com/Luzifer/ots/blob/master/i18n.yaml) file from this repository and translate the English strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
