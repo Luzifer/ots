@@ -102,8 +102,5 @@ func (s *storageMem) ReadAndDestroy(id string) (string, error) {
 }
 
 func (m *memStorageSecret) hasExpired() bool {
-	if !m.Expiry.IsZero() && m.Expiry.Before(time.Now()) {
-		return true
-	}
-	return false
+	return !m.Expiry.IsZero() && m.Expiry.Before(time.Now())
 }
