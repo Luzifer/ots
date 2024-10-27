@@ -18,8 +18,8 @@ type (
 
 	storageMem struct {
 		sync.RWMutex
-		storePruneTimer time.Ticker
 		store           map[string]memStorageSecret
+		storePruneTimer time.Ticker
 	}
 )
 
