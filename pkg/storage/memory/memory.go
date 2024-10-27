@@ -19,14 +19,14 @@ type (
 	storageMem struct {
 		sync.RWMutex
 		store           map[string]memStorageSecret
-		storePruneTimer time.Ticker
+		storePruneTimer *time.Ticker
 	}
 )
 
 // New creates a new In-Mem storage
 func New() storage.Storage {
 	store := &storageMem{
-		storePruneTimer: *time.NewTicker(time.Minute),
+		storePruneTimer: time.NewTicker(time.Minute),
 		store:           make(map[string]memStorageSecret),
 	}
 
