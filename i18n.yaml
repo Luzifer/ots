@@ -422,6 +422,7 @@ translations:
     translators:
       - Icikowski
     translations:
+      alert-insecure-environment: Odwiedzasz tę instancję przez niezabezpieczone połączenie. Nie będziesz mógł tworzyć ani odczytywać sekretów.
       alert-secret-not-found: To nie jest sekret, którego szukasz&hellip; - Jeśli spodziewałeś się tu sekretu, to może być on zagrożony, ponieważ ktoś inny mógł już otworzyć ten link.
       alert-something-went-wrong: Coś poszło nie tak. Bardzo mi przykro&hellip;
       btn-create-secret: Stwórz sekret!
