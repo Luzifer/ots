@@ -1,6 +1,6 @@
-![](https://badges.fyi/github/license/Luzifer/ots)
-![](https://badges.fyi/github/latest-release/Luzifer/ots)
-![](https://badges.fyi/github/downloads/Luzifer/ots)
+![](https://img.shields.io/github/license/Luzifer/ots)
+![](https://img.shields.io/github/v/release/Luzifer/ots)
+![](https://img.shields.io/github/downloads/Luzifer/ots/total)
 
 # Luzifer / OTS
 
