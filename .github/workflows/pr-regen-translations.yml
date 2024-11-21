@@ -37,6 +37,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          commit_author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
           commit_message: 'CI: Update embedded translations'
           file_pattern: 'src/langs/langs.js'
 
