@@ -2,12 +2,8 @@
 
 name: pull-request-ci
 on:
-  pull_request_target:
-    types: ["opened", "synchronize", "reopened", "labeled", "unlabeled"]
-    branches: ["master"]
-
-permissions:
-  contents: write
+  pull_request:
+    paths: ["i18n.yaml"]
 
 jobs:
   generate-translations:
@@ -21,13 +17,15 @@ jobs:
         CGO_ENABLED: 0
         GOPATH: /go
 
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
@@ -36,8 +34,9 @@ jobs:
         working-directory: ./ci/translate
         run: go run .
 
-      - uses: int128/update-generated-files-action@v2
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit-message: 'CI: Update embedded translations'
+          commit_message: 'CI: Update embedded translations'
+          file_pattern: 'src/langs/langs.js'
 
 ...
