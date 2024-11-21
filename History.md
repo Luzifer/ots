@@ -1,3 +1,21 @@
+# 1.14.0 / 2024-11-21
+
+  * Improvements
+    * Add ability to paste files into textarea
+    * Add button to burn secrets immediately (#193)
+    * Add customization to add footer-links (#192)
+    * Add error message when subtle crypto is unavailable
+    * Add 'log-requests' option to disable request logging (#199) (Thanks @jimmypw)
+    * Add multi-platform image build
+    * Add periodic in-memory store pruner (#200) (Thanks @jimmypw)
+    * Add TLS configuration for server (#190) (Thanks @hixichen)
+
+  * Bugfixes
+    * Fix: Use no-cache to satisfy Trivy
+
+  * Translations
+    * Update Polish translation (#194, #201) (Thanks @Icikowski)
+
 # 1.13.0 / 2024-08-27
 
   * Bugfixes
