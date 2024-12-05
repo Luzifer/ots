@@ -7,13 +7,13 @@
         @click.prevent="$root.navigate('/')"
       >
         <i
-          v-if="!$root.customize.appIcon"
+          v-if="!appIcon"
           class="fas fa-user-secret mr-1"
         />
         <img
           v-else
           class="mr-1"
-          :src="$root.customize.appIcon"
+          :src="appIcon"
         >
         <span v-if="!$root.customize.disableAppTitle">{{ $root.customize.appTitle }}</span>
       </a>
@@ -77,6 +77,17 @@
 
 <script>
 export default {
+  computed: {
+    appIcon() {
+      // Use specified icon or fall back to null
+      const appIcon = this.$root.customize.appIcon || null
+      // Use specified icon or fall back to light-mode appIcon (which might be null)
+      const darkIcon = this.$root.customize.appIconDark || appIcon
+
+      return this.$root.darkTheme ? darkIcon : appIcon
+    },
+  },
+
   name: 'AppNavbar',
 }
 </script>
