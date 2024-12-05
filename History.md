@@ -1,3 +1,8 @@
+# 1.15.0 / 2024-12-05
+
+  * Improvements
+    * Add alternative `appIcon` for dark-mode (#204)
+
 # 1.14.0 / 2024-11-21
 
   * Improvements
