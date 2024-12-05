@@ -23,6 +23,7 @@ type (
 	// Customize holds the structure of the customization file
 	Customize struct {
 		AppIcon              string `json:"appIcon,omitempty" yaml:"appIcon"`
+		AppIconDark          string `json:"appIconDark,omitempty" yaml:"appIconDark"`
 		AppTitle             string `json:"appTitle,omitempty" yaml:"appTitle"`
 		DisableAppTitle      bool   `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
 		DisablePoweredBy     bool   `json:"disablePoweredBy,omitempty" yaml:"disablePoweredBy"`
