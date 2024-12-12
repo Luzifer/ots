@@ -1,3 +1,9 @@
+# 1.15.1 / 2024-12-12
+
+  * Bugfixes
+    * Update Node dependencies
+    * Update Go dependencies
+
 # 1.15.0 / 2024-12-05
 
   * Improvements
