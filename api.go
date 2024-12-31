@@ -56,6 +56,13 @@ func (a apiServer) Register(r *mux.Router) {
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
+	res.Header().Set("Access-Control-Allow-Origin", "*")
+	res.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	if r.Method == http.MethodOptions {
+		res.WriteHeader(http.StatusNoContent)
+		return
+	}
+
 	if cust.MaxSecretSize > 0 {
 		// As a safeguard against HUGE payloads behind a misconfigured
 		// proxy we take double the maximum secret size after which we
