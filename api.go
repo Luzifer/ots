@@ -56,11 +56,14 @@ func (a apiServer) Register(r *mux.Router) {
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
-	res.Header().Set("Access-Control-Allow-Origin", "*")
-	res.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
-	if r.Method == http.MethodOptions {
-		res.WriteHeader(http.StatusNoContent)
-		return
+	if cust.AddCORSHeaders {
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		if r.Method == http.MethodOptions {
+			res.WriteHeader(http.StatusNoContent)
+			return
+		}
+
 	}
 
 	if cust.MaxSecretSize > 0 {

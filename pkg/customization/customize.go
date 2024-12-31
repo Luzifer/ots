@@ -41,6 +41,7 @@ type (
 		MetricsAllowedSubnets []string `json:"-" yaml:"metricsAllowedSubnets"`
 		OverlayFSPath         string   `json:"-" yaml:"overlayFSPath"`
 		UseFormalLanguage     bool     `json:"-" yaml:"useFormalLanguage"`
+		AddCORSHeaders        bool     `json:"-" yaml:"addCORSHeaders"`
 
 		FooterLinks []FooterLink `json:"footerLinks,omitempty" yaml:"footerLinks"`
 	}
