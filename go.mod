@@ -8,7 +8,7 @@ replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
 require (
 	github.com/Luzifer/go_helpers/v2 v2.25.0
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20241205141904-ee46f22447b9
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20241212093302-8fadf7205f51
 	github.com/Luzifer/rconfig/v2 v2.5.2
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/gofrs/uuid v4.4.0+incompatible
@@ -33,14 +33,14 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.61.0 // indirect
+	github.com/prometheus/common v0.62.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
-	github.com/spf13/cast v1.7.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	google.golang.org/protobuf v1.35.2 // indirect
+	github.com/spf13/cast v1.7.1 // indirect
+	github.com/spf13/pflag v1.0.6 // indirect
+	golang.org/x/crypto v0.33.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
+	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
