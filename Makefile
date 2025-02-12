@@ -11,7 +11,7 @@ build-local: download_libs generate-inner generate-apidocs
 		-trimpath
 
 generate:
-	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:18-alpine \
+	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:22-alpine \
 		sh -exc "apk add make && make generate-inner generate-apidocs && chown -R $(shell id -u) frontend node_modules"
 
 generate-apidocs:
