@@ -17,7 +17,7 @@ jobs:
         shell: bash
 
     container:
-      image: luzifer/archlinux
+      image: ghcr.io/luzifer-docker/gh-arch-env
       env:
         CGO_ENABLED: 0
         GOPATH: /go
@@ -25,27 +25,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enable custom AUR package repo
-        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://archrepo.hub.luzifer.io/\$arch" >>/etc/pacman.conf
-
-      - name: Install required packages
-        run: |
-          pacman -Syy --noconfirm \
-            awk \
-            curl \
-            diffutils \
-            git \
-            go \
-            golangci-lint-bin \
-            make \
-            nodejs-lts-hydrogen \
-            npm \
-            tar \
-            trivy \
-            unzip \
-            which \
-            zip
-
       - uses: actions/checkout@v3
 
       - name: Marking workdir safe
