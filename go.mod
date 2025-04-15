@@ -1,8 +1,7 @@
 module github.com/Luzifer/ots
 
 go 1.23
-
-toolchain go1.23.0
+toolchain go1.24.1
 
 replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
@@ -38,7 +37,7 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/cast v1.7.1 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
-	golang.org/x/crypto v0.33.0 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
