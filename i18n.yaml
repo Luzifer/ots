@@ -108,6 +108,7 @@ translations:
       btn-reveal-secret: Zeig mir das Secret!
       btn-reveal-secret-processing: Secret wird entschlüsselt…
       btn-show-explanation: Wie funktioniert das?
+      btn-theme-switcher-auto: Auto
       expire-default: Server-Standard
       expire-n-days: '{n} Tag | {n} Tage'
       expire-n-hours: '{n} Stunde | {n} Stunden'
