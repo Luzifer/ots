@@ -117,7 +117,7 @@ export default {
       // Use specified icon or fall back to light-mode appIcon (which might be null)
       const darkIcon = this.$root.customize.appIconDark || appIcon
 
-      return window.getTheme() === 'dark' ? darkIcon : appIcon
+      return this.$root.theme === 'dark' ? darkIcon : appIcon
     },
   },
 
