@@ -32,7 +32,7 @@ var (
 		LogRequests    bool   `flag:"log-requests" default:"true" description:"Enable request logging"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Set log level (debug, info, warning, error)"`
 		SecretExpiry   int64  `flag:"secret-expiry" default:"0" description:"Maximum expiry of the stored secrets in seconds"`
-		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"`
+		StorageType    string `flag:"storage-type" default:"mem" description:"Storage to use for putting secrets to" validate:"nonzero"` //revive:disable-line:struct-tag // Matches wrong validation library
 		VersionAndExit bool   `flag:"version" default:"false" description:"Print version information and exit"`
 		EnableTLS      bool   `flag:"enable-tls" default:"false" description:"Enable HTTPS/TLS"`
 		CertFile       string `flag:"cert-file" default:"" description:"Path to the TLS certificate file"`
