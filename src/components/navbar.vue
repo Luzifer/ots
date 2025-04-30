@@ -56,19 +56,52 @@
         </ul>
         <form
           v-if="!$root.customize.disableThemeSwitcher"
-          class="d-flex align-items-center"
+          class="d-flex align-items-center btn-group"
         >
-          <i class="fas fa-sun me-2" />
-          <div class="form-check form-switch">
-            <input
-              id="themeswitch"
-              v-model="$root.darkTheme"
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-            >
-          </div>
-          <i class="fas fa-moon" />
+          <input
+            id="theme-light"
+            v-model="$root.theme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="light"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-light"
+          >
+            <i class="fas fa-sun" />
+          </label>
+
+          <input
+            id="theme-auto"
+            v-model="$root.theme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="auto"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-auto"
+          >
+            Auto
+          </label>
+
+          <input
+            id="theme-dark"
+            v-model="$root.theme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="dark"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-dark"
+          >
+            <i class="fas fa-moon" />
+          </label>
         </form>
       </div>
     </div>
@@ -84,7 +117,7 @@ export default {
       // Use specified icon or fall back to light-mode appIcon (which might be null)
       const darkIcon = this.$root.customize.appIconDark || appIcon
 
-      return this.$root.darkTheme ? darkIcon : appIcon
+      return window.getTheme() === 'dark' ? darkIcon : appIcon
     },
   },
 
