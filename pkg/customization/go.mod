@@ -1,6 +1,8 @@
 module github.com/Luzifer/ots/pkg/customization
 
-go 1.23
+go 1.23.0
+
+toolchain go1.24.2
 
 require (
 	github.com/pkg/errors v0.9.1
@@ -8,4 +10,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-require golang.org/x/sys v0.30.0 // indirect
+require golang.org/x/sys v0.32.0 // indirect

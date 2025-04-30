@@ -32,6 +32,7 @@ local_resource(
     'pkg',
     'storage.go',
     'tplFuncs.go',
+    'go.mod', 'go.sum',
   ],
   ignore=['ots', 'src'],
   serve_cmd='./ots --listen=:15641',
