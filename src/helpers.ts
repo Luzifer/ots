@@ -9,7 +9,7 @@ function bytesToHuman(bytes: number): string {
     { thresh: 1024, unit: 'KiB' },
   ]) {
     if (bytes > t.thresh) {
-      return `${(bytes / t.thresh).toFixed(1)} ${t.unit}`
+      return `${parseFloat((bytes / t.thresh).toFixed(1))} ${t.unit}`
     }
   }
 
