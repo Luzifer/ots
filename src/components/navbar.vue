@@ -85,7 +85,7 @@
             class="btn btn-outline-secondary btn-sm"
             for="theme-auto"
           >
-            Auto
+            {{ $t('btn-theme-switcher-auto') }}
           </label>
 
           <input

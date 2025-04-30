@@ -13,6 +13,7 @@ reference:
     btn-reveal-secret: Show me the secret!
     btn-reveal-secret-processing: Secret is being decrypted…
     btn-show-explanation: How does this work?
+    btn-theme-switcher-auto: Auto
     expire-default: Default Expiry
     expire-n-days: '{n} day | {n} days'
     expire-n-hours: '{n} hour | {n} hours'
@@ -343,6 +344,7 @@ translations:
       btn-reveal-secret: Toon mij het geheim!
       btn-reveal-secret-processing: Geheim wordt ontsleuteld...
       btn-show-explanation: Hoe werkt dit?
+      btn-theme-switcher-auto: Auto
       expire-default: Standaard vervaltermijn
       expire-n-days: '{n} dag | {n} dagen'
       expire-n-hours: '{n} uur | {n} uur'
