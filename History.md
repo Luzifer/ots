@@ -1,3 +1,14 @@
+# 1.16.0 / 2025-05-01
+
+  * New Features
+    * feat: support auto theme mode (#212) (Thanks @Ma-ve)
+
+  * Bugfixes
+    * Cleanup test workflow
+    * Lint: Update linter config for golangci-lint v2
+    * Update Go dependencies
+    * Update Node dependencies
+
 # 1.15.1 / 2024-12-12
 
   * Bugfixes
