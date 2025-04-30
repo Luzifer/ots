@@ -99,7 +99,11 @@ Requirements:
 - Node v22+
 - Tilt v0.33+
 
-Just run `tilt up` and visit `http://localhost:15641/` for the development server.
+Run `tilt up`, and see `http://localhost:10350/` for the Tilt dashboard.
+
+Front-end application is available at `http://localhost:15641/`.
+
+Run `make download_libs` to propagate all required/compiled CSS and fonts.
 
 ## Localize to your own language
 

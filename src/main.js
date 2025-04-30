@@ -43,7 +43,7 @@ new Vue({
 
   data: {
     customize: {},
-    darkTheme: false,
+    theme: 'auto',
     version,
   },
 
@@ -65,7 +65,11 @@ new Vue({
 
   mounted() {
     this.customize = window.OTSCustomize
-    this.darkTheme = window.getTheme() === 'dark'
+    this.theme = window.getThemeFromStorage()
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+      window.refreshTheme()
+    })
   },
 
   name: 'OTS',
@@ -73,8 +77,8 @@ new Vue({
   router,
 
   watch: {
-    darkTheme(to) {
-      window.setTheme(to ? 'dark' : 'light')
+    theme(to) {
+      window.setTheme(to)
     },
   },
 })

@@ -31,7 +31,17 @@
     <title>{{ .Customize.AppTitle }}</title>
 
     <script nonce="{{ .InlineContentNonce }}">
-      window.getTheme = () => localStorage.getItem('set-color-scheme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+      window.getThemeFromStorage = () => localStorage.getItem('set-color-scheme') || 'auto'
+
+      window.getTheme = () => {
+        const colorScheme = window.getThemeFromStorage()
+
+        if (!colorScheme || colorScheme === 'auto') {
+          return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        }
+
+        return colorScheme
+      }
 
       window.refreshTheme = () => {
         document.querySelector('html').setAttribute('data-bs-theme', window.getTheme())
