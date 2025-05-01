@@ -8,7 +8,7 @@ replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
 require (
 	github.com/Luzifer/go_helpers/v2 v2.25.0
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501141043-caff9de9043b
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501151834-283ffa548fa8
 	github.com/Luzifer/rconfig/v2 v2.6.0
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/gofrs/uuid v4.4.0+incompatible
@@ -41,6 +41,5 @@ require (
 	golang.org/x/sys v0.32.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
