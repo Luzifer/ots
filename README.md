@@ -103,8 +103,6 @@ Run `tilt up`, and see `http://localhost:10350/` for the Tilt dashboard.
 
 Front-end application is available at `http://localhost:15641/`.
 
-Run `make download_libs` to propagate all required/compiled CSS and fonts.
-
 ## Localize to your own language
 
 If you want to help translating the application to your own language please see the [`i18n.yaml`](https://github.com/Luzifer/ots/blob/master/i18n.yaml) file from this repository and translate the English strings inside. Afterwards please [open an issue](https://github.com/Luzifer/ots/issues/new) and attach your translation including the information which language you translated the strings into.
