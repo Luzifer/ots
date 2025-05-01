@@ -1,6 +1,6 @@
-import { sassPlugin } from 'esbuild-sass-plugin'
-import vuePlugin from 'esbuild-vue'
 import esbuild from 'esbuild'
+import { sassPlugin } from 'esbuild-sass-plugin'
+import vuePlugin from 'esbuild-plugin-vue3'
 
 esbuild.build({
   assetNames: '[name]',
@@ -8,9 +8,10 @@ esbuild.build({
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'dev'),
   },
-  entryPoints: ['src/main.js'],
+  entryPoints: ['src/main.ts'],
   legalComments: 'none',
   loader: {
+    '.ttf': 'empty', // Drop files, all targets below support woff2
     '.woff2': 'file',
   },
   minify: true,
@@ -20,10 +21,10 @@ esbuild.build({
     vuePlugin(),
   ],
   target: [
-    'chrome87',
-    'edge87',
+    'chrome109',
+    'edge132',
     'es2020',
-    'firefox84',
-    'safari14',
+    'firefox115',
+    'safari16',
   ],
 })

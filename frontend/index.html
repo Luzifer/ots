@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    {{ range (list "webfonts/fa-solid-900.woff2" "webfonts/fa-brands-400.woff2" "lato-v20-latin-ext_latin-regular.woff2" "lato-v20-latin-ext_latin-700.woff2") }}
+    {{ range (list "fa-solid-900.woff2" "fa-brands-400.woff2") }}
     <link
       as="font"
       crossorigin="anonymous"
@@ -18,13 +18,6 @@
       crossorigin="anonymous"
       href="app.css"
       integrity="{{ assetSRI `app.css` }}"
-      rel="stylesheet"
-    >
-
-    <link
-      crossorigin="anonymous"
-      href="css/all.min.css"
-      integrity="{{ assetSRI `css/all.min.css` }}"
       rel="stylesheet"
     >
 
@@ -56,8 +49,8 @@
       document.addEventListener('DOMContentLoaded', () => window.refreshTheme())
 
       // Template variable from Golang process
-      const maxSecretExpire = {{ .MaxSecretExpiry }}
-      const version = "{{ .Version }}"
+      window.maxSecretExpire = {{ .MaxSecretExpiry }}
+      window.version = "{{ .Version }}"
       window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
       window.useFormalLanguage = {{ .Customize.UseFormalLanguage | mustToJson }}
     </script>

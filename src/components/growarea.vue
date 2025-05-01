@@ -7,8 +7,10 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   created() {
     this.data = this.value
   },
@@ -19,8 +21,14 @@ export default {
     }
   },
 
+  emits: ['input', 'pasteFile'],
+
   methods: {
-    changeSize() {
+    changeSize(): void {
+      if (!this.$refs.area) {
+        return
+      }
+
       const verticalBorderSize = this.getStyle('borderTopWidth') + this.getStyle('borderBottomWidth') || 0
       const verticalPaddingSize = this.getStyle('paddingTop') + this.getStyle('paddingBottom') || 0
 
@@ -31,12 +39,12 @@ export default {
       this.$refs.area.style.height = `${newHeight}px`
     },
 
-    getStyle(name) {
+    getStyle(name: string): number {
       return parseInt(getComputedStyle(this.$refs.area, null)[name])
     },
 
-    handlePaste(evt) {
-      if ([...evt.clipboardData.items]
+    handlePaste(evt: ClipboardEvent): void {
+      if ([...evt.clipboardData?.items || []]
         .filter(item => item.kind !== 'string')
         .length === 0) {
         return
@@ -49,7 +57,7 @@ export default {
       evt.stopPropagation()
       evt.preventDefault()
 
-      for (const item of evt.clipboardData.items) {
+      for (const item of evt.clipboardData?.items || []) {
         if (item.kind === 'string') {
           continue
         }
@@ -59,8 +67,7 @@ export default {
     },
   },
 
-
-  mounted() {
+  mounted(): void {
     this.changeSize()
   },
 
@@ -92,5 +99,5 @@ export default {
       }
     },
   },
-}
+})
 </script>

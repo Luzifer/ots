@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <!-- Creation disabled -->
   <div
@@ -36,11 +35,11 @@
             v-model="secret"
             class="form-control"
             :rows="2"
-            @pasteFile="handlePasteFile"
+            @paste-file="handlePasteFile"
           />
         </div>
         <div
-          v-if="!$root.customize.disableFileAttachment"
+          v-if="!customize.disableFileAttachment"
           class="col-12 mb-3"
         >
           <label for="createSecretFiles">{{ $t('label-secret-files') }}</label>
@@ -50,7 +49,7 @@
             class="form-control"
             type="file"
             multiple
-            :accept="$root.customize.acceptedFileTypes"
+            :accept="customize.acceptedFileTypes"
             @change="handleSelectFiles"
           >
           <div class="form-text">
@@ -74,7 +73,7 @@
             :can-delete="true"
             :track-download="false"
             :files="attachedFiles"
-            @fileClicked="deleteFile"
+            @file-clicked="deleteFile"
           />
         </div>
         <div class="col-md-6 col-12 order-2 order-md-1">
@@ -93,7 +92,7 @@
           </button>
         </div>
         <div
-          v-if="!$root.customize.disableExpiryOverride"
+          v-if="!customize.disableExpiryOverride"
           class="col-md-6 col-12 order-1 order-md-2"
         >
           <div class="row mb-3 justify-content-end">
@@ -108,7 +107,7 @@
               >
                 <option
                   v-for="opt in expiryChoices"
-                  :key="opt.value"
+                  :key="opt.value || 'null'"
                   :value="opt.value"
                 >
                   {{ opt.text }}
@@ -121,11 +120,11 @@
     </div>
   </div>
 </template>
-<script>
-/* global maxSecretExpire */
 
-import appCrypto from '../crypto.js'
+<script lang="ts">
+import appCrypto from '../crypto.ts'
 import { bytesToHuman } from '../helpers'
+import { defineComponent } from 'vue'
 import FilesDisplay from './fileDisplay.vue'
 import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
@@ -157,30 +156,35 @@ const internalMaxFileSize = 64 * 1024 * 1024 // 64 MiB
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
 
-export default {
+export default defineComponent({
   components: { FilesDisplay, GrowArea },
 
   computed: {
-    canCreate() {
+    canCreate(): boolean {
       return (this.secret.trim().length > 0 || this.selectedFileMeta.length > 0) && !this.maxFileSizeExceeded && !this.invalidFilesSelected
     },
 
-    expiryChoices() {
-      const choices = [{ text: this.$t('expire-default'), value: null }]
-      for (const choice of this.$root.customize.expiryChoices || defaultExpiryChoices) {
-        if (maxSecretExpire > 0 && choice > maxSecretExpire) {
+    customize(): any {
+      return window.OTSCustomize || {}
+    },
+
+    expiryChoices(): Record<string, string | null>[] {
+      const choices = [{ text: this.$t('expire-default'), value: null as string | null }]
+
+      for (const choice of this.customize.expiryChoices || defaultExpiryChoices) {
+        if (window.maxSecretExpire > 0 && choice > window.maxSecretExpire) {
           continue
         }
 
-        const option = { value: choice }
+        const option = { text: '', value: choice }
         if (choice >= 86400) {
-          option.text = this.$tc('expire-n-days', Math.round(choice / 86400))
+          option.text = this.$t('expire-n-days', Math.round(choice / 86400))
         } else if (choice >= 3600) {
-          option.text = this.$tc('expire-n-hours', Math.round(choice / 3600))
+          option.text = this.$t('expire-n-hours', Math.round(choice / 3600))
         } else if (choice >= 60) {
-          option.text = this.$tc('expire-n-minutes', Math.round(choice / 60))
+          option.text = this.$t('expire-n-minutes', Math.round(choice / 60))
         } else {
-          option.text = this.$tc('expire-n-seconds', choice)
+          option.text = this.$t('expire-n-seconds', choice)
         }
 
         choices.push(option)
@@ -189,13 +193,13 @@ export default {
       return choices
     },
 
-    invalidFilesSelected() {
-      if (this.$root.customize.acceptedFileTypes === '') {
+    invalidFilesSelected(): boolean {
+      if (this.customize.acceptedFileTypes === '') {
         // No limitation configured, no need to check
         return false
       }
 
-      const accepted = this.$root.customize.acceptedFileTypes.split(',')
+      const accepted = this.customize.acceptedFileTypes.split(',')
       for (const fm of this.selectedFileMeta) {
         let isAccepted = false
 
@@ -213,20 +217,24 @@ export default {
       return false
     },
 
-    maxFileSize() {
-      return this.$root.customize.maxAttachmentSizeTotal === 0 ? internalMaxFileSize : Math.min(internalMaxFileSize, this.$root.customize.maxAttachmentSizeTotal)
+    isSecureEnvironment(): boolean {
+      return Boolean(window.crypto.subtle)
     },
 
-    maxFileSizeExceeded() {
+    maxFileSize(): number {
+      return this.customize.maxAttachmentSizeTotal === 0 ? internalMaxFileSize : Math.min(internalMaxFileSize, this.customize.maxAttachmentSizeTotal)
+    },
+
+    maxFileSizeExceeded(): boolean {
       return this.fileSize > this.maxFileSize
     },
 
-    showCreateForm() {
-      return this.canWrite && this.$root.isSecureEnvironment
+    showCreateForm(): boolean {
+      return this.canWrite && this.isSecureEnvironment
     },
   },
 
-  created() {
+  created(): void {
     this.checkWriteAccess()
   },
 
@@ -243,11 +251,13 @@ export default {
     }
   },
 
+  emits: ['error', 'navigate'],
+
   methods: {
     bytesToHuman,
 
-    checkWriteAccess() {
-      fetch('api/isWritable', {
+    checkWriteAccess(): Promise<void> {
+      return fetch('api/isWritable', {
         credentials: 'same-origin',
         method: 'GET',
         redirect: 'error',
@@ -264,9 +274,9 @@ export default {
     },
 
     // createSecret executes the secret creation after encrypting the secret
-    createSecret() {
+    createSecret(): void {
       if (!this.canCreate) {
-        return false
+        return
       }
 
       // Encoding large files takes a while, prevent duplicate click on "create"
@@ -309,7 +319,7 @@ export default {
 
               resp.json()
                 .then(data => {
-                  this.$root.navigate({
+                  this.$emit('navigate', {
                     path: '/display-secret-url',
                     query: {
                       expiresAt: data.expires_at,
@@ -324,16 +334,14 @@ export default {
               this.$emit('error', this.$t('alert-something-went-wrong'))
             })
         })
-
-      return false
     },
 
-    deleteFile(fileId) {
+    deleteFile(fileId: string): void {
       this.attachedFiles = [...this.attachedFiles].filter(file => file.id !== fileId)
       this.updateFileMeta()
     },
 
-    handlePasteFile(file) {
+    handlePasteFile(file: File): void {
       this.attachedFiles.push({
         fileObj: file,
         id: window.crypto.randomUUID(),
@@ -344,7 +352,7 @@ export default {
       this.updateFileMeta()
     },
 
-    handleSelectFiles() {
+    handleSelectFiles(): void {
       for (const file of this.$refs.createSecretFiles.files) {
         this.attachedFiles.push({
           fileObj: file,
@@ -359,7 +367,7 @@ export default {
       this.$refs.createSecretFiles.value = ''
     },
 
-    isAcceptedBy(fileMeta, accept) {
+    isAcceptedBy(fileMeta: any, accept: string): boolean {
       if (/^(?:[a-z]+|\*)\/(?:[a-zA-Z0-9.+_-]+|\*)$/.test(accept)) {
         // That's likely supposed to be a mime-type
         return RegExp(`^${accept.replaceAll('*', '.*')}$`).test(fileMeta.type)
@@ -372,7 +380,7 @@ export default {
       return false
     },
 
-    updateFileMeta() {
+    updateFileMeta(): void {
       let cumSize = 0
       for (const f of this.attachedFiles) {
         cumSize += f.size
@@ -387,5 +395,5 @@ export default {
   },
 
   name: 'AppCreate',
-}
+})
 </script>

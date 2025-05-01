@@ -17,7 +17,7 @@
           type="text"
           readonly
           :value="secretUrl"
-          @focus="$refs.secretUrl.select()"
+          @focus="selectURL"
         >
         <app-clipboard-button
           :content="secretUrl"
@@ -46,14 +46,17 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import appClipboardButton from './clipboard-button.vue'
 import appQrButton from './qr-button.vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: { appClipboardButton, appQrButton },
+
   computed: {
-    secretUrl() {
+    secretUrl(): string {
       return [
         window.location.href.split('#')[0],
         encodeURIComponent([
@@ -72,20 +75,25 @@ export default {
   },
 
   methods: {
-    burnSecret() {
+    burnSecret(): Promise<void> {
       return fetch(`api/get/${this.secretId}`)
         .then(() => {
           this.burned = true
         })
     },
+
+    selectURL(): void {
+      this.$refs.secretUrl.select()
+    },
   },
 
-  mounted() {
+  mounted(): void {
     // Give the interface a moment to transistion and focus
     window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
   },
 
   name: 'AppDisplayURL',
+
   props: {
     expiresAt: {
       default: null,
@@ -103,5 +111,5 @@ export default {
       type: String,
     },
   },
-}
+})
 </script>

@@ -1,16 +1,16 @@
 # Install Node deps on change of package.json
 local_resource(
-  'npm',
-  cmd='npm i',
+  'yarn',
+  cmd='corepack yarn@1 install', # Not using the make target to edit the lockfile
   deps=['package.json'],
 )
 
 # Rebuild frontend if source files change
 local_resource(
   'frontend',
-  cmd='node ./ci/build.mjs',
+  cmd='make frontend',
   deps=['src'],
-  resource_deps=['npm'],
+  resource_deps=['yarn'],
 )
 
 # Generate translation files on source change
@@ -33,7 +33,9 @@ local_resource(
     'tplFuncs.go',
     'go.mod', 'go.sum',
   ],
-  ignore=['ots', 'src'],
+  ignore=[
+    'src'
+  ],
   serve_cmd='go run . --listen=:15641',
   serve_env={
     'CUSTOMIZE': 'customize.yaml',
@@ -42,5 +44,8 @@ local_resource(
     http_get=http_get_action(15641, path='/api/healthz'),
     initial_delay_secs=1,
   ),
-  resource_deps=['frontend', 'translations'],
+  resource_deps=[
+    'frontend',
+    'translations',
+  ],
 )

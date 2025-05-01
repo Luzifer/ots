@@ -1,7 +1,9 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div id="app">
-    <app-navbar />
+    <app-navbar
+      v-model:theme="theme"
+      @navigate="navigate"
+    />
 
     <div class="container mt-4">
       <div
@@ -19,7 +21,10 @@
 
       <div class="row">
         <div class="col">
-          <router-view @error="displayError" />
+          <router-view
+            @error="displayError"
+            @navigate="navigate"
+          />
         </div>
       </div>
 
@@ -28,15 +33,15 @@
       >
         <div class="col form-text text-center">
           <span
-            v-if="!$root.customize.disablePoweredBy"
+            v-if="!customize.disablePoweredBy"
             class="mx-2"
           >
             {{ $t('text-powered-by') }}
             <a href="https://github.com/Luzifer/ots"><i class="fab fa-github" /> OTS</a>
-            {{ $root.version }}
+            {{ version }}
           </span>
           <span
-            v-for="link in $root.customize.footerLinks"
+            v-for="link in customize.footerLinks"
             :key="link.url"
             class="mx-2"
           >
@@ -48,26 +53,39 @@
   </div>
 </template>
 
-<script>
-import AppNavbar from './components/navbar.vue'
+<script lang="ts">
+import { isNavigationFailure, NavigationFailureType } from 'vue-router'
 
-export default {
-  components: {
-    AppNavbar,
+import AppNavbar from './components/navbar.vue'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  components: { AppNavbar },
+
+  computed: {
+    isSecureEnvironment(): boolean {
+      return Boolean(window.crypto.subtle)
+    },
+
+    version(): string {
+      return window.version
+    },
   },
 
   created() {
-    this.$root.navigate('/')
+    this.navigate('/')
   },
 
   data() {
     return {
-      error: '',
+      customize: {} as any,
+      error: '' as string | null,
+      theme: 'auto',
     }
   },
 
   methods: {
-    displayError(error) {
+    displayError(error: string | null) {
       this.error = error
     },
 
@@ -80,13 +98,13 @@ export default {
 
       const parts = hash.substring(1).split('|')
       const secretId = parts[0]
-      let securePassword = null
+      let securePassword = null as string | null
 
       if (parts.length === 2) {
         securePassword = parts[1]
       }
 
-      this.$root.navigate({
+      this.navigate({
         path: '/secret',
         query: {
           secretId,
@@ -94,18 +112,44 @@ export default {
         },
       })
     },
+
+    navigate(to: string | any): void {
+      this.error = ''
+      this.$router.replace(to)
+        .catch(err => {
+          if (isNavigationFailure(err, NavigationFailureType.duplicated)) {
+            // Hide duplicate nav errors
+            return
+          }
+          throw err
+        })
+    },
   },
 
   // Trigger initialization functions
   mounted() {
+    this.customize = window.OTSCustomize
+
     window.onhashchange = this.hashLoad
     this.hashLoad()
 
-    if (!this.$root.isSecureEnvironment) {
+    if (!this.isSecureEnvironment) {
       this.error = this.$t('alert-insecure-environment')
     }
+
+    this.theme = window.getThemeFromStorage()
+    window.matchMedia('(prefers-color-scheme: light)')
+      .addEventListener('change', () => {
+        window.refreshTheme()
+      })
   },
 
   name: 'App',
-}
+
+  watch: {
+    theme(to): void {
+      window.setTheme(to)
+    },
+  },
+})
 </script>

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="card border-primary-subtle mb-3">
     <div
@@ -44,7 +43,7 @@
               />
               <a
                 class="btn btn-secondary"
-                :href="secretContentBlobURL"
+                :href="secretContentBlobURL || ''"
                 download
                 :title="$t('tooltip-download-as-file')"
               >
@@ -63,15 +62,17 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import appClipboardButton from './clipboard-button.vue'
-import appCrypto from '../crypto.js'
+import appCrypto from '../crypto.ts'
 import appQrButton from './qr-button.vue'
+import { defineComponent } from 'vue'
 import FilesDisplay from './fileDisplay.vue'
 import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
-export default {
+export default defineComponent({
   components: { FilesDisplay, GrowArea, appClipboardButton, appQrButton },
 
   data() {
@@ -84,9 +85,11 @@ export default {
     }
   },
 
+  emits: ['error'],
+
   methods: {
     // requestSecret requests the encrypted secret from the backend
-    requestSecret() {
+    requestSecret(): void {
       this.secretLoading = true
       window.history.replaceState({}, '', window.location.href.split('#')[0])
       fetch(`api/get/${this.secretId}`)
@@ -163,5 +166,5 @@ export default {
       this.secretContentBlobURL = window.URL.createObjectURL(new Blob([to], { type: 'text/plain' }))
     },
   },
-}
+})
 </script>

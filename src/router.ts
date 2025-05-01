@@ -1,9 +1,9 @@
+import { createMemoryHistory, createRouter } from 'vue-router'
+
 import AppCreate from './components/create.vue'
 import AppDisplayURL from './components/display-url.vue'
 import AppExplanation from './components/explanation.vue'
 import AppSecretDisplay from './components/secret-display.vue'
-
-import VueRouter from 'vue-router'
 
 const routes = [
   {
@@ -37,8 +37,8 @@ const routes = [
   },
 ]
 
-const router = new VueRouter({
-  mode: 'abstract',
+const router = createRouter({
+  history: createMemoryHistory(),
   routes,
 })
 

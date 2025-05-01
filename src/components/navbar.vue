@@ -4,18 +4,18 @@
       <a
         class="navbar-brand"
         href="#"
-        @click.prevent="$root.navigate('/')"
+        @click.prevent="$emit('navigate', '/')"
       >
         <i
           v-if="!appIcon"
-          class="fas fa-user-secret mr-1"
+          class="fas fa-user-secret me-1"
         />
         <img
           v-else
-          class="mr-1"
+          class="me-1"
           :src="appIcon"
         >
-        <span v-if="!$root.customize.disableAppTitle">{{ $root.customize.appTitle }}</span>
+        <span v-if="!customize.disableAppTitle">{{ customize.appTitle }}</span>
       </a>
 
       <button
@@ -39,7 +39,7 @@
             <a
               class="nav-link"
               href="#"
-              @click.prevent="$root.navigate('/explanation')"
+              @click.prevent="$emit('navigate', '/explanation')"
             >
               <i class="fas fa-circle-info" /> {{ $t('btn-show-explanation') }}
             </a>
@@ -48,19 +48,19 @@
             <a
               class="nav-link"
               href="#"
-              @click.prevent="$root.navigate('/')"
+              @click.prevent="$emit('navigate', '/')"
             >
               <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
             </a>
           </li>
         </ul>
         <form
-          v-if="!$root.customize.disableThemeSwitcher"
+          v-if="!customize.disableThemeSwitcher"
           class="d-flex align-items-center btn-group"
         >
           <input
             id="theme-light"
-            v-model="$root.theme"
+            v-model="intTheme"
             type="radio"
             name="theme"
             class="btn-check"
@@ -75,7 +75,7 @@
 
           <input
             id="theme-auto"
-            v-model="$root.theme"
+            v-model="intTheme"
             type="radio"
             name="theme"
             class="btn-check"
@@ -90,7 +90,7 @@
 
           <input
             id="theme-dark"
-            v-model="$root.theme"
+            v-model="intTheme"
             type="radio"
             name="theme"
             class="btn-check"
@@ -108,19 +108,62 @@
   </nav>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   computed: {
-    appIcon() {
+    appIcon(): string {
       // Use specified icon or fall back to null
-      const appIcon = this.$root.customize.appIcon || null
+      const appIcon = this.$parent.customize.appIcon || null
       // Use specified icon or fall back to light-mode appIcon (which might be null)
-      const darkIcon = this.$root.customize.appIconDark || appIcon
+      const darkIcon = this.$parent.customize.appIconDark || appIcon
 
       return this.$root.theme === 'dark' ? darkIcon : appIcon
     },
+
+    customize(): any {
+      return this.$parent.customize || {}
+    },
+  },
+
+  data() {
+    return {
+      intTheme: '',
+    }
+  },
+
+  emits: ['navigate', 'update:theme'],
+
+  mounted(): void {
+    this.intTheme = this.theme
   },
 
   name: 'AppNavbar',
-}
+
+  props: {
+    theme: {
+      required: true,
+      type: String,
+    },
+  },
+
+  watch: {
+    intTheme(to: string, from: string): void {
+      if (to === from) {
+        return
+      }
+
+      this.$emit('update:theme', to)
+    },
+
+    theme(to: string, from: string): void {
+      if (to === from) {
+        return
+      }
+
+      this.intTheme = to
+    },
+  },
+})
 </script>

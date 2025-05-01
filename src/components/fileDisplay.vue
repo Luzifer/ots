@@ -30,20 +30,23 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { bytesToHuman } from '../helpers'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   data() {
     return {
       hasDownloaded: {},
     }
   },
 
+  emits: ['fileClicked'],
+
   methods: {
     bytesToHuman,
 
-    fasFileType(type) {
+    fasFileType(type: string): string {
       return [
         'fas',
         'fa-fw',
@@ -60,8 +63,8 @@ export default {
       ].join(' ')
     },
 
-    handleClick(file) {
-      this.$set(this.hasDownloaded, file.id, true)
+    handleClick(file: any): void {
+      this.hasDownloaded[file.id] = true
       this.$emit('fileClicked', file.id)
     },
   },
@@ -77,7 +80,7 @@ export default {
 
     files: {
       required: true,
-      type: Array,
+      type: Array<any>,
     },
 
     trackDownload: {
@@ -86,5 +89,5 @@ export default {
       type: Boolean,
     },
   },
-}
+})
 </script>
