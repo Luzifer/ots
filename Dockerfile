@@ -1,4 +1,4 @@
-FROM golang:1-alpine AS builder
+FROM golang:1.24.2-alpine AS builder
 
 ENV CGO_ENABLED=0 \
     GOPATH=/go \
@@ -12,17 +12,17 @@ RUN set -ex \
       curl \
       git \
       make \
-      nodejs-lts \
+      nodejs-current \
       npm \
       tar \
       unzip \
- && make download_libs generate-inner generate-apidocs \
+ && make frontend_prod generate-apidocs \
  && go install \
       -ldflags "-X main.version=$(git describe --tags --always || echo dev)" \
       -mod=readonly
 
 
-FROM alpine:latest
+FROM alpine:3.21
 
 LABEL org.opencontainers.image.authors='Knut Ahlers <knut@ahlers.me>' \
     org.opencontainers.image.version='1.16.0' \
