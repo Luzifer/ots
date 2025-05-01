@@ -23,7 +23,6 @@ local_resource(
 # Rebuild and run Go webserver on code changes
 local_resource(
   'server',
-  cmd='go build .',
   deps=[
     'api.go',
     'frontend',
@@ -35,7 +34,7 @@ local_resource(
     'go.mod', 'go.sum',
   ],
   ignore=['ots', 'src'],
-  serve_cmd='./ots --listen=:15641',
+  serve_cmd='go run . --listen=:15641',
   serve_env={
     'CUSTOMIZE': 'customize.yaml',
   },
