@@ -1,5 +1,4 @@
 ---
-
 name: test-and-build
 on:
   push:
@@ -25,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
@@ -55,7 +54,7 @@ jobs:
           grep -q "### Language" translate-issue.md || rm -f translate-issue.md
 
       - name: Update Translations Issue
-        uses: JasonEtco/create-an-issue@v2
+        uses: JasonEtco/create-an-issue@v2.9.2
         if: github.ref == 'refs/heads/master' && hashFiles('translate-issue.md') != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,12 +77,10 @@ jobs:
         run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
 
       - name: Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.16.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           artifacts: '.build/*'
           bodyFile: release_changelog.md
           draft: false
           generateReleaseNotes: false
-
-...

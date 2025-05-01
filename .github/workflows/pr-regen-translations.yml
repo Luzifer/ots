@@ -1,9 +1,8 @@
 ---
-
 name: pull-request-ci
 on:
   pull_request_target:
-    paths: ["i18n.yaml"]
+    paths: ['i18n.yaml']
 
 jobs:
   generate-translations:
@@ -23,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
@@ -35,10 +34,8 @@ jobs:
         working-directory: ./ci/translate
         run: go run .
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v5.2.0
         with:
           commit_author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
           commit_message: 'CI: Update embedded translations'
           file_pattern: 'src/langs/langs.js'
-
-...

@@ -1,13 +1,12 @@
 ---
-
-name: "CodeQL"
+name: 'CodeQL'
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+    branches: ['master']
   schedule:
     - cron: '38 21 * * 3'
 
@@ -24,29 +23,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'go', 'javascript' ]
+        language: ['go', 'javascript']
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
 
-    - name: Install Go
-      uses: actions/setup-go@v4
-      with:
-        go-version-file: go.mod
+      - name: Install Go
+        uses: actions/setup-go@v5.4.0
+        with:
+          go-version-file: go.mod
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2.21.2
+        with:
+          languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2.21.2
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
-
-...
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2.21.2
+        with:
+          category: '/language:${{matrix.language}}'
