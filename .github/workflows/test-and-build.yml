@@ -16,7 +16,7 @@ jobs:
         shell: bash
 
     container:
-      image: ghcr.io/luzifer-docker/gh-arch-env
+      image: ghcr.io/luzifer-docker/gh-arch-env@sha256:7695537d0125e06d918e0d1ab88c0d12fbd4288d2ae101bd83578125ee43bab0
       env:
         CGO_ENABLED: 0
         GOPATH: /go
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
@@ -54,7 +54,7 @@ jobs:
           grep -q "### Language" translate-issue.md || rm -f translate-issue.md
 
       - name: Update Translations Issue
-        uses: JasonEtco/create-an-issue@v2.9.2
+        uses: JasonEtco/create-an-issue@1b14a70e4d8dc185e5cc76d3bec9eab20257b2c5 # v2.9.2
         if: github.ref == 'refs/heads/master' && hashFiles('translate-issue.md') != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -77,7 +77,7 @@ jobs:
         run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
 
       - name: Release
-        uses: ncipollo/release-action@v1.16.0
+        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1.16.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           artifacts: '.build/*'

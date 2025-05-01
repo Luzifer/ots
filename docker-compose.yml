@@ -18,7 +18,7 @@ services:
     ports:
       - 3000:3000
   redis:
-    image: redis:alpine
+    image: redis:alpine@sha256:f773b35a95e170d92dd4214a3ec4859b1b7960bf56896ae687646d695f311187
     restart: always
     volumes:
       - ./data:/data
