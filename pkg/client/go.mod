@@ -8,7 +8,7 @@ replace github.com/Luzifer/ots/pkg/customization => ../customization
 
 require (
 	github.com/Luzifer/go-openssl/v4 v4.2.4
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501133641-0d2df36f82fd
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501141043-caff9de9043b
 	github.com/ryanuber/go-glob v1.0.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.10.0

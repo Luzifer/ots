@@ -10,14 +10,14 @@ replace (
 )
 
 require (
-	github.com/Luzifer/ots/pkg/client v0.0.0-20250501135323-32a8b0914268
+	github.com/Luzifer/ots/pkg/client v0.0.0-20250501141043-caff9de9043b
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
 )
 
 require (
 	github.com/Luzifer/go-openssl/v4 v4.2.4 // indirect
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501130614-a7b165783a61 // indirect
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501141043-caff9de9043b // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
