@@ -8,7 +8,7 @@ replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
 require (
 	github.com/Luzifer/go_helpers/v2 v2.25.0
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20250430221210-b1aa78dd71fc
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501130614-a7b165783a61
 	github.com/Luzifer/rconfig/v2 v2.6.0
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/gofrs/uuid v4.4.0+incompatible
