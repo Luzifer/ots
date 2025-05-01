@@ -10,7 +10,7 @@ replace (
 )
 
 require (
-	github.com/Luzifer/ots/pkg/client v0.0.0-20250501141043-caff9de9043b
+	github.com/Luzifer/ots/pkg/client v0.0.0-20250501142752-e7d044c8e3b6
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
 )
