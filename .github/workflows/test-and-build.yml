@@ -2,7 +2,7 @@
 name: test-and-build
 on:
   push:
-    branches: ['*']
+    branches: ['**']
     tags: ['v*']
 
 permissions:
