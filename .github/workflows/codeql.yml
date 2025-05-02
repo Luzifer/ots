@@ -38,7 +38,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@60168efe1c415ce0f5521ea06d5c2062adbeed1b # v3.28.17
         with:
-          build-mode: autobuild
+          build-mode: ${{ matrix.language == 'go' && 'autobuild' || '' }}
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
