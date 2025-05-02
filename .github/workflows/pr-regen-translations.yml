@@ -11,7 +11,7 @@ jobs:
         shell: bash
 
     container:
-      image: luzifer/gh-arch-env@sha256:b6512b11919261a7ad7697fbd2cfb10dfd13ac1802ac1b554eaaf8e4748baa40
+      image: luzifer/gh-arch-env@sha256:90b9c6e113dfe4d3930474eaf81572f33375277c15536d5028786c1410d7e722
       env:
         CGO_ENABLED: 0
         GOPATH: /go
