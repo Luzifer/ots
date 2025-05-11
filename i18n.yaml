@@ -434,6 +434,7 @@ translations:
       btn-reveal-secret: Pokaż mi sekret!
       btn-reveal-secret-processing: Sekret jest odszyfrowywany...
       btn-show-explanation: Jak to działa?
+      btn-theme-switcher-auto: Auto
       expire-default: Domyślne wygasanie
       expire-n-days: '{n} dzień | {n} dni'
       expire-n-hours: '{n} godzina | {n} godzin(y)'
