@@ -1,3 +1,15 @@
+# 1.17.0 / 2025-05-12
+
+  * Improvements
+    * Port to Vue3 and TypeScript
+
+  * Bugfixes
+    * Update Go dependencies
+    * Update Node dependencies
+
+  * Translations
+    * Update Polish translation (#213) (Thanks @Icikowski)
+
 # 1.16.0 / 2025-05-01
 
   * New Features
