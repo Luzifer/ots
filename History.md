@@ -1,3 +1,10 @@
+# 1.17.1 / 2025-05-29
+
+  * Bugfixes
+    * fix(deps): update dependency vue-i18n to v11.1.4
+    * fix(deps): update dependency vue to v3.5.15
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.9.0
+
 # 1.17.0 / 2025-05-12
 
   * Improvements

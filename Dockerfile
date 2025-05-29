@@ -25,7 +25,7 @@ RUN set -ex \
 FROM alpine:3.21@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
 
 LABEL org.opencontainers.image.authors='Knut Ahlers <knut@ahlers.me>' \
-    org.opencontainers.image.version='1.17.0' \
+    org.opencontainers.image.version='1.17.1' \
     org.opencontainers.image.url='https://github.com/Luzifer/ots/pkgs/container/ots' \
     org.opencontainers.image.documentation='https://github.com/Luzifer/ots/wiki' \
     org.opencontainers.image.source='https://github.com/Luzifer/ots' \
