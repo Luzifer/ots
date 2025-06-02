@@ -16,7 +16,7 @@ jobs:
         shell: bash
 
     container:
-      image: ghcr.io/luzifer-docker/gh-arch-env@sha256:5575c8e899ace687c0cec10e8e1cc696c7ef91749b80775834b2c2daa5e83cbc
+      image: ghcr.io/luzifer-docker/gh-arch-env@sha256:87211711efea4bc7acd795ab2ec69700eb42c1d4319e48e105554970fb72d064
       env:
         CGO_ENABLED: 0
         GOPATH: /go
