@@ -8,8 +8,8 @@
 
 ## Features
 
-- AES 256bit encryption
-- Server does never get the password
+- Secrets are encrypted with AES 256bit encryption in browser
+- Server never receives the plain text secret
 - Secret is deleted on first read
 
 ## Setup
