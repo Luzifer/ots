@@ -272,26 +272,26 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.2.tgz#1860473de7dfa1546767448f333db80cb0ff2161"
   integrity sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==
 
-"@intlify/core-base@11.1.5":
-  version "11.1.5"
-  resolved "https://registry.yarnpkg.com/@intlify/core-base/-/core-base-11.1.5.tgz#4ea7c7d89e12283b2046f51f90a4e90fc2fde07d"
-  integrity sha512-xGRkISwV/2Trqb8yVQevlHm5roaQqy+75qwUzEQrviaQF0o4c5VDhjBW7WEGEoKFx09HSgq7NkvK/DAyuerTDg==
+"@intlify/core-base@11.1.6":
+  version "11.1.6"
+  resolved "https://registry.yarnpkg.com/@intlify/core-base/-/core-base-11.1.6.tgz#87986c85e45a973e810296b046a77c0ae88f8130"
+  integrity sha512-gfMLnoWGiQkA1BwK6Qbrog/e3I6Lnkhqk08XObJb0lMq6sLG1Ggl2MazVaMfGnv/E1Td8pCS5UwR54Ys+fOxmQ==
   dependencies:
-    "@intlify/message-compiler" "11.1.5"
-    "@intlify/shared" "11.1.5"
+    "@intlify/message-compiler" "11.1.6"
+    "@intlify/shared" "11.1.6"
 
-"@intlify/message-compiler@11.1.5":
-  version "11.1.5"
-  resolved "https://registry.yarnpkg.com/@intlify/message-compiler/-/message-compiler-11.1.5.tgz#3ce479be964efa5615d11fe08a615e051f4060ec"
-  integrity sha512-YLSBbjD7qUdShe3ZAat9Hnf9E8FRpN6qmNFD/x5Xg5JVXjsks0kJ90Zj6aAuyoppJQA/YJdWZ8/bB7k3dg2TjQ==
+"@intlify/message-compiler@11.1.6":
+  version "11.1.6"
+  resolved "https://registry.yarnpkg.com/@intlify/message-compiler/-/message-compiler-11.1.6.tgz#65a86f9c7b030b4c2d7faa4ab4f9104adbd1fdbf"
+  integrity sha512-w0LYo5sqgQZF3vEmjLlx+5PYk5EEiB+uigsBkka/DKoAIH2c5xlXcjAxhTgSw35Vrck+GOGriahFsfbHL+ZjPw==
   dependencies:
-    "@intlify/shared" "11.1.5"
+    "@intlify/shared" "11.1.6"
     source-map-js "^1.0.2"
 
-"@intlify/shared@11.1.5":
-  version "11.1.5"
-  resolved "https://registry.yarnpkg.com/@intlify/shared/-/shared-11.1.5.tgz#236eb0b2b01876f7b540ddb4079e2027cfc83d63"
-  integrity sha512-+I4vRzHm38VjLr/CAciEPJhGYFzWWW4HMTm+6H3WqknXLh0ozNX9oC8ogMUwTSXYR/wGUb1/lTpNziiCH5MybQ==
+"@intlify/shared@11.1.6":
+  version "11.1.6"
+  resolved "https://registry.yarnpkg.com/@intlify/shared/-/shared-11.1.6.tgz#57887e58559c229773da792a97506e16d41042fa"
+  integrity sha512-G1Pe4UILhiGOItuehRW+Pk9/NlnRaMFsdnhZ1fwBjiHvrzitmPNZdLx7Eo3GPfRrsk1mdkilZSfgH8SnM419vA==
 
 "@jridgewell/sourcemap-codec@^1.5.0":
   version "1.5.0"
@@ -1749,13 +1749,13 @@ vue-eslint-parser@10.1.3:
     lodash "^4.17.21"
     semver "^7.6.3"
 
-vue-i18n@11.1.5:
-  version "11.1.5"
-  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-11.1.5.tgz#34e8bcd4df709e488b0ff12d500ff0bdb75bec0d"
-  integrity sha512-XCwuaEA5AF97g1frvH/EI1zI9uo1XKTf2/OCFgts7NvUWRsjlgeHPrkJV+a3gpzai2pC4quZ4AnOHFO8QK9hsg==
+vue-i18n@11.1.6:
+  version "11.1.6"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-11.1.6.tgz#7a9d4933da4a3fc5e4d6bd4b8c4c9a7d6c18af23"
+  integrity sha512-+IbsW/sTZHj7U1w0rPOYJbuSB0/7DeO1nvUo3BxvO20OQgHs+ukJ3QeLqvoUA6DiLk+8SA9+djRmKC9+FC6cAg==
   dependencies:
-    "@intlify/core-base" "11.1.5"
-    "@intlify/shared" "11.1.5"
+    "@intlify/core-base" "11.1.6"
+    "@intlify/shared" "11.1.6"
     "@vue/devtools-api" "^6.5.0"
 
 vue-router@4.5.1:
