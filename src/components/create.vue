@@ -185,7 +185,7 @@ export default defineComponent({
     },
 
     expiryChoices(): Record<string, string | null>[] {
-      if (this.$root.customize.expiryChoicesHuman) {
+      if (this.customize.expiryChoicesHuman) {
         return this.expiryChoicesHuman
       }
 
@@ -219,7 +219,7 @@ export default defineComponent({
         choices.push({ text: this.$t('expire-default'), value: null })
       }
 
-      for (const choice of this.$root.customize.expiryChoicesHuman || defaultExpiryChoicesHuman) {
+      for (const choice of this.customize.expiryChoicesHuman || defaultExpiryChoicesHuman) {
         const option = { value: choice }
 
         const unit = choice.slice(-1)
@@ -277,15 +277,7 @@ export default defineComponent({
   created(): void {
     this.checkWriteAccess()
 
-    this.$root.$watch(
-      'customize',
-      newVal => {
-        if (newVal) {
-          this.initExpiry()
-        }
-      },
-      { immediate: true },
-    )
+    this.initExpiry()
   },
 
   data() {
@@ -308,13 +300,13 @@ export default defineComponent({
     _getTextForAmount(unit, amount) {
       switch (unit) {
       case 'd':
-        return this.$tc('expire-n-days', amount)
+        return this.$t('expire-n-days', amount)
       case 'h':
-        return this.$tc('expire-n-hours', amount)
+        return this.$t('expire-n-hours', amount)
       case 'm':
-        return this.$tc('expire-n-minutes', amount)
+        return this.$t('expire-n-minutes', amount)
       case 's':
-        return this.$tc('expire-n-seconds', amount)
+        return this.$t('expire-n-seconds', amount)
       }
 
       return amount
@@ -434,28 +426,29 @@ export default defineComponent({
     },
 
     hasValidDefaultExpiryHuman() {
-      const defaultExpiry = this.$root.customize.defaultExpiryHuman || false
+      const defaultExpiry = this.customize.defaultExpiryHuman || false
       if (defaultExpiry === false) {
         return false
       }
 
-      if (!this.$root.customize.expiryChoicesHuman) {
+      if (!this.customize.expiryChoicesHuman) {
         return false
       }
 
-      return this.$root.customize.expiryChoicesHuman.includes(defaultExpiry)
+      return this.customize.expiryChoicesHuman.includes(defaultExpiry)
     },
 
     initExpiry() {
       const match = document.cookie.match(/(?:^|;\s*)selectedExpiry=([^;]*)/)
       this.selectedExpiry = match
         ? decodeURIComponent(match[1])
-        : this.$root.customize?.defaultExpiryHuman || null
+        : this.customize?.defaultExpiryHuman || null
 
-      if (!this.$root.customize?.expiryChoicesHuman) {
+      if (!this.customize?.expiryChoicesHuman) {
         return
       }
-      if (!this.$root.customize?.expiryChoicesHuman.includes(this.selectedExpiry)) {
+
+      if (!this.customize?.expiryChoicesHuman.includes(this.selectedExpiry)) {
         this.selectedExpiry = null
       }
     },
