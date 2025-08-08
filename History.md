@@ -1,3 +1,25 @@
+# 1.17.3 / 2025-08-08
+
+  * Improvements
+    * chore(ci): switch to more stable actions environment
+    * docs: improve README wording
+
+  * Bugfixes
+    * chore(deps): update dependency @babel/eslint-parser to v7.28.0
+    * chore(deps): update dependency esbuild to v0.25.8
+    * chore(deps): update dependency eslint-plugin-vue to v10.4.0
+    * chore(deps): update dependency eslint to v9.32.0
+    * chore(deps): update dependency go to v1.24.6
+    * chore(deps): update dependency typescript to v5.9.2
+    * chore(deps): update dependency vue-eslint-parser to v10.2.0
+    * chore(deps): update golang docker tag to v1.24.6
+    * chore(deps): update typescript-eslint monorepo to v8.39.0
+    * fix(deps): update dependency bootstrap to v5.3.7
+    * fix(deps): update dependency vue-i18n to v11.1.9
+    * fix(deps): update dependency vue to v3.5.18
+    * fix(deps): update module github.com/prometheus/client\_golang to v1.23.0
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.12.0
+
 # 1.17.2 / 2025-06-15
 
   * Bugfixes
