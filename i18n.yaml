@@ -745,14 +745,14 @@ translations:
     translators:
       - MNorb
     translations:
-      alert-insecure-environment: Ezt a kiszolgálót nem biztonságos kapcsolaton keresztül éred el. Nem fogsz tudni titkokat létrehozni vagy olvasni.
-      alert-secret-not-found: Ez nem az a titok, amit keresel… – Ha azt vártad, hogy a titok itt lesz, előfordulhat, hogy az kompromittálódott, mivel lehet, hogy valaki más már megnyitotta a hivatkozást.
+      alert-insecure-environment: Ezt a kiszolgálót nem biztonságos kapcsolaton keresztül éred el. Nem fogsz tudni bizalmas üzenetet létrehozni vagy olvasni.
+      alert-secret-not-found: Ez nem az a bizalmas üzenet, amit keresel… – Ha azt vártad, hogy a bizalmas üzenet itt lesz, előfordulhat, hogy az kompromittálódott, mivel lehet, hogy valaki más már megnyitotta a hivatkozást.
       alert-something-went-wrong: Valami hiba történt. Nagyon sajnálom&hellip;
-      btn-create-secret: Hozd létre a titkot!
-      btn-create-secret-processing: A titok létrehozása folyamatban…
-      btn-new-secret: Új titok
-      btn-reveal-secret: Mutasd meg a titkot!
-      btn-reveal-secret-processing: A titok visszafejtése folyamatban…
+      btn-create-secret: Hozd létre a bizalmas üzeneted!
+      btn-create-secret-processing: A bizalmas üzenet létrehozása folyamatban…
+      btn-new-secret: Új bizalmas üzenet
+      btn-reveal-secret: Mutasd meg a bizalmas üzenetet!
+      btn-reveal-secret-processing: A bizalmas üzenet visszafejtése folyamatban…
       btn-show-explanation: Hogyan működik ez?
       btn-theme-switcher-auto: Automata
       expire-default: Alapértelmezett lejárat
@@ -761,33 +761,33 @@ translations:
       expire-n-minutes: '{n} perc | {n} perc'
       expire-n-seconds: '{n} másodperc | {n} másodperc'
       items-explanation:
-        - Ebbe a mezőbe írszhatsz be egy titkot
-        - A böngésződ egy generált jelszóval titkosítja a titkot
-        - Csak a titkosított titok kerül elküldésre a szerverre (sem a sima titok, sem a jelszó nem kerül elküldésre soha!)
-        - A szerver egy bizonyos ideig tárolja a titkosított titkot.
+        - Ebbe a mezőbe írszhatsz be egy bizalmas üzenetet
+        - A böngésződ egy generált jelszóval titkosítja az üzeneted
+        - Csak a titkosított üzenet kerül elküldésre a szerverre (sem a sima üzenet, sem a jelszó nem kerül elküldésre soha!)
+        - A szerver egy bizonyos ideig tárolja a titkosított üzeneted.
         - Átadod a megjelenített URL-t a címzettnek, amely tartalmazza a azonosítót és a visszafejtési jelszót is.
-        - 'A címzett pontosan egyszer tekintheti meg a titkot: ha nem tudja, akkor lehet, hogy valaki más már megnézte!'
-        - Miután a titkosított adatot egyszer lekérték, az törlődik a szerverről.
+        - 'A címzett pontosan egyszer tekintheti meg a bizalmas üzenetet: ha nem tudja, akkor lehet, hogy valaki más már megnézte!'
+        - Miután a titkosított üzenetet egyszer lekérték, az törlődik a szerverről.
       label-expiry: 'Lejár:'
-      label-secret-data: 'Titkos adat:'
+      label-secret-data: 'Titkos üzenet:'
       label-secret-files: 'Fájlok csatolása:'
-      text-attached-files: A küldő fájlokat csatolt a titokhoz. Győződj meg róla, hogy megbízol a küldőben, mivel a fájlokat nem ellenőriztük!
-      text-burn-hint: Kérlek, ne nyisd meg ezt az URL-t, mert ezzel törölnéd a titkot. Csak add tovább valaki másnak!
-      text-burn-time: 'Ha még nem tekintették meg, ez a titok automatikusan törlődik:'
-      text-hint-burned: <strong>Figyelem:</strong> Ezt csak egyszer látod. Amint újratöltöd az oldalt, a titok eltűnik, szóval érdemes most másolni&hellip;
+      text-attached-files: A küldő fájlokat csatolt a bizalmas üzenethez. Győződj meg róla, hogy megbízol a küldőben, mivel a fájlokat nem ellenőriztük!
+      text-burn-hint: Kérlek, ne nyisd meg ezt az URL-t, mert ezzel törölnéd az üzeneted. Csak add tovább valaki másnak!
+      text-burn-time: 'Ha még nem tekintették meg, ez a bizalmas üzenet automatikusan törlődik:'
+      text-hint-burned: <strong>Figyelem:</strong> Ezt csak egyszer látod. Amint újratöltöd az oldalt, az üzenet eltűnik, szóval érdemes most másolni&hellip;
       text-invalid-files-selected: Legalább az egyik kiválasztott fájl nem engedélyezett csatolmányként.
       text-max-filesize: 'Maximum méret: {maxSize}'
       text-max-filesize-exceeded: 'A kiválasztott fájl(ok) túl nagy(ok) a csatolmányhoz: {curSize} / {maxSize}'
       text-powered-by: Powered by
-      text-pre-reveal-hint: A titok felfedéséhez kattints erre a gombra, de vedd figyelembe, hogy ezzel a titok törlődik. Csak egyszer nézheted meg!
-      text-pre-url: 'A titkodat létrehozták és eltárolták az alábbi URL segítségével:'
-      text-secret-burned: A titok sikeresen megsemmisült.
-      text-secret-create-disabled: Új titkok létrehozása le van tiltva ezen a kiszolgálón.
+      text-pre-reveal-hint: Az üzenet felfedéséhez kattints erre a gombra, de vedd figyelembe, hogy ezzel az üzenet törlődik. Csak egyszer nézheted meg!
+      text-pre-url: 'A bizalmas üzenetedet létrehozták és eltárolták az alábbi URL segítségével:'
+      text-secret-burned: Az üzenet sikeresen megsemmisült.
+      text-secret-create-disabled: Új bizalmas üzenet létrehozása le van tiltva ezen a kiszolgálón.
       title-explanation: Így működik&hellip;
-      title-new-secret: Hozz létre egy új titkot!
-      title-reading-secret: A titkod olvasása&hellip;
-      title-secret-create-disabled: Titok létrehozás letiltva…
-      title-secret-created: Titok létrehozva!
-      tooltip-burn-secret: Titok azonnali megsemmisítése!
+      title-new-secret: Hozz létre egy új bizalmas üzenetet!
+      title-reading-secret: Az üzeneted olvasása&hellip;
+      title-secret-create-disabled: Bizalmas üzenet létrehozás letiltva…
+      title-secret-created: Bizalmas üzenet létrehozva!
+      tooltip-burn-secret: Bizalmas üzenet azonnali megsemmisítése!
       tooltip-copy-to-clipboard: Másolás vágólapra
       tooltip-download-as-file: Letöltés fájlként
