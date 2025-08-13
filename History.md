@@ -1,3 +1,13 @@
+# 1.18.0 / 2025-08-13
+
+  * Bugfixes
+    * fix: remove double-gzip-encoding from metrics endpoint
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.12.1
+    * chore(deps): update dependency eslint to v9.33.0
+
+  * Translations
+    * feat: add Hungarian translation (thanks to @mcsoft)
+
 # 1.17.3 / 2025-08-08
 
   * Improvements
