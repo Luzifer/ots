@@ -743,7 +743,7 @@ translations:
       title-secret-created: 機密已創建！
   hu:
     translators:
-      - MNorb
+      - mcsoft
     translations:
       alert-insecure-environment: Ezt a kiszolgálót nem biztonságos kapcsolaton keresztül éred el. Nem fogsz tudni bizalmas üzenetet létrehozni vagy olvasni.
       alert-secret-not-found: Ez nem az a bizalmas üzenet, amit keresel… – Ha azt vártad, hogy a bizalmas üzenet itt lesz, előfordulhat, hogy az kompromittálódott, mivel lehet, hogy valaki más már megnyitotta a hivatkozást.
