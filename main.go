@@ -126,7 +126,7 @@ func main() {
 
 	api.Register(r.PathPrefix("/api").Subrouter())
 
-	r.Handle("/metrics", metrics.Handler()).
+	r.Handle("/metrics", handleRemoveAcceptEncoding(metrics.Handler())).
 		Methods(http.MethodGet).
 		MatcherFunc(func(r *http.Request, _ *mux.RouteMatch) bool {
 			return requestInSubnetList(r, cust.MetricsAllowedSubnets)
@@ -239,4 +239,11 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func handleRemoveAcceptEncoding(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Header.Del("Accept-Encoding")
+		next.ServeHTTP(w, r)
+	})
 }
