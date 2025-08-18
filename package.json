@@ -4,7 +4,7 @@
     "@types/bootstrap": "5.2.10",
     "@typescript-eslint/eslint-plugin": "8.39.1",
     "@typescript-eslint/parser": "8.39.1",
-    "@vue/tsconfig": "0.7.0",
+    "@vue/tsconfig": "0.8.0",
     "esbuild": "0.25.9",
     "esbuild-plugin-vue3": "0.4.2",
     "esbuild-sass-plugin": "3.3.1",
