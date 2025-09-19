@@ -134,6 +134,8 @@ func main() {
 
 	r.HandleFunc("/", handleIndex).
 		Methods(http.MethodGet)
+	r.HandleFunc("/robots.txt", handleRobotsTXT).
+		Methods(http.MethodGet)
 	r.PathPrefix("/").HandlerFunc(assetDelivery).
 		Methods(http.MethodGet)
 
@@ -239,6 +241,18 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 		http.Error(w, errors.Wrap(err, "executing template").Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func handleRobotsTXT(w http.ResponseWriter, _ *http.Request) {
+	// If explicitly set to false, do not create robots.txt.
+	if cust.DisableSearchIndex != nil && !*cust.DisableSearchIndex {
+		http.NotFound(w, nil)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	_, _ = w.Write([]byte("User-agent: *\nDisallow: /\n"))
 }
 
 func handleRemoveAcceptEncoding(next http.Handler) http.Handler {
