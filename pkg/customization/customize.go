@@ -28,6 +28,7 @@ type (
 		DisableAppTitle      bool   `json:"disableAppTitle,omitempty" yaml:"disableAppTitle"`
 		DisablePoweredBy     bool   `json:"disablePoweredBy,omitempty" yaml:"disablePoweredBy"`
 		DisableQRSupport     bool   `json:"disableQRSupport,omitempty" yaml:"disableQRSupport"`
+		DisableSearchIndex  *bool   `json:"disable-search-index" yaml:"disableSearchIndex" default:"true"`
 		DisableThemeSwitcher bool   `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
 
 		DisableExpiryOverride bool    `json:"disableExpiryOverride,omitempty" yaml:"disableExpiryOverride"`
