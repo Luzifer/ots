@@ -1,0 +1,47 @@
+name: pr-test
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch: {}
+
+jobs:
+  test-and-build:
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: forgejo
+
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: 'Lint and test code: API'
+        run: |
+          go test -cover -v ./...
+          golangci-lint run ./...
+
+      - name: 'Lint and test code: Client'
+        working-directory: ./pkg/client
+        run: |
+          go test -cover -v ./...
+          golangci-lint run ./...
+
+      - name: 'Lint and test code: OTS-CLI'
+        working-directory: ./cmd/ots-cli
+        run: |
+          go test -cover -v ./...
+          golangci-lint run ./...
+
+      - name: Generate (and validate) translations
+        run: make translate
+
+      - name: Do a quick local build
+        run: make build-local
+
+      - name: Execute Trivy scan
+        run: make trivy
