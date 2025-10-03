@@ -2,8 +2,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.28.4",
     "@types/bootstrap": "5.2.10",
-    "@typescript-eslint/eslint-plugin": "8.44.1",
-    "@typescript-eslint/parser": "8.44.1",
+    "@typescript-eslint/eslint-plugin": "8.45.0",
+    "@typescript-eslint/parser": "8.45.0",
     "@vue/tsconfig": "0.8.1",
     "esbuild": "0.25.10",
     "esbuild-plugin-vue3": "0.4.2",
