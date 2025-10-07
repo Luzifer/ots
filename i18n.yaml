@@ -110,10 +110,10 @@ translations:
       btn-show-explanation: Jak to funguje?
       btn-theme-switcher-auto: Automaticky
       expire-default: Výchozí platnost
-      expire-n-days: ‚{n} den | {n} dní‘
-      expire-n-hours: ‚{n} hodina | {n} hodin‘
+      expire-n-days: '{n} den | {n} dní'
+      expire-n-hours: '{n} hodina | {n} hodin'
       expire-n-minutes: '{n} minuta | {n} minut'
-      expire-n-seconds: ‚{n} sekunda | {n} sekund‘
+      expire-n-seconds: '{n} sekunda | {n} sekund'
       items-explanation:
         - Do pole na této stránce zadáte tajemství
         - Váš prohlížeč zašifruje tajemství pomocí vygenerovaného hesla
