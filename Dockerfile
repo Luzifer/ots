@@ -1,4 +1,4 @@
-FROM golang:1.25.2-alpine@sha256:0d7580dd9899f09906d6711e968b3bbf799526f59be97da855a8e75ef5c68507 AS builder
+FROM golang:1.25.2-alpine@sha256:6104e2bbe9f6a07a009159692fe0df1a97b77f5b7409ad804b17d6916c635ae5 AS builder
 
 ENV CGO_ENABLED=0 \
     GOPATH=/go \
