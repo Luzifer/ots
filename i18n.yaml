@@ -97,7 +97,7 @@ translations:
   cz:
     deeplLanguage: cz
     translators:
-      - rdol
+      - rdolezel
     translations:
       alert-insecure-environment: K této instanci přistupujete pomocí nezabezpečeného připojení. Nebudete moci vytvářet ani číst tajemství.
       alert-secret-not-found: Toto není tajemství, které hledáte&hellip; - Pokud jste očekávali, že tajemství bude zde, mohlo být kompromitováno, protože již odkaz otevřel někdo jiný.
