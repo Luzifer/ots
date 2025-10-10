@@ -94,6 +94,57 @@ translations:
       title-reading-secret: Obtenint el teu secret&hellip;
       title-secret-create-disabled: S'ha desactivat la creació de secrets...
       title-secret-created: Secret creat!
+  cz:
+    deeplLanguage: cz
+    translators:
+      - rdolezel
+    translations:
+      alert-insecure-environment: K této instanci přistupujete pomocí nezabezpečeného připojení. Nebudete moci vytvářet ani číst tajemství.
+      alert-secret-not-found: Toto není tajemství, které hledáte&hellip; - Pokud jste očekávali, že tajemství bude zde, mohlo být kompromitováno, protože již odkaz otevřel někdo jiný.
+      alert-something-went-wrong: Došlo k chybě. Lituji&hellip;
+      btn-create-secret: Vytvořit tajemství!
+      btn-create-secret-processing: Tajemství se vytváří...
+      btn-new-secret: Nové tajemství
+      btn-reveal-secret: Zobrazit tajemství!
+      btn-reveal-secret-processing: Tajemství se dešifruje...
+      btn-show-explanation: Jak to funguje?
+      btn-theme-switcher-auto: Automaticky
+      expire-default: Výchozí platnost
+      expire-n-days: '{n} den | {n} dní'
+      expire-n-hours: '{n} hodina | {n} hodin'
+      expire-n-minutes: '{n} minuta | {n} minut'
+      expire-n-seconds: '{n} sekunda | {n} sekund'
+      items-explanation:
+        - Do pole na této stránce zadáte tajemství
+        - Váš prohlížeč zašifruje tajemství pomocí vygenerovaného hesla
+        - Na server se odešle pouze zašifrované tajemství (nikdy se neodesílá nezašifrované tajemství ani heslo!)
+        - Server uloží zašifrované tajemství na určitou dobu
+        - Zobrazenou URL adresu obsahující ID a heslo pro dešifrování předáte příjemci
+        - 'Příjemce může tajemství zobrazit pouze jednou: Pokud se mu to nepodaří, mohlo být tajemství zhlédnuto někým jiným!'
+        - Po vyzvednutí zašifrovaného tajemství je toto tajemství ze serveru odstraněno
+      label-expiry: 'Vyprší za:'
+      label-secret-data: 'Obsah tajemství:'
+      label-secret-files: 'Připojit soubory:'
+      text-attached-files: Odesílatel připojil k tajemství soubory. Ujistěte se, že odesílateli důvěřujete, protože soubory nebyly zkontrolovány!
+      text-burn-hint: Nezapomeňte, že na tuto URL adresu nesmíte přejít sami, protože by to tajemství zničilo. Předejte jej někomu jinému!
+      text-burn-time: 'Pokud nebude zobrazeno dříve, bude toto tajemství automaticky smazáno:'
+      text-hint-burned: <strong>Pozor:</strong> Toto vidíte pouze jednou. Jakmile stránku znovu načtete, tajemství zmizí, takže si jej možná raději zkopírujte&hellip;
+      text-invalid-files-selected: Alespoň jeden z vybraných souborů není povolen jako příloha.
+      text-max-filesize: 'Maximální velikost: {maxSize}'
+      text-max-filesize-exceeded: 'Vybrané soubory jsou příliš velké na to, aby je bylo možné připojit: {curSize} / {maxSize}'
+      text-powered-by: Powered by
+      text-pre-reveal-hint: Chcete-li odhalit tajemství, klikněte na toto tlačítko, ale mějte na paměti, že tím tajemství zničíte. Můžete si jej prohlédnout pouze jednou!
+      text-pre-url: 'Vaše tajemství bylo vytvořeno a uloženo na této URL adrese:'
+      text-secret-burned: Tajemství bylo úspěšně zničeno.
+      text-secret-create-disabled: Vytváření nových tajemství je na této instanci zakázáno.
+      title-explanation: Takto to funguje&hellip;
+      title-new-secret: Vytvořit nové tajemství
+      title-reading-secret: Čtení vašeho tajemství&hellip;
+      title-secret-create-disabled: Vytváření tajemství je zakázáno...
+      title-secret-created: Tajemství bylo vytvořeno!
+      tooltip-burn-secret: Spálit tajemství nyní!
+      tooltip-copy-to-clipboard: Kopírovat do schránky
+      tooltip-download-as-file: Stáhnout jako soubor
   de:
     deeplLanguage: de
     translators:
