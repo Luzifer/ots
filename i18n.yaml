@@ -94,8 +94,8 @@ translations:
       title-reading-secret: Obtenint el teu secret&hellip;
       title-secret-create-disabled: S'ha desactivat la creació de secrets...
       title-secret-created: Secret creat!
-  cz:
-    deeplLanguage: cz
+  cs:
+    deeplLanguage: cs
     translators:
       - rdolezel
     translations:
