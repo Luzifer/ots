@@ -1,3 +1,17 @@
+# 1.19.0 / 2025-10-15
+
+  * Translations
+    * feat: add CZ translation (#223)
+
+  * Bugfixes
+    * fix(deps): update dependency bootstrap to v5.3.8
+    * fix(deps): update dependency vue-i18n to v11.1.12
+    * fix(deps): update dependency vue to v3.5.22
+    * fix(deps): update module github.com/prometheus/client\_golang to v1.23.2
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.14.0
+    * fix(deps): update module github.com/spf13/cobra to v1.10.1
+    * fix(deps): update module github.com/stretchr/testify to v1.11.1
+
 # 1.18.0 / 2025-08-13
 
   * Bugfixes
