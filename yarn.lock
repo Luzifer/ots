@@ -1768,10 +1768,10 @@ vue-i18n@11.1.12:
     "@intlify/shared" "11.1.12"
     "@vue/devtools-api" "^6.5.0"
 
-vue-router@4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.5.1.tgz#47bffe2d3a5479d2886a9a244547a853aa0abf69"
-  integrity sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==
+vue-router@4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.6.2.tgz#88dc6f9f5b4cd4264ea34a6733298cd00fef38a5"
+  integrity sha512-my83mxQKXyCms9EegBXZldehOihxBjgSjZqrZwgg4vBacNGl0oBCO+xT//wgOYpLV1RW93ZfqxrjTozd+82nbA==
   dependencies:
     "@vue/devtools-api" "^6.6.4"
 
