@@ -1,3 +1,8 @@
+# 1.19.1 / 2025-10-18
+
+  * Translations
+    * fix: language code for Czech is `cs` (thanks @rdolezel)
+
 # 1.19.0 / 2025-10-15
 
   * Translations
