@@ -825,10 +825,10 @@ entities@^4.5.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-4.5.0.tgz#5d268ea5e7113ec74c4d033b79ea5a35a488fb48"
   integrity sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==
 
-esbuild-plugin-vue3@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/esbuild-plugin-vue3/-/esbuild-plugin-vue3-0.5.0.tgz#cad33613cb1b33105f5c46e8c43038f2aaa1a6b6"
-  integrity sha512-drH2ZSA9e8szc8LFGgS3NI4mXjWaB+1KdwgM2oLY0rChlxpO0YyKTbKllxXpegknOmCCGIKQ5jNZHxrpwqf1dg==
+esbuild-plugin-vue3@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-vue3/-/esbuild-plugin-vue3-0.5.1.tgz#51ab1a9f1f2a25b17e05050217d02be8ebb125ad"
+  integrity sha512-rhTPImJ1Zi7FbVa4xWlu9dJdt+mqWxc9Z+AQd+ArbHHwtyQRe8FvER8gaTw0O6bNsBjAtU5rq0rpZEkP3QaThg==
   dependencies:
     typescript "^4.7.4"
 
