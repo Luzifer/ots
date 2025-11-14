@@ -842,3 +842,53 @@ translations:
       tooltip-burn-secret: Bizalmas üzenet azonnali megsemmisítése!
       tooltip-copy-to-clipboard: Másolás vágólapra
       tooltip-download-as-file: Letöltés fájlként
+  ja:
+    translators:
+      - mitsuami-megane
+    translations:
+      alert-insecure-environment: このインスタンスには安全でない接続でアクセスしています。この状態ではシークレットの作成や閲覧を行うことはできません。
+      alert-secret-not-found: お探しのシークレットはここにはありません - ここにシークレットがあるはずだと思っていた場合は、すでに誰かがリンクを開いてしまい、漏えいしている可能性があります。
+      alert-something-went-wrong: 問題が発生しました。ご不便をおかけして申し訳ありません。
+      btn-create-secret: シークレットを作成！
+      btn-create-secret-processing: シークレットを作成しています…
+      btn-new-secret: 新しいシークレット
+      btn-reveal-secret: シークレットを表示！
+      btn-reveal-secret-processing: シークレットを復号しています…
+      btn-show-explanation: これはどういう仕組みですか？
+      btn-theme-switcher-auto: 自動
+      expire-default: デフォルトの有効期限
+      expire-n-days: '{n} 日 | {n} 日'
+      expire-n-hours: '{n} 時間 | {n} 時間'
+      expire-n-minutes: '{n} 分 | {n} 分'
+      expire-n-seconds: '{n} 秒 | {n} 秒'
+      items-explanation:
+        - このページのフィールドにシークレットを入力します
+        - ブラウザが生成されたパスワードを使ってシークレットを暗号化します
+        - 暗号化されたシークレットのみがサーバーに送信されます（平文のシークレットもパスワードも決して送信されません！）
+        - サーバーは暗号化されたシークレットを一定期間保存します
+        - 表示された、ID と復号パスワードを含む URL を受信者に渡します
+        - 受信者がシークレットを閲覧できるのは一度だけです。表示できない場合は、すでに誰かが閲覧している可能性があります！
+        - 暗号化されたシークレットは一度取得されると、サーバーから削除されます
+      label-expiry: '有効期限:'
+      label-secret-data: 'シークレットデータ:'
+      label-secret-files: 'ファイルを添付:'
+      text-attached-files: 送信者はこのシークレットにファイルを添付しました。ファイルの内容は検査されていないため、送信者を信頼できることを確認してください。
+      text-burn-hint: この URL に自分でアクセスするとシークレットが削除されてしまうことを忘れないでください。誰かに渡すだけにしてください！
+      text-burn-time: '表示されないままの場合、このシークレットは自動的に削除されます:'
+      text-hint-burned: <strong>注意:</strong> この内容を見られるのは一度だけです。ページを再読み込みするとシークレットは消えてしまうので、今のうちにコピーしておいてください&hellip;
+      text-invalid-files-selected: 選択されたファイルのうち少なくとも 1 つは添付ファイルとして許可されていません。
+      text-max-filesize: '最大サイズ: {maxSize}'
+      text-max-filesize-exceeded: '選択したファイルは大きすぎて添付できません: {curSize} / {maxSize}'
+      text-powered-by: 提供元
+      text-pre-reveal-hint: シークレットを表示するにはこのボタンをクリックしてください。ただし、その操作によってシークレットは削除されます。閲覧できるのは一度だけです！
+      text-pre-url: 'シークレットは次の URL で作成・保存されました:'
+      text-secret-burned: シークレットは正常に削除されました。
+      text-secret-create-disabled: このインスタンスでは新しいシークレットの作成が無効になっています。
+      title-explanation: 仕組みは次のとおりです&hellip;
+      title-new-secret: 新しいシークレットを作成
+      title-reading-secret: シークレットを読み込んでいます&hellip;
+      title-secret-create-disabled: シークレットの作成は無効です…
+      title-secret-created: シークレットを作成しました！
+      tooltip-burn-secret: 今すぐシークレットを削除！
+      tooltip-copy-to-clipboard: クリップボードにコピー
+      tooltip-download-as-file: ファイルとしてダウンロード
