@@ -1,3 +1,21 @@
+# 1.20.0 / 2025-11-14
+
+  * Translations
+    * feat: add Japanese translations (thanks @mitsuami-megane)
+
+  * Bugfixes
+    * chore(deps): update dependency @babel/eslint-parser to v7.28.5
+    * chore(deps): update dependency esbuild-plugin-vue3 to v0.5.1
+    * chore(deps): update dependency esbuild to v0.27.0
+    * chore(deps): update dependency eslint-plugin-vue to v10.5.1
+    * chore(deps): update dependency eslint to v9.39.1
+    * chore(deps): update dependency go to v1.25.4
+    * chore(deps): update golang docker tag to v1.25.4
+    * chore(deps): update typescript-eslint monorepo to v8.46.4
+    * fix(deps): update dependency vue-router to v4.6.3
+    * fix(deps): update dependency vue to v3.5.24
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.16.0
+
 # 1.19.1 / 2025-10-18
 
   * Translations
