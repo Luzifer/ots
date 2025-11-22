@@ -14,7 +14,7 @@
 
 ## Setup
 
-- Download the [release](https://github.com/Luzifer/ots/releases)
+- Download the [release](https://github.com/Luzifer/ots/releases) or pull the Docker image from [`ghcr.io/luzifer/ots`](https://github.com/users/Luzifer/packages/container/package/ots)
 - Start it and you can access the server on http://localhost:3000/
 - Consult `./ots --help` for more options
 - See [Wiki](https://github.com/Luzifer/ots/wiki) for a more detailed overview
