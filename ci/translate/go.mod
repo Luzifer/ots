@@ -1,6 +1,6 @@
 module translate
 
-go 1.23.0
+go 1.24.0
 
 toolchain go1.25.4
 
@@ -25,7 +25,7 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/cast v1.7.1 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
-	golang.org/x/crypto v0.37.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
 )
