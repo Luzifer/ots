@@ -1,3 +1,15 @@
+# 1.20.1 / 2025-12-19
+
+> [!TIP]
+> In case you are still using (a cached version of) the old `docker.io/luzifer/ots` OCI image, please switch to the `ghcr.io/luzifer/ots:<version>` image as the former is no longer provided and was outdated for some time.
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.2.2
+  * fix(deps): update dependency vue-router to v4.6.4
+  * fix(deps): update dependency vue to v3.5.25
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.17.2
+  * fix(deps): update module github.com/spf13/cobra to v1.10.2
+
 # 1.20.0 / 2025-11-14
 
   * Translations
