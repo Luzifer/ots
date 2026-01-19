@@ -67,6 +67,8 @@ In case your instance needs credentials to use the `/api/create` endpoint you ca
 - `ots-cli create --instance ... -u myuser:mypass` for basic-auth
 - `ots-cli create --instance ... -H 'Authorization: Token abcde'` for token-auth (you can set any header you need, just repeat `-H ...`)
 
+When using a custom instance as your default, you can export the instance in the `OTS_INSTANCE` environment variable instead of passing the `--instance` parameter every time.
+
 ### Bash: Sharing an encrypted secret (strongly recommended!)
 
 This is slightly more complex as you first need to encrypt your secret before sending it to the API but in this case you can be sure the server will in no case be able to access the secret. Especially if you are using ots.fyi (my public hosted instance) you should not trust me with your secret but use an encrypted secret:
