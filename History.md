@@ -1,3 +1,13 @@
+# 1.21.0 / 2026-01-20
+
+* Improvements
+  * feat: allow setting CLI instance using ENV variable
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.2.8
+  * fix(deps): update dependency vue to v3.5.26
+  * fix(deps): update module github.com/sirupsen/logrus to v1.9.4
+
 # 1.20.1 / 2025-12-19
 
 > [!TIP]
