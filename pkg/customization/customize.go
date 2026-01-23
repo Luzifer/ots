@@ -30,8 +30,10 @@ type (
 		DisableQRSupport     bool   `json:"disableQRSupport,omitempty" yaml:"disableQRSupport"`
 		DisableThemeSwitcher bool   `json:"disableThemeSwitcher,omitempty" yaml:"disableThemeSwitcher"`
 
-		DisableExpiryOverride bool    `json:"disableExpiryOverride,omitempty" yaml:"disableExpiryOverride"`
-		ExpiryChoices         []int64 `json:"expiryChoices,omitempty" yaml:"expiryChoices"`
+		DisableExpiryOverride bool     `json:"disableExpiryOverride,omitempty" yaml:"disableExpiryOverride"`
+		ExpiryChoices         []int64  `json:"expiryChoices,omitempty" yaml:"expiryChoices"`
+		ExpiryChoicesHuman    []string `json:"expiryChoicesHuman,omitempty" yaml:"expiryChoicesHuman"`
+		DefaultExpiryHuman    string   `json:"defaultExpiryHuman,omitempty" yaml:"defaultExpiryHuman"`
 
 		AcceptedFileTypes      string `json:"acceptedFileTypes" yaml:"acceptedFileTypes"`
 		DisableFileAttachment  bool   `json:"disableFileAttachment" yaml:"disableFileAttachment"`
