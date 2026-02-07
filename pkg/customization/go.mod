@@ -2,7 +2,7 @@ module github.com/Luzifer/ots/pkg/customization
 
 go 1.23.0
 
-toolchain go1.25.6
+toolchain go1.25.7
 
 require (
 	github.com/pkg/errors v0.9.1
