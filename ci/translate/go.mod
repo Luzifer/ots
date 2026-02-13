@@ -2,7 +2,7 @@ module translate
 
 go 1.24
 
-toolchain go1.25.7
+toolchain go1.26.0
 
 require (
 	github.com/Luzifer/go_helpers/v2 v2.25.2
