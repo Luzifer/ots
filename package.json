@@ -11,7 +11,7 @@
     "eslint": "9.39.2",
     "eslint-plugin-vue": "10.7.0",
     "typescript": "5.9.3",
-    "vue-eslint-parser": "10.2.0"
+    "vue-eslint-parser": "10.3.0"
   },
   "name": "ots",
   "private": true,
