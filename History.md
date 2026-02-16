@@ -1,3 +1,12 @@
+# 1.21.1 / 2026-02-16
+
+* Bugfixes
+  * fix: navbar always showing light-theme icon (#236) (thanks @skillpoint-dev)
+  * fix(deps): update dependency vue to v3.5.28
+  * fix(deps): update module github.com/luzifer/go\_helpers/v2 to v2.25.2
+  * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.1
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.17.3
+
 # 1.21.0 / 2026-01-20
 
 * Improvements
