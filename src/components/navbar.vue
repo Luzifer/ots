@@ -119,7 +119,7 @@ export default defineComponent({
       // Use specified icon or fall back to light-mode appIcon (which might be null)
       const darkIcon = this.$parent.customize.appIconDark || appIcon
 
-      return this.$root.theme === 'dark' ? darkIcon : appIcon
+      return (this.theme === 'auto' ? window.getTheme() : this.theme) === 'dark' ? darkIcon : appIcon
     },
 
     customize(): any {
