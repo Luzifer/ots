@@ -1,6 +1,6 @@
 // Package metrics provides an abstraction around metrics collection
 // in order to bundle all metrics related calls in one location
-package metrics
+package metrics //revive:disable-line:var-naming
 
 import (
 	"net/http"
