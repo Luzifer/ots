@@ -526,36 +526,52 @@ translations:
     deeplLanguage: pt-BR
     translators: []
     translations:
-      alert-secret-not-found: Esta não é o segredo que você está procurando… - Se você esperava que o segredo estaria aqui, ele pode ter sido comprometido por alguém que já acessou o link.
-      alert-something-went-wrong: Desculpe, algo deu errado…
+      alert-insecure-environment: Você está acessando esta instância usando uma conexão insegura. Não será possível criar ou ler segredos.
+      alert-secret-not-found: Este não é o segredo que você está procurando&hellip; - Se você esperava que o segredo estivesse aqui, ele pode ter sido comprometido, pois alguém pode já ter aberto o link.
+      alert-something-went-wrong: Algo deu errado. Pedimos desculpas por isso&hellip;
       btn-create-secret: Criar segredo!
+      btn-create-secret-processing: O segredo está sendo criado…
       btn-new-secret: Novo segredo
       btn-reveal-secret: Mostrar o segredo!
+      btn-reveal-secret-processing: O segredo está sendo descriptografado…
       btn-show-explanation: Como funciona?
+      btn-theme-switcher-auto: Auto
+      expire-default: Expiração padrão
       expire-n-days: '{n} dia | {n} dias'
       expire-n-hours: '{n} hora | {n} horas'
-      expire-n-minutes: '{n} minutos | {n} minutos'
-      expire-n-seconds: '{n} segundos | {n} segundos'
+      expire-n-minutes: '{n} minuto | {n} minutos'
+      expire-n-seconds: '{n} segundo | {n} segundos'
       items-explanation:
         - Você insere o segredo no campo de texto desta página
         - Seu navegador criptografa o segredo usando uma senha gerada
-        - Somente o segredo criptografado é enviado para o servidor (nem o segredo em texto claro, nem a senha é enviada para o servidor!)
-        - O servidor armazena o segredo criptografado por um certo tempo
-        - Você envia a URL mostrada contendo a ID e a senha de descriptografia para o destinatário
-        - 'O destinatário pode ver o segredo apenas uma vez: se ele não pode ver, o segredo pode ter sido visto por outra pessoa!'
-        - Após o segredo ter sido obtido uma vez, o mesmo é deletado do servidor
-      label-secret-data: 'Informação secreta:'
-      text-burn-hint: Importante você lembrar de não acessar esta URL, pois isto irá indisponibilizar o segredo. Apenas encaminhe para outra pessoa!
-      text-hint-burned: 'Atenção: Você está vendo esta informação apenas uma vez. Logo que você recarregar a página o segredo ficará indisponível. É recomendado que você copie a informação agora…'
-      text-powered-by: Powered by
-      text-pre-reveal-hint: Para revelar o segredo clique neste botão, mas lembre-se que esta ação vai destruir o segredo. Você só pode ver uma única vez!
-      text-pre-url: 'Seu segredo foi criado e armazenado na seguinte URL:'
-      text-secret-create-disabled: A criação de novos segredos é desativada nesse caso.
-      title-explanation: É assim como funciona…
+        - Somente o segredo criptografado é enviado para o servidor (nem o segredo em texto claro, nem a senha são enviados!)
+        - O servidor armazena o segredo criptografado por um determinado tempo
+        - Você envia a URL exibida, contendo o ID e a senha de descriptografia, para o destinatário
+        - 'O destinatário pode ver o segredo apenas uma vez: se não conseguir, o segredo pode ter sido visto por outra pessoa!'
+        - Após o segredo ser obtido uma vez, ele é excluído do servidor
+      label-expiry: 'Expira em:'
+      label-secret-data: 'Dados secretos:'
+      label-secret-files: 'Anexar arquivos:'
+      text-attached-files: O remetente anexou arquivos ao segredo. Certifique-se de que confia no remetente, pois os arquivos não foram verificados!
+      text-burn-hint: Lembre-se de não acessar esta URL, pois isso destruirá o segredo. Apenas encaminhe para outra pessoa!
+      text-burn-time: 'Se não for visualizado antes, este segredo será automaticamente excluído:'
+      text-hint-burned: <strong>Atenção:</strong> Você está vendo isto apenas uma vez. Assim que recarregar a página, o segredo desaparecerá, então copie-o agora&hellip;
+      text-invalid-files-selected: Pelo menos um dos arquivos selecionados não é permitido como anexo.
+      text-max-filesize: 'Tamanho máximo: {maxSize}'
+      text-max-filesize-exceeded: 'O(s) arquivo(s) selecionado(s) são grandes demais para anexar: {curSize} / {maxSize}'
+      text-powered-by: Desenvolvido por
+      text-pre-reveal-hint: Para revelar o segredo, clique neste botão, mas esteja ciente de que isso destruirá o segredo. Você só pode visualizá-lo uma vez!
+      text-pre-url: 'Seu segredo foi criado e armazenado nesta URL:'
+      text-secret-burned: O segredo foi destruído com sucesso.
+      text-secret-create-disabled: A criação de novos segredos está desativada nesta instância.
+      title-explanation: É assim que funciona&hellip;
       title-new-secret: Criar um novo segredo
-      title-reading-secret: Lendo seu segredo…
-      title-secret-create-disabled: Criação secreta desativada...
+      title-reading-secret: Lendo seu segredo&hellip;
+      title-secret-create-disabled: Criação de segredos desativada…
       title-secret-created: Segredo criado!
+      tooltip-burn-secret: Destruir segredo agora!
+      tooltip-copy-to-clipboard: Copiar para a área de transferência
+      tooltip-download-as-file: Baixar como arquivo
   ru:
     deeplLanguage: ru
     translators:
