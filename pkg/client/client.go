@@ -91,7 +91,7 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 
 	body := new(bytes.Buffer)
 	if err = json.NewEncoder(body).Encode(struct {
-		Secret string `json:"secret"`
+		Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 	}{Secret: string(data)}); err != nil {
 		return "", time.Time{}, fmt.Errorf("encoding request payload: %w", err)
 	}
@@ -181,7 +181,7 @@ func Fetch(secretURL string) (s Secret, err error) {
 	}
 
 	var payload struct {
-		Secret string `json:"secret"`
+		Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 	}
 
 	if err = json.NewDecoder(resp.Body).Decode(&payload); err != nil {

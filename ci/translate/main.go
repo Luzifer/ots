@@ -215,7 +215,7 @@ func fetchTranslation(srcLang, destLang, text string) (string, error) {
 	req.Header.Set("Authorization", strings.Join([]string{"DeepL-Auth-Key", cfg.DeeplAPIKey}, " "))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := http.DefaultClient.Do(req) //#nosec:G704 // False Positive
 	if err != nil {
 		return "", errors.Wrap(err, "executing request")
 	}

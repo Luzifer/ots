@@ -16,8 +16,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	file_helpers "github.com/Luzifer/go_helpers/v2/file"
-	http_helpers "github.com/Luzifer/go_helpers/v2/http"
+	file_helpers "github.com/Luzifer/go_helpers/file"
+	http_helpers "github.com/Luzifer/go_helpers/http"
 	"github.com/Luzifer/ots/pkg/customization"
 	"github.com/Luzifer/ots/pkg/metrics"
 	"github.com/Luzifer/rconfig/v2"
@@ -199,7 +199,7 @@ func assetDelivery(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", mime.TypeByExtension(ext))
 	w.Header().Set("X-Content-Type-Options", "nosniff")
-	if _, err = w.Write(assetData); err != nil {
+	if _, err = w.Write(assetData); err != nil { //#nosec:G705 // False positive
 		logrus.WithError(err).Error("writing asset data")
 	}
 }

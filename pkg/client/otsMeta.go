@@ -15,7 +15,7 @@ type (
 	// Secret represents a secret parsed from / prepared for
 	// serialization to the OTS API
 	Secret struct {
-		Secret      string             `json:"secret"`
+		Secret      string             `json:"secret"` //#nosec:G117 // This application works with secrets
 		Attachments []SecretAttachment `json:"attachments,omitempty"`
 	}
 

@@ -32,12 +32,12 @@ type apiResponse struct {
 	Success   bool       `json:"success"`
 	Error     string     `json:"error,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-	Secret    string     `json:"secret,omitempty"`
+	Secret    string     `json:"secret,omitempty"` //#nosec:G117 // This application works with secrets
 	SecretID  string     `json:"secret_id,omitempty"`
 }
 
 type apiRequest struct {
-	Secret string `json:"secret"`
+	Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 }
 
 func newAPI(s storage.Storage, c *metrics.Collector) *apiServer {

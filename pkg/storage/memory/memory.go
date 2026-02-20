@@ -13,7 +13,7 @@ import (
 type (
 	memStorageSecret struct {
 		Expiry time.Time
-		Secret string
+		Secret string //#nosec:G117 // This application works with secrets
 	}
 
 	storageMem struct {
