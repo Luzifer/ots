@@ -122,8 +122,11 @@
 </template>
 
 <script lang="ts">
+import {
+  bytesToHuman,
+  durationToSeconds,
+} from '../helpers'
 import appCrypto from '../crypto.ts'
-import { bytesToHuman } from '../helpers'
 import { defineComponent } from 'vue'
 import FilesDisplay from './fileDisplay.vue'
 import GrowArea from './growarea.vue'
@@ -140,6 +143,19 @@ const defaultExpiryChoices = [
   60 * 60, // 1 hour
   30 * 60, // 30 minutes
   5 * 60, // 5 minutes
+]
+
+const defaultExpiryChoicesHuman = [
+  '90d',
+  '30d',
+  '7d',
+  '3d',
+  '24h', // or 1d, equivalent
+  '12h',
+  '4h',
+  '1h',
+  '30m',
+  '5m',
 ]
 
 /*
@@ -169,6 +185,10 @@ export default defineComponent({
     },
 
     expiryChoices(): Record<string, string | null>[] {
+      if (this.customize.expiryChoicesHuman) {
+        return this.expiryChoicesHuman
+      }
+
       const choices = [{ text: this.$t('expire-default'), value: null as string | null }]
 
       for (const choice of this.customize.expiryChoices || defaultExpiryChoices) {
@@ -186,6 +206,26 @@ export default defineComponent({
         } else {
           option.text = this.$t('expire-n-seconds', choice)
         }
+
+        choices.push(option)
+      }
+
+      return choices
+    },
+
+    expiryChoicesHuman() {
+      const choices = []
+      if (!this.hasValidDefaultExpiryHuman()) {
+        choices.push({ text: this.$t('expire-default'), value: null })
+      }
+
+      for (const choice of this.customize.expiryChoicesHuman || defaultExpiryChoicesHuman) {
+        const option = { value: choice }
+
+        const unit = choice.slice(-1)
+        const amount = parseInt(choice.slice(0, -1), 10)
+
+        option.text = this._getTextForAmount(unit, amount)
 
         choices.push(option)
       }
@@ -236,6 +276,8 @@ export default defineComponent({
 
   created(): void {
     this.checkWriteAccess()
+
+    this.initExpiry()
   },
 
   data() {
@@ -243,6 +285,7 @@ export default defineComponent({
       attachedFiles: [],
       canWrite: null,
       createRunning: false,
+      expiryInitialized: false,
       fileSize: 0,
       secret: '',
       securePassword: null,
@@ -254,6 +297,21 @@ export default defineComponent({
   emits: ['error', 'navigate'],
 
   methods: {
+    _getTextForAmount(unit, amount) {
+      switch (unit) {
+      case 'd':
+        return this.$t('expire-n-days', amount)
+      case 'h':
+        return this.$t('expire-n-hours', amount)
+      case 'm':
+        return this.$t('expire-n-minutes', amount)
+      case 's':
+        return this.$t('expire-n-seconds', amount)
+      }
+
+      return amount
+    },
+
     bytesToHuman,
 
     checkWriteAccess(): Promise<void> {
@@ -300,7 +358,7 @@ export default defineComponent({
         .then(secret => {
           let reqURL = 'api/create'
           if (this.selectedExpiry !== null) {
-            reqURL = `api/create?expire=${this.selectedExpiry}`
+            reqURL = `api/create?expire=${durationToSeconds(this.selectedExpiry)}`
           }
 
           return fetch(reqURL, {
@@ -367,6 +425,34 @@ export default defineComponent({
       this.$refs.createSecretFiles.value = ''
     },
 
+    hasValidDefaultExpiryHuman() {
+      const defaultExpiry = this.customize.defaultExpiryHuman || false
+      if (defaultExpiry === false) {
+        return false
+      }
+
+      if (!this.customize.expiryChoicesHuman) {
+        return false
+      }
+
+      return this.customize.expiryChoicesHuman.includes(defaultExpiry)
+    },
+
+    initExpiry() {
+      const match = document.cookie.match(/(?:^|;\s*)selectedExpiry=([^;]*)/)
+      this.selectedExpiry = match
+        ? decodeURIComponent(match[1])
+        : this.customize?.defaultExpiryHuman || null
+
+      if (!this.customize?.expiryChoicesHuman) {
+        return
+      }
+
+      if (!this.customize?.expiryChoicesHuman.includes(this.selectedExpiry)) {
+        this.selectedExpiry = null
+      }
+    },
+
     isAcceptedBy(fileMeta: any, accept: string): boolean {
       if (/^(?:[a-z]+|\*)\/(?:[a-zA-Z0-9.+_-]+|\*)$/.test(accept)) {
         // That's likely supposed to be a mime-type
@@ -395,5 +481,17 @@ export default defineComponent({
   },
 
   name: 'AppCreate',
+
+  watch: {
+    selectedExpiry(newVal) {
+      if (!this.expiryInitialized) {
+        this.expiryInitialized = true
+
+        return
+      }
+
+      document.cookie = `selectedExpiry=${newVal || ''}; path=/; max-age=${60 * 60 * 24 * 365}`
+    },
+  },
 })
 </script>
