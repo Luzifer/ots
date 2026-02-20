@@ -1,3 +1,9 @@
+# 1.21.2 / 2026-02-20
+
+  * fix(i18n): update Portuguese translations for clarity and accuracy (#237) (thanks @mthsmb)
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.18.0
+  * chore: resolve linter false-positives; replace go\_helpers/v2
+
 # 1.21.1 / 2026-02-16
 
 * Bugfixes
