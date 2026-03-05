@@ -746,10 +746,10 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.5.29.tgz#0fe0d7637b05599d56ca58d83a77c637a1774110"
   integrity sha512-w7SR0A5zyRByL9XUkCfdLs7t9XOHUyJ67qPGQjOou3p6GvBeBW+AVjUUmlxtZ4PIYaRvE+1LmK44O4uajlZwcg==
 
-"@vue/tsconfig@0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@vue/tsconfig/-/tsconfig-0.8.1.tgz#4732251fa58945024424385cf3be0b1708fad5fe"
-  integrity sha512-aK7feIWPXFSUhsCP9PFqPyFOcz4ENkb8hZ2pneL6m2UjCkccvaOhC/5KCKluuBufvp2KzkbdA2W2pk20vLzu3g==
+"@vue/tsconfig@0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@vue/tsconfig/-/tsconfig-0.9.0.tgz#368ea78f584e4e7a6309e7feb0adcea938c9dd2d"
+  integrity sha512-RP+v9Cpbsk1ZVXltCHHkYBr7+624x6gcijJXVjIcsYk7JXqvIpRtMwU2ARLvWDhmy9ffdFYxhsfJnPztADBohQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
