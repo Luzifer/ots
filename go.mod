@@ -8,7 +8,7 @@ replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
 require (
 	github.com/Luzifer/go_helpers/file v0.6.1
-	github.com/Luzifer/go_helpers/http v0.12.2
+	github.com/Luzifer/go_helpers/http v0.12.3
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20250501151834-283ffa548fa8
 	github.com/Luzifer/rconfig/v2 v2.6.1
 	github.com/Masterminds/sprig/v3 v3.3.0
@@ -23,7 +23,7 @@ require (
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/Luzifer/go_helpers/accesslogger v0.1.1 // indirect
-	github.com/Luzifer/go_helpers/str v0.4.1 // indirect
+	github.com/Luzifer/go_helpers/str v0.5.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
