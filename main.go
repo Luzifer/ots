@@ -6,8 +6,10 @@ import (
 	"encoding/base64"
 	"io/fs"
 	"mime"
+	"net"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 	"time"
@@ -164,17 +166,22 @@ func main() {
 		"version":       version,
 	}).Info("ots started")
 
+	l, err := getListener(cfg.Listen)
+	if err != nil {
+		logrus.WithError(err).Fatal("creating listener")
+	}
+
 	if cfg.EnableTLS {
 		if cfg.CertFile == "" || cfg.KeyFile == "" {
 			logrus.Fatal("TLS is enabled but cert-file or key-file is not provided")
 		}
 		logrus.Infof("Starting HTTPS server on %s", cfg.Listen)
-		if err := server.ListenAndServeTLS(cfg.CertFile, cfg.KeyFile); err != nil {
+		if err := server.ServeTLS(l, cfg.CertFile, cfg.KeyFile); err != nil {
 			logrus.WithError(err).Fatal("HTTPS server quit unexpectedly")
 		}
 	} else {
 		logrus.Infof("Starting HTTP server on %s", cfg.Listen)
-		if err := server.ListenAndServe(); err != nil {
+		if err := server.Serve(l); err != nil {
 			logrus.WithError(err).Fatal("HTTP server quit unexpectedly")
 		}
 	}
@@ -246,4 +253,25 @@ func handleRemoveAcceptEncoding(next http.Handler) http.Handler {
 		r.Header.Del("Accept-Encoding")
 		next.ServeHTTP(w, r)
 	})
+}
+
+func getListener(addr string) (net.Listener, error) {
+	if strings.HasPrefix(addr, "unix:") {
+		path := strings.TrimPrefix(addr, "unix:")
+		if info, err := os.Stat(path); err == nil {
+			if info.Mode()&os.ModeSocket != 0 {
+				if err := os.Remove(path); err != nil {
+					return nil, errors.Wrap(err, "removing existing socket")
+				}
+			}
+		}
+
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			return nil, errors.Wrap(err, "creating socket directory")
+		}
+
+		return net.Listen("unix", path)
+	}
+
+	return net.Listen("tcp", addr)
 }
