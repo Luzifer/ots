@@ -71,7 +71,7 @@ func (o Secret) serialize(passphrase string) ([]byte, error) {
 			o.Attachments[i].Data = base64.StdEncoding.EncodeToString(o.Attachments[i].Content)
 		}
 
-		j, err := json.Marshal(o)
+		j, err := json.Marshal(o) //#nosec:G117 // This application works with secrets
 		if err != nil {
 			return nil, fmt.Errorf("encoding JSON payload: %w", err)
 		}
