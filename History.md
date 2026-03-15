@@ -1,3 +1,12 @@
+# 1.21.3 / 2026-03-15
+
+  * fix(deps): update dependency @fortawesome/fontawesome-free to v7
+  * fix(deps): update dependency vue-i18n to v11.3.0
+  * fix(deps): update dependency vue-router to v5.0.3
+  * fix(deps): update dependency vue to v3.5.30
+  * fix(deps): update module github.com/luzifer/go\_helpers/http to v0.12.3
+  * fix(deps): update module github.com/luzifer/go\_helpers/str to v0.5.0
+
 # 1.21.2 / 2026-02-20
 
   * fix(i18n): update Portuguese translations for clarity and accuracy (#237) (thanks @mthsmb)
