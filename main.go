@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/rand"
 	"embed"
 	"encoding/base64"
@@ -25,7 +26,10 @@ import (
 	"github.com/Luzifer/rconfig/v2"
 )
 
-const scriptNonceSize = 32
+const (
+	scriptNonceSize     = 32
+	socketDirPermission = 0o750
+)
 
 var (
 	cfg struct {
@@ -256,6 +260,9 @@ func handleRemoveAcceptEncoding(next http.Handler) http.Handler {
 }
 
 func getListener(addr string) (net.Listener, error) {
+	lc := net.ListenConfig{}
+	ctx := context.Background()
+
 	if strings.HasPrefix(addr, "unix:") {
 		path := strings.TrimPrefix(addr, "unix:")
 		if info, err := os.Stat(path); err == nil {
@@ -266,12 +273,14 @@ func getListener(addr string) (net.Listener, error) {
 			}
 		}
 
-		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		if err := os.MkdirAll(filepath.Dir(path), socketDirPermission); err != nil {
 			return nil, errors.Wrap(err, "creating socket directory")
 		}
 
-		return net.Listen("unix", path)
+		l, err := lc.Listen(ctx, "unix", path)
+		return l, errors.Wrap(err, "creating unix listener")
 	}
 
-	return net.Listen("tcp", addr)
+	l, err := lc.Listen(ctx, "tcp", addr)
+	return l, errors.Wrap(err, "creating tcp listener")
 }
