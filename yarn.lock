@@ -1951,10 +1951,10 @@ vue-i18n@11.3.0:
     "@intlify/shared" "11.3.0"
     "@vue/devtools-api" "^6.5.0"
 
-vue-router@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-5.0.3.tgz#de0fac20b25dfa36ab77476abe944b9f86840621"
-  integrity sha512-nG1c7aAFac7NYj8Hluo68WyWfc41xkEjaR0ViLHCa3oDvTQ/nIuLJlXJX1NUPw/DXzx/8+OKMng045HHQKQKWw==
+vue-router@5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-5.0.4.tgz#41ffc00bab448c406447115bbb29d49144cc1e7d"
+  integrity sha512-lCqDLCI2+fKVRl2OzXuzdSWmxXFLQRxQbmHugnRpTMyYiT+hNaycV0faqG5FBHDXoYrZ6MQcX87BvbY8mQ20Bg==
   dependencies:
     "@babel/generator" "^7.28.6"
     "@vue-macros/common" "^3.1.1"
