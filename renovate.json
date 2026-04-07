@@ -12,7 +12,7 @@
     },
     {
       "matchFileNames": [
-        "docker-compose.yaml"
+        "docker-compose.yml"
       ],
       "pinDigests": false
     }
