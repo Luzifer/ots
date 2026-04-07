@@ -1,7 +1,7 @@
 # Install Node deps on change of package.json
 local_resource(
-  'yarn',
-  cmd='corepack yarn@1 install', # Not using the make target to edit the lockfile
+  'pnpm',
+  cmd='corepack pnpm install', # Not using the make target to edit the lockfile
   deps=['package.json'],
 )
 
@@ -10,7 +10,7 @@ local_resource(
   'frontend',
   cmd='make frontend',
   deps=['src'],
-  resource_deps=['yarn'],
+  resource_deps=['pnpm'],
 )
 
 # Generate translation files on source change
