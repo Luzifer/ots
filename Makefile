@@ -49,6 +49,6 @@ trivy:
 		--quiet \
 		--scanners config,license,secret,vuln \
 		--severity HIGH,CRITICAL \
-		--skip-dirs docs
+		--skip-dirs docs,node_modules
 
 .PHONY: node_modules
