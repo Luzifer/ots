@@ -7,6 +7,9 @@ export default [
   js.configs.recommended,
   ...vue.configs['flat/recommended'],
   {
+    ignores: ['src/langs/langs.tpl.js'],
+  },
+  {
     languageOptions: {
       ecmaVersion: 'latest',
       globals: {
