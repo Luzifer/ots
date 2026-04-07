@@ -1,3 +1,10 @@
+# 1.21.4 / 2026-04-07
+
+* Bugfixes
+  * fix(deps): update dependency vue-router to v5.0.4
+  * fix(deps): update dependency vue to v3.5.32
+  * chore: update indirect deps (SEC-fixes)
+
 # 1.21.3 / 2026-03-15
 
   * fix(deps): update dependency @fortawesome/fontawesome-free to v7
