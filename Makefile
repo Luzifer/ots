@@ -1,27 +1,35 @@
+PRODUCT_VERSION := v1.21.4
+
 default: build-local
 
+build-local: export CGO_ENABLED=0
+build-local: export SOURCE_DATE_EPOCH=1
 build-local: frontend generate-apidocs
 	go build \
 		-buildmode=pie \
-		-ldflags "-s -w -X main.version=$(shell git describe --tags --always || echo dev)" \
+		-buildvcs=false \
+		-ldflags "-s -w -buildid= -X main.version=$(PRODUCT_VERSION)" \
 		-mod=readonly \
-		-trimpath
+		-trimpath \
+		-o ots
 
-generate-apidocs:
-	npx --yes @redocly/cli build-docs docs/openapi.yaml --disableGoogleFont true -o /tmp/api.html
-	mv /tmp/api.html frontend/
+generate-apidocs: node_modules
+	pnpm redocly \
+		--disableGoogleFont true \
+		-o frontend/api.html \
+		build-docs docs/openapi.yaml
 
 frontend_prod: export NODE_ENV=production
 frontend_prod: frontend
 
 frontend: node_modules
-	corepack pnpm node ci/build.mjs
+	pnpm node ci/build.mjs
 
 frontend_lint: node_modules
-	corepack pnpm eslint --fix src
+	pnpm eslint --fix src
 
 node_modules:
-	corepack pnpm install --production=false --frozen-lockfile
+	pnpm install --production=false --frozen-lockfile
 
 publish: export NODE_ENV=production
 publish: frontend_prod generate-apidocs

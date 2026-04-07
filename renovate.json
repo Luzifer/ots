@@ -9,6 +9,12 @@
       "matchPackageNames": [
         "github.com/Luzifer/ots/pkg/**"
       ]
+    },
+    {
+      "matchFileNames": [
+        "docker-compose.yaml"
+      ],
+      "pinDigests": false
     }
   ]
 }

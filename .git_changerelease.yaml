@@ -1,5 +1,3 @@
----
-
 # Template to format the commit message containing the changelog change
 # which will be used to add the tag to.
 release_commit_message: "Release: OTS {{.Version}}"
@@ -19,10 +17,11 @@ pre_commit_commands:
     yq -iP "(select(.spec.template.spec | has(\"containers\")) | .spec.template.spec.containers[] | select(.name == \"ots\").image) = \"ghcr.io/luzifer/ots:v${TAG_VERSION}\"" docs/k8s_example.yml
     git add docs/k8s_example.yml
   - |-
-    yq -iP ".services.app.build.context = \"https://github.com/Luzifer/ots.git#v${TAG_VERSION}\"" docker-compose.yml
+    yq -iP ".services.app.image = \"ghcr.io/luzifer/ots:v${TAG_VERSION}\"" docker-compose.yml
     git add docker-compose.yml
   - |-
-    sed -i -E "s@org.opencontainers.image.version='[^']*'@org.opencontainers.image.version='${TAG_VERSION}'@" Dockerfile Dockerfile.minimal
-    git add Dockerfile Dockerfile.minimal
-
-...
+    sed -i -E "s@org.opencontainers.image.version='[^']*'@org.opencontainers.image.version='${TAG_VERSION}'@" Dockerfile
+    git add Dockerfile
+  - |-
+    sed -i -E "s/^PRODUCT_VERSION.*/PRODUCT_VERSION := v${TAG_VERSION}/" Makefile
+    git add Makefile
