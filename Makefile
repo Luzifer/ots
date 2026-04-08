@@ -6,7 +6,6 @@ build-local: export CGO_ENABLED=0
 build-local: export SOURCE_DATE_EPOCH=1
 build-local: frontend generate-apidocs
 	go build \
-		-buildmode=pie \
 		-buildvcs=false \
 		-ldflags "-s -w -buildid= -X main.version=$(PRODUCT_VERSION)" \
 		-mod=readonly \
