@@ -12,7 +12,7 @@
     "eslint": "10.2.0",
     "eslint-plugin-vue": "10.8.0",
     "globals": "17.5.0",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "vue-eslint-parser": "10.4.0"
   },
   "name": "ots",
