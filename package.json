@@ -9,7 +9,7 @@
     "esbuild": "0.28.0",
     "esbuild-plugin-vue3": "0.5.1",
     "esbuild-sass-plugin": "3.7.0",
-    "eslint": "10.2.0",
+    "eslint": "10.2.1",
     "eslint-plugin-vue": "10.8.0",
     "globals": "17.5.0",
     "typescript": "6.0.3",
