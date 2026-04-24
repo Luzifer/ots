@@ -16,11 +16,14 @@ import (
 )
 
 const (
+	errorReasonInvalidExpiry  = "invalid_expiry"
 	errorReasonInvalidJSON    = "invalid_json"
 	errorReasonSecretMissing  = "secret_missing"
+	errorReasonSecretNotFound = "secret_not_found"
 	errorReasonSecretSize     = "secret_size"
 	errorReasonStorageError   = "storage_error"
-	errorReasonSecretNotFound = "secret_not_found"
+
+	maxExpirySeconds = int64(1<<63-1) / int64(time.Second)
 )
 
 type apiServer struct {
@@ -69,8 +72,11 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	)
 
 	if !cust.DisableExpiryOverride {
-		if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
-			expiry = ev
+		var err error
+		if expiry, err = a.parseExpiryOverride(r, expiry); err != nil {
+			a.collector.CountSecretCreateError(errorReasonInvalidExpiry)
+			a.errorResponse(res, http.StatusBadRequest, err, "")
+			return
 		}
 	}
 
@@ -182,4 +188,30 @@ func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any)
 		logrus.WithError(err).Error("encoding JSON response")
 		http.Error(res, `{"error":"could not encode response"}`, http.StatusInternalServerError)
 	}
+}
+
+func (apiServer) parseExpiryOverride(r *http.Request, expiry int64) (int64, error) {
+	expiryValues, ok := r.URL.Query()["expire"]
+	if !ok {
+		return expiry, nil
+	}
+
+	ev, err := strconv.ParseInt(expiryValues[0], 10, 64)
+	if err != nil {
+		return 0, errors.New("invalid expiry")
+	}
+
+	if ev < 0 {
+		return 0, errors.New("expiry must be greater than or equal to zero")
+	}
+
+	if ev > maxExpirySeconds {
+		return 0, errors.New("expiry exceeds maximum duration")
+	}
+
+	if ev < expiry || cfg.SecretExpiry == 0 {
+		return ev, nil
+	}
+
+	return expiry, nil
 }
