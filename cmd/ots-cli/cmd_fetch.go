@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-	"path"
+	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/Luzifer/ots/pkg/client"
@@ -28,8 +29,30 @@ func init() {
 	rootCmd.AddCommand(fetchCmd)
 }
 
+func assembleDownloadFileName(dir, filename string, iteration int) string {
+	fileNameFragments := strings.SplitN(filepath.Base(filename), ".", 2) //nolint:mnd
+
+	switch {
+	case iteration == 0 && len(fileNameFragments) == 1:
+		// We are in initial iteration and have no file extension
+		return filepath.Join(dir, fileNameFragments[0])
+
+	case iteration == 0:
+		// Initial iteration, extension is present
+		return filepath.Join(dir, strings.Join(fileNameFragments, "."))
+
+	case len(fileNameFragments) == 1:
+		// Later iteration and no extension
+		return filepath.Join(dir, fmt.Sprintf("%s (%d)", fileNameFragments[0], iteration))
+
+	default:
+		// Later iteration, extension is present
+		return filepath.Join(dir, fmt.Sprintf("%s (%d).%s", fileNameFragments[0], iteration, fileNameFragments[1]))
+	}
+}
+
 func checkDirWritable(dir string) error {
-	tmpFile := path.Join(dir, ".ots-cli.tmp")
+	tmpFile := filepath.Join(dir, ".ots-cli.tmp")
 	if err := os.WriteFile(tmpFile, []byte(""), storeFileMode); err != nil {
 		return fmt.Errorf("writing tmp-file: %w", err)
 	}
@@ -69,24 +92,30 @@ func fetchRunE(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func storeAttachment(dir string, f client.SecretAttachment) error {
+func storeAttachment(dir string, f client.SecretAttachment) (err error) {
 	// First lets find a free file name to save the file as
 	var (
-		fileNameFragments = strings.SplitN(f.Name, ".", 2) //nolint:mnd
-		i                 int
-		storeName         = path.Join(dir, f.Name)
-		storeNameTpl      string
+		i         int
+		storeName string
 	)
 
-	if len(fileNameFragments) == 1 {
-		storeNameTpl = fmt.Sprintf("%s (%%d)", fileNameFragments[0])
-	} else {
-		storeNameTpl = fmt.Sprintf("%s (%%d).%s", fileNameFragments[0], fileNameFragments[1])
+	if slices.Contains([]string{"", ".", "/", `\`}, filepath.Base(f.Name)) {
+		// These "filenames" makes no sense and could cause trouble when storing
+		return fmt.Errorf("invalid attachment name %q", f.Name)
 	}
 
-	for _, err := os.Stat(storeName); !errors.Is(err, fs.ErrNotExist); _, err = os.Stat(storeName) {
+	for {
+		storeName = assembleDownloadFileName(dir, f.Name, i)
+		if _, err = os.Stat(storeName); err != nil {
+			if errors.Is(err, fs.ErrNotExist) {
+				break
+			}
+
+			return fmt.Errorf("getting file stat: %w", err)
+		}
+
+		// No luck, file is taken, next round
 		i++
-		storeName = fmt.Sprintf(storeNameTpl, i)
 	}
 
 	// So we finally found a filename we can use
