@@ -7,7 +7,7 @@ declare global {
     maxSecretExpire: number;
     OTSCustomize: any;
     refreshTheme: () => void;
-    setTheme: (string) => void;
+    setTheme: (theme: string) => void;
     useFormalLanguage: boolean;
     version: string;
   }

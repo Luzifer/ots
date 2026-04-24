@@ -155,6 +155,7 @@ const internalMaxFileSize = 64 * 1024 * 1024 // 64 MiB
 
 const passwordCharset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const passwordLength = 20
+const passwordRandomLimit = Math.floor(256 / passwordCharset.length) * passwordCharset.length
 
 export default defineComponent({
   components: { FilesDisplay, GrowArea },
@@ -282,9 +283,25 @@ export default defineComponent({
       // Encoding large files takes a while, prevent duplicate click on "create"
       this.createRunning = true
 
-      this.securePassword = [...window.crypto.getRandomValues(new Uint8Array(passwordLength))]
-        .map(n => passwordCharset[n % passwordCharset.length])
-        .join('')
+      let password = ''
+
+      while (password.length < passwordLength) {
+        const values = window.crypto.getRandomValues(new Uint8Array(passwordLength))
+
+        for (const n of values) {
+          if (n >= passwordRandomLimit) {
+            continue
+          }
+
+          password += passwordCharset[n % passwordCharset.length]
+
+          if (password.length === passwordLength) {
+            break
+          }
+        }
+      }
+
+      this.securePassword = password
 
       const meta = new OTSMeta()
       meta.secret = this.secret
