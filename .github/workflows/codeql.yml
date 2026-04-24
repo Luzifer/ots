@@ -1,4 +1,3 @@
----
 name: 'CodeQL'
 
 on:
@@ -39,6 +38,9 @@ jobs:
         uses: github/codeql-action/init@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
         with:
           build-mode: ${{ matrix.language == 'go' && 'autobuild' || '' }}
+          config: |
+            paths-ignore:
+              - src/langs/langs.tpl.js
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
