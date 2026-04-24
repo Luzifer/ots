@@ -1,3 +1,12 @@
+# 1.21.5 / 2026-04-24
+
+* Improvements
+  * chore: slim down Docker image, move towards reproducible build
+
+* Bugfixes
+  * fix: prevent passing negative expiration during secret creation (see [GHSA-h5fq-653g-gxrm](https://github.com/Luzifer/ots/security/advisories/GHSA-h5fq-653g-gxrm))
+  * fix(deps): update dependency vue-i18n to v11.3.2
+
 # 1.21.4 / 2026-04-07
 
 * Bugfixes
