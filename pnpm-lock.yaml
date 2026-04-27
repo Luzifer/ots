@@ -34,8 +34,8 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(eslint@10.2.1)
       '@redocly/cli':
-        specifier: 2.29.2
-        version: 2.29.2(@opentelemetry/api@1.9.1)(core-js@3.49.0)
+        specifier: 2.30.0
+        version: 2.30.0(@opentelemetry/api@1.9.1)(core-js@3.49.0)
       '@types/bootstrap':
         specifier: 5.2.10
         version: 5.2.10
@@ -580,8 +580,8 @@ packages:
   '@redocly/cli-otel@0.1.2':
     resolution: {integrity: sha512-Bg7BoO5t1x3lVK+KhA5aGPmeXpQmdf6WtTYHhelKJCsQ+tRMiJoFAQoKHoBHAoNxXrhlS3K9lKFLHGmtxsFQfA==}
 
-  '@redocly/cli@2.29.2':
-    resolution: {integrity: sha512-QQOwkud3dk1kCtd+rutffauB7b4iEJOXFg4rTTVdKACD0/ifRBlyTd7GPswZm4nGyW5vDtS/UbyjMMhF//FkRQ==}
+  '@redocly/cli@2.30.0':
+    resolution: {integrity: sha512-hpMyiJFfyTk+FE+ksoD7HClN6ALxETsWwbuE2bkpJLYXnhnBMuGe42cuBo12mEXooXghH6UltaKktrRRg/FUYA==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
     hasBin: true
 
@@ -595,12 +595,12 @@ packages:
     resolution: {integrity: sha512-V09ayfnb5GyysmvARbt+voFZAjGcf7hSYxOYxSkCc4fbH/DTfq5YWoec8cflvmHHqyIFbqvmGKmYFzqhr9zxDg==}
     engines: {node: '>=18.17.0', npm: '>=9.5.0'}
 
-  '@redocly/openapi-core@2.29.2':
-    resolution: {integrity: sha512-je4yu+QgSOSx+wN5IcpCaoZwNAAnaLnmSeN8GDC6lX2l51ukyQBFjZ+/LeCrVgOrUA3aRZRRHgZoRtcemIfm+A==}
+  '@redocly/openapi-core@2.30.0':
+    resolution: {integrity: sha512-ZwsTS/BHzfzmadf4qPcpBcYDQm78XoinmLTGQWzDKOpgnjNOV62YId79611ulHpYXndRG8vcVm5LJdvXqGp8Yw==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
 
-  '@redocly/respect-core@2.29.2':
-    resolution: {integrity: sha512-V7TkUveOcR3IT3TANnPCxd6W2l9IezKYASoeJpYvtTNIXGjRD2VhtxRTjlonBXr/8bj8vdzQ96H2f51sgsJt5A==}
+  '@redocly/respect-core@2.30.0':
+    resolution: {integrity: sha512-Qzo2r7ZzbfBhB/OYXdaRGkCGCLQpHaHuQ/0WGFLtqtIouIhF1c0heC2STlGacH+T0MFkl0SU5sTkxpzetPuI8w==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
 
   '@types/bootstrap@5.2.10':
@@ -2429,15 +2429,15 @@ snapshots:
     dependencies:
       ulid: 2.4.0
 
-  '@redocly/cli@2.29.2(@opentelemetry/api@1.9.1)(core-js@3.49.0)':
+  '@redocly/cli@2.30.0(@opentelemetry/api@1.9.1)(core-js@3.49.0)':
     dependencies:
       '@opentelemetry/exporter-trace-otlp-http': 0.214.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/resources': 2.6.1(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-trace-node': 2.6.1(@opentelemetry/api@1.9.1)
       '@opentelemetry/semantic-conventions': 1.40.0
       '@redocly/cli-otel': 0.1.2
-      '@redocly/openapi-core': 2.29.2
-      '@redocly/respect-core': 2.29.2
+      '@redocly/openapi-core': 2.30.0
+      '@redocly/respect-core': 2.30.0
       abort-controller: 3.0.0
       ajv: '@redocly/ajv@8.18.0'
       ajv-formats: 3.0.1(@redocly/ajv@8.18.0)
@@ -2489,7 +2489,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@redocly/openapi-core@2.29.2':
+  '@redocly/openapi-core@2.30.0':
     dependencies:
       '@redocly/ajv': 8.18.0
       '@redocly/config': 0.48.1
@@ -2502,12 +2502,12 @@ snapshots:
       pluralize: 8.0.0
       yaml-ast-parser: 0.0.43
 
-  '@redocly/respect-core@2.29.2':
+  '@redocly/respect-core@2.30.0':
     dependencies:
       '@faker-js/faker': 7.6.0
       '@noble/hashes': 1.8.0
       '@redocly/ajv': 8.18.0
-      '@redocly/openapi-core': 2.29.2
+      '@redocly/openapi-core': 2.30.0
       ajv: '@redocly/ajv@8.18.0'
       better-ajv-errors: 1.2.0(@redocly/ajv@8.18.0)
       colorette: 2.0.20
