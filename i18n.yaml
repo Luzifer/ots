@@ -428,6 +428,12 @@ translations:
       title-reading-secret: Geheim wordt gelezen&hellip;
       title-secret-create-disabled: Aanmaken geheimen uitgeschakeld...
       title-secret-created: Geheim aangemaakt!
+      alert-insecure-environment: Je bezoekt deze pagina via een onveilige verbinding. Je kan geen geheimen lezen of aanmaken.
+      text-invalid-files-selected: Één of meer geselecteerde bestanden is niet toegelaten als bijlage.
+      text-secret-burned: Het geheim is vernietigd.
+      tooltip-burn-secret: Vernietig geheim!
+      tooltip-copy-to-clipboard: Kopieren naar klembord
+      tooltip-download-as-file: Downloaden als bestand
   nl-BE:
     deeplLanguage: nl-BE
     translators: []
@@ -471,6 +477,12 @@ translations:
       title-reading-secret: Vertrouwelijke info lezen&hellip;
       title-secret-create-disabled: Geheime creatie uitgeschakeld...
       title-secret-created: Vertrouwelijke info opgeslaan!
+      alert-insecure-environment: Je bezoekt deze pagina via een onveilige verbinding. Je kan geen vertrouwelijke info lezen of aanmaken.
+      text-invalid-files-selected: Één of meer geselecteerde bestanden is niet toegelaten als bijlage.
+      text-secret-burned: De vertrouwelijke info is vernietigd.
+      tooltip-burn-secret: Vernietig vertrouwelijke info!
+      tooltip-copy-to-clipboard: Kopieren naar klembord
+      tooltip-download-as-file: Downloaden als bestand
   pl:
     deeplLanguage: pl
     translators:
