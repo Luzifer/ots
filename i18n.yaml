@@ -737,6 +737,9 @@ translations:
       title-reading-secret: Читання вашого секрету&hellip;
       title-secret-create-disabled: Створення секрету вимкнено…
       title-secret-created: Секрет створений!
+      tooltip-burn-secret: Запали секрет зараз!
+      tooltip-copy-to-clipboard: Скопіювати до буферу обміну
+      tooltip-download-as-file: Завантажити як файл
   zh:
     translators:
       - YongJie-Xie
