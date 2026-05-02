@@ -9,8 +9,6 @@ import (
 	"github.com/Luzifer/go-openssl/v4"
 )
 
-var metaMarker = []byte("OTSMeta")
-
 type (
 	// Secret represents a secret parsed from / prepared for
 	// serialization to the OTS API
@@ -32,6 +30,8 @@ type (
 		Content []byte `json:"-"`
 	}
 )
+
+var metaMarker = []byte("OTSMeta")
 
 func (o *Secret) read(data []byte, passphrase string) (err error) {
 	if passphrase != "" {

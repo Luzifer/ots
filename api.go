@@ -1,3 +1,4 @@
+// The OTS Server
 package main
 
 import (
@@ -8,11 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Luzifer/ots/pkg/metrics"
-	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
+
+	"github.com/Luzifer/ots/pkg/metrics"
+	"github.com/Luzifer/ots/pkg/storage"
 )
 
 const (
@@ -58,12 +60,25 @@ func (a apiServer) Register(r *mux.Router) {
 	r.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
 }
 
+func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
+	errID := uuid.Must(uuid.NewV4()).String()
+
+	if desc != "" {
+		// No description: Nothing interesting for the server log
+		logrus.WithField("err_id", errID).WithError(err).Error(desc)
+	}
+
+	a.jsonResponse(res, status, apiResponse{
+		Error: errID,
+	})
+}
+
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	if cust.MaxSecretSize > 0 {
 		// As a safeguard against HUGE payloads behind a misconfigured
 		// proxy we take double the maximum secret size after which we
 		// just close the read and cut the connection to the sender.
-		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2) //nolint:mnd
+		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2)
 	}
 
 	var (
@@ -164,19 +179,6 @@ func (a apiServer) handleRead(res http.ResponseWriter, r *http.Request) {
 
 func (a apiServer) handleSettings(w http.ResponseWriter, _ *http.Request) {
 	a.jsonResponse(w, http.StatusOK, cust)
-}
-
-func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
-	errID := uuid.Must(uuid.NewV4()).String()
-
-	if desc != "" {
-		// No description: Nothing interesting for the server log
-		logrus.WithField("err_id", errID).WithError(err).Error(desc)
-	}
-
-	a.jsonResponse(res, status, apiResponse{
-		Error: errID,
-	})
 }
 
 func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any) {

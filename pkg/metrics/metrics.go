@@ -1,6 +1,6 @@
 // Package metrics provides an abstraction around metrics collection
 // in order to bundle all metrics related calls in one location
-package metrics //revive:disable-line:var-naming
+package metrics
 
 import (
 	"net/http"
@@ -72,18 +72,18 @@ func New() *Collector {
 	}
 }
 
-// CountSecretCreated signalizes a secret has successfully been created
-func (c Collector) CountSecretCreated() { c.secretsCreated.Inc() }
-
-// CountSecretRead signalizes a secret has successfully been read and destroyed
-func (c Collector) CountSecretRead() { c.secretsRead.Inc() }
-
 // CountSecretCreateError signalizes an error occurred during secret
 // creation. The reason must not be the error.Error() but a simple
 // static string describing the error.
 func (c Collector) CountSecretCreateError(reason string) {
 	c.secretsCreateErrors.WithLabelValues(reason).Inc()
 }
+
+// CountSecretCreated signalizes a secret has successfully been created
+func (c Collector) CountSecretCreated() { c.secretsCreated.Inc() }
+
+// CountSecretRead signalizes a secret has successfully been read and destroyed
+func (c Collector) CountSecretRead() { c.secretsRead.Inc() }
 
 // CountSecretReadError signalizes an error occurred during secret
 // read. The reason must not be the error.Error() but a simple

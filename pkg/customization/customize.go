@@ -4,6 +4,7 @@ package customization
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"os"
 
@@ -45,6 +46,8 @@ type (
 		FooterLinks []FooterLink `json:"footerLinks,omitempty" yaml:"footerLinks"`
 	}
 
+	// FooterLink holds name/url combinations to add as a link in the
+	// footer to i.e. add imprint or privacy policy
 	FooterLink struct {
 		Name string `json:"name" yaml:"name"`
 		URL  string `json:"url" yaml:"url"`
@@ -65,7 +68,7 @@ func Load(filename string) (cust Customize, err error) {
 			logrus.Warn("customize file given but not found")
 			return cust, nil
 		}
-		return cust, errors.Wrap(err, "opening customize file")
+		return cust, fmt.Errorf("opening customize file: %w", err)
 	}
 	defer func() {
 		if err := cf.Close(); err != nil {
@@ -74,7 +77,7 @@ func Load(filename string) (cust Customize, err error) {
 	}()
 
 	if err = yaml.NewDecoder(cf).Decode(&cust); err != nil {
-		return cust, errors.Wrap(err, "decoding customize file")
+		return cust, fmt.Errorf("decoding customize file: %w", err)
 	}
 
 	cust.applyFixes()
@@ -86,7 +89,7 @@ func Load(filename string) (cust Customize, err error) {
 // serialized as JSON in a string
 func (c Customize) ToJSON() (string, error) {
 	j, err := json.Marshal(c)
-	return string(j), errors.Wrap(err, "marshalling JSON")
+	return string(j), fmt.Errorf("marshalling JSON: %w", err)
 }
 
 func (c *Customize) applyFixes() {

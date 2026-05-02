@@ -5,7 +5,6 @@ go 1.25.7
 toolchain go1.26.2
 
 require (
-	github.com/Luzifer/go_helpers/str v0.5.0
 	github.com/Luzifer/rconfig/v2 v2.6.1
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2

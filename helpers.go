@@ -4,9 +4,10 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/sirupsen/logrus"
+
 	"github.com/Luzifer/ots/pkg/metrics"
 	"github.com/Luzifer/ots/pkg/storage"
-	"github.com/sirupsen/logrus"
 )
 
 func requestInSubnetList(r *http.Request, subnets []string) bool {

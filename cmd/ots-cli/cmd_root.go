@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/Luzifer/ots/pkg/client"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/Luzifer/ots/pkg/client"
 )
 
 var rootCmd = &cobra.Command{

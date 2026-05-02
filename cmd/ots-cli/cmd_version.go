@@ -10,7 +10,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Displays the tool version",
 	Run: func(*cobra.Command, []string) {
-		fmt.Printf("ots-cli %s\n", version) //nolint:forbidigo
+		fmt.Printf("ots-cli %s\n", version) //nolint:forbidigo // version can be used by other programs
 	},
 }
 

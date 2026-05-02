@@ -1,7 +1,6 @@
 package client
 
 import (
-	"regexp"
 	"testing"
 	"time"
 
@@ -14,7 +13,7 @@ func TestGeneratePassword(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Len(t, pass, PasswordLength)
-	assert.Regexp(t, regexp.MustCompile(`^[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`), pass)
+	assert.Regexp(t, `^[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`, pass)
 }
 
 func TestIntegration(t *testing.T) {
@@ -29,7 +28,7 @@ func TestIntegration(t *testing.T) {
 
 	secretURL, _, err := Create("https://ots.fyi/", s, time.Minute)
 	require.NoError(t, err)
-	assert.Regexp(t, regexp.MustCompile(`^https://ots.fyi/#[0-9a-f-]+%7C[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`), secretURL)
+	assert.Regexp(t, `^https://ots.fyi/#[0-9a-f-]+%7C[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`, secretURL)
 
 	apiSecret, err := Fetch(secretURL)
 	require.NoError(t, err)

@@ -9,6 +9,13 @@ import (
 	"github.com/Masterminds/sprig/v3"
 )
 
+type (
+	sriCache struct {
+		c map[string]string
+		l sync.RWMutex
+	}
+)
+
 var (
 	sriCacheStore = newSRICache()
 	tplFuncs      template.FuncMap
@@ -38,12 +45,7 @@ func assetSRIHash(assetName string) string {
 	return sri
 }
 
-type sriCache struct {
-	c map[string]string
-	l sync.RWMutex
-}
-
-func newSRICache() *sriCache { return &sriCache{c: map[string]string{}} }
+func newSRICache() *sriCache { return &sriCache{c: make(map[string]string)} }
 
 func (s *sriCache) Get(assetName string) (string, bool) {
 	s.l.RLock()

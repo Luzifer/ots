@@ -25,6 +25,7 @@ type (
 	// by the given HTTP client. This can be used for mocking and to
 	// pass in authenticated clients
 	HTTPClientIntf interface {
+		// Do is the expected method on the HTTP client to do the request
 		Do(*http.Request) (*http.Response, error)
 	}
 )
@@ -158,7 +159,7 @@ func Fetch(secretURL string) (s Secret, err error) {
 	if err != nil {
 		return s, fmt.Errorf("unescaping fragment: %w", err)
 	}
-	fragmentParts := strings.SplitN(fragment, "|", 2) //nolint:mnd
+	fragmentParts := strings.SplitN(fragment, "|", 2)
 
 	fetchURL := u.JoinPath(strings.Join([]string{".", "api", "get", fragmentParts[0]}, "/")).String()
 	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)

@@ -11,8 +11,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Luzifer/ots/pkg/customization"
 	"github.com/ryanuber/go-glob"
+
+	"github.com/Luzifer/ots/pkg/customization"
 )
 
 var (

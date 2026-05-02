@@ -6,8 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/Luzifer/ots/pkg/customization"
-	"github.com/stretchr/testify/assert"
 )
 
 type custMockClient struct {
@@ -50,7 +51,7 @@ func TestSanityCheck(t *testing.T) {
 
 	// no attachments & attachments disabled
 	err = SanityCheck(u, s)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	// attachments & attachmetns disabled
 	s.Attachments = []SecretAttachment{
@@ -58,43 +59,43 @@ func TestSanityCheck(t *testing.T) {
 	}
 
 	err = SanityCheck(u, s)
-	assert.ErrorIs(t, err, ErrAttachmentsDisabled)
+	require.ErrorIs(t, err, ErrAttachmentsDisabled)
 
 	// disallowed attachment
 	m.Response.DisableFileAttachment = false
 	err = SanityCheck(u, s)
-	assert.ErrorIs(t, err, ErrAttachmentTypeNotAllowed)
+	require.ErrorIs(t, err, ErrAttachmentTypeNotAllowed)
 
 	// attachment allowed by extension
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.gif", Type: "image/gif", Content: []byte{0x0}},
 	}
 	err = SanityCheck(u, s)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	// attachment allowed by mime type
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.png", Type: "image/png", Content: []byte{0x0}},
 	}
 	err = SanityCheck(u, s)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	// attachment allowed by mime type wildcard
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.md", Type: "text/markdown", Content: []byte{0x0}},
 	}
 	err = SanityCheck(u, s)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	// attachment too large
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.md", Type: "text/markdown", Content: bytes.Repeat([]byte{0x0}, 128)},
 	}
 	err = SanityCheck(u, s)
-	assert.ErrorIs(t, err, ErrAttachmentsTooLarge)
+	require.ErrorIs(t, err, ErrAttachmentsTooLarge)
 
 	// check without settings API on instance
 	m.Response = nil
 	err = SanityCheck(u, s)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 }

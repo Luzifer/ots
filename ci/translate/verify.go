@@ -66,7 +66,7 @@ func verify(tf translationFile) error {
 	return nil
 }
 
-//revive:disable-next-line:flag-parameter
+//revive:disable-next-line:flag-parameter // just enables logging
 func verifyTranslationKeys(logger *logrus.Entry, t, ref translation, warnMissing bool) (hadErrors bool) {
 	missing, extra, wrongType := t.GetErrorKeys(ref)
 

@@ -9,9 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
 	redis "github.com/redis/go-redis/v9"
+
+	"github.com/Luzifer/ots/pkg/storage"
 )
 
 const (

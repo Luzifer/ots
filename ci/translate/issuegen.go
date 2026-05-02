@@ -1,13 +1,13 @@
+// Translation utility
 package main
 
 import (
 	_ "embed"
+	"fmt"
 	"os"
 	"sort"
 	"strings"
 	"text/template"
-
-	"github.com/pkg/errors"
 )
 
 //go:embed issue.tpl.md
@@ -22,16 +22,20 @@ func generateIssue(tf translationFile) error {
 
 	tpl, err := template.New("issue").Funcs(fm).Parse(issueTemplate)
 	if err != nil {
-		return errors.Wrap(err, "parsing issue template")
+		return fmt.Errorf("parsing issue template: %w", err)
 	}
 
 	f, err := os.Create(cfg.IssueFile)
 	if err != nil {
-		return errors.Wrap(err, "opening issue file")
+		return fmt.Errorf("opening issue file: %w", err)
 	}
 	defer f.Close() //nolint:errcheck // Short-lived fd-leak
 
-	return errors.Wrap(tpl.Execute(f, tf), "executing issue template")
+	if err = tpl.Execute(f, tf); err != nil {
+		return fmt.Errorf("executing issue template: %w", err)
+	}
+
+	return nil
 }
 
 func tplEnglish(tf translationFile) func(string) any {

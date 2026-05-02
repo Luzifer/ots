@@ -6,8 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
+
+	"github.com/Luzifer/ots/pkg/storage"
 )
 
 type (
@@ -33,23 +34,6 @@ func New() storage.Storage {
 	go store.storePruner()
 
 	return store
-}
-
-func (s *storageMem) storePruner() {
-	for range s.storePruneTimer.C {
-		s.pruneStore()
-	}
-}
-
-func (s *storageMem) pruneStore() {
-	s.Lock()
-	defer s.Unlock()
-
-	for k, v := range s.store {
-		if v.hasExpired() {
-			delete(s.store, k)
-		}
-	}
 }
 
 func (s *storageMem) Count() (int64, error) {
@@ -92,13 +76,30 @@ func (s *storageMem) ReadAndDestroy(id string) (string, error) {
 	defer delete(s.store, id)
 
 	// Still check to see if the secret has expired in order to prevent a
-	// race condition where a secret has expired but the the store pruner has
+	// race condition where a secret has expired but the store pruner has
 	// not yet been invoked.
 	if secret.hasExpired() {
 		return "", storage.ErrSecretNotFound
 	}
 
 	return secret.Secret, nil
+}
+
+func (s *storageMem) pruneStore() {
+	s.Lock()
+	defer s.Unlock()
+
+	for k, v := range s.store {
+		if v.hasExpired() {
+			delete(s.store, k)
+		}
+	}
+}
+
+func (s *storageMem) storePruner() {
+	for range s.storePruneTimer.C {
+		s.pruneStore()
+	}
 }
 
 func (m *memStorageSecret) hasExpired() bool {

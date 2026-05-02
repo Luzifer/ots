@@ -1,53 +1,109 @@
 version: '2'
 
-run:
-  modules-download-mode: readonly
-  relative-path-mode: wd
+formatters:
+  enable:
+    - gci
+    - gofumpt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+  settings:
+    gci:
+      sections:
+        - standard  # Standard section: captures all standard packages.
+        - default   # Default section: contains all imports that could not be matched to another section type.
+        - localmodule
+      custom-order: true
 
-output:
-  formats:
-    tab:
-      path: stdout
-      colors: false
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
 
 linters:
   default: none
+
   enable:
+    - asasalint
     - asciicheck
     - bidichk
     - bodyclose
+    - canonicalheader
     - containedctx
     - contextcheck
     - copyloopvar
+    - decorder
     - dogsled
+    - dupword
     - durationcheck
     - errcheck
     - errchkjson
     - forbidigo
+    - funcorder
     - funlen
+    - gocheckcompilerdirectives
     - gocognit
-    - goconst
     - gocritic
     - gocyclo
     - godox
     - gosec
     - govet
     - ineffassign
+    - iotamixing
     - misspell
-    - mnd
-    - nakedret
+    - modernize
     - nilerr
     - nilnil
     - noctx
     - nolintlint
+    - nosprintfhostport
     - revive
+    - rowserrcheck
+    - sqlclosecheck
     - staticcheck
+    - testifylint
+    - thelper
+    - tparallel
     - unconvert
     - unused
+    - usestdlibvars
+    - usetesting
     - wastedassign
     - wrapcheck
 
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+    rules:
+      - path: (.+)_test\.go
+        linters:
+          - revive
+        text: "^(unused-parameter|add-constant):"
+
   settings:
+    decorder:
+      dec-order:
+        - const
+        - type
+        - var
+        - func
+      disable-dec-order-check: false
+      disable-type-dec-num-check: false
+
+    forbidigo:
+      forbid:
+        - pattern: "^(fmt\\.Print(|f|ln)|print|println)$"
+        - pattern: "^(errors\\.Wrap)$"
+          msg: errors.Wrap is no longer needed, use fmt.Errorf
+
+    funcorder:
+      alphabetical: true
+
     funlen:
       lines: 100
       statements: 60
@@ -55,20 +111,44 @@ linters:
     gocyclo:
       min-complexity: 15
 
-    mnd:
-      ignored-functions:
-        - strconv.(?:Format|Parse)\B+
+    gosec:
+      excludes:
+        # G7xx-group causes LOTS of false-positives
+        - G701  # SQL injection via taint analysis
+        - G702  # Command injection via taint analysis
+        - G703  # Path traversal via taint analysis
+        - G704  # SSRF via taint analysis
+        - G705  # XSS via taint analysis
+        - G706  # Log injection via taint analysis
+        - G707  # SMTP command/header injection via taint analysis
+
+    nolintlint:
+      require-explanation: true
+      require-specific: true
 
     revive:
+      directives:
+        - name: specify-disable-reason
+          severity: error
       rules:
+        - name: add-constant
+          arguments:
+            - max-lit-count: "3"
+              allow-strs: '""'
+              allow-ints: "0,1,2"
+              allow-floats: "0.0,0.,1.0,1.,2.0,2."
+              ignore-funcs: 'strconv\.(Format|Parse).*,make'
         - name: atomic
         - name: banned-characters
           arguments:
-            - ;
+            - "\u037E"  # Greek question mark (looks like ;)
         - name: bare-return
         - name: blank-imports
         - name: bool-literal-in-expr
         - name: call-to-gc
+        - name: comment-spacings
+          arguments:
+            - "#nosec:G"
         - name: confusing-naming
         - name: confusing-results
         - name: constant-logical-expr
@@ -81,31 +161,51 @@ linters:
         - name: early-return
         - name: empty-block
         - name: empty-lines
-        - name: errorf
+        - name: enforce-map-style
+          arguments:
+            - "make"
+        - name: enforce-slice-style
+          arguments:
+            - "nil"
         - name: error-naming
         - name: error-return
         - name: error-strings
+        - name: errorf
         - name: exported
           arguments:
-            - sayRepetitiveInsteadOfStutters
+            - "check-public-interface"
+            - "say-repetitive-instead-of-stutters"
         - name: flag-parameter
+        - name: forbidden-call-in-wg-go
         - name: get-return
         - name: identical-branches
+        - name: identical-ifelseif-branches
+        - name: identical-ifelseif-conditions
+        - name: identical-switch-branches
+        - name: identical-switch-conditions
         - name: if-return
+        - name: import-alias-naming
         - name: import-shadowing
         - name: increment-decrement
         - name: indent-error-flow
+        - name: inefficient-map-lookup
         - name: modifies-parameter
         - name: modifies-value-receiver
         - name: optimize-operands-order
+        - name: package-comments
+        - name: package-directory-mismatch
         - name: range
         - name: range-val-address
         - name: range-val-in-closure
         - name: receiver-naming
         - name: redefines-builtin-id
+        - name: redundant-build-tag
+        - name: redundant-import-alias
+        - name: redundant-test-main-exit
         - name: string-of-int
         - name: struct-tag
         - name: superfluous-else
+        - name: time-date
         - name: time-equal
         - name: time-naming
         - name: unconditional-recursion
@@ -114,34 +214,25 @@ linters:
         - name: unhandled-error
           arguments:
             - fmt.(Fp|P)rint(f|ln|)
+        - name: unnecessary-if
         - name: unnecessary-stmt
         - name: unreachable-code
         - name: unused-parameter
         - name: unused-receiver
+        - name: use-fmt-print
         - name: useless-break
+        - name: useless-fallthrough
         - name: var-declaration
         - name: var-naming
         - name: waitgroup-by-value
+      severity: error
 
-  exclusions:
-    generated: lax
-    paths:
-      - third_party$
-      - builtin$
-      - examples$
+output:
+  formats:
+    tab:
+      path: stdout
+      colors: false
 
-issues:
-  max-issues-per-linter: 0
-  max-same-issues: 0
-
-formatters:
-  enable:
-    - gofmt
-    - gofumpt
-    - goimports
-  exclusions:
-    generated: lax
-    paths:
-      - third_party$
-      - builtin$
-      - examples$
+run:
+  modules-download-mode: readonly
+  relative-path-mode: wd

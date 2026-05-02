@@ -9,9 +9,10 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/Luzifer/ots/pkg/client"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/Luzifer/ots/pkg/client"
 )
 
 const storeFileMode = 0o600 // We assume the attached file to be a secret
@@ -30,7 +31,7 @@ func init() {
 }
 
 func assembleDownloadFileName(dir, filename string, iteration int) string {
-	fileNameFragments := strings.SplitN(filepath.Base(filename), ".", 2) //nolint:mnd
+	fileNameFragments := strings.SplitN(filepath.Base(filename), ".", 2)
 
 	switch {
 	case iteration == 0 && len(fileNameFragments) == 1:
