@@ -306,7 +306,8 @@ translations:
       tooltip-download-as-file: Télécharger en tant que fichier
   it:
     deeplLanguage: it
-    translators: []
+    translators:
+      - wd006
     translations:
       alert-secret-not-found: Questo non è il secret che stai cercando&hellip; - Se ti aspettavi di vedere il secret allora potrebbe essere stato compromesso poichè qualcun altro potrebbe aver già aperto il link.
       alert-something-went-wrong: Qualcosa non ha funzionato. Mi dispiace davvero&hellip;
@@ -350,6 +351,10 @@ translations:
       title-secret-created: Secret creato!
       tooltip-copy-to-clipboard: Copia nella clipboard
       tooltip-download-as-file: Scarica come file
+      alert-insecure-environment: Stai accedendo a questa istanza tramite una connessione non sicura. Non potrai creare o leggere segreti.
+      btn-theme-switcher-auto: Auto
+      text-secret-burned: Il segreto è stato svelato con successo.
+      tooltip-burn-secret: Brucia il segreto ora!
   lv:
     deeplLanguage: lv
     translators: []
