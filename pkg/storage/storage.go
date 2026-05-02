@@ -10,8 +10,12 @@ import (
 type (
 	// Storage is the interface to implement in each storage provider
 	Storage interface {
+		// Count returns the number of stored secrets
 		Count() (int64, error)
+		// Create inserts a new secret and returns its ID
 		Create(secret string, expireIn time.Duration) (string, error)
+		// ReadAndDestroy returns a secret and while reading removes it
+		// from the storage
 		ReadAndDestroy(id string) (string, error)
 	}
 )
