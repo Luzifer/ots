@@ -20,22 +20,18 @@ jobs:
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
 
-      - name: 'Lint and test code: API'
+      - name: Initialize Go Workspace
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          go work init
+          find . -name 'go.mod' | xargs dirname | xargs go work use
 
-      - name: 'Lint and test code: Client'
-        working-directory: ./pkg/client
+      - name: Run golangci-lint
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          golangci-lint run $(go list -f "{{.Dir}}/..." -m)
 
-      - name: 'Lint and test code: OTS-CLI'
-        working-directory: ./cmd/ots-cli
+      - name: Run go test
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          go list -m | xargs go test -v -cover
 
       - name: Generate (and validate) translations
         run: make translate
