@@ -89,7 +89,11 @@ func Load(filename string) (cust Customize, err error) {
 // serialized as JSON in a string
 func (c Customize) ToJSON() (string, error) {
 	j, err := json.Marshal(c)
-	return string(j), fmt.Errorf("marshalling JSON: %w", err)
+	if err != nil {
+		return "", fmt.Errorf("marshalling JSON: %w", err)
+	}
+
+	return string(j), nil
 }
 
 func (c *Customize) applyFixes() {
