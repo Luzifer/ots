@@ -1,10 +1,10 @@
 package main
 
 import (
+	"errors"
 	"regexp"
 	"sort"
 
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
 

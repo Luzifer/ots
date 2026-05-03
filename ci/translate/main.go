@@ -14,7 +14,6 @@ import (
 	"github.com/Luzifer/rconfig/v2"
 	"github.com/Masterminds/sprig/v3"
 	"github.com/mitchellh/hashstructure/v2"
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
@@ -142,7 +141,7 @@ func autoTranslate(tf *translationFile) error {
 
 		for _, key := range keys {
 			if err := autoTranslateKeyForLang(tf, lang, key); err != nil {
-				return errors.Wrapf(err, "translating %s:%s", lang, key)
+				return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 			}
 		}
 	}
@@ -173,7 +172,7 @@ func autoTranslateKeyForLang(tf *translationFile, lang, key string) (err error) 
 			tf.Translations[lang].DeeplLanguage,
 			typedSrc,
 		); err != nil {
-			return errors.Wrapf(err, "translating %s:%s", lang, key)
+			return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 		}
 
 	case []any:
@@ -185,14 +184,14 @@ func autoTranslateKeyForLang(tf *translationFile, lang, key string) (err error) 
 				str.(string),
 			)
 			if err != nil {
-				return errors.Wrapf(err, "translating %s:%s", lang, key)
+				return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 			}
 			ts = append(ts, tStr)
 		}
 		tf.Translations[lang].Translations[key] = ts
 
 	default:
-		return errors.Errorf("unexpected translation type %T", tf.Reference.Translations[key])
+		return fmt.Errorf("unexpected translation type %T", tf.Reference.Translations[key])
 	}
 
 	return nil
@@ -236,7 +235,7 @@ func fetchTranslation(srcLang, destLang, text string) (string, error) {
 	}
 
 	if l := len(payload.Translations); l != 1 {
-		return "", errors.Errorf("unexpected number of translations: %d", l)
+		return "", fmt.Errorf("unexpected number of translations: %d", l)
 	}
 
 	return payload.Translations[0].Text, nil

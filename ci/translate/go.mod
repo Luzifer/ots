@@ -8,7 +8,6 @@ require (
 	github.com/Luzifer/rconfig/v2 v2.6.1
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.4
 	gopkg.in/yaml.v3 v3.0.1
 )

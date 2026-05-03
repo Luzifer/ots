@@ -84,6 +84,9 @@ linters:
         linters:
           - revive
         text: "^(unused-parameter|add-constant):"
+      - linters:
+          - revive
+        text: "^add-constant: string literal"
 
   settings:
     decorder:
@@ -98,8 +101,8 @@ linters:
     forbidigo:
       forbid:
         - pattern: "^(fmt\\.Print(|f|ln)|print|println)$"
-        - pattern: "^(errors\\.Wrap)$"
-          msg: errors.Wrap is no longer needed, use fmt.Errorf
+        - pattern: "^(errors\\.Wrapf?)$"
+          msg: errors.Wrap(f) is no longer needed, use fmt.Errorf
 
     funcorder:
       alphabetical: true
@@ -113,7 +116,8 @@ linters:
 
     gosec:
       excludes:
-        # G7xx-group causes LOTS of false-positives
+        # G7xx-group causes LOTS of false-positives and yes, user-facing
+        # applications tend to have user-input. This is the way!
         - G701  # SQL injection via taint analysis
         - G702  # Command injection via taint analysis
         - G703  # Path traversal via taint analysis
@@ -121,6 +125,9 @@ linters:
         - G705  # XSS via taint analysis
         - G706  # Log injection via taint analysis
         - G707  # SMTP command/header injection via taint analysis
+        - G708  # Server-side template injection via taint analysis
+        - G709  # Unsafe deserialization of untrusted data via taint analysis
+        - G710  # Open redirect via taint analysis
 
     nolintlint:
       require-explanation: true
@@ -194,6 +201,7 @@ linters:
         - name: optimize-operands-order
         - name: package-comments
         - name: package-directory-mismatch
+        - name: package-naming
         - name: range
         - name: range-val-address
         - name: range-val-in-closure
