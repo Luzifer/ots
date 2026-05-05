@@ -1,5 +1,8 @@
 allowBuilds:
+  '@parcel/watcher': false
+  core-js: false
   esbuild: true
+  protobufjs: false
 overrides:
   dompurify@<3.4.0: '>=3.4.0'
   dompurify@<=3.3.3: '>=3.4.0'
