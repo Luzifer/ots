@@ -7,8 +7,8 @@ toolchain go1.26.2
 replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 
 require (
-	github.com/Luzifer/go_helpers/file v0.6.1
-	github.com/Luzifer/go_helpers/http v0.12.3
+	github.com/Luzifer/go_helpers/file v0.6.2
+	github.com/Luzifer/go_helpers/http v0.12.4
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20260407120015-d6c630e9a5ea
 	github.com/Luzifer/rconfig/v2 v2.6.1
 	github.com/Masterminds/sprig/v3 v3.3.0
@@ -23,7 +23,6 @@ require (
 require (
 	dario.cat/mergo v1.0.2 // indirect
 	github.com/Luzifer/go_helpers/accesslogger v0.1.1 // indirect
-	github.com/Luzifer/go_helpers/str v0.5.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -34,7 +33,6 @@ require (
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.67.5 // indirect
