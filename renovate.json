@@ -8,7 +8,8 @@
       "customType": "regex",
       "datasourceTemplate": "docker",
       "managerFilePatterns": [
-        "/^\\.github\\/workflows\\/pr-regen-translations\\.yml$/"
+        "/^\\.github\\/workflows\\/pr-regen-translations\\.yml$/",
+        "/^\\.github\\/workflows\\/test-and-build.yml$/"
       ],
       "matchStrings": [
         "TRANSLATE_IMG:\\s*(?<depName>ghcr\\.io\\/luzifer\\/ots\\/translate-util):(?<currentValue>[^@\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
