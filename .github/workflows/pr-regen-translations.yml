@@ -1,11 +1,40 @@
----
-name: pull-request-ci
+name: generate-translations
+
 on:
-  pull_request_target:
-    paths: ['i18n.yaml']
+  issue_comment:
+    types: [created]
 
 jobs:
+  gate:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/regen-translations')
+
+    outputs:
+      authorized: ${{ steps.pr.outputs.authorized }}
+      head_ref: ${{ steps.pr.outputs.head_ref }}
+      head_repo: ${{ steps.pr.outputs.head_repo }}
+      head_sha: ${{ steps.pr.outputs.head_sha }}
+
+    permissions:
+      contents: read
+      pull-requests: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Check commenter permission and PR metadata
+        id: pr
+        run: node .github/scripts/translate-gate.ts
+        env:
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+
   generate-translations:
+    if: needs.gate.outputs.authorized == 'true'
+    needs: [gate]
+
     defaults:
       run:
         shell: bash
@@ -18,21 +47,39 @@ jobs:
 
     permissions:
       contents: write
+      packages: read
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
+          repository: ${{ needs.gate.outputs.head_repo }}
+          ref: ${{ needs.gate.outputs.head_ref }}
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
 
+      - name: Verify checked-out PR head
+        run: |
+          set -euo pipefail
+
+          if [[ $(git rev-parse HEAD) != "${EXPECTED_SHA}" ]]; then
+            echo "Checked-out HEAD does not match approved PR head SHA" >&2
+            exit 1
+          fi
+        env:
+          EXPECTED_SHA: ${{ needs.gate.outputs.head_sha }}
+
+      - name: Fetch translation utility
+        run: |
+          oras pull ${TRANSLATE_IMG}
+          chmod +x translate
+        env:
+          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:a2f614f44eebab30d1f4c90462d45bb55e56b7fdceb3578486d0ec4414b79da9
+
       - name: Re-Generate embedded translations file
-        working-directory: ./ci/translate
-        run: go run .
+        run: ./translate
 
       - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         with:

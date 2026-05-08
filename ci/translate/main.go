@@ -25,10 +25,10 @@ var (
 		AutoTranslate    bool   `flag:"auto-translate" default:"false" description:"Enable auto-translation through DeepL"`
 		DeeplAPIEndpoint string `flag:"deepl-api-endpoint" default:"https://api-free.deepl.com/v2/translate" description:"DeepL API endpoint to request translations from"`
 		DeeplAPIKey      string `flag:"deepl-api-key" default:"" description:"API key for the DeepL API"`
-		IssueFile        string `flag:"issue-file" default:"../../translate-issue.md" description:"Where to create the translate issue"`
-		OutputFile       string `flag:"output-file,o" default:"../../src/langs/langs.js" description:"Where to put rendered translations"`
-		Template         string `flag:"template" default:"../../src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
-		TranslationFile  string `flag:"translation-file,t" default:"../../i18n.yaml" description:"File to use for translations"`
+		IssueFile        string `flag:"issue-file" default:"translate-issue.md" description:"Where to create the translate issue"`
+		OutputFile       string `flag:"output-file,o" default:"src/langs/langs.js" description:"Where to put rendered translations"`
+		Template         string `flag:"template" default:"src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
+		TranslationFile  string `flag:"translation-file,t" default:"i18n.yaml" description:"File to use for translations"`
 		LogLevel         string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
 		Verify           bool   `flag:"verify" default:"true" description:"Run verification against translation file"`
 		VersionAndExit   bool   `flag:"version" default:"false" description:"Prints current version and exits"`

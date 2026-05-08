@@ -12,6 +12,9 @@ build-local: frontend generate-apidocs
 		-trimpath \
 		-o ots
 
+ci/translate/translate:
+	cd ci/translate && go build
+
 generate-apidocs: node_modules
 	pnpm redocly \
 		--disableGoogleFont true \
@@ -34,8 +37,8 @@ publish: export NODE_ENV=production
 publish: frontend_prod generate-apidocs
 	bash ./ci/build.sh
 
-translate:
-	cd ci/translate && go run . --write-issue-file
+translate: ci/translate/translate
+	ci/translate/translate --write-issue-file
 
 # -- Vulnerability scanning --
 
@@ -50,4 +53,4 @@ trivy:
 		--severity HIGH,CRITICAL \
 		--skip-dirs docs,node_modules
 
-.PHONY: node_modules
+.PHONY: ci/translate/translate node_modules
