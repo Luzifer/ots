@@ -175,7 +175,7 @@ translations:
         - Wenn das verschlüsselte Secret das erste Mal abgerufen wurde, wird es automatisch vom Server gelöscht
       label-expiry: 'Ablauf in:'
       label-secret-data: 'Inhalt des Secrets:'
-      label-secret-files: 'Dateien Anhängen:'
+      label-secret-files: 'Dateien anhängen:'
       text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stell sicher, dass du dem Absender vertraust, da die Dateien nicht geprüft wurden!
       text-burn-hint: Bitte rufe die URL nicht selbst auf, da das Secret dadurch zerstört würde. Gib sie einfach weiter!
       text-burn-time: 'Wenn es vorher nicht eingesehen wurde, wird dieses Secret automatisch gelöscht:'
@@ -184,7 +184,7 @@ translations:
       text-max-filesize: 'Maximale Größe: {maxSize}'
       text-max-filesize-exceeded: 'Die ausgewählten Dateien übersteigen die maximale Größe: {curSize} / {maxSize}'
       text-powered-by: Läuft mit
-      text-pre-reveal-hint: Um das Secret anzuzeigen klicke diesen Button aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
+      text-pre-reveal-hint: Um das Secret anzuzeigen, klicke auf diesen Button, aber denk dran, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Dein Secret wurde angelegt und unter folgender URL gespeichert:'
       text-secret-burned: Das Secret wurde zerstört.
       text-secret-create-disabled: Auf dieser Instanz wurde das Erstellen neuer Secrets deaktiviert.
@@ -211,7 +211,7 @@ translations:
       text-attached-files: Der Absender hat Dateien an das Secret angehängt. Stellen Sie sicher, dass Sie dem Absender vertrauen, da die Dateien nicht geprüft wurden!
       text-burn-hint: Bitte rufen Sie die URL nicht selbst auf, da das Secret dadurch zerstört würde.
       text-hint-burned: <strong>Achtung:</strong> Sie können das Secret nur einmal ansehen! Sobald Sie die Seite neu laden, kann das Secret nicht erneut abgerufen werden, also besser direkt kopieren und sicher abspeichern&hellip;
-      text-pre-reveal-hint: Klicken Sie auf diesen Button um das Secret anzuzeigen, bedenken Sie aber, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
+      text-pre-reveal-hint: Klicken Sie auf diesen Button, um das Secret anzuzeigen. Bedenken Sie aber, dass das Secret nur einmal angezeigt und dabei gelöscht wird.
       text-pre-url: 'Das Secret wurde angelegt und unter folgender URL gespeichert:'
       title-new-secret: Ein neues Secret erstellen
   es:
@@ -662,7 +662,7 @@ translations:
       title-secret-created: Hemlighet skapad!
   tr:
     deeplLanguage: tr
-    translators: 
+    translators:
       - wd006
     translations:
       alert-insecure-environment: Bu örneğe güvenli olmayan bir bağlantı üzerinden erişiyorsunuz. Sır oluşturamaz veya okuyamazsınız.
