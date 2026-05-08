@@ -76,7 +76,7 @@ jobs:
           oras pull ${TRANSLATE_IMG}
           chmod +x translate
         env:
-          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:a2f614f44eebab30d1f4c90462d45bb55e56b7fdceb3578486d0ec4414b79da9
+          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:4714626f4445dfe9baac434d64dee77c34d9267c4a39840d8fbd492abcdbf4b7
 
       - name: Re-Generate embedded translations file
         run: ./translate
