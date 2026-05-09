@@ -10,7 +10,7 @@ require (
 	github.com/Luzifer/go_helpers/file v0.6.2
 	github.com/Luzifer/go_helpers/http v0.12.4
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20260407120015-d6c630e9a5ea
-	github.com/Luzifer/rconfig/v2 v2.6.1
+	github.com/Luzifer/rconfig/v2 v2.6.2
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/gorilla/mux v1.8.1
