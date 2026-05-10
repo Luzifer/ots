@@ -1,0 +1,17 @@
+# Show the "Set DCO to pass" button in failed checks
+# https://github.com/cncf/dco2?#override-action
+allowOverrideAction: true
+
+# https://github.com/cncf/dco2?#remediation-commits
+allowRemediationCommits:
+  # Allow individual remediation commits
+  # https://github.com/cncf/dco2?#individual
+  individual: false
+  # Allow third-party remediation commits
+  # https://github.com/cncf/dco2?#third-party
+  thirdParty: false
+
+require:
+  # Members are required to sign-off commits
+  # https://github.com/cncf/dco2?#skipping-sign-off-for-organization-members
+  members: false
