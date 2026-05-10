@@ -2,7 +2,7 @@ module github.com/Luzifer/ots
 
 go 1.25.7
 
-toolchain go1.26.2
+toolchain go1.26.3
 
 replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 

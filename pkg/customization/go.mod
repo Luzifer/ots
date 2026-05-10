@@ -2,7 +2,7 @@ module github.com/Luzifer/ots/pkg/customization
 
 go 1.25.0
 
-toolchain go1.26.2
+toolchain go1.26.3
 
 require (
 	github.com/sirupsen/logrus v1.9.4
