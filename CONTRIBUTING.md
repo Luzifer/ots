@@ -18,7 +18,7 @@ Bug fixes are welcome as pull requests, especially when they include a clear des
 
 ## AI-Assisted Contributions
 
-> "A computer can never be held accountable, therefore a computer must never make a management decision."
+> "A computer can never be held accountable, therefore a computer must never make a management decision."\
 > – IBM Training Manual, 1979
 
 While AI-assisted development is becoming more common, current AI systems do not truly include intelligence despite the name. The current models are merely a huge accumulation of tokens with probabilities assigned which then can be used to "predict" code.
