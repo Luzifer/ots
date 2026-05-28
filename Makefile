@@ -1,47 +1,44 @@
-VER_FONTAWESOME:=6.4.0
+PRODUCT_VERSION := v1.21.5
 
+default: build-local
 
-default: generate download_libs
-
-build-local: download_libs generate-inner generate-apidocs
+build-local: export CGO_ENABLED=0
+build-local: export SOURCE_DATE_EPOCH=1
+build-local: frontend generate-apidocs
 	go build \
-		-buildmode=pie \
-		-ldflags "-s -w -X main.version=$(git describe --tags --always || echo dev)" \
+		-buildvcs=false \
+		-ldflags "-s -w -buildid= -X main.version=$(PRODUCT_VERSION)" \
 		-mod=readonly \
-		-trimpath
+		-trimpath \
+		-o ots
 
-generate:
-	docker run --rm -i -v $(CURDIR):$(CURDIR) -w $(CURDIR) node:18-alpine \
-		sh -exc "apk add make && make generate-inner generate-apidocs && chown -R $(shell id -u) frontend node_modules"
+ci/translate/translate:
+	cd ci/translate && go build
 
-generate-apidocs:
-	npx --yes @redocly/cli build-docs docs/openapi.yaml --disableGoogleFont true -o /tmp/api.html
-	mv /tmp/api.html frontend/
+generate-apidocs: node_modules
+	pnpm redocly \
+		--disableGoogleFont true \
+		-o frontend/api.html \
+		build-docs docs/openapi.yaml
 
-generate-inner:
-	npm ci --include=dev
-	node ./ci/build.mjs
+frontend_prod: export NODE_ENV=production
+frontend_prod: frontend
 
-publish: download_libs generate-inner generate-apidocs
+frontend: node_modules
+	pnpm node ci/build.mjs
+
+frontend_lint: node_modules
+	pnpm eslint --fix src
+
+node_modules:
+	pnpm install --production=false --frozen-lockfile
+
+publish: export NODE_ENV=production
+publish: frontend_prod generate-apidocs
 	bash ./ci/build.sh
 
-translate:
-	cd ci/translate && go run . --write-issue-file
-
-# -- Download / refresh external libraries --
-
-clean_libs:
-	rm -rf \
-		frontend/css \
-		frontend/js \
-		frontend/webfonts
-
-download_libs: clean_libs
-download_libs: fontawesome
-
-fontawesome:
-	curl -sSfL https://github.com/FortAwesome/Font-Awesome/archive/$(VER_FONTAWESOME).tar.gz | \
-		tar -vC frontend -xz --strip-components=1 --wildcards --exclude='*/js-packages' '*/css' '*/webfonts'
+translate: ci/translate/translate
+	ci/translate/translate --write-issue-file
 
 # -- Vulnerability scanning --
 
@@ -54,4 +51,6 @@ trivy:
 		--quiet \
 		--scanners config,license,secret,vuln \
 		--severity HIGH,CRITICAL \
-		--skip-dirs docs
+		--skip-dirs docs,node_modules
+
+.PHONY: ci/translate/translate node_modules

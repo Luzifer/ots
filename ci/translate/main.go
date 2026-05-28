@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -10,12 +11,11 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/Luzifer/rconfig/v2"
 	"github.com/Masterminds/sprig/v3"
-	"github.com/pkg/errors"
+	"github.com/mitchellh/hashstructure/v2"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
-
-	"github.com/Luzifer/rconfig/v2"
 )
 
 const deeplRequestTimeout = 10 * time.Second
@@ -25,10 +25,10 @@ var (
 		AutoTranslate    bool   `flag:"auto-translate" default:"false" description:"Enable auto-translation through DeepL"`
 		DeeplAPIEndpoint string `flag:"deepl-api-endpoint" default:"https://api-free.deepl.com/v2/translate" description:"DeepL API endpoint to request translations from"`
 		DeeplAPIKey      string `flag:"deepl-api-key" default:"" description:"API key for the DeepL API"`
-		IssueFile        string `flag:"issue-file" default:"../../translate-issue.md" description:"Where to create the translate issue"`
-		OutputFile       string `flag:"output-file,o" default:"../../src/langs/langs.js" description:"Where to put rendered translations"`
-		Template         string `flag:"template" default:"../../src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
-		TranslationFile  string `flag:"translation-file,t" default:"../../i18n.yaml" description:"File to use for translations"`
+		IssueFile        string `flag:"issue-file" default:"translate-issue.md" description:"Where to create the translate issue"`
+		OutputFile       string `flag:"output-file,o" default:"src/langs/langs.js" description:"Where to put rendered translations"`
+		Template         string `flag:"template" default:"src/langs/langs.tpl.js" description:"Template to load for translation JS file"`
+		TranslationFile  string `flag:"translation-file,t" default:"i18n.yaml" description:"File to use for translations"`
 		LogLevel         string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
 		Verify           bool   `flag:"verify" default:"true" description:"Run verification against translation file"`
 		VersionAndExit   bool   `flag:"version" default:"false" description:"Prints current version and exits"`
@@ -41,12 +41,12 @@ var (
 func initApp() error {
 	rconfig.AutoEnv(true)
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
-		return errors.Wrap(err, "parsing cli options")
+		return fmt.Errorf("parsing cli options: %w", err)
 	}
 
 	l, err := logrus.ParseLevel(cfg.LogLevel)
 	if err != nil {
-		return errors.Wrap(err, "parsing log-level")
+		return fmt.Errorf("parsing log-level: %w", err)
 	}
 	logrus.SetLevel(l)
 
@@ -71,6 +71,11 @@ func main() {
 		logrus.WithError(err).Fatal("loading translation file")
 	}
 
+	tfHash, err := hashstructure.Hash(tf, hashstructure.FormatV2, nil)
+	if err != nil {
+		logrus.WithError(err).Fatal("hashing source translations")
+	}
+
 	if cfg.AutoTranslate {
 		logrus.Info("auto-translating new strings...")
 
@@ -87,10 +92,16 @@ func main() {
 		}
 	}
 
-	logrus.Info("saving translation file...")
+	tfHashNew, err := hashstructure.Hash(tf, hashstructure.FormatV2, nil)
+	if err != nil {
+		logrus.WithError(err).Fatal("hashing processed translations")
+	}
 
-	if err = saveTranslationFile(tf); err != nil {
-		logrus.WithError(err).Fatal("saving translation file")
+	if tfHash != tfHashNew {
+		logrus.Info("saving translation file...")
+		if err = saveTranslationFile(tf); err != nil {
+			logrus.WithError(err).Fatal("saving translation file")
+		}
 	}
 
 	logrus.Info("updating JS embedded translations...")
@@ -130,7 +141,7 @@ func autoTranslate(tf *translationFile) error {
 
 		for _, key := range keys {
 			if err := autoTranslateKeyForLang(tf, lang, key); err != nil {
-				return errors.Wrapf(err, "translating %s:%s", lang, key)
+				return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 			}
 		}
 	}
@@ -161,7 +172,7 @@ func autoTranslateKeyForLang(tf *translationFile, lang, key string) (err error) 
 			tf.Translations[lang].DeeplLanguage,
 			typedSrc,
 		); err != nil {
-			return errors.Wrapf(err, "translating %s:%s", lang, key)
+			return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 		}
 
 	case []any:
@@ -173,14 +184,14 @@ func autoTranslateKeyForLang(tf *translationFile, lang, key string) (err error) 
 				str.(string),
 			)
 			if err != nil {
-				return errors.Wrapf(err, "translating %s:%s", lang, key)
+				return fmt.Errorf("translating %s:%s: %w", lang, key, err)
 			}
 			ts = append(ts, tStr)
 		}
 		tf.Translations[lang].Translations[key] = ts
 
 	default:
-		return errors.Errorf("unexpected translation type %T", tf.Reference.Translations[key])
+		return fmt.Errorf("unexpected translation type %T", tf.Reference.Translations[key])
 	}
 
 	return nil
@@ -198,14 +209,14 @@ func fetchTranslation(srcLang, destLang, text string) (string, error) {
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, cfg.DeeplAPIEndpoint, strings.NewReader(params.Encode()))
 	if err != nil {
-		return "", errors.Wrap(err, "creating request")
+		return "", fmt.Errorf("creating request: %w", err)
 	}
 	req.Header.Set("Authorization", strings.Join([]string{"DeepL-Auth-Key", cfg.DeeplAPIKey}, " "))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := http.DefaultClient.Do(req) //#nosec:G704 // False Positive
 	if err != nil {
-		return "", errors.Wrap(err, "executing request")
+		return "", fmt.Errorf("executing request: %w", err)
 	}
 	defer func() {
 		if err := resp.Body.Close(); err != nil {
@@ -220,11 +231,11 @@ func fetchTranslation(srcLang, destLang, text string) (string, error) {
 	}
 
 	if err = json.NewDecoder(resp.Body).Decode(&payload); err != nil {
-		return "", errors.Wrap(err, "decoding DeepL response")
+		return "", fmt.Errorf("decoding DeepL response: %w", err)
 	}
 
 	if l := len(payload.Translations); l != 1 {
-		return "", errors.Errorf("unexpected number of translations: %d", l)
+		return "", fmt.Errorf("unexpected number of translations: %d", l)
 	}
 
 	return payload.Translations[0].Text, nil
@@ -234,55 +245,69 @@ func loadTranslationFile() (translationFile, error) {
 	var tf translationFile
 	f, err := os.Open(cfg.TranslationFile)
 	if err != nil {
-		return tf, errors.Wrap(err, "opening translation file")
+		return tf, fmt.Errorf("opening translation file: %w", err)
 	}
 	defer f.Close() //nolint:errcheck // Short-lived fd-leak
 
 	decoder := yaml.NewDecoder(f)
 	decoder.KnownFields(true)
 
-	return tf, errors.Wrap(decoder.Decode(&tf), "decoding translation file")
+	if err = decoder.Decode(&tf); err != nil {
+		return tf, fmt.Errorf("decoding translation file: %w", err)
+	}
+
+	return tf, nil
 }
 
 func renderJSFile(tf translationFile) error {
 	jsTemplate, err := os.ReadFile(cfg.Template)
 	if err != nil {
-		return errors.Wrap(err, "reading template file")
+		return fmt.Errorf("reading template file: %w", err)
 	}
 
 	tpl, err := template.New("js").Funcs(sprig.FuncMap()).Parse(string(jsTemplate))
 	if err != nil {
-		return errors.Wrap(err, "parsing template")
+		return fmt.Errorf("parsing template: %w", err)
 	}
 
 	f, err := os.Create(cfg.OutputFile + ".tmp")
 	if err != nil {
-		return errors.Wrap(err, "creating tempfile")
+		return fmt.Errorf("creating tempfile: %w", err)
 	}
 
 	if err = tpl.Execute(f, tf); err != nil {
-		f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
-		return errors.Wrap(err, "rendering js template")
+		f.Close() //nolint:errcheck,gosec // Short-lived fd-leak
+		return fmt.Errorf("rendering js template: %w", err)
 	}
 
-	f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
-	return errors.Wrap(os.Rename(cfg.OutputFile+".tmp", cfg.OutputFile), "moving file in place")
+	f.Close() //nolint:errcheck,gosec // Short-lived fd-leak
+
+	if err = os.Rename(cfg.OutputFile+".tmp", cfg.OutputFile); err != nil {
+		return fmt.Errorf("moving file in place: %w", err)
+	}
+
+	return nil
 }
 
 func saveTranslationFile(tf translationFile) error {
 	f, err := os.Create(cfg.TranslationFile + ".tmp")
 	if err != nil {
-		return errors.Wrap(err, "creating tempfile")
+		return fmt.Errorf("creating tempfile: %w", err)
 	}
 
 	encoder := yaml.NewEncoder(f)
-	encoder.SetIndent(2) //nolint:gomnd
+	encoder.SetIndent(2)
 
 	if err = encoder.Encode(tf); err != nil {
-		f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
-		return errors.Wrap(err, "encoding translation file")
+		f.Close() //nolint:errcheck,gosec // Short-lived fd-leak
+		return fmt.Errorf("encoding translation file: %w", err)
 	}
 
-	f.Close() //nolint:errcheck,gosec,revive // Short-lived fd-leak
-	return errors.Wrap(os.Rename(cfg.TranslationFile+".tmp", cfg.TranslationFile), "moving file in place")
+	f.Close() //nolint:errcheck,gosec // Short-lived fd-leak
+
+	if err = os.Rename(cfg.TranslationFile+".tmp", cfg.TranslationFile); err != nil {
+		return fmt.Errorf("moving file in place: %w", err)
+	}
+
+	return nil
 }

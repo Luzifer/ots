@@ -1,7 +1,6 @@
-![](https://badges.fyi/github/license/Luzifer/ots)
-![](https://badges.fyi/github/latest-release/Luzifer/ots)
-![](https://badges.fyi/github/downloads/Luzifer/ots)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Luzifer/ots)](https://goreportcard.com/report/github.com/Luzifer/ots)
+![](https://img.shields.io/github/license/Luzifer/ots)
+![](https://img.shields.io/github/v/release/Luzifer/ots)
+![](https://img.shields.io/github/downloads/Luzifer/ots/total)
 
 # Luzifer / OTS
 
@@ -9,13 +8,13 @@
 
 ## Features
 
-- AES 256bit encryption
-- Server does never get the password
+- Secrets are encrypted with AES 256bit encryption in browser
+- Server never receives the plain text secret
 - Secret is deleted on first read
 
 ## Setup
 
-- Download the [release](https://github.com/Luzifer/ots/releases)
+- Download the [release](https://github.com/Luzifer/ots/releases) or pull the Docker image from [`ghcr.io/luzifer/ots`](https://github.com/users/Luzifer/packages/container/package/ots)
 - Start it and you can access the server on http://localhost:3000/
 - Consult `./ots --help` for more options
 - See [Wiki](https://github.com/Luzifer/ots/wiki) for a more detailed overview
@@ -68,6 +67,8 @@ In case your instance needs credentials to use the `/api/create` endpoint you ca
 - `ots-cli create --instance ... -u myuser:mypass` for basic-auth
 - `ots-cli create --instance ... -H 'Authorization: Token abcde'` for token-auth (you can set any header you need, just repeat `-H ...`)
 
+When using a custom instance as your default, you can export the instance in the `OTS_INSTANCE` environment variable instead of passing the `--instance` parameter every time.
+
 ### Bash: Sharing an encrypted secret (strongly recommended!)
 
 This is slightly more complex as you first need to encrypt your secret before sending it to the API but in this case you can be sure the server will in no case be able to access the secret. Especially if you are using ots.fyi (my public hosted instance) you should not trust me with your secret but use an encrypted secret:
@@ -90,6 +91,19 @@ cache-control: no-cache
 You will now need to supply the web application with the password in addition to the ID of the secret: `https://ots.fyi/#5e0065ee-5734-4548-9fd3-bb0bcd4c899d|mypass`
 
 In this case due to how browsers are handling hashes in URLs (the part after the `#`) the only URL the server gets to know is `https://ots.fyi/` which loads the frontend. Afterwards the Javascript executed in the browser fetches the encrypted secret at the given ID and decrypts it with the given password (in this case `mypass`). I will not be able to tell the content of your secret and just see the AES 256bit encrypted content.
+
+## Local development
+
+This repo contains a `Tilefile` to be used with [tilt v0.33+](https://tilt.dev/) to build and start the server for development.
+
+Requirements:
+- Go v1.23+
+- Node v22+
+- Tilt v0.33+
+
+Run `tilt up`, and see `http://localhost:10350/` for the Tilt dashboard.
+
+Front-end application is available at `http://localhost:15641/`.
 
 ## Localize to your own language
 

@@ -1,0 +1,54 @@
+name: build-translate-util
+
+on:
+  push:
+    branches: ['master']
+    paths: ['ci/translate/**']
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-translate-util:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: ghcr.io/luzifer-docker/action-env:master@sha256:46161da5f25ccbc1b0c4f1de1a80ff18de51185d99cf9b21d1932550f6a326fc
+      env:
+        CGO_ENABLED: 0
+        GOPATH: /go
+        SOURCE_DATE_EPOCH: 1
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          show-progress: false
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: Build translate utility
+        working-directory: ./ci/translate
+        run: |
+          go build \
+            -buildvcs=false \
+            -ldflags='-s -w -buildid=' \
+            -o ../../translate \
+            -trimpath \
+            .
+
+      - name: Log into registry
+        run: oras login ghcr.io -u "${{ github.actor }}" --password-stdin <<<"${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Publish translate utility
+        run: |
+          oras push \
+            ghcr.io/luzifer/ots/translate-util:latest \
+            --artifact-type application/vnd.luzifer.ots.translate-util \
+            translate:application/octet-stream

@@ -1,0 +1,43 @@
+name: pr-test
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch: {}
+
+jobs:
+  test-and-build:
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: forgejo
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: Initialize Go Workspace
+        run: |
+          go work init
+          find . -name 'go.mod' | xargs dirname | xargs go work use
+
+      - name: Run golangci-lint
+        run: |
+          golangci-lint run $(go list -f "{{.Dir}}/..." -m)
+
+      - name: Run go test
+        run: |
+          go list -m | xargs go test -v -cover
+
+      - name: Generate (and validate) translations
+        run: make translate
+
+      - name: Do a quick local build
+        run: make build-local
+
+      - name: Execute Trivy scan
+        run: make trivy

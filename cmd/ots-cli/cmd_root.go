@@ -5,6 +5,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/Luzifer/ots/pkg/client"
 )
 
 var rootCmd = &cobra.Command{
@@ -27,6 +29,8 @@ func rootPersistentPreRunE(cmd *cobra.Command, _ []string) error {
 		return fmt.Errorf("parsing log-level: %w", err)
 	}
 	logrus.SetLevel(ll)
+
+	client.Logger = logrus.NewEntry(logrus.StandardLogger())
 
 	return nil
 }

@@ -1,26 +1,22 @@
-version: '3.8'
-
 services:
   app:
-    build:
-      context: https://github.com/Luzifer/ots.git#v1.8.0
+    image: ghcr.io/luzifer/ots:v1.21.5
     restart: always
     environment:
       # Optional, see "Customization" in README
       #CUSTOMIZE: '/etc/ots/customize.yaml'
       # See README for details
-      REDIS_URL: 'redis://redis:6379/0'
+      REDIS_URL: redis://valkey:6379/0
       # 168h = 1w
-      SECRET_EXPIRY: '604800'
+      SECRET_EXPIRY: "604800"
       # "mem" or "redis" (See README)
-      STORAGE_TYPE: 'redis'
+      STORAGE_TYPE: redis
     depends_on:
-      - redis
+      - valkey
     ports:
       - 3000:3000
-
-  redis:
-    image: redis:alpine
+  valkey:
+    image: valkey/valkey:9.1.0-alpine
     restart: always
     volumes:
       - ./data:/data

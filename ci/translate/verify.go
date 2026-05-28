@@ -1,18 +1,16 @@
 package main
 
 import (
+	"errors"
 	"regexp"
 	"sort"
 
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )
 
 var langKeyFormat = regexp.MustCompile(`^[a-z]{2}(-[A-Z]{2})?$`)
 
 func verify(tf translationFile) error {
-	var err error
-
 	if !langKeyFormat.MatchString(tf.Reference.LanguageKey) {
 		return errors.New("reference contains invalid languageKey")
 	}
@@ -29,7 +27,7 @@ func verify(tf translationFile) error {
 			tf.Reference.FormalTranslations,
 			tf.Reference.Translations,
 			false,
-		); err != nil {
+		) {
 			return errors.New("reference contains error in formalTranslations")
 		}
 	}
@@ -68,7 +66,7 @@ func verify(tf translationFile) error {
 	return nil
 }
 
-//revive:disable-next-line:flag-parameter
+//revive:disable-next-line:flag-parameter // just enables logging
 func verifyTranslationKeys(logger *logrus.Entry, t, ref translation, warnMissing bool) (hadErrors bool) {
 	missing, extra, wrongType := t.GetErrorKeys(ref)
 

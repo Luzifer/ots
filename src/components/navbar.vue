@@ -4,18 +4,18 @@
       <a
         class="navbar-brand"
         href="#"
-        @click.prevent="$root.navigate('/')"
+        @click.prevent="$emit('navigate', '/')"
       >
         <i
-          v-if="!$root.customize.appIcon"
-          class="fas fa-user-secret mr-1"
+          v-if="!appIcon"
+          class="fas fa-user-secret me-1"
         />
         <img
           v-else
-          class="mr-1"
-          :src="$root.customize.appIcon"
+          class="me-1"
+          :src="appIcon"
         >
-        <span v-if="!$root.customize.disableAppTitle">{{ $root.customize.appTitle }}</span>
+        <span v-if="!customize.disableAppTitle">{{ customize.appTitle }}</span>
       </a>
 
       <button
@@ -39,7 +39,7 @@
             <a
               class="nav-link"
               href="#"
-              @click.prevent="$root.navigate('/explanation')"
+              @click.prevent="$emit('navigate', '/explanation')"
             >
               <i class="fas fa-circle-info" /> {{ $t('btn-show-explanation') }}
             </a>
@@ -48,35 +48,122 @@
             <a
               class="nav-link"
               href="#"
-              @click.prevent="$root.navigate('/')"
+              @click.prevent="$emit('navigate', '/')"
             >
               <i class="fas fa-plus" /> {{ $t('btn-new-secret') }}
             </a>
           </li>
         </ul>
         <form
-          v-if="!$root.customize.disableThemeSwitcher"
-          class="d-flex align-items-center"
+          v-if="!customize.disableThemeSwitcher"
+          class="d-flex align-items-center btn-group"
         >
-          <i class="fas fa-sun me-2" />
-          <div class="form-check form-switch">
-            <input
-              id="themeswitch"
-              v-model="$root.darkTheme"
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-            >
-          </div>
-          <i class="fas fa-moon" />
+          <input
+            id="theme-light"
+            v-model="intTheme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="light"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-light"
+          >
+            <i class="fas fa-sun" />
+          </label>
+
+          <input
+            id="theme-auto"
+            v-model="intTheme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="auto"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-auto"
+          >
+            {{ $t('btn-theme-switcher-auto') }}
+          </label>
+
+          <input
+            id="theme-dark"
+            v-model="intTheme"
+            type="radio"
+            name="theme"
+            class="btn-check"
+            value="dark"
+          >
+          <label
+            class="btn btn-outline-secondary btn-sm"
+            for="theme-dark"
+          >
+            <i class="fas fa-moon" />
+          </label>
         </form>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  computed: {
+    appIcon(): string {
+      // Use specified icon or fall back to null
+      const appIcon = this.$parent.customize.appIcon || null
+      // Use specified icon or fall back to light-mode appIcon (which might be null)
+      const darkIcon = this.$parent.customize.appIconDark || appIcon
+
+      return (this.theme === 'auto' ? window.getTheme() : this.theme) === 'dark' ? darkIcon : appIcon
+    },
+
+    customize(): any {
+      return this.$parent.customize || {}
+    },
+  },
+
+  data() {
+    return {
+      intTheme: '',
+    }
+  },
+
+  emits: ['navigate', 'update:theme'],
+
+  mounted(): void {
+    this.intTheme = this.theme
+  },
+
   name: 'AppNavbar',
-}
+
+  props: {
+    theme: {
+      required: true,
+      type: String,
+    },
+  },
+
+  watch: {
+    intTheme(to: string, from: string): void {
+      if (to === from) {
+        return
+      }
+
+      this.$emit('update:theme', to)
+    },
+
+    theme(to: string, from: string): void {
+      if (to === from) {
+        return
+      }
+
+      this.intTheme = to
+    },
+  },
+})
 </script>

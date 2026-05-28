@@ -1,3 +1,253 @@
+# 1.21.5 / 2026-04-24
+
+* Improvements
+  * chore: slim down Docker image, move towards reproducible build
+
+* Bugfixes
+  * fix: prevent passing negative expiration during secret creation (see [GHSA-h5fq-653g-gxrm](https://github.com/Luzifer/ots/security/advisories/GHSA-h5fq-653g-gxrm))
+  * fix(deps): update dependency vue-i18n to v11.3.2
+
+# 1.21.4 / 2026-04-07
+
+* Bugfixes
+  * fix(deps): update dependency vue-router to v5.0.4
+  * fix(deps): update dependency vue to v3.5.32
+  * chore: update indirect deps (SEC-fixes)
+
+# 1.21.3 / 2026-03-15
+
+  * fix(deps): update dependency @fortawesome/fontawesome-free to v7
+  * fix(deps): update dependency vue-i18n to v11.3.0
+  * fix(deps): update dependency vue-router to v5.0.3
+  * fix(deps): update dependency vue to v3.5.30
+  * fix(deps): update module github.com/luzifer/go\_helpers/http to v0.12.3
+  * fix(deps): update module github.com/luzifer/go\_helpers/str to v0.5.0
+
+# 1.21.2 / 2026-02-20
+
+  * fix(i18n): update Portuguese translations for clarity and accuracy (#237) (thanks @mthsmb)
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.18.0
+  * chore: resolve linter false-positives; replace go\_helpers/v2
+
+# 1.21.1 / 2026-02-16
+
+* Bugfixes
+  * fix: navbar always showing light-theme icon (#236) (thanks @skillpoint-dev)
+  * fix(deps): update dependency vue to v3.5.28
+  * fix(deps): update module github.com/luzifer/go\_helpers/v2 to v2.25.2
+  * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.1
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.17.3
+
+# 1.21.0 / 2026-01-20
+
+* Improvements
+  * feat: allow setting CLI instance using ENV variable
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.2.8
+  * fix(deps): update dependency vue to v3.5.26
+  * fix(deps): update module github.com/sirupsen/logrus to v1.9.4
+
+# 1.20.1 / 2025-12-19
+
+> [!TIP]
+> In case you are still using (a cached version of) the old `docker.io/luzifer/ots` OCI image, please switch to the `ghcr.io/luzifer/ots:<version>` image as the former is no longer provided and was outdated for some time.
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.2.2
+  * fix(deps): update dependency vue-router to v4.6.4
+  * fix(deps): update dependency vue to v3.5.25
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.17.2
+  * fix(deps): update module github.com/spf13/cobra to v1.10.2
+
+# 1.20.0 / 2025-11-14
+
+  * Translations
+    * feat: add Japanese translations (thanks @mitsuami-megane)
+
+  * Bugfixes
+    * chore(deps): update dependency @babel/eslint-parser to v7.28.5
+    * chore(deps): update dependency esbuild-plugin-vue3 to v0.5.1
+    * chore(deps): update dependency esbuild to v0.27.0
+    * chore(deps): update dependency eslint-plugin-vue to v10.5.1
+    * chore(deps): update dependency eslint to v9.39.1
+    * chore(deps): update dependency go to v1.25.4
+    * chore(deps): update golang docker tag to v1.25.4
+    * chore(deps): update typescript-eslint monorepo to v8.46.4
+    * fix(deps): update dependency vue-router to v4.6.3
+    * fix(deps): update dependency vue to v3.5.24
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.16.0
+
+# 1.19.1 / 2025-10-18
+
+  * Translations
+    * fix: language code for Czech is `cs` (thanks @rdolezel)
+
+# 1.19.0 / 2025-10-15
+
+  * Translations
+    * feat: add CZ translation (#223)
+
+  * Bugfixes
+    * fix(deps): update dependency bootstrap to v5.3.8
+    * fix(deps): update dependency vue-i18n to v11.1.12
+    * fix(deps): update dependency vue to v3.5.22
+    * fix(deps): update module github.com/prometheus/client\_golang to v1.23.2
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.14.0
+    * fix(deps): update module github.com/spf13/cobra to v1.10.1
+    * fix(deps): update module github.com/stretchr/testify to v1.11.1
+
+# 1.18.0 / 2025-08-13
+
+  * Bugfixes
+    * fix: remove double-gzip-encoding from metrics endpoint
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.12.1
+    * chore(deps): update dependency eslint to v9.33.0
+
+  * Translations
+    * feat: add Hungarian translation (thanks to @mcsoft)
+
+# 1.17.3 / 2025-08-08
+
+  * Improvements
+    * chore(ci): switch to more stable actions environment
+    * docs: improve README wording
+
+  * Bugfixes
+    * chore(deps): update dependency @babel/eslint-parser to v7.28.0
+    * chore(deps): update dependency esbuild to v0.25.8
+    * chore(deps): update dependency eslint-plugin-vue to v10.4.0
+    * chore(deps): update dependency eslint to v9.32.0
+    * chore(deps): update dependency go to v1.24.6
+    * chore(deps): update dependency typescript to v5.9.2
+    * chore(deps): update dependency vue-eslint-parser to v10.2.0
+    * chore(deps): update golang docker tag to v1.24.6
+    * chore(deps): update typescript-eslint monorepo to v8.39.0
+    * fix(deps): update dependency bootstrap to v5.3.7
+    * fix(deps): update dependency vue-i18n to v11.1.9
+    * fix(deps): update dependency vue to v3.5.18
+    * fix(deps): update module github.com/prometheus/client\_golang to v1.23.0
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.12.0
+
+# 1.17.2 / 2025-06-15
+
+  * Bugfixes
+    * chore(deps): update alpine docker tag to v3.22
+    * chore(deps): update dependency go to v1.24.4
+    * fix(deps): update dependency vue-i18n to v11.1.5
+    * fix(deps): update dependency vue to v3.5.16
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.10.0
+
+# 1.17.1 / 2025-05-29
+
+  * Bugfixes
+    * fix(deps): update dependency vue-i18n to v11.1.4
+    * fix(deps): update dependency vue to v3.5.15
+    * fix(deps): update module github.com/redis/go-redis/v9 to v9.9.0
+
+# 1.17.0 / 2025-05-12
+
+  * Improvements
+    * Port to Vue3 and TypeScript
+
+  * Bugfixes
+    * Update Go dependencies
+    * Update Node dependencies
+
+  * Translations
+    * Update Polish translation (#213) (Thanks @Icikowski)
+
+# 1.16.0 / 2025-05-01
+
+  * New Features
+    * feat: support auto theme mode (#212) (Thanks @Ma-ve)
+
+  * Bugfixes
+    * Cleanup test workflow
+    * Lint: Update linter config for golangci-lint v2
+    * Update Go dependencies
+    * Update Node dependencies
+
+# 1.15.1 / 2024-12-12
+
+  * Bugfixes
+    * Update Node dependencies
+    * Update Go dependencies
+
+# 1.15.0 / 2024-12-05
+
+  * Improvements
+    * Add alternative `appIcon` for dark-mode (#204)
+
+# 1.14.0 / 2024-11-21
+
+  * Improvements
+    * Add ability to paste files into textarea
+    * Add button to burn secrets immediately (#193)
+    * Add customization to add footer-links (#192)
+    * Add error message when subtle crypto is unavailable
+    * Add 'log-requests' option to disable request logging (#199) (Thanks @jimmypw)
+    * Add multi-platform image build
+    * Add periodic in-memory store pruner (#200) (Thanks @jimmypw)
+    * Add TLS configuration for server (#190) (Thanks @hixichen)
+
+  * Bugfixes
+    * Fix: Use no-cache to satisfy Trivy
+
+  * Translations
+    * Update Polish translation (#194, #201) (Thanks @Icikowski)
+
+# 1.13.0 / 2024-08-27
+
+  * Bugfixes
+    * Update Node dependencies
+    * Update Go dependencies
+    * Lint: Resolve unused-parameter error
+
+  * Translations
+    * Add Italian translation (#173) (Thanks @ste93cry)
+    * Update Dutch translation (#168) (Thanks @mboeren & @sorcix)
+    * Restore old `nl` translation as `nl-BE`
+    * Update French translation (#167) (Thanks @toindev)
+    * Update Swedish translation (#171) (Thank @artingu)
+
+# 1.12.0 / 2024-01-24
+
+  * Improvements
+    * [#159] Add version-command for ots-cli
+    * [#160] Add auto-resizing textareas
+    * [#160] Add hover tooltips for buttons
+    * [#160] Make success indicator more clear
+    * Use OCI Label defaults on Docker images (#145)
+
+  * Bugfixes
+    * Update dependencies
+
+  * Translations
+    * Update Polish translation (#166) (Thanks @Icikowski)
+
+# 1.11.1 / 2023-12-12
+
+  * Bugfixes
+    * [#158] Disable Vue Devtools in release builds
+
+# 1.11.0 / 2023-12-10
+
+  * Improvements
+    * [#148] Make secret optional when files are attached (#150)
+    * [#149] Make attachments stand out more (#152)
+    * [#154] Add debug logging for rejected attachment types & strip meta-info from mime-type (#155)
+    * [#154] Improve UX for rejected / allowed files
+
+  * Bugfixes
+    * [client] Fix wrong method when creating secrets
+    * Fix: Baked in version-string empty in build-local
+    * Update dependencies
+
+  * Translations
+    * Add tool to update translations in PRs
+    * Update Chinese translations (#151) (Thanks @YongJie-Xie)
+
 # 1.10.0 / 2023-11-11
 
   * New Features

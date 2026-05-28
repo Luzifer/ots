@@ -17,6 +17,7 @@ import (
 	"time"
 
 	"github.com/Luzifer/go-openssl/v4"
+	"github.com/sirupsen/logrus"
 )
 
 type (
@@ -24,6 +25,7 @@ type (
 	// by the given HTTP client. This can be used for mocking and to
 	// pass in authenticated clients
 	HTTPClientIntf interface {
+		// Do is the expected method on the HTTP client to do the request
 		Do(*http.Request) (*http.Response, error)
 	}
 )
@@ -39,7 +41,11 @@ var HTTPClient HTTPClientIntf = http.DefaultClient
 //
 // The corresponding settings are found in `/src/crypto.js` in the OTS
 // source code.
-var KeyDerivationFunc = openssl.NewPBKDF2Generator(sha512.New, 300000) //nolint:gomnd // that's the definition
+var KeyDerivationFunc = openssl.NewPBKDF2Generator(sha512.New, 300000) //nolint:mnd // that's the definition
+
+// Logger can be set to enable logging from the library. By default
+// all log-messages will be discarded.
+var Logger *logrus.Entry
 
 // PasswordLength defines the length of the generated encryption password
 var PasswordLength = 20
@@ -53,6 +59,12 @@ var RequestTimeout = 5 * time.Second
 // the operator of the instance can determine your client from and
 // provide an URL to useful information about your tool.
 var UserAgent = "ots-client/1.x +https://github.com/Luzifer/ots"
+
+func init() {
+	l := logrus.New()
+	l.SetOutput(io.Discard)
+	Logger = logrus.NewEntry(l)
+}
 
 // Create serializes the secret and creates a new secret on the
 // instance given by its URL.
@@ -80,7 +92,7 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 
 	body := new(bytes.Buffer)
 	if err = json.NewEncoder(body).Encode(struct {
-		Secret string `json:"secret"`
+		Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 	}{Secret: string(data)}); err != nil {
 		return "", time.Time{}, fmt.Errorf("encoding request payload: %w", err)
 	}
@@ -95,7 +107,7 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 		}.Encode()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, createURL.String(), body)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, createURL.String(), body)
 	if err != nil {
 		return "", time.Time{}, fmt.Errorf("creating request: %w", err)
 	}
@@ -147,7 +159,7 @@ func Fetch(secretURL string) (s Secret, err error) {
 	if err != nil {
 		return s, fmt.Errorf("unescaping fragment: %w", err)
 	}
-	fragmentParts := strings.SplitN(fragment, "|", 2) //nolint:gomnd
+	fragmentParts := strings.SplitN(fragment, "|", 2)
 
 	fetchURL := u.JoinPath(strings.Join([]string{".", "api", "get", fragmentParts[0]}, "/")).String()
 	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)
@@ -170,7 +182,7 @@ func Fetch(secretURL string) (s Secret, err error) {
 	}
 
 	var payload struct {
-		Secret string `json:"secret"`
+		Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 	}
 
 	if err = json.NewDecoder(resp.Body).Decode(&payload); err != nil {

@@ -9,13 +9,11 @@ import (
 	"github.com/Luzifer/go-openssl/v4"
 )
 
-var metaMarker = []byte("OTSMeta")
-
 type (
 	// Secret represents a secret parsed from / prepared for
 	// serialization to the OTS API
 	Secret struct {
-		Secret      string             `json:"secret"`
+		Secret      string             `json:"secret"` //#nosec:G117 // This application works with secrets
 		Attachments []SecretAttachment `json:"attachments,omitempty"`
 	}
 
@@ -32,6 +30,8 @@ type (
 		Content []byte `json:"-"`
 	}
 )
+
+var metaMarker = []byte("OTSMeta")
 
 func (o *Secret) read(data []byte, passphrase string) (err error) {
 	if passphrase != "" {
@@ -71,7 +71,7 @@ func (o Secret) serialize(passphrase string) ([]byte, error) {
 			o.Attachments[i].Data = base64.StdEncoding.EncodeToString(o.Attachments[i].Content)
 		}
 
-		j, err := json.Marshal(o)
+		j, err := json.Marshal(o) //#nosec:G117 // This application works with secrets
 		if err != nil {
 			return nil, fmt.Errorf("encoding JSON payload: %w", err)
 		}

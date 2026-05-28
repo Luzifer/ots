@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="card border-primary-subtle mb-3">
     <div
@@ -27,22 +26,26 @@
           v-if="secret"
           class="input-group mb-3"
         >
-          <textarea
+          <grow-area
             class="form-control"
             readonly
             :value="secret"
-            rows="4"
+            :rows="4"
           />
           <div class="d-flex align-items-start p-0">
             <div
               class="btn-group-vertical"
               role="group"
             >
-              <app-clipboard-button :content="secret" />
+              <app-clipboard-button
+                :content="secret"
+                :title="$t('tooltip-copy-to-clipboard')"
+              />
               <a
                 class="btn btn-secondary"
-                :href="secretContentBlobURL"
+                :href="secretContentBlobURL || ''"
                 download
+                :title="$t('tooltip-download-as-file')"
               >
                 <i class="fas fa-fw fa-download" />
               </a>
@@ -52,34 +55,25 @@
         </div>
         <template v-if="files.length > 0">
           <p v-html="$t('text-attached-files')" />
-          <ul>
-            <li
-              v-for="file in files"
-              :key="file.name"
-              class="font-monospace"
-            >
-              <a
-                :href="file.url"
-                :download="file.name"
-              >{{ file.name }}</a>
-              ({{ bytesToHuman(file.size) }})
-            </li>
-          </ul>
+          <FilesDisplay :files="files" />
         </template>
         <p v-html="$t('text-hint-burned')" />
       </template>
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import appClipboardButton from './clipboard-button.vue'
-import appCrypto from '../crypto.js'
+import appCrypto from '../crypto.ts'
 import appQrButton from './qr-button.vue'
-import { bytesToHuman } from '../helpers'
+import { defineComponent } from 'vue'
+import FilesDisplay from './fileDisplay.vue'
+import GrowArea from './growarea.vue'
 import OTSMeta from '../ots-meta'
 
-export default {
-  components: { appClipboardButton, appQrButton },
+export default defineComponent({
+  components: { FilesDisplay, GrowArea, appClipboardButton, appQrButton },
 
   data() {
     return {
@@ -91,11 +85,11 @@ export default {
     }
   },
 
-  methods: {
-    bytesToHuman,
+  emits: ['error'],
 
+  methods: {
     // requestSecret requests the encrypted secret from the backend
-    requestSecret() {
+    requestSecret(): void {
       this.secretLoading = true
       window.history.replaceState({}, '', window.location.href.split('#')[0])
       fetch(`api/get/${this.secretId}`)
@@ -129,7 +123,13 @@ export default {
                     file.arrayBuffer()
                       .then(ab => {
                         const blobURL = window.URL.createObjectURL(new Blob([ab], { type: file.type }))
-                        this.files.push({ name: file.name, size: ab.byteLength, url: blobURL })
+                        this.files.push({
+                          id: window.crypto.randomUUID(),
+                          name: file.name,
+                          size: ab.byteLength,
+                          type: file.type,
+                          url: blobURL,
+                        })
                       })
                   })
                   this.secretLoading = false
@@ -166,5 +166,5 @@ export default {
       this.secretContentBlobURL = window.URL.createObjectURL(new Blob([to], { type: 'text/plain' }))
     },
   },
-}
+})
 </script>

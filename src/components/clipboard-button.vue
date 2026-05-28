@@ -5,13 +5,16 @@
     :disabled="!content"
     @click="copy"
   >
-    <i class="fas fa-clipboard" />
+    <i :class="{'fas fa-fw fa-clipboard': !copyToClipboardSuccess, 'fas fa-fw fa-circle-check': copyToClipboardSuccess}" />
   </button>
 </template>
-<script>
-export default {
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   computed: {
-    hasClipboard() {
+    hasClipboard(): boolean {
       return Boolean(navigator.clipboard && navigator.clipboard.writeText)
     },
   },
@@ -23,13 +26,13 @@ export default {
   },
 
   methods: {
-    copy() {
+    copy(): void {
       navigator.clipboard.writeText(this.content)
         .then(() => {
           this.copyToClipboardSuccess = true
           window.setTimeout(() => {
             this.copyToClipboardSuccess = false
-          }, 500)
+          }, 1500)
         })
     },
   },
@@ -43,5 +46,5 @@ export default {
       type: String,
     },
   },
-}
+})
 </script>

@@ -1,9 +1,9 @@
 /**
  * Converts number of bytes into human format (524288 -> "512.0 KiB")
- * @param {Number} bytes Byte amount to convert into human readable format
- * @returns String
+ * @param {number} bytes Byte amount to convert into human readable format
+ * @returns string
  */
-function bytesToHuman(bytes) {
+function bytesToHuman(bytes: number): string {
   for (const t of [
     { thresh: 1024 * 1024, unit: 'MiB' },
     { thresh: 1024, unit: 'KiB' },

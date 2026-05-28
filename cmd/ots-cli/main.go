@@ -1,6 +1,11 @@
+// OTS CLI utility
 package main
 
-import "os"
+import (
+	"os"
+)
+
+var version = "dev"
 
 func main() {
 	if err := rootCmd.Execute(); err != nil {

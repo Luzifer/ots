@@ -1,3 +1,4 @@
+// The OTS Server
 package main
 
 import (
@@ -8,19 +9,23 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Luzifer/ots/pkg/metrics"
-	"github.com/Luzifer/ots/pkg/storage"
 	"github.com/gofrs/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
+
+	"github.com/Luzifer/ots/pkg/metrics"
+	"github.com/Luzifer/ots/pkg/storage"
 )
 
 const (
+	errorReasonInvalidExpiry  = "invalid_expiry"
 	errorReasonInvalidJSON    = "invalid_json"
 	errorReasonSecretMissing  = "secret_missing"
+	errorReasonSecretNotFound = "secret_not_found"
 	errorReasonSecretSize     = "secret_size"
 	errorReasonStorageError   = "storage_error"
-	errorReasonSecretNotFound = "secret_not_found"
+
+	maxExpirySeconds = int64(1<<63-1) / int64(time.Second)
 )
 
 type apiServer struct {
@@ -32,12 +37,12 @@ type apiResponse struct {
 	Success   bool       `json:"success"`
 	Error     string     `json:"error,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
-	Secret    string     `json:"secret,omitempty"`
+	Secret    string     `json:"secret,omitempty"` //#nosec:G117 // This application works with secrets
 	SecretID  string     `json:"secret_id,omitempty"`
 }
 
 type apiRequest struct {
-	Secret string `json:"secret"`
+	Secret string `json:"secret"` //#nosec:G117 // This application works with secrets
 }
 
 func newAPI(s storage.Storage, c *metrics.Collector) *apiServer {
@@ -52,6 +57,20 @@ func (a apiServer) Register(r *mux.Router) {
 	r.HandleFunc("/get/{id}", a.handleRead)
 	r.HandleFunc("/isWritable", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusNoContent) })
 	r.HandleFunc("/settings", a.handleSettings).Methods(http.MethodGet)
+	r.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusOK) })
+}
+
+func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
+	errID := uuid.Must(uuid.NewV4()).String()
+
+	if desc != "" {
+		// No description: Nothing interesting for the server log
+		logrus.WithField("err_id", errID).WithError(err).Error(desc)
+	}
+
+	a.jsonResponse(res, status, apiResponse{
+		Error: errID,
+	})
 }
 
 func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
@@ -59,7 +78,7 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 		// As a safeguard against HUGE payloads behind a misconfigured
 		// proxy we take double the maximum secret size after which we
 		// just close the read and cut the connection to the sender.
-		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2) //nolint:gomnd
+		r.Body = http.MaxBytesReader(res, r.Body, cust.MaxSecretSize*2)
 	}
 
 	var (
@@ -68,8 +87,11 @@ func (a apiServer) handleCreate(res http.ResponseWriter, r *http.Request) {
 	)
 
 	if !cust.DisableExpiryOverride {
-		if ev, err := strconv.ParseInt(r.URL.Query().Get("expire"), 10, 64); err == nil && (ev < expiry || cfg.SecretExpiry == 0) {
-			expiry = ev
+		var err error
+		if expiry, err = a.parseExpiryOverride(r, expiry); err != nil {
+			a.collector.CountSecretCreateError(errorReasonInvalidExpiry)
+			a.errorResponse(res, http.StatusBadRequest, err, "")
+			return
 		}
 	}
 
@@ -159,19 +181,6 @@ func (a apiServer) handleSettings(w http.ResponseWriter, _ *http.Request) {
 	a.jsonResponse(w, http.StatusOK, cust)
 }
 
-func (a apiServer) errorResponse(res http.ResponseWriter, status int, err error, desc string) {
-	errID := uuid.Must(uuid.NewV4()).String()
-
-	if desc != "" {
-		// No description: Nothing interesting for the server log
-		logrus.WithField("err_id", errID).WithError(err).Error(desc)
-	}
-
-	a.jsonResponse(res, status, apiResponse{
-		Error: errID,
-	})
-}
-
 func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any) {
 	res.Header().Set("Content-Type", "application/json")
 	res.Header().Set("Cache-Control", "no-store, max-age=0")
@@ -181,4 +190,30 @@ func (apiServer) jsonResponse(res http.ResponseWriter, status int, response any)
 		logrus.WithError(err).Error("encoding JSON response")
 		http.Error(res, `{"error":"could not encode response"}`, http.StatusInternalServerError)
 	}
+}
+
+func (apiServer) parseExpiryOverride(r *http.Request, expiry int64) (int64, error) {
+	expiryValues, ok := r.URL.Query()["expire"]
+	if !ok {
+		return expiry, nil
+	}
+
+	ev, err := strconv.ParseInt(expiryValues[0], 10, 64)
+	if err != nil {
+		return 0, errors.New("invalid expiry")
+	}
+
+	if ev < 0 {
+		return 0, errors.New("expiry must be greater than or equal to zero")
+	}
+
+	if ev > maxExpirySeconds {
+		return 0, errors.New("expiry exceeds maximum duration")
+	}
+
+	if ev < expiry || cfg.SecretExpiry == 0 {
+		return ev, nil
+	}
+
+	return expiry, nil
 }

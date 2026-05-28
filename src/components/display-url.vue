@@ -5,7 +5,10 @@
       class="card-header bg-success-subtle"
       v-html="$t('title-secret-created')"
     />
-    <div class="card-body">
+    <div
+      v-if="!burned"
+      class="card-body"
+    >
       <p v-html="$t('text-pre-url')" />
       <div class="input-group mb-3">
         <input
@@ -14,10 +17,20 @@
           type="text"
           readonly
           :value="secretUrl"
-          @focus="$refs.secretUrl.select()"
+          @focus="selectURL"
         >
-        <app-clipboard-button :content="secretUrl" />
+        <app-clipboard-button
+          :content="secretUrl"
+          :title="$t('tooltip-copy-to-clipboard')"
+        />
         <app-qr-button :qr-content="secretUrl" />
+        <button
+          class="btn btn-danger"
+          :title="$t('tooltip-burn-secret')"
+          @click="burnSecret"
+        >
+          <i class="fas fa-fire fa-fw" />
+        </button>
       </div>
       <p v-html="$t('text-burn-hint')" />
       <p v-if="expiresAt">
@@ -25,16 +38,25 @@
         <strong>{{ expiresAt.toLocaleString() }}</strong>
       </p>
     </div>
+    <div
+      v-else
+      class="card-body"
+    >
+      {{ $t('text-secret-burned') }}
+    </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import appClipboardButton from './clipboard-button.vue'
 import appQrButton from './qr-button.vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: { appClipboardButton, appQrButton },
+
   computed: {
-    secretUrl() {
+    secretUrl(): string {
       return [
         window.location.href.split('#')[0],
         encodeURIComponent([
@@ -47,16 +69,31 @@ export default {
 
   data() {
     return {
+      burned: false,
       popover: null,
     }
   },
 
-  mounted() {
+  methods: {
+    burnSecret(): Promise<void> {
+      return fetch(`api/get/${this.secretId}`)
+        .then(() => {
+          this.burned = true
+        })
+    },
+
+    selectURL(): void {
+      this.$refs.secretUrl.select()
+    },
+  },
+
+  mounted(): void {
     // Give the interface a moment to transistion and focus
     window.setTimeout(() => this.$refs.secretUrl.focus(), 100)
   },
 
   name: 'AppDisplayURL',
+
   props: {
     expiresAt: {
       default: null,
@@ -74,5 +111,5 @@ export default {
       type: String,
     },
   },
-}
+})
 </script>

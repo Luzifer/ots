@@ -1,9 +1,8 @@
 ---
-
 name: test-and-build
 on:
   push:
-    branches: ['*']
+    branches: ['**']
     tags: ['v*']
 
 permissions:
@@ -17,7 +16,7 @@ jobs:
         shell: bash
 
     container:
-      image: luzifer/archlinux
+      image: ghcr.io/luzifer-docker/action-env:master@sha256:46161da5f25ccbc1b0c4f1de1a80ff18de51185d99cf9b21d1932550f6a326fc
       env:
         CGO_ENABLED: 0
         GOPATH: /go
@@ -25,58 +24,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enable custom AUR package repo
-        run: echo -e "[luzifer]\nSigLevel = Never\nServer = https://archrepo.hub.luzifer.io/\$arch" >>/etc/pacman.conf
-
-      - name: Install required packages
-        run: |
-          pacman -Syy --noconfirm \
-            awk \
-            curl \
-            diffutils \
-            git \
-            go \
-            golangci-lint-bin \
-            make \
-            nodejs-lts-hydrogen \
-            npm \
-            tar \
-            trivy \
-            unzip \
-            which \
-            zip
-
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Marking workdir safe
         run: git config --global --add safe.directory /__w/ots/ots
 
-      - name: 'Lint and test code: API'
+      - name: Initialize Go Workspace
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          go work init
+          find . -name 'go.mod' | xargs dirname | xargs go work use
 
-      - name: 'Lint and test code: Client'
-        working-directory: ./pkg/client
+      - name: Run golangci-lint
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          golangci-lint run $(go list -f "{{.Dir}}/..." -m)
 
-      - name: 'Lint and test code: OTS-CLI'
-        working-directory: ./cmd/ots-cli
+      - name: Run go test
         run: |
-          go test -cover -v ./...
-          golangci-lint run ./...
+          go list -m | xargs go test -v -cover
+
+      - name: Fetch translation utility
+        run: |
+          oras pull ${TRANSLATE_IMG}
+          chmod +x translate
+        env:
+          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:48bc317906e5ad3cfc22c1c620f2edfa142018371a5291c8f2fad1fc876f212b
 
       - name: Generate (and validate) translations
-        run: make translate
+        run: ./translate --write-issue-file
 
       - name: Delete issue template when no languages require translation
         run: |
           grep -q "### Language" translate-issue.md || rm -f translate-issue.md
 
       - name: Update Translations Issue
-        uses: JasonEtco/create-an-issue@v2
+        uses: JasonEtco/create-an-issue@1b14a70e4d8dc185e5cc76d3bec9eab20257b2c5 # v2.9.2
         if: github.ref == 'refs/heads/master' && hashFiles('translate-issue.md') != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -99,12 +80,10 @@ jobs:
         run: 'awk "/^#/ && ++c==2{exit}; /^#/f" "History.md" | tail -n +2 >release_changelog.md'
 
       - name: Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           artifacts: '.build/*'
           bodyFile: release_changelog.md
           draft: false
           generateReleaseNotes: false
-
-...

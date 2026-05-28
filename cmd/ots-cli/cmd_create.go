@@ -10,9 +10,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/Luzifer/ots/pkg/client"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/Luzifer/ots/pkg/client"
 )
 
 type (
@@ -34,9 +35,14 @@ var createCmd = &cobra.Command{
 }
 
 func init() {
+	defaultInstance := "https://ots.fyi/"
+	if inst := os.Getenv("OTS_INSTANCE"); inst != "" {
+		defaultInstance = inst
+	}
+
 	createCmd.Flags().Duration("expire", 0, "When to expire the secret (0 to use server-default)")
 	createCmd.Flags().StringSliceP("header", "H", nil, "Headers to include in the request (i.e. 'Authorization: Token ...')")
-	createCmd.Flags().String("instance", "https://ots.fyi/", "Instance to create the secret with")
+	createCmd.Flags().String("instance", defaultInstance, "Instance to create the secret with")
 	createCmd.Flags().StringSliceP("file", "f", nil, "File(s) to attach to the secret")
 	createCmd.Flags().Bool("no-text", false, "Disable secret read (create a secret with only files)")
 	createCmd.Flags().String("secret-from", "-", `File to read the secret content from ("-" for STDIN)`)
@@ -45,6 +51,8 @@ func init() {
 }
 
 func createRunE(cmd *cobra.Command, _ []string) (err error) {
+	cmd.SilenceUsage = true
+
 	var secret client.Secret
 
 	if client.HTTPClient, err = constructHTTPClient(cmd); err != nil {

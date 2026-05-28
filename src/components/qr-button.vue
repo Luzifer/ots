@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="!$root.customize.disableQRSupport"
+    v-if="!customize.disableQRSupport"
     id="secret-url-qrcode"
     ref="qrButton"
     class="btn btn-secondary"
@@ -9,11 +9,19 @@
     <i class="fas fa-qrcode" />
   </button>
 </template>
-<script>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { Popover } from 'bootstrap'
 import qrcode from 'qrcode'
 
-export default {
+export default defineComponent({
+  computed: {
+    customize(): any {
+      return window.OTSCustomize || {}
+    },
+  },
+
   data() {
     return {
       qrDataURL: null,
@@ -21,8 +29,8 @@ export default {
   },
 
   methods: {
-    generateQR() {
-      if (this.$root.customize.disableQRSupport) {
+    generateQR(): void {
+      if (window.OTSCustomize.disableQRSupport) {
         return
       }
 
@@ -33,7 +41,7 @@ export default {
     },
   },
 
-  mounted() {
+  mounted(): void {
     this.generateQR()
   },
 
@@ -51,7 +59,7 @@ export default {
       this.generateQR()
     },
 
-    qrDataURL(to) {
+    qrDataURL(to: string): void {
       if (this.popover) {
         this.popover.dispose()
       }
@@ -69,5 +77,5 @@ export default {
       })
     },
   },
-}
+})
 </script>

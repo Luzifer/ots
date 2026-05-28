@@ -1,4 +1,5 @@
 .build
+ci/translate/translate
 customize.yaml
 frontend/api.html
 frontend/app.css
@@ -7,6 +8,7 @@ frontend/app.js.LICENSE.txt
 frontend/css
 frontend/js
 frontend/locale/*.untranslated.json
+frontend/*.ttf
 frontend/webfonts
 frontend/*.woff2
 node_modules

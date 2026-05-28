@@ -2,11 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
+	"slices"
 	"strings"
-
-	"github.com/Luzifer/go_helpers/v2/str"
-	"github.com/pkg/errors"
 )
 
 type (
@@ -24,15 +23,10 @@ type (
 	}
 )
 
-func (t translation) ToJSON() (string, error) {
-	j, err := json.Marshal(t)
-	return strings.ReplaceAll(string(j), "'", "\\'"), errors.Wrap(err, "marshalling JSON")
-}
-
 func (t translation) GetErrorKeys(ref translation) (missing, extra, wrongType []string) {
 	var (
 		keys     []string
-		keyType  = map[string]reflect.Type{}
+		keyType  = make(map[string]reflect.Type)
 		seenKeys []string
 	)
 
@@ -42,7 +36,7 @@ func (t translation) GetErrorKeys(ref translation) (missing, extra, wrongType []
 	}
 
 	for k, v := range t {
-		if !str.StringInSlice(k, keys) {
+		if !slices.Contains(keys, k) {
 			// Contains extra key, is error
 			extra = append(extra, k)
 			continue // No further checks for that key
@@ -57,10 +51,15 @@ func (t translation) GetErrorKeys(ref translation) (missing, extra, wrongType []
 	}
 
 	for _, k := range keys {
-		if !str.StringInSlice(k, seenKeys) {
+		if !slices.Contains(seenKeys, k) {
 			missing = append(missing, k)
 		}
 	}
 
 	return missing, extra, wrongType
+}
+
+func (t translation) ToJSON() (string, error) {
+	j, err := json.Marshal(t)
+	return strings.ReplaceAll(string(j), "'", "\\'"), fmt.Errorf("marshalling JSON: %w", err)
 }
