@@ -758,46 +758,52 @@ translations:
     translators:
       - YongJie-Xie
     translations:
-      alert-secret-not-found: 不存在该机密 - 如果这不符合您的预期，那么该链接可能已经泄露，且您的机密已经被他人查看过了。
-      alert-something-went-wrong: 运行异常，对此我深感抱歉…
-      btn-create-secret: 创建机密
-      btn-create-secret-processing: 机密正在创建中…
-      btn-new-secret: 新的机密
-      btn-reveal-secret: 向我展示机密
-      btn-reveal-secret-processing: 机密正在解密中…
+      alert-insecure-environment: 您正在使用不安全的连接方式访问此实例。在此情况下，您将无法创建或读取机密信息。
+      alert-secret-not-found: 没有找到该机密信息……如果您认为它本应出现在这里，那么它很可能已被泄露，因为有其他人访问了这个链接。
+      alert-something-went-wrong: 出现了一些问题。对此我们深表歉意……
+      btn-create-secret: 创建机密信息！
+      btn-create-secret-processing: 正在创建机密信息……
+      btn-new-secret: 新建机密信息
+      btn-reveal-secret: 显示该机密信息！
+      btn-reveal-secret-processing: 正在对机密信息进行解密……
       btn-show-explanation: 它如何运作？
+      btn-theme-switcher-auto: 自动
       expire-default: 默认过期时间
       expire-n-days: '{n} 天 | {n} 天'
       expire-n-hours: '{n} 小时 | {n} 小时'
       expire-n-minutes: '{n} 分钟 | {n} 分钟'
       expire-n-seconds: '{n} 秒 | {n} 秒'
       items-explanation:
-        - 您在当前页面的文本框内输入机密内容
-        - 您的浏览器会生成随机密钥并对机密内容进行加密
-        - 您的浏览器会发送加密后的机密内容到服务器（明文内容和随机密钥都不会被发送！）
-        - 服务器将接收加密的机密并在指定的时间段内保留（过期会自动销毁）
-        - 您需要将包含 ID 和随机密钥的访问链接发送给收件人
-        - 收件人仅有一次查看机密的机会（如果无法查看，则表示机密已被其他人查看过！）
-        - 服务器会在机密被查看一次后立即将其销毁
-      label-expiry: 过期时间：
-      label-secret-data: 机密内容：
+        - 您先在本页面的输入框中输入需要保密的信息
+        - 您的浏览器会生成随机密钥，并使用该密钥对信息进行加密处理
+        - 随后仅将加密后的信息上传至服务器（原始信息及密钥均不会被上传！）
+        - 服务器会将加密后的信息存储一段时间
+        - 接下来页面会显示一个包含信息编号及密钥的链接，您可将该链接发送给接收者
+        - 接收者只能查看该信息一次，若无法查看，则说明该信息可能已被他人浏览过！
+        - 一旦加密信息被成功读取，它便会从服务器上被彻底删除
+      label-expiry: 失效时间：
+      label-secret-data: 机密信息内容：
       label-secret-files: 附加文件：
-      text-attached-files: 发件人在此机密中附加了文件，但该文件未经检查，请确保发件人可信！
-      text-burn-hint: 请您记住不要自己访问此链接，因为这会导致机密被销毁。请原封不动的转发给收件人吧！
-      text-burn-time: 如果机密没有被查看，将会在此时间自动销毁：
-      text-hint-burned: <strong>注意：</strong>您只能查看一次机密，请尽快拷贝！刷新页面也会导致机密消失！
-      text-invalid-files-selected: 选中了至少一个不允许被作为附件的文件。
-      text-max-filesize: 附加文件大小上限：{maxSize}
-      text-max-filesize-exceeded: 您选择的文件过大，无法附加：{curSize} / {maxSize}
+      text-attached-files: 发送者为该信息附带了文件。由于这些文件并未经过安全检测，请您务必确认您信任该发送者！
+      text-burn-hint: 切记不要亲自访问该链接，否则会导致信息永久丢失。只需转发该链接给他人即可！
+      text-burn-time: 如果机密信息未被查看，该信息将在以下时间后自动删除：
+      text-hint-burned: <strong>注意：</strong> 您只能看到此信息一次。一旦刷新页面，该信息就会丢失，所以最好现在就复制它……
+      text-invalid-files-selected: 所选文件中包含了不被允许的文件类型。
+      text-max-filesize: '最大文件大小：{maxSize}'
+      text-max-filesize-exceeded: '您选择的文件大小超出了上限：{curSize} / {maxSize}'
       text-powered-by: Powered by
-      text-pre-reveal-hint: 点击按钮即可查看机密，但请注意该操作会立即销毁机密，而且您也只能查看一次！
-      text-pre-url: 您的机密已创建，访问链接如下：
-      text-secret-create-disabled: 该实例被禁止创建机密。
-      title-explanation: 这就是它的运作原理…
-      title-new-secret: 创建一个机密
-      title-reading-secret: 查看您的机密…
-      title-secret-create-disabled: 创建机密被禁止…
-      title-secret-created: 机密已创建！
+      text-pre-reveal-hint: 点击按钮即可查看信息，但请注意该操作会导致信息随之销毁，而且您也仅能查看这一次！
+      text-pre-url: 您的机密信息已生成并可通过以下链接查看：
+      text-secret-burned: 该机密信息已成功销毁。
+      text-secret-create-disabled: 该实例的创建机密信息功能已被禁用。
+      title-explanation: 它的运作方式是……
+      title-new-secret: 新建机密信息
+      title-reading-secret: 正在为您读取机密信息……
+      title-secret-create-disabled: 创建机密信息已禁用……
+      title-secret-created: 信息创建成功！
+      tooltip-burn-secret: 立即销毁该信息！
+      tooltip-copy-to-clipboard: 复制到剪贴板
+      tooltip-download-as-file: 以文件形式下载
   zh-TW:
     translators: []
     translations:
