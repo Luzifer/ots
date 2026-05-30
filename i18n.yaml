@@ -378,12 +378,28 @@ translations:
       text-powered-by: Darbina
       text-pre-reveal-hint: Lai parādītu ziņu nospied šo pogu, bet rēķinies ar to, ka pēc apskates ziņa vairs nebūs pieejama. To var atvērt tikai vienreiz!
       text-pre-url: 'Ziņa ir nošifrēta un ir atverama šajā adresē:'
-      text-secret-create-disabled: Šajā gadījumā jaunu noslēpumu izveide ir atspējota.
+      text-secret-create-disabled: Šajā instancē jaunu ziņu izveide ir atspējota.
       title-explanation: Tā tas strādā&hellip;
       title-new-secret: Šifrēt ziņu
       title-reading-secret: Atver ziņu&hellip;
-      title-secret-create-disabled: Slepena izveide atspējota...
+      title-secret-create-disabled: Ziņu izveide atspējota...
       title-secret-created: Ziņa nošifrēta!
+      alert-insecure-environment: Tu piekļūsti šai instancei izmantojot nedrošu savienojumu. Tu nevarēsi veidot vai lasīt ziņas.
+      btn-create-secret-processing: Ziņa tiek izveidota…
+      btn-reveal-secret-processing: Ziņa tiek atšifrēta…
+      btn-theme-switcher-auto: Auto
+      expire-default: Noklusējuma termiņš
+      label-expiry: 'Beigsies pēc:'
+      label-secret-files: 'Pievienot failus:'
+      text-attached-files: Sūtītājs ziņai pievienoja failus. Atver tos tikai, ja uzticies sūtītājam - faili nav pārbaudīti!
+      text-burn-time: 'Ziņa tiks automātiski izdzēsta, ja nebūs skatīta pirms šī laika:'
+      text-invalid-files-selected: Viens vai vairāki no izvēlētajiem failiem nav atļauti kā pielikumi.
+      text-max-filesize: 'Maksimālais izmērs: {maxSize}'
+      text-max-filesize-exceeded: 'Fails, ko izvēlējies, ir pārāk liels, lai pievienotu: {curSize} / {maxSize}'
+      text-secret-burned: Ziņa tika veiksmīgi iznīcināta.
+      tooltip-burn-secret: Iznīcināt ziņu!
+      tooltip-copy-to-clipboard: Kopēt uz starpliktuvi
+      tooltip-download-as-file: Lejuplādēt kā failu
   nl:
     deeplLanguage: nl
     translators: []
