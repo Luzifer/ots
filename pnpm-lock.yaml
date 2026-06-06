@@ -46,8 +46,8 @@ importers:
         specifier: 2.31.5
         version: 2.31.5(@opentelemetry/api@1.9.1)(core-js@3.49.0)
       '@types/bootstrap':
-        specifier: 5.2.10
-        version: 5.2.10
+        specifier: 5.2.11
+        version: 5.2.11
       '@typescript-eslint/eslint-plugin':
         specifier: 8.60.1
         version: 8.60.1(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)
@@ -599,8 +599,8 @@ packages:
     resolution: {integrity: sha512-pLXKw2HeLMrGFwLVZX6TVznNn8EA++6PGL5SQ1k53TvlkYHzgQ+tc8MI7HQQdg5l66mDVZZVkhc/yZVjNPlLmw==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
 
-  '@types/bootstrap@5.2.10':
-    resolution: {integrity: sha512-F2X+cd6551tep0MvVZ6nM8v7XgGN/twpdNDjqS1TUM7YFNEtQYWk+dKAnH+T1gr6QgCoGMPl487xw/9hXooa2g==}
+  '@types/bootstrap@5.2.11':
+    resolution: {integrity: sha512-69ykbLiNzQxi6Q/y/aYJLrlzI5QkLQjhIYW2U+cxujBxAmaBtmXKtxnFes59Ttfpt936as6xJU0dYnmVpcwIwg==}
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -2485,7 +2485,7 @@ snapshots:
       outdent: 0.8.0
       picomatch: 4.0.4
 
-  '@types/bootstrap@5.2.10':
+  '@types/bootstrap@5.2.11':
     dependencies:
       '@popperjs/core': 2.11.8
 

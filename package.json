@@ -2,7 +2,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@redocly/cli": "2.31.5",
-    "@types/bootstrap": "5.2.10",
+    "@types/bootstrap": "5.2.11",
     "@typescript-eslint/eslint-plugin": "8.60.1",
     "@typescript-eslint/parser": "8.60.1",
     "@vue/tsconfig": "0.9.1",
