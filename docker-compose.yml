@@ -16,7 +16,7 @@ services:
     ports:
       - 3000:3000
   valkey:
-    image: valkey/valkey:9.1.0-alpine
+    image: docker.io/library/valkey/valkey:9.1.0-alpine
     restart: always
     volumes:
       - ./data:/data
