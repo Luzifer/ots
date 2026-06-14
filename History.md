@@ -1,3 +1,28 @@
+# 1.21.6 / 2026-06-14
+
+* Improvements
+  * chore: specify full container image paths (by @kovmir)
+
+* Bugfixes
+  * fix: broken path handling in case of file duplicates
+  * fix: creating biased random numbers from a cryptographically secure source
+  * fix: force overrides for vulnerabilities in node packages
+  * fix: mitigate possible RCE through Github Actions
+  * chore: remove remains of pkg/errors
+  * fix(deps): update dependency vue to v3.5.38
+  * fix(deps): update dependency vue-i18n to v11.4.5
+  * fix(deps): update dependency vue-router to v5.1.0
+  * fix(deps): update module github.com/luzifer/go_helpers/...
+  * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.2
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.20.1
+
+* Translations
+  * chore: improve German translations
+  * chore: improve Simplified Chinese translation (by @YongJie-Xie)
+  * chore: update and enhance Turkish localization (by @wd006)
+  * chore: update Latvian translation (by @Stegadons)
+  * chore: update Ukranian translations (by @t0rik)
+
 # 1.21.5 / 2026-04-24
 
 * Improvements
