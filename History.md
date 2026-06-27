@@ -1,3 +1,11 @@
+# 1.21.7 / 2026-06-27
+
+* Bugfixes
+  * fix(security): remove sprig dependency
+  * fix(deps): update dependency vue-i18n to v11.4.6 (#421)
+  * fix(deps): update module github.com/luzifer/go-openssl/v4 to v4.2.5 (#429)
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.21.0 (#423)
+
 # 1.21.6 / 2026-06-14
 
 * Improvements
