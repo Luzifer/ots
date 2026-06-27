@@ -1,7 +1,7 @@
 # Install Node deps on change of package.json
 local_resource(
   'pnpm',
-  cmd='corepack pnpm install', # Not using the make target to edit the lockfile
+  cmd='pnpm install', # Not using the make target to edit the lockfile
   deps=['package.json'],
 )
 
