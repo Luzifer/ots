@@ -12,10 +12,11 @@ import (
 	"time"
 
 	"github.com/Luzifer/rconfig/v2"
-	"github.com/Masterminds/sprig/v3"
 	"github.com/mitchellh/hashstructure/v2"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
+
+	"github.com/Luzifer/ots/pkg/tplfunc"
 )
 
 const deeplRequestTimeout = 10 * time.Second
@@ -265,7 +266,7 @@ func renderJSFile(tf translationFile) error {
 		return fmt.Errorf("reading template file: %w", err)
 	}
 
-	tpl, err := template.New("js").Funcs(sprig.FuncMap()).Parse(string(jsTemplate))
+	tpl, err := template.New("js").Funcs(tplfunc.FuncMap()).Parse(string(jsTemplate))
 	if err != nil {
 		return fmt.Errorf("parsing template: %w", err)
 	}

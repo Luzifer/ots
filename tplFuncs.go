@@ -6,7 +6,7 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/Masterminds/sprig/v3"
+	"github.com/Luzifer/ots/pkg/tplfunc"
 )
 
 type (
@@ -22,7 +22,7 @@ var (
 )
 
 func init() {
-	tplFuncs = sprig.FuncMap()
+	tplFuncs = tplfunc.FuncMap()
 	tplFuncs["assetSRI"] = assetSRIHash
 }
 
