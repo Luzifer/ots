@@ -351,10 +351,10 @@ translations:
       title-secret-created: Secret creato!
       tooltip-copy-to-clipboard: Copia nella clipboard
       tooltip-download-as-file: Scarica come file
-      alert-insecure-environment: Stai accedendo a questa istanza tramite una connessione non sicura. Non potrai creare o leggere segreti.
+      alert-insecure-environment: Stai accedendo a questa istanza tramite una connessione non sicura. Non potrai creare o leggere secret.
       btn-theme-switcher-auto: Auto
-      text-secret-burned: Il segreto è stato svelato con successo.
-      tooltip-burn-secret: Brucia il segreto ora!
+    text-secret-burned: Il secret è stato distrutto con successo.
+    tooltip-burn-secret: Brucia il secret ora!
   lv:
     deeplLanguage: lv
     translators: []
