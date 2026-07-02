@@ -16,6 +16,13 @@ type (
 	}
 )
 
+type (
+	sriCache struct {
+		c map[string]string
+		l sync.RWMutex
+	}
+)
+
 var (
 	sriCacheStore = newSRICache()
 	tplFuncs      template.FuncMap
