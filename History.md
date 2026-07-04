@@ -1,3 +1,12 @@
+# 1.21.8 / 2026-07-04
+
+* Bugfixes
+  * fix(sec): putting JSON into string make XSS possible
+  * fix(sec): zero expiry creates non-expiring storage entries (see [GHSA-6ppq-9x26-5r92](https://github.com/Luzifer/ots/security/advisories/GHSA-6ppq-9x26-5r92))
+  * fix(sec): race between read and delete when using redis/valkey (see [GHSA-92r4-rpw3-7cwm](https://github.com/Luzifer/ots/security/advisories/GHSA-92r4-rpw3-7cwm))
+  * fix(deps): update dependency @fortawesome/fontawesome-free to v7.3.0 (#432)
+  * fix(deps): update dependency vue to v3.5.39 (#431)
+
 # 1.21.7 / 2026-06-27
 
 * Bugfixes
