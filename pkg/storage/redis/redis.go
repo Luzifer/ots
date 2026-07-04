@@ -78,18 +78,14 @@ func (s storageRedis) Create(secret string, expireIn time.Duration) (string, err
 }
 
 func (s storageRedis) ReadAndDestroy(id string) (string, error) {
-	secret, err := s.conn.Get(context.Background(), s.redisKey(id)).Result()
+	secret, err := s.conn.GetDel(context.Background(), s.redisKey(id)).Result()
 	if err != nil {
 		if errors.Is(err, redis.Nil) {
 			return "", storage.ErrSecretNotFound
 		}
-		return "", fmt.Errorf("getting key: %w", err)
+		return "", fmt.Errorf("getting and deleting key: %w", err)
 	}
 
-	err = s.conn.Del(context.Background(), s.redisKey(id)).Err()
-	if err != nil {
-		return secret, fmt.Errorf("deleting key: %w", err)
-	}
 	return secret, nil
 }
 

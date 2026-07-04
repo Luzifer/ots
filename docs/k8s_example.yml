@@ -36,7 +36,7 @@ spec:
             claimName: ots-redis
       containers:
         - name: leader
-          image: docker.io/redis:6.2.5-alpine
+          image: docker.io/valkey/valkey:9.1.0-alpine
           resources:
             requests:
               cpu: 100m
