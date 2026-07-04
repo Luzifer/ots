@@ -211,6 +211,10 @@ func (apiServer) parseExpiryOverride(r *http.Request, expiry int64) (int64, erro
 		return 0, errors.New("expiry exceeds maximum duration")
 	}
 
+	if ev == 0 && cfg.SecretExpiry > 0 {
+		return cfg.SecretExpiry, nil
+	}
+
 	if ev < expiry || cfg.SecretExpiry == 0 {
 		return ev, nil
 	}

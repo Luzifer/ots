@@ -26,16 +26,25 @@ func TestHandleCreateExpiryOverrideAcceptedValues(t *testing.T) {
 	tests := []struct {
 		name          string
 		expire        int64
+		secretExpiry  int64
 		wantExpiresAt bool
 	}{
 		{
-			name:          "zero",
+			name:          "zero-uses-configured-expiry",
 			expire:        0,
+			secretExpiry:  3600,
+			wantExpiresAt: true,
+		},
+		{
+			name:          "zero-without-configured-expiry",
+			expire:        0,
+			secretExpiry:  0,
 			wantExpiresAt: false,
 		},
 		{
 			name:          "one-second",
 			expire:        1,
+			secretExpiry:  3600,
 			wantExpiresAt: true,
 		},
 	}
@@ -43,6 +52,7 @@ func TestHandleCreateExpiryOverrideAcceptedValues(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			api, _ := newTestAPI(t)
+			cfg.SecretExpiry = tc.secretExpiry
 			res := createJSONSecret(api, fmt.Sprintf("/api/create?expire=%d", tc.expire))
 
 			require.Equal(t, http.StatusCreated, res.Code)
