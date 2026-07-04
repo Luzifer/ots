@@ -51,7 +51,7 @@
       // Template variable from Golang process
       window.maxSecretExpire = {{ .MaxSecretExpiry }}
       window.version = "{{ .Version }}"
-      window.OTSCustomize = JSON.parse('{{ .Customize.ToJSON }}')
+      window.OTSCustomize = {{ .Customize | mustToJson }}
       window.useFormalLanguage = {{ .Customize.UseFormalLanguage | mustToJson }}
     </script>
   </head>
