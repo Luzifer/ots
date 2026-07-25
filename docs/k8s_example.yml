@@ -30,6 +30,10 @@ spec:
         role: leader
         tier: backend
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       volumes:
         - name: redis-storage
           persistentVolumeClaim:
@@ -37,10 +41,15 @@ spec:
       containers:
         - name: leader
           image: docker.io/valkey/valkey:9.1.0-alpine
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
           resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
+            limits:
+              memory: 256Mi
           ports:
             - containerPort: 6379
           volumeMounts:
@@ -90,7 +99,7 @@ kind: Deployment
 metadata:
   name: ots
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ots
@@ -101,13 +110,23 @@ spec:
         app: ots
         tier: frontend
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       volumes:
         - name: custom
           configMap:
-            name: ots-cutomize
+            name: ots-customize
       containers:
         - name: ots
           image: ghcr.io/luzifer/ots:v1.21.8
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
           args:
             - --storage-type
             - redis
@@ -124,12 +143,16 @@ spec:
             - mountPath: /custom
               name: custom
           resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
+            limits:
+              memory: 32Mi
           ports:
             - containerPort: 3000
           livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+          readinessProbe:
             httpGet:
               path: /
               port: 3000
@@ -154,10 +177,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ots
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
 spec:
+  ingressClassName: nginx
   rules:
     - host: ots.example.com
       http:
@@ -168,7 +189,7 @@ spec:
                 port:
                   number: 3000
             path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
   tls:
     - hosts:
         - ots.example.com
