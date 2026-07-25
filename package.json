@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "@redocly/cli": "2.36.0",
+    "@redocly/cli": "2.40.0",
     "@types/bootstrap": "5.2.11",
     "@typescript-eslint/eslint-plugin": "8.65.0",
     "@typescript-eslint/parser": "8.65.0",
