@@ -1,3 +1,14 @@
+# 1.21.9 / 2026-07-25
+
+* Bugfixes
+  * chore(sec): upgrade transitive dependencies
+  * fix(deps): update dependency @fortawesome/fontawesome-free to v7.3.1 (#452)
+  * fix(deps): update dependency vue to v3.5.40 (#453)
+  * fix(deps): update dependency vue-i18n to v11.4.7 (#460)
+  * fix(deps): update dependency vue-router to v5.2.0 (#451)
+  * fix(deps): update module github.com/prometheus/client_golang to v1.24.0 (#462)
+
+
 # 1.21.8 / 2026-07-04
 
 * Bugfixes
