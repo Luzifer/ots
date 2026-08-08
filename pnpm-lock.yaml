@@ -34,8 +34,8 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(eslint@10.8.0(supports-color@8.1.1))
       '@redocly/cli':
-        specifier: 2.40.0
-        version: 2.40.0
+        specifier: 2.44.2
+        version: 2.44.2
       '@types/bootstrap':
         specifier: 5.2.11
         version: 5.2.11
@@ -452,8 +452,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@redocly/cli@2.40.0':
-    resolution: {integrity: sha512-1uQ4GeNjhApy9EtypZgp70ZN5GC2JFfst3UkNEXSqkXgVIPGdEAnlz5Xwgax/4cEUGOvaZoM3X25iSQcqbplFg==}
+  '@redocly/cli@2.44.2':
+    resolution: {integrity: sha512-gXV/RBGtBKnHircpJHJ15FdR60pHShB6WkWxatco3Iz6gj6cae5tmYyVaIsT4XdpGAzd7ZFySsGoNVflHuyw9A==}
     engines: {node: '>=22.12.0 || >=20.19.0 <21.0.0', npm: '>=10'}
     hasBin: true
 
@@ -1678,7 +1678,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@redocly/cli@2.40.0': {}
+  '@redocly/cli@2.44.2': {}
 
   '@types/bootstrap@5.2.11':
     dependencies:
