@@ -10,7 +10,7 @@ export default {
 {{- range $lang, $translation := .Translations }}
   // Translation: {{ $lang }} - {{ printf "%.2f" (mul .Completion 100) }}%
   {{- if lt .Completion 1.0 }}
-  // ⚠️ Language omitted because it is incomplete
+  // ⚠️ Language omitted because it is incomplete - if you can help translate, see pinned issue
   {{- else }}
 {{- if .FormalTranslations }}
   '{{ $lang }}': switchFormal(
