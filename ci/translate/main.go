@@ -93,6 +93,8 @@ func main() {
 		}
 	}
 
+	calculateCompletion(&tf)
+
 	tfHashNew, err := hashstructure.Hash(tf, hashstructure.FormatV2, nil)
 	if err != nil {
 		logrus.WithError(err).Fatal("hashing processed translations")
@@ -196,6 +198,21 @@ func autoTranslateKeyForLang(tf *translationFile, lang, key string) (err error) 
 	}
 
 	return nil
+}
+
+func calculateCompletion(tf *translationFile) {
+	total := len(tf.Reference.Translations)
+
+	tf.Reference.Completion = 1
+
+	if total == 0 {
+		return
+	}
+
+	for _, tm := range tf.Translations {
+		missing, _, _ := tm.Translations.GetErrorKeys(tf.Reference.Translations)
+		tm.Completion = float64(total-len(missing)) / float64(total)
+	}
 }
 
 func fetchTranslation(srcLang, destLang, text string) (string, error) {

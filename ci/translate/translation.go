@@ -1,11 +1,8 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"reflect"
 	"slices"
-	"strings"
 )
 
 type (
@@ -20,6 +17,8 @@ type (
 		Translators        []string    `yaml:"translators"`
 		Translations       translation `yaml:"translations"`
 		FormalTranslations translation `yaml:"formalTranslations,omitempty"`
+
+		Completion float64 `hash:"ignore" yaml:"-"`
 	}
 )
 
@@ -57,9 +56,4 @@ func (t translation) GetErrorKeys(ref translation) (missing, extra, wrongType []
 	}
 
 	return missing, extra, wrongType
-}
-
-func (t translation) ToJSON() (string, error) {
-	j, err := json.Marshal(t)
-	return strings.ReplaceAll(string(j), "'", "\\'"), fmt.Errorf("marshalling JSON: %w", err)
 }

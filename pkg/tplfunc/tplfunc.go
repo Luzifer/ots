@@ -14,6 +14,7 @@ func FuncMap() template.FuncMap {
 	return template.FuncMap{
 		"dict":               dict,
 		"list":               list,
+		"mul":                func(a, b float64) float64 { return a * b },
 		"mustToJson":         mustToJSON,
 		"mustMergeOverwrite": mustMergeOverwrite,
 		"replace":            replace,

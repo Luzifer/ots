@@ -8,17 +8,19 @@ import (
 	"sort"
 	"strings"
 	"text/template"
+
+	"github.com/Luzifer/ots/pkg/tplfunc"
 )
 
 //go:embed issue.tpl.md
 var issueTemplate string
 
 func generateIssue(tf translationFile) error {
-	fm := template.FuncMap{
-		"English":             tplEnglish(tf),
-		"MissingTranslations": tplMissingTranslations(tf),
-		"Ping":                tplPing(tf),
-	}
+	fm := tplfunc.FuncMap()
+
+	fm["English"] = tplEnglish(tf)
+	fm["MissingTranslations"] = tplMissingTranslations(tf)
+	fm["Ping"] = tplPing(tf)
 
 	tpl, err := template.New("issue").Funcs(fm).Parse(issueTemplate)
 	if err != nil {

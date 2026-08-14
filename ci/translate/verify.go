@@ -52,6 +52,7 @@ func verify(tf translationFile) error {
 			tf.Reference.Translations,
 			true,
 		)
+
 		hadErrors = hadErrors || verifyTranslationKeys(
 			logger,
 			tm.FormalTranslations,

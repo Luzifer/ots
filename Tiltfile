@@ -17,7 +17,7 @@ local_resource(
 local_resource(
   'translations',
   cmd='make translate',
-  deps=['i18n.yaml'],
+  deps=['i18n.yaml', 'src/langs/langs.tpl.js'],
 )
 
 # Rebuild and run Go webserver on code changes

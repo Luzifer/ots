@@ -8,9 +8,12 @@ labels: help wanted, translation
 
 To help translating please either **create a pull-request** updating the `i18n.yaml` in the root of the repository and add the missing translations to the corresponding language or **just leave a comment** below and ping @Luzifer in your comment. He then will integrate the new translation strings and mark your comment hidden after this issue has been automatically updated (kind of a to-do list for translations until we have something better in place).
 
+> [!IMPORTANT]
+> Languages with less than **100% translation coverage** are not embedded into the application, as missing strings would otherwise produce a mixed-language interface using the English fallback. Existing translations remain available in `i18n.yaml`, and the language will automatically be included again once all missing strings have been translated.
+
 {{ range $lang, $translation := .Translations -}}
 {{ if MissingTranslations $lang -}}
-### Language: `{{ $lang }}`
+### Language: `{{ $lang }}` ({{ printf "%.2f" (mul .Completion 100) }}% Coverage)
 
 Please add the following translations:
 {{ range MissingTranslations $lang }}
