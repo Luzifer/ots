@@ -400,10 +400,11 @@ translations:
       tooltip-burn-secret: Iznīcināt ziņu!
       tooltip-copy-to-clipboard: Kopēt uz starpliktuvi
       tooltip-download-as-file: Lejuplādēt kā failu
-  nl:
+nl:
     deeplLanguage: nl
     translators: []
     translations:
+      alert-insecure-environment: Je bezoekt deze omgeving via een onveilige verbinding. Je kan momenteel geen geheimen aanmaken of openen.
       alert-secret-not-found: De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!
       alert-something-went-wrong: Er ging iets verkeerd, sorry&hellip;
       btn-create-secret: Geheim aanmaken!
@@ -433,21 +434,27 @@ translations:
       text-burn-hint: Open de URL niet zelf, deze is slechts eenmalig te gebruiken. Geef de URL aan de ontvanger.
       text-burn-time: 'Deze vertrouwelijke informatie wordt automatisch gewist indien niet bekeken voor:'
       text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
+      text-invalid-files-selected: Tenminste een van de geselecteerde bestanden is niet toegestaan als bijlage.
       text-max-filesize: 'Maximum grootte: {maxSize}'
       text-max-filesize-exceeded: 'De bestanden die je toevoegde zijn te groot: {curSize} / {maxSize}'
       text-powered-by: Mogelijk gemaakt door
       text-pre-reveal-hint: 'Gebruik deze knop om het geheim weer te geven. Let op: Je kan dit slechts eenmaal doen!'
       text-pre-url: 'Het geheim kan opgevraagd worden via deze URL:'
+      text-secret-burned: Dit geheim is succesvol vernietigd.
       text-secret-create-disabled: Het aanmaken van nieuwe geheimen is in deze omgeving uitgeschakeld.
       title-explanation: Dit is hoe het werkt&hellip;
       title-new-secret: Nieuw geheim aanmaken
       title-reading-secret: Geheim wordt gelezen&hellip;
       title-secret-create-disabled: Aanmaken geheimen uitgeschakeld...
       title-secret-created: Geheim aangemaakt!
+      tooltip-burn-secret: Vernietig dit geheim direct!
+      tooltip-copy-to-clipboard: Kopieer naar klembord
+      tooltip-download-as-file: Download als bestand
   nl-BE:
     deeplLanguage: nl-BE
     translators: []
     translations:
+      alert-insecure-environment: Je bezoekt deze omgeving via een onveilige verbinding. Je kan momenteel geen geheimen aanmaken of openen.
       alert-secret-not-found: De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!
       alert-something-went-wrong: Er ging iets verkeerd, sorry&hellip;
       btn-create-secret: Nieuwe vertrouwelijke info aanmaken!
@@ -456,6 +463,7 @@ translations:
       btn-reveal-secret: Toon mij de vertrouwelijke info!
       btn-reveal-secret-processing: Vertrouwelijke info wordt ontsleuteld...
       btn-show-explanation: Hoe werkt dit?
+      btn-theme-switcher-auto: Auto
       expire-default: Standaard termijn
       expire-n-days: '{n} dag | {n} dagen'
       expire-n-hours: '{n} uur | {n} uur'
@@ -476,17 +484,22 @@ translations:
       text-burn-hint: 'Bezoek de URL niet zelf: je kan deze slechts eenmaal gebruiken. Geef de URL aan de ontvanger.'
       text-burn-time: 'Deze vertrouwelijke informatie wordt automatisch gewist indien niet bekeken voor:'
       text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
+      text-invalid-files-selected: Minstens één van de geselecteerde bestanden is niet toegestaan als bijlage.
       text-max-filesize: 'Maximum grootte: {maxSize}'
       text-max-filesize-exceeded: 'De bestanden die je toevoegde zijn te groot: {curSize} / {maxSize}'
       text-powered-by: Mogelijk gemaakt door
-      text-pre-reveal-hint: 'Gebruik deze knop om de vertrouwelijke info op te halen. Let op: Je kan dit slechts eenmaal doen!'
+      text-pre-reveal-hint: 'Gebruik deze knop om de vertrouwelijke data op te halen. Let op: Je kan dit slechts eenmaal doen!'
       text-pre-url: 'Je vertrouwelijke informatie kan opgevraagd worden via deze URL:'
-      text-secret-create-disabled: Het aanmaken van nieuwe geheimen is in dit geval uitgeschakeld.
+      text-secret-burned: Dit geheim werd succesvol vernietigd.
+      text-secret-create-disabled: Het aanmaken van nieuwe geheimen is in deze omgeving uitgeschakeld.
       title-explanation: Dit is hoe het werkt&hellip;
-      title-new-secret: Nieuwe vertrouwelijke info opslaan
+      title-new-secret: Nieuwe vertrouwelijke data opslaan
       title-reading-secret: Vertrouwelijke info lezen&hellip;
       title-secret-create-disabled: Geheime creatie uitgeschakeld...
-      title-secret-created: Vertrouwelijke info opgeslaan!
+      title-secret-created: Vertrouwelijke data opgeslaan!
+      tooltip-burn-secret: Vernietig dit geheim onmiddellijk!
+      tooltip-copy-to-clipboard: Kopieer naar klembord
+      tooltip-download-as-file: Download als bestand    
   pl:
     deeplLanguage: pl
     translators:
