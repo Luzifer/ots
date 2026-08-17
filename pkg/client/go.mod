@@ -8,14 +8,14 @@ replace github.com/Luzifer/ots/pkg/customization => ../customization
 
 require (
 	github.com/Luzifer/go-openssl/v4 v4.2.5
-	github.com/Luzifer/ots/pkg/customization v0.0.0-20260407120015-d6c630e9a5ea
+	github.com/Luzifer/ots/pkg/customization v0.0.0-20260817110948-81fc004c7ad4
 	github.com/ryanuber/go-glob v1.0.0
 	github.com/sirupsen/logrus v1.10.0
 	github.com/stretchr/testify v1.12.0
 )
 
 require (
-	golang.org/x/crypto v0.53.0 // indirect
-	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/crypto v0.55.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
