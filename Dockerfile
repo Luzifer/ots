@@ -1,4 +1,4 @@
-FROM docker.io/library/golang:1.26.6-alpine@sha256:3889b425f035be855a72fb4755265311293b6d414521f0a519d819df32222d83 AS builder
+FROM docker.io/library/golang:1.26.7-alpine@sha256:28d89ee9cc0ff9fec75c82ca201e6bf7fdf9a679d4b7b24dfa04f2bb766bb468 AS builder
 
 COPY --from=ghcr.io/luzifer-docker/pnpm:v11.22.0@sha256:9c3acd4ccde1232cf1f08cf0f89c866124a7b36091fd81782f8962da962c8bc4 . /
 
