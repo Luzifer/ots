@@ -10,7 +10,7 @@ require (
 	github.com/Luzifer/go-openssl/v4 v4.2.5
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20260817110948-81fc004c7ad4
 	github.com/ryanuber/go-glob v1.0.0
-	github.com/sirupsen/logrus v1.10.0
+	github.com/sirupsen/logrus v1.10.1
 	github.com/stretchr/testify v1.12.1
 )
 
