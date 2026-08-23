@@ -2,7 +2,7 @@ module github.com/Luzifer/ots/cmd/ots-cli
 
 go 1.25.0
 
-toolchain go1.26.6
+toolchain go1.27.0
 
 replace (
 	github.com/Luzifer/ots/pkg/client => ../../pkg/client
