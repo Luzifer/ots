@@ -10,7 +10,7 @@ require (
 	github.com/Luzifer/ots/pkg/tplfunc v0.0.0-20260817110948-81fc004c7ad4
 	github.com/Luzifer/rconfig/v2 v2.6.2
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/sirupsen/logrus v1.10.1
+	github.com/sirupsen/logrus v1.10.2
 	gopkg.in/yaml.v3 v3.0.1
 )
 

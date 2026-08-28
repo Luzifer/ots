@@ -11,7 +11,7 @@ replace (
 
 require (
 	github.com/Luzifer/ots/pkg/client v0.0.0-20260817110948-81fc004c7ad4
-	github.com/sirupsen/logrus v1.10.1
+	github.com/sirupsen/logrus v1.10.2
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.1
 )
