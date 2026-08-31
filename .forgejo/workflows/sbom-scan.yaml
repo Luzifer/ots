@@ -12,7 +12,7 @@ jobs:
     runs-on: forgejo
 
     steps:
-      - uses: Luzifer/actions/dependencytrack-scan@ec4b20851e8c71c469406bbf5f25d8af685cc779 # develop
+      - uses: Luzifer/actions/dependencytrack-scan@b94e3cd3b956105cbfa85d486921ca809b739af3 # develop
         with:
           token: ${{ secrets.DT_TOKEN }}
           url: https://dt.hub.luzifer.io
