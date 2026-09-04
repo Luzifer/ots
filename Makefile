@@ -31,7 +31,7 @@ frontend_lint: node_modules
 	pnpm eslint --fix src
 
 node_modules:
-	pnpm install --production=false --frozen-lockfile
+	pnpm ci
 
 publish: export NODE_ENV=production
 publish: frontend_prod generate-apidocs
