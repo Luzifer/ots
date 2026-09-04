@@ -2,7 +2,7 @@ module translate
 
 go 1.25.7
 
-toolchain go1.27.0
+toolchain go1.27.1
 
 replace github.com/Luzifer/ots/pkg/tplfunc => ../../pkg/tplfunc
 
