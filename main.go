@@ -221,7 +221,7 @@ func handleIndex(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Referrer-Policy", "no-referrer")
 	w.Header().Set("X-Frame-Options", "DENY")
-	w.Header().Set("X-Xss-Protection", "1; mode=block")
+	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	w.Header().Set("Content-Security-Policy", policy.ToHeaderValue())
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
