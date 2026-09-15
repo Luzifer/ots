@@ -9,8 +9,8 @@ replace github.com/Luzifer/ots/pkg/customization => ./pkg/customization
 replace github.com/Luzifer/ots/pkg/tplfunc => ./pkg/tplfunc
 
 require (
-	github.com/Luzifer/go_helpers/file v0.6.2
-	github.com/Luzifer/go_helpers/http v0.12.5
+	github.com/Luzifer/go_helpers/file v0.6.4
+	github.com/Luzifer/go_helpers/http v0.12.10
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20260817110948-81fc004c7ad4
 	github.com/Luzifer/ots/pkg/tplfunc v0.0.0-20260817110948-81fc004c7ad4
 	github.com/Luzifer/rconfig/v2 v2.6.2
