@@ -1,3 +1,19 @@
+# 1.22.0 / 2026-09-27
+
+* Translations
+  * feat(i18n): omit incomplete translations from application
+
+* Bugfixes
+  * chore(sec): upgrade transitive dependencies
+  * fix(deps): update dependency vue-i18n to v11.4.12 (#537)
+  * fix(deps): update dependency vue-router to v5.3.1 (#523)
+  * fix(deps): update dependency vue to v3.5.43 (#538)
+  * fix(deps): update module github.com/luzifer/go_helpers/* (#532)
+  * fix(deps): update module github.com/prometheus/client_golang to v1.24.1 (#469)
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.22.0 (#482)
+  * fix(deps): update module github.com/sirupsen/logrus to v1.10.2 (#513)
+  * fix(deps): update module github.com/stretchr/testify to v1.12.1 (#501)
+
 # 1.21.9 / 2026-07-25
 
 * Bugfixes
