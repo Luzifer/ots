@@ -50,8 +50,10 @@ var Logger *logrus.Entry
 // PasswordLength defines the length of the generated encryption password
 var PasswordLength = 20
 
-// RequestTimeout defines how long the request to the OTS instance for
-// create and fetch may take
+// RequestTimeout defines how long the settings request made by the deprecated
+// SanityCheck function may take.
+//
+// Deprecated: Use [SanityCheckWithContext] with a context that has a deadline.
 var RequestTimeout = 5 * time.Second
 
 // UserAgent defines the user-agent to send when interacting with an
@@ -66,15 +68,22 @@ func init() {
 	Logger = logrus.NewEntry(l)
 }
 
-// Create serializes the secret and creates a new secret on the
-// instance given by its URL.
+// Create calls [CreateWithContext] with [context.Background].
 //
-// The given URL should point to the frontend of the instance. Do not
-// include the API paths, they are added automatically. For the
-// expireIn parameter zero value can be used to use server-default.
-//
-// So for OTS.fyi you'd use `New("https://ots.fyi/")`
+// Deprecated: Use [CreateWithContext].
 func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, time.Time, error) {
+	return CreateWithContext(context.Background(), instanceURL, secret, expireIn)
+}
+
+// CreateWithContext serializes the secret and creates a new secret on the
+// instance given by its URL using the provided context.
+//
+// The given URL should point to the frontend of the instance. Do not include
+// the API paths, they are added automatically. For the expireIn parameter zero
+// value can be used to use the server default.
+//
+// For OTS.fyi, use `CreateWithContext(ctx, "https://ots.fyi/", secret, 0)`.
+func CreateWithContext(ctx context.Context, instanceURL string, secret Secret, expireIn time.Duration) (string, time.Time, error) {
 	u, err := url.Parse(instanceURL)
 	if err != nil {
 		return "", time.Time{}, fmt.Errorf("parsing instance URL: %w", err)
@@ -98,8 +107,6 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 	}
 
 	createURL := u.JoinPath(strings.Join([]string{".", "api", "create"}, "/"))
-	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)
-	defer cancel()
 
 	if expireIn > time.Second {
 		createURL.RawQuery = url.Values{
@@ -143,13 +150,20 @@ func Create(instanceURL string, secret Secret, expireIn time.Duration) (string, 
 	return u.String(), payload.ExpiresAt, nil
 }
 
-// Fetch retrieves a secret by its given URL. The URL given must
-// include the fragment (part after the `#`) with the secret ID and
-// the encryption passphrase.
+// Fetch calls [FetchWithContext] with [context.Background].
 //
-// The object returned will always be an OTSMeta object even in case
-// the secret is a plain secret without attachments.
+// Deprecated: Use [FetchWithContext].
 func Fetch(secretURL string) (s Secret, err error) {
+	return FetchWithContext(context.Background(), secretURL)
+}
+
+// FetchWithContext retrieves a secret by its given URL using the provided
+// context. The URL must include the fragment (part after the `#`) with the
+// secret ID and the encryption passphrase.
+//
+// The object returned will always be an OTSMeta object even when the secret is
+// a plain secret without attachments.
+func FetchWithContext(ctx context.Context, secretURL string) (s Secret, err error) {
 	u, err := url.Parse(secretURL)
 	if err != nil {
 		return s, fmt.Errorf("parsing secret URL: %w", err)
@@ -162,8 +176,6 @@ func Fetch(secretURL string) (s Secret, err error) {
 	fragmentParts := strings.SplitN(fragment, "|", 2)
 
 	fetchURL := u.JoinPath(strings.Join([]string{".", "api", "get", fragmentParts[0]}, "/")).String()
-	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)
-	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fetchURL, nil)
 	if err != nil {

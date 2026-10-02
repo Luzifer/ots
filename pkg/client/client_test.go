@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -26,11 +27,11 @@ func TestIntegration(t *testing.T) {
 		}},
 	}
 
-	secretURL, _, err := Create("https://ots.fyi/", s, time.Minute)
+	secretURL, _, err := CreateWithContext(context.Background(), "https://ots.fyi/", s, time.Minute)
 	require.NoError(t, err)
 	assert.Regexp(t, `^https://ots.fyi/#[0-9a-f-]+%7C[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`, secretURL)
 
-	apiSecret, err := Fetch(secretURL)
+	apiSecret, err := FetchWithContext(context.Background(), secretURL)
 	require.NoError(t, err)
 
 	assert.Equal(t, s, apiSecret)

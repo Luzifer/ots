@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"mime"
@@ -101,12 +102,12 @@ func createRunE(cmd *cobra.Command, _ []string) (err error) {
 	}
 
 	// Execute sanity checks
-	if err = client.SanityCheck(instanceURL, secret); err != nil {
+	if err = client.SanityCheckWithContext(context.Background(), instanceURL, secret); err != nil {
 		return fmt.Errorf("sanity checking secret: %w", err)
 	}
 
 	// Create the secret
-	secretURL, expiresAt, err := client.Create(instanceURL, secret, expire)
+	secretURL, expiresAt, err := client.CreateWithContext(context.Background(), instanceURL, secret, expire)
 	if err != nil {
 		return fmt.Errorf("creating secret: %w", err)
 	}

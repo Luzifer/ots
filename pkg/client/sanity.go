@@ -31,11 +31,22 @@ var (
 	mimeRegex           = regexp.MustCompile(`^(?:[a-z]+|\*)\/(?:[a-zA-Z0-9.+_-]+|\*)$`)
 )
 
-// SanityCheck fetches the instance settings and validates the secret
-// against those settings (matching file size, disabled attachments,
-// allowed file types, ...)
+// SanityCheck calls [SanityCheckWithContext] with a context limited by
+// [RequestTimeout].
+//
+// Deprecated: Use [SanityCheckWithContext].
 func SanityCheck(instanceURL string, secret Secret) error {
-	cust, err := loadSettings(instanceURL)
+	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)
+	defer cancel()
+
+	return SanityCheckWithContext(ctx, instanceURL, secret)
+}
+
+// SanityCheckWithContext fetches the instance settings using the provided
+// context and validates the secret against those settings, including maximum
+// file size, disabled attachments, and allowed file types.
+func SanityCheckWithContext(ctx context.Context, instanceURL string, secret Secret) error {
+	cust, err := loadSettings(ctx, instanceURL)
 	if err != nil {
 		if errors.Is(err, errSettingsNotFound) {
 			// Sanity check is not possible when the API endpoint is not
@@ -100,15 +111,13 @@ func attachmentAllowed(file SecretAttachment, allowed []string) bool {
 	return false
 }
 
-func loadSettings(instanceURL string) (c customization.Customize, err error) {
+func loadSettings(ctx context.Context, instanceURL string) (c customization.Customize, err error) {
 	u, err := url.Parse(instanceURL)
 	if err != nil {
 		return c, fmt.Errorf("parsing instance URL: %w", err)
 	}
 
 	createURL := u.JoinPath(strings.Join([]string{".", "api", "settings"}, "/"))
-	ctx, cancel := context.WithTimeout(context.Background(), RequestTimeout)
-	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, createURL.String(), nil)
 	if err != nil {

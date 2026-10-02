@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io/fs"
@@ -76,7 +77,7 @@ func fetchRunE(cmd *cobra.Command, args []string) error {
 	}
 
 	logrus.Info("fetching secret...")
-	secret, err := client.Fetch(args[0])
+	secret, err := client.FetchWithContext(context.Background(), args[0])
 	if err != nil {
 		return fmt.Errorf("fetching secret")
 	}

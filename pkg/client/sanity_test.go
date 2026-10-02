@@ -2,6 +2,7 @@ package client
 
 import (
 	"bytes"
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -50,7 +51,7 @@ func TestSanityCheck(t *testing.T) {
 	s := Secret{Secret: "ohai"}
 
 	// no attachments & attachments disabled
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.NoError(t, err)
 
 	// attachments & attachmetns disabled
@@ -58,44 +59,44 @@ func TestSanityCheck(t *testing.T) {
 		{Name: "myfile.webm", Type: "video/webm", Content: []byte{0x0}},
 	}
 
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.ErrorIs(t, err, ErrAttachmentsDisabled)
 
 	// disallowed attachment
 	m.Response.DisableFileAttachment = false
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.ErrorIs(t, err, ErrAttachmentTypeNotAllowed)
 
 	// attachment allowed by extension
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.gif", Type: "image/gif", Content: []byte{0x0}},
 	}
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.NoError(t, err)
 
 	// attachment allowed by mime type
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.png", Type: "image/png", Content: []byte{0x0}},
 	}
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.NoError(t, err)
 
 	// attachment allowed by mime type wildcard
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.md", Type: "text/markdown", Content: []byte{0x0}},
 	}
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.NoError(t, err)
 
 	// attachment too large
 	s.Attachments = []SecretAttachment{
 		{Name: "doesthiswork.md", Type: "text/markdown", Content: bytes.Repeat([]byte{0x0}, 128)},
 	}
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.ErrorIs(t, err, ErrAttachmentsTooLarge)
 
 	// check without settings API on instance
 	m.Response = nil
-	err = SanityCheck(u, s)
+	err = SanityCheckWithContext(context.Background(), u, s)
 	require.NoError(t, err)
 }
