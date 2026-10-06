@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/luzifer/ots:v1.22.0
+    image: ghcr.io/luzifer/ots:v1.23.0
     restart: always
     environment:
       # Optional, see "Customization" in README

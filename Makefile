@@ -1,4 +1,4 @@
-PRODUCT_VERSION := v1.22.0
+PRODUCT_VERSION := v1.23.0
 
 default: build-local
 

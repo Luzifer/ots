@@ -1,3 +1,17 @@
+# 1.23.0 / 2026-10-06
+
+* Improvements
+  * feat: add context-aware functions to client package
+
+* Translations
+  * fix: add missing Swedish translation strings (#261)
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.4.13 (#549)
+  * fix: remove short timeout from client to support slow bandwith connections
+  * fix(sec): update transitive node dependencies
+  * fix(sec): update vulnerable golang.org/x/... modules
+
 # 1.22.0 / 2026-09-27
 
 * Translations
