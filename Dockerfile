@@ -1,6 +1,6 @@
 FROM docker.io/library/golang:1.27.1-alpine@sha256:8a5910f31396cd4d89662f56c68b3ae31d374308270a1c3bd96672ee5ed43414 AS builder
 
-COPY --from=ghcr.io/luzifer-docker/pnpm:v11.28.3@sha256:a1e0b2517e1d1271cb46f36614fc39bec24f47b59a79bb67756bcfd4cfb98143 . /
+COPY --from=ghcr.io/luzifer-docker/pnpm:v11.28.4@sha256:0dd59edda71ab88dc56fc7b6fcfd7b2665622fe05ad41242d087e5811b5de0cd . /
 
 ENV CGO_ENABLED=0 \
     GOPATH=/go \
