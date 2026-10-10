@@ -47,7 +47,7 @@ jobs:
           oras pull ${TRANSLATE_IMG}
           chmod +x translate
         env:
-          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:149b9307f01df16bb7baa195bafdbbba548032f91b849987c3c379b034d2534a
+          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:765864a14132841dcc101f40068d4ce22dda5212136cd4ac97c4a7e1f1ff7f3a
 
       - name: Generate (and validate) translations
         run: ./translate --write-issue-file
