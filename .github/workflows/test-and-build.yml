@@ -1,4 +1,3 @@
----
 name: test-and-build
 on:
   push:
@@ -7,7 +6,6 @@ on:
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
   test-and-build:
@@ -50,20 +48,7 @@ jobs:
           TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:e8dad924f1f7831b434f9e321799b744bda834fc5be9701ec1a5e540d6091d22
 
       - name: Generate (and validate) translations
-        run: ./translate --write-issue-file
-
-      - name: Delete issue template when no languages require translation
-        run: |
-          grep -q "### Language" translate-issue.md || rm -f translate-issue.md
-
-      - name: Update Translations Issue
-        uses: JasonEtco/create-an-issue@1b14a70e4d8dc185e5cc76d3bec9eab20257b2c5 # v2.9.2
-        if: github.ref == 'refs/heads/master' && hashFiles('translate-issue.md') != ''
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          filename: translate-issue.md
-          update_existing: true
+        run: ./translate
 
       - name: Build release
         run: make publish
