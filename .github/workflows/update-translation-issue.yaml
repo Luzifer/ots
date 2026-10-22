@@ -1,0 +1,62 @@
+name: Update Translation Issue
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: update-translation-issue
+  cancel-in-progress: true
+
+jobs:
+  update-issue:
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: ghcr.io/luzifer-docker/action-env:2026.42.0@sha256:440e6c8a1762141636006cb36bf6abd39c2eea2fe872eab44e7947c724809366
+      env:
+        CGO_ENABLED: 0
+        GOPATH: /go
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Marking workdir safe
+        run: git config --global --add safe.directory /__w/ots/ots
+
+      - name: Fetch translation utility
+        run: |
+          oras pull ${TRANSLATE_IMG}
+          chmod +x translate
+        env:
+          TRANSLATE_IMG: ghcr.io/luzifer/ots/translate-util:latest@sha256:3a5a34f295f27e111842b42da339432c3d4a29a04e797d44aa9b7df6b3b3aab7
+
+      - name: Generate (and validate) translations
+        run: ./translate --write-issue-file
+
+      - name: Update Translations Issue
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          TRACKING_ISSUE: '262'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          retries: 3
+          script: |
+            const fs = require('fs')
+
+            await github.rest.issues.update({
+              ...context.repo,
+              body: fs.readFileSync('translate-issue.md', 'utf8'),
+              issue_number: Number(process.env.TRACKING_ISSUE),
+              labels: ['help wanted', 'translation'],
+              title: 'Missing Translations',
+            })
