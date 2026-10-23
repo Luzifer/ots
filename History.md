@@ -1,3 +1,15 @@
+# 1.23.1 / 2026-10-23
+
+* Translations
+  * chore: add missing French translations (by @Chavenay)
+
+* Bugfixes
+  * fix(deps): update dependency vue-i18n to v11.4.16 (#569)
+  * fix(deps): update dependency vue-router to v5.4.0 (#558)
+  * fix(deps): update dependency vue to v3.5.44 (#565)
+  * fix(deps): update module github.com/prometheus/client_golang to v1.25.0 (#560)
+  * fix(deps): update module github.com/redis/go-redis/v9 to v9.23.0 (#554)
+
 # 1.23.0 / 2026-10-06
 
 * Improvements
