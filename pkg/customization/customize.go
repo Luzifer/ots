@@ -18,7 +18,7 @@ import (
 // 65MiB and increase it by double base64 encoding:
 //
 // 65 MiB * 16/9 (twice 4/3 base64 size increase)
-const defaultMaxSecretSize = 65 * 1024 * 1024 * (16 / 9) // = 115.6MiB
+const defaultMaxSecretSize = 65 * 1024 * 1024 * 16 / 9 // = 115.6MiB
 
 type (
 	// Customize holds the structure of the customization file
