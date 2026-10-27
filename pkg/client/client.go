@@ -210,22 +210,24 @@ func FetchWithContext(ctx context.Context, secretURL string) (s Secret, err erro
 
 func genPass() (string, error) {
 	var (
-		charSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		pass    = make([]byte, PasswordLength)
-
-		n   int
-		err error
+		pass  = make([]byte, PasswordLength)
+		buf   = make([]byte, PasswordLength*2) // spare bytes for rejections
+		limit = 256 - 256%len(charSet)         // largest multiple of len(charSet) <= 256
 	)
 
-	for n < PasswordLength {
-		n, err = rand.Read(pass)
-		if err != nil {
+	for i := 0; i < PasswordLength; {
+		if _, err := rand.Read(buf); err != nil {
 			return "", fmt.Errorf("reading random data: %w", err)
 		}
-	}
-
-	for i := 0; i < PasswordLength; i++ {
-		pass[i] = charSet[int(pass[i])%len(charSet)]
+		for _, b := range buf {
+			if int(b) >= limit {
+				continue // reject to avoid modulo bias
+			}
+			pass[i] = charSet[int(b)%len(charSet)]
+			if i++; i == PasswordLength {
+				break
+			}
+		}
 	}
 
 	return string(pass), nil
