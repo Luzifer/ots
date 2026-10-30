@@ -20,6 +20,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+const passwordCharSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 type (
 	// HTTPClientIntf describes a minimal interface to be fulfilled
 	// by the given HTTP client. This can be used for mocking and to
@@ -208,26 +210,24 @@ func FetchWithContext(ctx context.Context, secretURL string) (s Secret, err erro
 	return s, nil
 }
 
-func genPass() (string, error) {
+func genPass() (p string, err error) {
 	var (
 		pass  = make([]byte, PasswordLength)
-		buf   = make([]byte, PasswordLength*2) // spare bytes for rejections
-		limit = 256 - 256%len(charSet)         // largest multiple of len(charSet) <= 256
+		limit = 256 - 256%len(passwordCharSet) // largest multiple of len(passwordCharSet) <= 256
 	)
 
-	for i := 0; i < PasswordLength; {
-		if _, err := rand.Read(buf); err != nil {
-			return "", fmt.Errorf("reading random data: %w", err)
-		}
-		for _, b := range buf {
-			if int(b) >= limit {
-				continue // reject to avoid modulo bias
-			}
-			pass[i] = charSet[int(b)%len(charSet)]
-			if i++; i == PasswordLength {
-				break
+	if _, err = rand.Read(pass); err != nil {
+		return "", fmt.Errorf("filling initial random buffer: %w", err)
+	}
+
+	for i := range pass {
+		for int(pass[i]) >= limit {
+			if _, err = rand.Read(pass[i : i+1]); err != nil {
+				return "", fmt.Errorf("re-reading character: %w", err)
 			}
 		}
+
+		pass[i] = passwordCharSet[int(pass[i])%len(passwordCharSet)]
 	}
 
 	return string(pass), nil

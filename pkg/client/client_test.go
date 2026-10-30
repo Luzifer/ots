@@ -14,7 +14,7 @@ func TestGeneratePassword(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Len(t, pass, PasswordLength)
-	assert.Regexp(t, `^[0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+$`, pass)
+	assert.Regexp(t, `^[`+passwordCharSet+`]+$`, pass)
 }
 
 func TestIntegration(t *testing.T) {
