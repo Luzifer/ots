@@ -82,7 +82,7 @@ func initApp() error {
 
 	frontendFS, err := fs.Sub(embeddedAssets, "frontend")
 	if err != nil {
-		return fmt.Errorf("creating sub-fs for assets: %W", err)
+		return fmt.Errorf("creating sub-fs for assets: %w", err)
 	}
 	assets = append(assets, frontendFS)
 
