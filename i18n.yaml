@@ -508,6 +508,7 @@ translations:
     deeplLanguage: nl
     translators: []
     translations:
+      alert-insecure-environment: Je bezoekt deze omgeving via een onveilige verbinding. Je kan hier geen geheimen aanmaken of lezen.
       alert-secret-not-found: De gegevens die je zocht bestaan niet (meer)&hellip; - Als je hier informatie verwachtte dan is de link mogelijk al door iemand anders bekeken!
       alert-something-went-wrong: Er ging iets verkeerd, sorry&hellip;
       btn-create-secret: Geheim aanmaken!
@@ -537,17 +538,22 @@ translations:
       text-burn-hint: Open de URL niet zelf, deze is slechts eenmalig te gebruiken. Geef de URL aan de ontvanger.
       text-burn-time: 'Deze vertrouwelijke informatie wordt automatisch gewist indien niet bekeken voor:'
       text-hint-burned: <strong>Opgelet:</strong> Je ziet deze informatie alleen nu. Je kan het niet meer opnieuw opvragen als je de pagina verlaat.
+      text-invalid-files-selected: Minstens één van de gekozen bestanden mag niet als bijlage worden toegevoegd.
       text-max-filesize: 'Maximum grootte: {maxSize}'
       text-max-filesize-exceeded: 'De bestanden die je toevoegde zijn te groot: {curSize} / {maxSize}'
       text-powered-by: Mogelijk gemaakt door
       text-pre-reveal-hint: 'Gebruik deze knop om het geheim weer te geven. Let op: Je kan dit slechts eenmaal doen!'
       text-pre-url: 'Het geheim kan opgevraagd worden via deze URL:'
+      text-secret-burned: Het geheim is vernietigd.
       text-secret-create-disabled: Het aanmaken van nieuwe geheimen is in deze omgeving uitgeschakeld.
       title-explanation: Dit is hoe het werkt&hellip;
       title-new-secret: Nieuw geheim aanmaken
       title-reading-secret: Geheim wordt gelezen&hellip;
       title-secret-create-disabled: Aanmaken geheimen uitgeschakeld...
       title-secret-created: Geheim aangemaakt!
+      tooltip-burn-secret: Geheim nu vernietigen!
+      tooltip-copy-to-clipboard: Kopiëren naar klembord
+      tooltip-download-as-file: Downloaden als bestand
   nl-BE:
     deeplLanguage: nl-BE
     translators: []
