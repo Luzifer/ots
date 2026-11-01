@@ -17,7 +17,6 @@ ci/translate/translate:
 
 generate-apidocs: node_modules
 	pnpm redocly \
-		--disableGoogleFont true \
 		-o frontend/api.html \
 		build-docs docs/openapi.yaml
 
