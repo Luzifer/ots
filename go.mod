@@ -13,7 +13,7 @@ require (
 	github.com/Luzifer/go_helpers/http v0.12.12
 	github.com/Luzifer/ots/pkg/customization v0.0.0-20260817110948-81fc004c7ad4
 	github.com/Luzifer/ots/pkg/tplfunc v0.0.0-20260817110948-81fc004c7ad4
-	github.com/Luzifer/rconfig/v2 v2.6.2
+	github.com/Luzifer/rconfig/v2 v2.6.3
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/gorilla/mux v1.8.1
 	github.com/prometheus/client_golang v1.25.0
@@ -33,7 +33,7 @@ require (
 	github.com/prometheus/procfs v0.22.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	go.uber.org/atomic v1.12.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.5 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/validator.v2 v2.0.1 // indirect
