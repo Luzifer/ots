@@ -101,9 +101,9 @@ Requirements:
 - Node v22+
 - Tilt v0.33+
 
-Run `tilt up`, and see `http://localhost:10350/` for the Tilt dashboard.
+Run `tilt up`, and see http://localhost:10350/ for the Tilt dashboard.
 
-Front-end application is available at `http://localhost:15641/`.
+Front-end application is available at http://localhost:15641/.
 
 ## Localize to your own language
 
