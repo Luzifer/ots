@@ -1,3 +1,31 @@
+# 1.24.0 / 2026-11-20
+
+* Translations
+  * feat: add Hindi translation (by @Ishanssharma)
+  * fix: add missing Dutch translations (by @Lars-)
+
+* Bugfixes
+  * fix: broken verb in error wrapping (#264)
+  * fix: defaultMaxSecretSize having broken calculation (#265)
+  * fix(sec): modulo bias in client password generator (#266)
+  * fix(deps): update dependency bootstrap to v5.3.9 (#601)
+  * fix(deps): update dependency vue-i18n to v11.4.22 (#609)
+  * fix(deps): update dependency vue-router to v5.5.1 (#604)
+  * fix(deps): update dependency vue to v3.5.45 (#591)
+  * fix(deps): update module github.com/luzifer/go_helpers/* (#585)
+  * fix(deps): update module github.com/luzifer/rconfig/v2 to v2.6.3 (#590)
+  * chore(deps): update dependency eslint-plugin-vue to v10.12.1 (#599)
+  * chore(deps): update dependency eslint to v10.15.0 (#606)
+  * chore(deps): update dependency globals to v17.14.0 (#586)
+  * chore(deps): update dependency @redocly/cli to v2.79.0 (#603)
+  * chore(deps): update dependency vue-eslint-parser to v10.4.2 (#594)
+  * chore(deps): update docker.io/library/golang docker tag to v1.27.4 (#595)
+  * chore(deps): update docker.io/valkey/valkey docker tag to v9.1.3 (#580)
+  * chore(deps): update ghcr.io/luzifer-docker/pnpm docker tag to v11.28.12 (#605)
+  * chore(deps): update go toolchain directive to v1.27.4 [security] (#597)
+  * chore(deps): update module golang.org/x/crypto to v0.59.0 [security] (#596)
+  * chore(deps): update typescript-eslint monorepo to v8.73.0 (#607)
+
 # 1.23.1 / 2026-10-23
 
 * Translations

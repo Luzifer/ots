@@ -120,7 +120,7 @@ spec:
             name: ots-customize
       containers:
         - name: ots
-          image: ghcr.io/luzifer/ots:v1.23.1
+          image: ghcr.io/luzifer/ots:v1.24.0
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
