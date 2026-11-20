@@ -308,6 +308,56 @@ translations:
       tooltip-burn-secret: "Détruire le secret maintenant !"
       tooltip-copy-to-clipboard: Copier dans le presse-papiers
       tooltip-download-as-file: Télécharger en tant que fichier
+  hi:
+    translators:
+      - Ishanssharma
+    translations:
+      alert-insecure-environment: आप इस इंस्टेंस को एक असुरक्षित कनेक्शन से एक्सेस कर रहे हैं। आप सीक्रेट बना या पढ़ नहीं पाएँगे।
+      alert-secret-not-found: यह वह सीक्रेट नहीं है जिसे आप ढूँढ रहे हैं&hellip; - अगर आपको उम्मीद थी कि सीक्रेट यहाँ होगा, तो हो सकता है कि वह सुरक्षित न रहा हो, क्योंकि लिंक किसी और ने पहले ही खोल लिया हो सकता है।
+      alert-something-went-wrong: कुछ गड़बड़ हो गई। इसके लिए मुझे बहुत खेद है&hellip;
+      btn-create-secret: सीक्रेट बनाएँ!
+      btn-create-secret-processing: सीक्रेट बनाया जा रहा है…
+      btn-new-secret: नया सीक्रेट
+      btn-reveal-secret: मुझे सीक्रेट दिखाएँ!
+      btn-reveal-secret-processing: सीक्रेट डिक्रिप्ट किया जा रहा है…
+      btn-show-explanation: यह कैसे काम करता है?
+      btn-theme-switcher-auto: ऑटो
+      expire-default: डिफ़ॉल्ट समाप्ति अवधि
+      expire-n-days: "{n} दिन | {n} दिन"
+      expire-n-hours: "{n} घंटा | {n} घंटे"
+      expire-n-minutes: "{n} मिनट | {n} मिनट"
+      expire-n-seconds: "{n} सेकंड | {n} सेकंड"
+      items-explanation:
+        - आप इस पेज पर दिए गए फ़ील्ड में एक सीक्रेट दर्ज करते हैं
+        - आपका ब्राउज़र एक बनाए गए पासवर्ड से सीक्रेट को एन्क्रिप्ट करता है
+        - सर्वर को केवल एन्क्रिप्ट किया हुआ सीक्रेट भेजा जाता है (न तो सादा सीक्रेट और न ही पासवर्ड कभी भेजा जाता है!)
+        - सर्वर एन्क्रिप्ट किए हुए सीक्रेट को कुछ निश्चित समय तक सहेजकर रखता है
+        - आप दिखाए गए URL को, जिसमें आईडी और डिक्रिप्शन पासवर्ड शामिल हैं, प्राप्तकर्ता को दे देते हैं
+        - 'प्राप्तकर्ता सीक्रेट को ठीक एक बार देख सकता है: अगर वह नहीं देख पाता, तो हो सकता है कि सीक्रेट किसी और ने देख लिया हो!'
+        - एन्क्रिप्ट किया हुआ सीक्रेट एक बार प्राप्त हो जाने के बाद सर्वर से हटा दिया जाता है
+      label-expiry: 'समाप्ति का समय:'
+      label-secret-data: 'सीक्रेट डेटा:'
+      label-secret-files: 'फ़ाइलें संलग्न करें:'
+      text-attached-files: भेजने वाले ने सीक्रेट के साथ फ़ाइलें संलग्न की हैं। सुनिश्चित करें कि आप भेजने वाले पर भरोसा करते हैं, क्योंकि फ़ाइलों की जाँच नहीं की गई है!
+      text-burn-hint: कृपया इस URL पर खुद न जाएँ, क्योंकि इससे सीक्रेट नष्ट हो जाएगा। इसे बस किसी और को दे दें!
+      text-burn-time: 'अगर इसे पहले नहीं देखा गया, तो यह सीक्रेट अपने-आप हटा दिया जाएगा:'
+      text-hint-burned: "<strong>ध्यान दें:</strong> आप इसे केवल एक बार देख रहे हैं। पेज रीलोड करते ही सीक्रेट गायब हो जाएगा, इसलिए शायद इसे अभी कॉपी कर लें&hellip;"
+      text-invalid-files-selected: चुनी गई फ़ाइलों में से कम से कम एक फ़ाइल को अटैचमेंट के रूप में अनुमति नहीं है।
+      text-max-filesize: 'अधिकतम आकार: {maxSize}'
+      text-max-filesize-exceeded: 'आपने जो फ़ाइलें चुनी हैं वे संलग्न करने के लिए बहुत बड़ी हैं: {curSize} / {maxSize}'
+      text-powered-by: 'संचालित:'
+      text-pre-reveal-hint: सीक्रेट देखने के लिए इस बटन पर क्लिक करें, लेकिन ध्यान रहे कि ऐसा करने पर सीक्रेट नष्ट हो जाएगा। आप इसे केवल एक बार देख सकते हैं!
+      text-pre-url: 'आपका सीक्रेट इस URL से बनाया और सहेजा गया है:'
+      text-secret-burned: सीक्रेट सफलतापूर्वक नष्ट कर दिया गया।
+      text-secret-create-disabled: इस इंस्टेंस में नए सीक्रेट बनाना बंद है।
+      title-explanation: यह ऐसे काम करता है&hellip;
+      title-new-secret: नया सीक्रेट बनाएँ
+      title-reading-secret: आपका सीक्रेट पढ़ा जा रहा है&hellip;
+      title-secret-create-disabled: सीक्रेट बनाना बंद है…
+      title-secret-created: सीक्रेट बन गया!
+      tooltip-burn-secret: सीक्रेट अभी नष्ट करें!
+      tooltip-copy-to-clipboard: क्लिपबोर्ड पर कॉपी करें
+      tooltip-download-as-file: फ़ाइल के रूप में डाउनलोड करें
   hu:
     translators:
       - mcsoft
